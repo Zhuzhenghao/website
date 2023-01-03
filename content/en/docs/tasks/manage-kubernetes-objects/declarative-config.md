@@ -315,7 +315,7 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # The annotation contains the updated image to nginx 1.11.9,
+    # The annotation contains the updated image to nginx 1.16.1,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
@@ -513,7 +513,7 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # The annotation contains the updated image to nginx 1.11.9,
+    # The annotation contains the updated image to nginx 1.16.1,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
@@ -950,20 +950,20 @@ configuration involves several manual steps:
      kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
      ```
 
-1. Manually remove the `status` field from the configuration file.
+2. Manually remove the `status` field from the configuration file.
 
     {{< note >}}
     This step is optional, as `kubectl apply` does not update the status field
     even if it is present in the configuration file.
     {{< /note >}}
 
-1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
+3. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
     ```shell
     kubectl replace --save-config -f <kind>_<name>.yaml
     ```
 
-1. Change processes to use `kubectl apply` for managing the object exclusively.
+4. Change processes to use `kubectl apply` for managing the object exclusively.
 
 {{< comment >}}
 TODO(pwittrock): Why doesn't export remove the status field?  Seems like it should.
