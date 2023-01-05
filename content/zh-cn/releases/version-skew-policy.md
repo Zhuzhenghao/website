@@ -181,7 +181,7 @@ Example:
 Example:
 
 * `kube-apiserver` is at **{{< skew currentVersion >}}**
-* `kubectl` is supported at **{{< skew nextMinorVersion >}}**, **{{< skew currentVersion >}}**, and **{{< skew currentVersionAddMinor -1 >}}**
+* `kubectl` is supported at **{{< skew currentVersionAddMinor 1 >}}**, **{{< skew currentVersion >}}**, and **{{< skew currentVersionAddMinor -1 >}}**
 -->
 ### kubectl  {#kubectl}
 
@@ -190,7 +190,7 @@ Example:
 例如：
 
 * `kube-apiserver` 处于 **{{< skew currentVersion >}}** 版本
-* `kubectl` 支持 **{{< skew nextMinorVersion >}}**、**{{< skew currentVersion >}}**
+* `kubectl` 支持 **{{< skew currentVersionAddMinor 1 >}}**、**{{< skew currentVersion >}}**
   和 **{{< skew currentVersionAddMinor -1 >}}** 版本 
 
 {{< note >}}
