@@ -13,7 +13,6 @@ content_type: concept
 
 This page provides an overview of Validating Admission Policy.
 
-
 <!-- body -->
 
 ## What is Validating Admission Policy?
@@ -21,7 +20,7 @@ This page provides an overview of Validating Admission Policy.
 Validating admission policies offer a declarative, in-process alternative to validating admission webhooks.
 
 Validating admission policies use the Common Expression Language (CEL) to declare the validation
-rules of a policy. 
+rules of a policy.
 Validation admission policies are highly configurable, enabling policy authors to define policies
 that can be parameterized and scoped to resources as needed by cluster administrators.
 
@@ -70,10 +69,10 @@ spec:
   failurePolicy: Fail
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["apps"]
+    - apiGroups: ["apps"]
       apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
+      operations: ["CREATE", "UPDATE"]
+      resources: ["deployments"]
   validations:
     - expression: "object.spec.replicas <= 5"
 ```
@@ -109,8 +108,8 @@ The above provides a simple example of using ValidatingAdmissionPolicy without a
 
 #### Parameter resources
 
-Parameter resources allow a policy configuration to be separate from its definition. 
-A policy can define paramKind, which outlines GVK of the parameter resource, 
+Parameter resources allow a policy configuration to be separate from its definition.
+A policy can define paramKind, which outlines GVK of the parameter resource,
 and then a policy binding ties a policy by name (via policyName) to a particular parameter resource via paramRef.
 
 If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy
@@ -128,17 +127,17 @@ spec:
     kind: ReplicaLimit
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["apps"]
+    - apiGroups: ["apps"]
       apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
+      operations: ["CREATE", "UPDATE"]
+      resources: ["deployments"]
   validations:
     - expression: "object.spec.replicas <= params.maxReplicas"
       reason: Invalid
 ```
 
 The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
-to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources. 
+to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources.
 Note in this example how the CEL expression references the parameters via the CEL params variable,
 e.g. `params.maxReplicas`. `spec.matchConstraints` specifies what resources this policy is
 designed to validate. Note that the native types such like `ConfigMap` could also be used as
@@ -242,16 +241,16 @@ For the use cases require parameter configuration, we recommend to add a param c
 It can be convenient to be able to have optional parameters as part of a parameter resource, and
 only validate them if present. CEL provides `has()`, which checks if the key passed to it exists.
 CEL also implements Boolean short-circuiting. If the first half of a logical OR evaluates to true,
-it won’t evaluate the other half (since the result of the entire OR will be true regardless). 
+it won’t evaluate the other half (since the result of the entire OR will be true regardless).
 
 Combining the two, we can provide a way to validate optional parameters:
 
 `!has(params.optionalNumber) || (params.optionalNumber >= 5 && params.optionalNumber <= 10)`
 
-Here, we first check that the optional parameter is present with `!has(params.optionalNumber)`. 
+Here, we first check that the optional parameter is present with `!has(params.optionalNumber)`.
 
 - If `optionalNumber` hasn’t been defined, then the expression short-circuits since
-  `!has(params.optionalNumber)` will evaluate to true. 
+  `!has(params.optionalNumber)` will evaluate to true.
 - If `optionalNumber` has been defined, then the latter half of the CEL expression will be
   evaluated, and optionalNumber will be checked to ensure that it contains a value between 5 and
   10 inclusive.
@@ -284,7 +283,7 @@ spec:
 ...
 failurePolicy: Ignore # The default is "Fail"
 validations:
-- expression: "object.spec.xyz == params.x"  
+- expression: "object.spec.xyz == params.x"
 ```
 
 ### Validation Expression
@@ -299,10 +298,10 @@ variables as well as some other useful variables:
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
   null if `ParamKind` is unset.
-	
+
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
-	
+
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 Accessible property names are escaped according to the following rules when accessed in the
 expression:
@@ -329,14 +328,15 @@ Examples on escaping:
 | x-prop          | `self.x__dash__prop > 0`            |
 | redact__d       | `self.redact__underscores__d > 0`   |
 | string          | `self.startsWith('kube')`           |
-	
+
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-    - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-      non-intersecting elements in `Y` are appended, retaining their partial order.
-    - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-      are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-      non-intersecting keys are appended, retaining their partial order.
+
+- 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+  non-intersecting elements in `Y` are appended, retaining their partial order.
+- 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+  are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+  non-intersecting keys are appended, retaining their partial order.
 
 #### Validation expression examples
 
@@ -364,4 +364,3 @@ If this is the first validation in the list to fail, this reason, as well as the
 HTTP response code, are used in the HTTP response to the client.
 The currently supported reasons are: `Unauthorized`, `Forbidden`, `Invalid`, `RequestEntityTooLarge`.
 If not set, `StatusReasonInvalid` is used in the response to the client.
-
