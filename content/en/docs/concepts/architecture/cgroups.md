@@ -19,8 +19,8 @@ the new generation of the `cgroup` API.
 
 <!-- body -->
 
-
 ## What is cgroup v2? {#cgroup-v2}
+
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 cgroup v2 is the next version of the Linux `cgroup` API. cgroup v2 provides a
@@ -41,7 +41,6 @@ management and isolation. For example, the
 [MemoryQoS](/blog/2021/11/26/qos-memory-resources/) feature improves memory QoS
 and relies on cgroup v2 primitives.
 
-
 ## Using cgroup v2 {#using-cgroupv2}
 
 The recommended way to use cgroup v2 is to use a Linux distribution that
@@ -53,24 +52,25 @@ To check if your distribution uses cgroup v2, refer to [Identify cgroup version 
 
 cgroup v2 has the following requirements:
 
-* OS distribution enables cgroup v2
-* Linux Kernel version is 5.8 or later
-* Container runtime supports cgroup v2. For example:
-  * [containerd](https://containerd.io/) v1.4 and later
-  * [cri-o](https://cri-o.io/) v1.20 and later
-* The kubelet and the container runtime are configured to use the [systemd cgroup driver](/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)
+- OS distribution enables cgroup v2
+- Linux Kernel version is 5.8 or later
+- Container runtime supports cgroup v2. For example:
+  - [containerd](https://containerd.io/) v1.4 and later
+  - [cri-o](https://cri-o.io/) v1.20 and later
+- The kubelet and the container runtime are configured to use the [systemd cgroup driver](/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)
 
 ### Linux Distribution cgroup v2 support
 
 For a list of Linux distributions that use cgroup v2, refer to the [cgroup v2 documentation](https://github.com/opencontainers/runc/blob/main/docs/cgroup-v2.md)
 
 <!-- the list should be kept in sync with https://github.com/opencontainers/runc/blob/main/docs/cgroup-v2.md -->
-* Container Optimized OS (since M97)
-* Ubuntu (since 21.10, 22.04+ recommended)
-* Debian GNU/Linux (since Debian 11 bullseye)
-* Fedora (since 31)
-* Arch Linux (since April 2021)
-* RHEL and RHEL-like distributions (since 9)
+
+- Container Optimized OS (since M97)
+- Ubuntu (since 21.10, 22.04+ recommended)
+- Debian GNU/Linux (since Debian 11 bullseye)
+- Fedora (since 31)
+- Arch Linux (since April 2021)
+- RHEL and RHEL-like distributions (since 9)
 
 To check if your distribution is using cgroup v2, refer to your distribution's
 documentation or follow the instructions in [Identify the cgroup version on Linux nodes](#check-cgroup-version).
@@ -78,7 +78,7 @@ documentation or follow the instructions in [Identify the cgroup version on Linu
 You can also enable cgroup v2 manually on your Linux distribution by modifying
 the kernel cmdline boot arguments. If your distribution uses GRUB,
 `systemd.unified_cgroup_hierarchy=1` should be added in `GRUB_CMDLINE_LINUX`
-under `/etc/default/grub`, followed by `sudo update-grub`.  However, the
+under `/etc/default/grub`, followed by `sudo update-grub`. However, the
 recommended approach is to use a distribution that already enables cgroup v2 by
 default.
 
@@ -98,18 +98,18 @@ cgroup v2 uses a different API than cgroup v1, so if there are any
 applications that directly access the cgroup file system, they need to be
 updated to newer versions that support cgroup v2. For example:
 
-* Some third-party monitoring and security agents may depend on the cgroup filesystem.
- Update these agents to versions that support cgroup v2.
-* If you run [cAdvisor](https://github.com/google/cadvisor) as a stand-alone
- DaemonSet for monitoring pods and containers, update it to v0.43.0 or later.
-* If you deploy Java applications, prefer to use versions which fully support cgroup v2:
-    * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372, 11.0.16, 15 and later
-    * [IBM Semeru Runtimes](https://www.eclipse.org/openj9/docs/version0.33/#control-groups-v2-support): jdk8u345-b01, 11.0.16.0, 17.0.4.0, 18.0.2.0 and later
-    * [IBM Java](https://www.ibm.com/docs/en/sdk-java-technology/8?topic=new-service-refresh-7#whatsnew_sr7__fp15): 8.0.7.15 and later
-* If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
+- Some third-party monitoring and security agents may depend on the cgroup filesystem.
+  Update these agents to versions that support cgroup v2.
+- If you run [cAdvisor](https://github.com/google/cadvisor) as a stand-alone
+  DaemonSet for monitoring pods and containers, update it to v0.43.0 or later.
+- If you deploy Java applications, prefer to use versions which fully support cgroup v2:
+  - [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372, 11.0.16, 15 and later
+  - [IBM Semeru Runtimes](https://www.eclipse.org/openj9/docs/version0.33/#control-groups-v2-support): jdk8u345-b01, 11.0.16.0, 17.0.4.0, 18.0.2.0 and later
+  - [IBM Java](https://www.ibm.com/docs/en/sdk-java-technology/8?topic=new-service-refresh-7#whatsnew_sr7__fp15): 8.0.7.15 and later
+- If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
   the version you use is v1.5.1 or higher.
 
-## Identify the cgroup version on Linux Nodes  {#check-cgroup-version}
+## Identify the cgroup version on Linux Nodes {#check-cgroup-version}
 
 The cgroup version depends on the Linux distribution being used and the
 default cgroup version configured on the OS. To check which cgroup version your
