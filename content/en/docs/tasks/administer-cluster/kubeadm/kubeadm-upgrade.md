@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_type: task
 weight: 40
@@ -38,17 +38,17 @@ The upgrade workflow at high level is the following:
 ### Additional information
 
 - The instructions below outline when to drain each node during the upgrade process.
-If you are performing a **minor** version upgrade for any kubelet, you **must**
-first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
-they could be running CoreDNS Pods or other critical workloads. For more information see
-[Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
+  If you are performing a **minor** version upgrade for any kubelet, you **must**
+  first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
+  they could be running CoreDNS Pods or other critical workloads. For more information see
+  [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 - To verify that the kubelet service has successfully restarted after the kubelet has been upgraded,
-you can execute `systemctl status kubelet`  or view the service logs with `journalctl -xeu kubelet`.
+  you can execute `systemctl status kubelet` or view the service logs with `journalctl -xeu kubelet`.
 - Usage of the `--config` flag of `kubeadm upgrade` with
-[kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
-with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
-[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
+  [kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
+  with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
+  [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
 
 <!-- steps -->
 
@@ -58,15 +58,11 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    apt update
-    apt-cache madison kubeadm
-    # find the latest {{< skew currentVersion >}} version in the list
-    # it should look like {{< skew currentVersion >}}.x-00, where x is the latest patch
+apt update
+apt-cache madison kubeadm # find the latest {{< skew currentVersion >}} version in the list # it should look like {{< skew currentVersion >}}.x-00, where x is the latest patch
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # find the latest {{< skew currentVersion >}} version in the list
-    # it should look like {{< skew currentVersion >}}.x-0, where x is the latest patch
+yum list --showduplicates kubeadm --disableexcludes=kubernetes # find the latest {{< skew currentVersion >}} version in the list # it should look like {{< skew currentVersion >}}.x-0, where x is the latest patch
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -83,18 +79,22 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
   {{< tabs name="k8s_install_kubeadm_first_cp" >}}
   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+
   ```shell
    # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
    apt-mark unhold kubeadm && \
    apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
    apt-mark hold kubeadm
-   ```
+  ```
+
   {{% /tab %}}
   {{% tab name="CentOS, RHEL or Fedora" %}}
+
   ```shell
   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
   yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
   ```
+
   {{% /tab %}}
   {{< /tabs >}}
   <br />
@@ -119,7 +119,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
   To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
   For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
   {{</ note >}}
-  
+
   {{< note >}}
   If `kubeadm upgrade plan` shows any component configs that require manual upgrade, users must provide
   a config file with replacement configs to `kubeadm upgrade apply` via the `--config` command line flag.
@@ -180,18 +180,22 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 
   {{< tabs name="k8s_install_kubelet" >}}
   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+
   ```shell
   # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
   apt-mark unhold kubelet kubectl && \
   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
   apt-mark hold kubelet kubectl
   ```
+
   {{% /tab %}}
   {{% tab name="CentOS, RHEL or Fedora" %}}
+
   ```shell
   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
   ```
+
   {{% /tab %}}
   {{< /tabs >}}
   <br />
@@ -217,10 +221,10 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
 without compromising the minimum required capacity for running your workloads.
 
-The following pages show how to  Upgrade Linux and Windows worker nodes:
+The following pages show how to Upgrade Linux and Windows worker nodes:
 
-  * [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
-  * [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
+- [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
+- [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
 
 ## Verify the status of the cluster
 
@@ -280,4 +284,3 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 
 - Fetches the kubeadm `ClusterConfiguration` from the cluster.
 - Upgrades the kubelet configuration for this node.
-

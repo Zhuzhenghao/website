@@ -1,15 +1,16 @@
 ---
 reviewers:
-- bprashanth
-- erictune
-- foxish
-- smarterclayton
+  - bprashanth
+  - erictune
+  - foxish
+  - smarterclayton
 title: Force Delete StatefulSet Pods
 content_type: task
 weight: 70
 ---
 
 <!-- overview -->
+
 This page shows how to delete Pods which are part of a
 {{< glossary_tooltip text="stateful set" term_id="StatefulSet" >}},
 and explains the considerations to keep in mind when doing so.
@@ -29,7 +30,7 @@ The [StatefulSet controller](/docs/concepts/workloads/controllers/statefulset/) 
 creating, scaling and deleting members of the StatefulSet. It tries to ensure that the specified
 number of Pods from ordinal 0 through N-1 are alive and ready. StatefulSet ensures that, at any time,
 there is at most one Pod with a given identity running in a cluster. This is referred to as
-*at most one* semantics provided by a StatefulSet.
+_at most one_ semantics provided by a StatefulSet.
 
 Manual force deletion should be undertaken with caution, as it has the potential to violate the
 at most one semantics inherent to StatefulSet. StatefulSets may be used to run distributed and
@@ -63,7 +64,7 @@ The only ways in which a Pod in such a state can be removed from the apiserver a
 - The Node object is deleted (either by you, or by the
   [Node Controller](/docs/concepts/architecture/nodes/#node-controller)).
 - The kubelet on the unresponsive Node starts responding, kills the Pod and removes the entry
-   from the apiserver.
+  from the apiserver.
 - Force deletion of the Pod by the user.
 
 The recommended best practice is to use the first or second approach. If a Node is confirmed

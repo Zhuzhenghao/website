@@ -6,7 +6,6 @@ description: >-
   Define overall memory and CPU resource limits for a namespace.
 ---
 
-
 <!-- overview -->
 
 This page shows how to set quotas for the total amount memory and CPU that
@@ -15,9 +14,6 @@ You specify quotas in a
 [ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 object.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -25,7 +21,6 @@ object.
 You must have access to create namespaces in your cluster.
 
 Each node in your cluster must have at least 1 GiB of memory.
-
 
 <!-- steps -->
 
@@ -58,11 +53,11 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --outpu
 
 The ResourceQuota places these requirements on the quota-mem-cpu-example namespace:
 
-* For every Pod in the namespace, each container must have a memory request, memory limit, cpu request, and cpu limit.
-* The memory request total for all Pods in that namespace must not exceed 1 GiB.
-* The memory limit total for all Pods in that namespace must not exceed 2 GiB.
-* The CPU request total for all Pods in that namespace must not exceed 1 cpu.
-* The CPU limit total for all Pods in that namespace must not exceed 2 cpu.
+- For every Pod in the namespace, each container must have a memory request, memory limit, cpu request, and cpu limit.
+- The memory request total for all Pods in that namespace must not exceed 1 GiB.
+- The memory limit total for all Pods in that namespace must not exceed 2 GiB.
+- The CPU request total for all Pods in that namespace must not exceed 1 cpu.
+- The CPU limit total for all Pods in that namespace must not exceed 2 cpu.
 
 See [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
 to learn what Kubernetes means by “1 CPU”.
@@ -72,7 +67,6 @@ to learn what Kubernetes means by “1 CPU”.
 Here is a manifest for an example Pod:
 
 {{< codenew file="admin/resource/quota-mem-cpu-pod.yaml" >}}
-
 
 Create the Pod:
 
@@ -160,36 +154,26 @@ Delete your namespace:
 kubectl delete namespace quota-mem-cpu-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+- [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+- [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
 ### For app developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+- [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+- [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
-
-
-
+- [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)

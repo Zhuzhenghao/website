@@ -53,8 +53,7 @@ curl -L -s -O https://k8s.io/examples/application/job/job-tmpl.yaml
 The file you downloaded is not yet a valid Kubernetes
 {{< glossary_tooltip text="manifest" term_id="manifest" >}}.
 Instead that template is a YAML representation of a Job object with some placeholders
-that need to be filled in before it can be used.  The `$ITEM` syntax is not meaningful to Kubernetes.
-
+that need to be filled in before it can be used. The `$ITEM` syntax is not meaningful to Kubernetes.
 
 ### Create manifests from the template
 
@@ -124,7 +123,6 @@ of this group of jobs (there might be other unrelated jobs in the system).
 You can check on the Pods as well using the same
 {{< glossary_tooltip text="label selector" term_id="selector" >}}:
 
-
 ```shell
 kubectl get pods -l jobgroup=jobexample
 ```
@@ -175,7 +173,6 @@ For this part of the task, you are going to use a one-line Python script to
 convert the template to a set of manifests.
 
 First, copy and paste the following template of a Job object, into a file called `job.yaml.jinja2`:
-
 
 ```liquid
 {% set params = [{ "name": "apple", "url": "http://dbpedia.org/resource/Apple", },
@@ -250,7 +247,6 @@ Kubernetes accepts and runs the Jobs you created.
 kubectl delete job -l jobgroup=jobexample
 ```
 
-
 <!-- discussion -->
 
 ## Using Jobs in real workloads
@@ -308,4 +304,3 @@ objects.
 
 You could also consider writing your own [controller](/docs/concepts/architecture/controller/)
 to manage Job objects automatically.
-

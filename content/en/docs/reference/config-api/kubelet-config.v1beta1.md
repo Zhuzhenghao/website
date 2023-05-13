@@ -5,24 +5,17 @@ package: kubelet.config.k8s.io/v1beta1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 - [SerializedNodeConfigSource](#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource)
-  
-    
 
-## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig}
-    
-
+## `CredentialProviderConfig` {#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig}
 
 <p>CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
 each provider as specified by the CredentialProvider type.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -46,12 +39,9 @@ auth keys, the value from the provider earlier in this list is used.</p>
 </tbody>
 </table>
 
-## `KubeletConfiguration`     {#kubelet-config-k8s-io-v1beta1-KubeletConfiguration}
-    
-
+## `KubeletConfiguration` {#kubelet-config-k8s-io-v1beta1-KubeletConfiguration}
 
 <p>KubeletConfiguration contains the configuration for the Kubelet</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1239,14 +1229,11 @@ If not specified, the value in containerRuntimeEndpoint is used.</p>
 </tbody>
 </table>
 
-## `SerializedNodeConfigSource`     {#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource}
-    
-
+## `SerializedNodeConfigSource` {#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource}
 
 <p>SerializedNodeConfigSource allows us to serialize v1.NodeConfigSource.
 This type is used internally by the Kubelet for tracking checkpointed dynamic configs.
 It exists in the kubeletconfig API group because it is classified as a versioned input to the Kubelet.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1266,17 +1253,14 @@ It exists in the kubeletconfig API group because it is classified as a versioned
 </tbody>
 </table>
 
-## `CredentialProvider`     {#kubelet-config-k8s-io-v1beta1-CredentialProvider}
-    
+## `CredentialProvider` {#kubelet-config-k8s-io-v1beta1-CredentialProvider}
 
 **Appears in:**
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
 
-
 <p>CredentialProvider represents an exec plugin to be invoked by the kubelet. The plugin is only
 invoked when an image being pulled matches the images handled by the plugin (see matchImages).</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1360,17 +1344,14 @@ to pass argument to the plugin.</p>
 </tbody>
 </table>
 
-## `ExecEnvVar`     {#kubelet-config-k8s-io-v1beta1-ExecEnvVar}
-    
+## `ExecEnvVar` {#kubelet-config-k8s-io-v1beta1-ExecEnvVar}
 
 **Appears in:**
 
 - [CredentialProvider](#kubelet-config-k8s-io-v1beta1-CredentialProvider)
 
-
 <p>ExecEnvVar is used for setting environment variables when executing an exec-based
 credential plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1392,14 +1373,11 @@ credential plugin.</p>
 </tbody>
 </table>
 
-## `KubeletAnonymousAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
-    
+## `KubeletAnonymousAuthentication` {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
 
 **Appears in:**
 
 - [KubeletAuthentication](#kubelet-config-k8s-io-v1beta1-KubeletAuthentication)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1420,14 +1398,11 @@ Anonymous requests have a username of <code>system:anonymous</code>, and a group
 </tbody>
 </table>
 
-## `KubeletAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAuthentication}
-    
+## `KubeletAuthentication` {#kubelet-config-k8s-io-v1beta1-KubeletAuthentication}
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1458,14 +1433,11 @@ Anonymous requests have a username of <code>system:anonymous</code>, and a group
 </tbody>
 </table>
 
-## `KubeletAuthorization`     {#kubelet-config-k8s-io-v1beta1-KubeletAuthorization}
-    
+## `KubeletAuthorization` {#kubelet-config-k8s-io-v1beta1-KubeletAuthorization}
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1491,26 +1463,19 @@ Webhook mode uses the SubjectAccessReview API to determine authorization.</p>
 </tbody>
 </table>
 
-## `KubeletAuthorizationMode`     {#kubelet-config-k8s-io-v1beta1-KubeletAuthorizationMode}
-    
+## `KubeletAuthorizationMode` {#kubelet-config-k8s-io-v1beta1-KubeletAuthorizationMode}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [KubeletAuthorization](#kubelet-config-k8s-io-v1beta1-KubeletAuthorization)
 
-
-
-
-
-## `KubeletWebhookAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletWebhookAuthentication}
-    
+## `KubeletWebhookAuthentication` {#kubelet-config-k8s-io-v1beta1-KubeletWebhookAuthentication}
 
 **Appears in:**
 
 - [KubeletAuthentication](#kubelet-config-k8s-io-v1beta1-KubeletAuthentication)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1535,14 +1500,11 @@ tokenreviews.authentication.k8s.io API.</p>
 </tbody>
 </table>
 
-## `KubeletWebhookAuthorization`     {#kubelet-config-k8s-io-v1beta1-KubeletWebhookAuthorization}
-    
+## `KubeletWebhookAuthorization` {#kubelet-config-k8s-io-v1beta1-KubeletWebhookAuthorization}
 
 **Appears in:**
 
 - [KubeletAuthorization](#kubelet-config-k8s-io-v1beta1-KubeletAuthorization)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1568,14 +1530,11 @@ the webhook authorizer.</p>
 </tbody>
 </table>
 
-## `KubeletX509Authentication`     {#kubelet-config-k8s-io-v1beta1-KubeletX509Authentication}
-    
+## `KubeletX509Authentication` {#kubelet-config-k8s-io-v1beta1-KubeletX509Authentication}
 
 **Appears in:**
 
 - [KubeletAuthentication](#kubelet-config-k8s-io-v1beta1-KubeletAuthentication)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1595,16 +1554,13 @@ and groups corresponding to the Organization in the client certificate.</p>
 </tbody>
 </table>
 
-## `MemoryReservation`     {#kubelet-config-k8s-io-v1beta1-MemoryReservation}
-    
+## `MemoryReservation` {#kubelet-config-k8s-io-v1beta1-MemoryReservation}
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
-
 <p>MemoryReservation specifies the memory reservation of different types for each NUMA node</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1626,14 +1582,11 @@ and groups corresponding to the Organization in the client certificate.</p>
 </tbody>
 </table>
 
-## `MemorySwapConfiguration`     {#kubelet-config-k8s-io-v1beta1-MemorySwapConfiguration}
-    
+## `MemorySwapConfiguration` {#kubelet-config-k8s-io-v1beta1-MemorySwapConfiguration}
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1652,31 +1605,24 @@ and groups corresponding to the Organization in the client certificate.</p>
 </tbody>
 </table>
 
-## `ResourceChangeDetectionStrategy`     {#kubelet-config-k8s-io-v1beta1-ResourceChangeDetectionStrategy}
-    
+## `ResourceChangeDetectionStrategy` {#kubelet-config-k8s-io-v1beta1-ResourceChangeDetectionStrategy}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
-
 <p>ResourceChangeDetectionStrategy denotes a mode in which internal
 managers (secret, configmap) are discovering object changes.</p>
 
-
-
-
-## `ShutdownGracePeriodByPodPriority`     {#kubelet-config-k8s-io-v1beta1-ShutdownGracePeriodByPodPriority}
-    
+## `ShutdownGracePeriodByPodPriority` {#kubelet-config-k8s-io-v1beta1-ShutdownGracePeriodByPodPriority}
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
-
 <p>ShutdownGracePeriodByPodPriority specifies the shutdown grace period for Pods based on their associated priority class value</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1701,18 +1647,15 @@ managers (secret, configmap) are discovering object changes.</p>
 </table>
   
   
-    
 
-## `FormatOptions`     {#FormatOptions}
-    
+
+## `FormatOptions` {#FormatOptions}
 
 **Appears in:**
 
 - [LoggingConfiguration](#LoggingConfiguration)
 
-
 <p>FormatOptions contains options for the different logging formats.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1730,16 +1673,13 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 </tbody>
 </table>
 
-## `JSONOptions`     {#JSONOptions}
-    
+## `JSONOptions` {#JSONOptions}
 
 **Appears in:**
 
 - [FormatOptions](#FormatOptions)
 
-
 <p>JSONOptions contains options for logging format &quot;json&quot;.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1768,26 +1708,18 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 </tbody>
 </table>
 
-## `LogFormatFactory`     {#LogFormatFactory}
-    
-
+## `LogFormatFactory` {#LogFormatFactory}
 
 <p>LogFormatFactory provides support for a certain additional,
 non-default log format.</p>
 
-
-
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-    
+## `LoggingConfiguration` {#LoggingConfiguration}
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
-
 <p>LoggingConfiguration contains logging options.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1842,16 +1774,13 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 </tbody>
 </table>
 
-## `TracingConfiguration`     {#TracingConfiguration}
-    
+## `TracingConfiguration` {#TracingConfiguration}
 
 **Appears in:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
-
 <p>TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1879,31 +1808,23 @@ rate, but otherwise never samples.</p>
 </tbody>
 </table>
 
-## `VModuleConfiguration`     {#VModuleConfiguration}
-    
+## `VModuleConfiguration` {#VModuleConfiguration}
+
 (Alias of `[]k8s.io/component-base/logs/api/v1.VModuleItem`)
 
 **Appears in:**
 
 - [LoggingConfiguration](#LoggingConfiguration)
 
-
 <p>VModuleConfiguration is a collection of individual file names or patterns
 and the corresponding verbosity threshold.</p>
 
+## `VerbosityLevel` {#VerbosityLevel}
 
-
-
-## `VerbosityLevel`     {#VerbosityLevel}
-    
 (Alias of `uint32`)
 
 **Appears in:**
 
 - [LoggingConfiguration](#LoggingConfiguration)
 
-
-
 <p>VerbosityLevel represents a klog or logr verbosity threshold.</p>
-
-

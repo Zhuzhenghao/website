@@ -1,16 +1,17 @@
 ---
 title: "Example: Deploying WordPress and MySQL with Persistent Volumes"
 reviewers:
-- ahmetb
+  - ahmetb
 content_type: tutorial
 weight: 20
-card: 
+card:
   name: tutorials
   weight: 40
   title: "Stateful Example: Wordpress with Persistent Volumes"
 ---
 
 <!-- overview -->
+
 This tutorial shows you how to deploy a WordPress site and a MySQL database using
 Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data.
 
@@ -38,13 +39,13 @@ earlier versions of this tutorial.
 
 ## {{% heading "objectives" %}}
 
-* Create PersistentVolumeClaims and PersistentVolumes
-* Create a `kustomization.yaml` with
-  * a Secret generator
-  * MySQL resource configs
-  * WordPress resource configs
-* Apply the kustomization directory by `kubectl apply -k ./`
-* Clean up
+- Create PersistentVolumeClaims and PersistentVolumes
+- Create a `kustomization.yaml` with
+  - a Secret generator
+  - MySQL resource configs
+  - WordPress resource configs
+- Apply the kustomization directory by `kubectl apply -k ./`
+- Clean up
 
 ## {{% heading "prerequisites" %}}
 
@@ -258,7 +259,7 @@ Now you can verify that all objects exist.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [Introspection and Debugging](/docs/tasks/debug/debug-application/debug-running-pod/)
-* Learn more about [Jobs](/docs/concepts/workloads/controllers/job/)
-* Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* Learn how to [Get a Shell to a Container](/docs/tasks/debug/debug-application/get-shell-running-container/)
+- Learn more about [Introspection and Debugging](/docs/tasks/debug/debug-application/debug-running-pod/)
+- Learn more about [Jobs](/docs/concepts/workloads/controllers/job/)
+- Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+- Learn how to [Get a Shell to a Container](/docs/tasks/debug/debug-application/get-shell-running-container/)

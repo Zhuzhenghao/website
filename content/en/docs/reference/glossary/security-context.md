@@ -6,11 +6,12 @@ full_link: /docs/tasks/configure-pod-container/security-context/
 short_description: >
   The securityContext field defines privilege and access control settings for a Pod or container.
 
-aka: 
+aka:
 tags:
-- security
+  - security
 ---
- The `securityContext` field defines privilege and access control settings for
+
+The `securityContext` field defines privilege and access control settings for
 a {{< glossary_tooltip text="Pod" term_id="pod" >}} or
 {{< glossary_tooltip text="container" term_id="container" >}}.
 

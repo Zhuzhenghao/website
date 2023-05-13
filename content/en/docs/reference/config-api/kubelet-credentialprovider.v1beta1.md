@@ -5,23 +5,16 @@ package: credentialprovider.kubelet.k8s.io/v1beta1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [CredentialProviderRequest](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest)
 - [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
-  
-    
 
-## `CredentialProviderRequest`     {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest}
-    
-
+## `CredentialProviderRequest` {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest}
 
 <p>CredentialProviderRequest includes the image that the kubelet requires authentication for.
 Kubelet will pass this request object to the plugin via stdin. In general, plugins should
 prefer responding with the same apiVersion they were sent.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -43,14 +36,11 @@ to extract any information required to fetch credentials.</p>
 </tbody>
 </table>
 
-## `CredentialProviderResponse`     {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse}
-    
-
+## `CredentialProviderResponse` {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse}
 
 <p>CredentialProviderResponse holds credentials that the kubelet should use for the specified
 image provided in the original request. Kubelet will read the response from the plugin via stdout.
 This response should be set to the same apiVersion as CredentialProviderRequest.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -118,18 +108,15 @@ stopping after the first successfully authenticated pull.</p>
 </tbody>
 </table>
 
-## `AuthConfig`     {#credentialprovider-kubelet-k8s-io-v1beta1-AuthConfig}
-    
+## `AuthConfig` {#credentialprovider-kubelet-k8s-io-v1beta1-AuthConfig}
 
 **Appears in:**
 
 - [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
 
-
 <p>AuthConfig contains authentication information for a container registry.
 Only username/password based authentication is supported today, but more authentication
 mechanisms may be added in the future.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -155,15 +142,10 @@ An empty password is valid.</p>
 </tbody>
 </table>
 
-## `PluginCacheKeyType`     {#credentialprovider-kubelet-k8s-io-v1beta1-PluginCacheKeyType}
-    
+## `PluginCacheKeyType` {#credentialprovider-kubelet-k8s-io-v1beta1-PluginCacheKeyType}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
-
-
-
-
-  

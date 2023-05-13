@@ -96,11 +96,11 @@ To write a new concept page, create a Markdown file in a subdirectory of the
 
 Concept pages are divided into three sections:
 
-| Page section  |
-|---------------|
-| overview      |
-| body          |
-| whatsnext     |
+| Page section |
+| ------------ |
+| overview     |
+| body         |
+| whatsnext    |
 
 The `overview` and `body` sections appear as comments in the concept page.
 You can add the `whatsnext` section to your page with the `heading` shortcode.
@@ -124,7 +124,7 @@ To write a new task page, create a Markdown file in a subdirectory of the
 `/content/en/docs/tasks` directory, with the following characteristics:
 
 | Page section  |
-|---------------|
+| ------------- |
 | overview      |
 | prerequisites |
 | steps         |
@@ -163,7 +163,7 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 `/content/en/docs/tutorials` directory, with the following characteristics:
 
 | Page section  |
-|---------------|
+| ------------- |
 | overview      |
 | prerequisites |
 | objectives    |
@@ -201,7 +201,7 @@ a Kubernetes component tool. Each page generates from scripts using the componen
 A tool reference page has several possible sections:
 
 | Page section                 |
-|------------------------------|
+| ---------------------------- |
 | synopsis                     |
 | options                      |
 | options from parent commands |

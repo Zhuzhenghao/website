@@ -3,18 +3,15 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
 Generate and print a bootstrap token, but do not create it on the server
 
 ### Synopsis
-
-
 
 This command will print out a randomly-generated bootstrap token that can be used with
 the "init" and "join" commands.
@@ -25,7 +22,6 @@ command is provided for convenience to generate tokens in the given format.
 
 You can also use "kubeadm init" without specifying a token and it will
 generate and print one for you.
-
 
 ```
 kubeadm token generate [flags]
@@ -49,8 +45,6 @@ kubeadm token generate [flags]
 
 </tbody>
 </table>
-
-
 
 ### Options inherited from parent commands
 
@@ -84,6 +78,3 @@ kubeadm token generate [flags]
 
 </tbody>
 </table>
-
-
-

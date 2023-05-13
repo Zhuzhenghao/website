@@ -137,8 +137,8 @@ of the number of desired replicas are healthy.
 Example 3: With a `maxUnavailable` of 5, evictions are allowed as long as there are at most 5
 unhealthy replicas among the total number of desired replicas.
 
-Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as the number of 
-unhealthy replicas does not exceed 30% of the total number of desired replica rounded up to 
+Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as the number of
+unhealthy replicas does not exceed 30% of the total number of desired replica rounded up to
 the nearest integer. If the total number of desired replicas is just one, that single replica
 is still allowed for disruption, leading to an effective unavailability of 100%.
 
@@ -178,6 +178,7 @@ automatically responds to changes in the number of replicas of the corresponding
 ## Create the PDB object
 
 You can create or update the PDB object using kubectl.
+
 ```shell
 kubectl apply -f mypdb.yaml
 ```
@@ -192,6 +193,7 @@ then you'll see something like this:
 ```shell
 kubectl get poddisruptionbudgets
 ```
+
 ```
 NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
 zk-pdb   2               N/A               0                     7s
@@ -202,6 +204,7 @@ If there are matching pods (say, 3), then you would see something like this:
 ```shell
 kubectl get poddisruptionbudgets
 ```
+
 ```
 NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
 zk-pdb   2               N/A               1                     7s
@@ -215,6 +218,7 @@ You can get more information about the status of a PDB with this command:
 ```shell
 kubectl get poddisruptionbudgets zk-pdb -o yaml
 ```
+
 ```yaml
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -259,25 +263,25 @@ Policies:
 
 `IfHealthyBudget`
 : Running pods (`.status.phase="Running"`), but not yet healthy can be evicted only
-  if the guarded application is not disrupted (`.status.currentHealthy` is at least
-  equal to `.status.desiredHealthy`).
+if the guarded application is not disrupted (`.status.currentHealthy` is at least
+equal to `.status.desiredHealthy`).
 
 : This policy ensures that running pods of an already disrupted application have
-  the best chance to become healthy. This has negative implications for draining
-  nodes, which can be blocked by misbehaving applications that are guarded by a PDB.
-  More specifically applications with pods in `CrashLoopBackOff` state
-  (due to a bug or misconfiguration), or pods that are just failing to report the
-  `Ready` condition.
+the best chance to become healthy. This has negative implications for draining
+nodes, which can be blocked by misbehaving applications that are guarded by a PDB.
+More specifically applications with pods in `CrashLoopBackOff` state
+(due to a bug or misconfiguration), or pods that are just failing to report the
+`Ready` condition.
 
 `AlwaysAllow`
 : Running pods (`.status.phase="Running"`), but not yet healthy are considered
-  disrupted and can be evicted regardless of whether the criteria in a PDB is met.
+disrupted and can be evicted regardless of whether the criteria in a PDB is met.
 
 : This means prospective running pods of a disrupted application might not get a
-  chance to become healthy. By using this policy, cluster managers can easily evict
-  misbehaving applications that are guarded by a PDB. More specifically applications
-  with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration), or pods
-  that are just failing to report the `Ready` condition.
+chance to become healthy. By using this policy, cluster managers can easily evict
+misbehaving applications that are guarded by a PDB. More specifically applications
+with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration), or pods
+that are just failing to report the `Ready` condition.
 
 {{< note >}}
 Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for eviction.

@@ -1,8 +1,8 @@
 ---
 title: Common Expression Language in Kubernetes
 reviewers:
-- jpbetz
-- cici37
+  - jpbetz
+  - cici37
 content_type: concept
 weight: 35
 min-kubernetes-server-version: 1.25
@@ -46,19 +46,19 @@ variables are available for that field.
 Example CEL expressions:
 
 {{< table caption="Examples of CEL expressions and the purpose of each" >}}
-| Rule                                                                               | Purpose                                                                           |
+| Rule | Purpose |
 |------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`           | Validate that the three fields defining replicas are ordered appropriately        |
-| `'Available' in self.stateCounts`                                                  | Validate that an entry with the 'Available' key exists in a map                   |
-| `(self.list1.size() == 0) != (self.list2.size() == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`   | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
-| `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
-| `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
-| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases             |
-| `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
-| `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
-| `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas` | Validate that the three fields defining replicas are ordered appropriately |
+| `'Available' in self.stateCounts` | Validate that an entry with the 'Available' key exists in a map |
+| `(self.list1.size() == 0) != (self.list2.size() == 0)` | Validate that one of two lists is non-empty, but not both |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV' |
+| `has(self.expired) && self.created + self.ttl < self.expired` | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration |
+| `self.health.startsWith('ok')` | Validate a 'health' string field has the prefix 'ok' |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)` | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
+| `type(self) == string ? self == '99%' : self == 42` | Validate an int-or-string field for both the int and string cases |
+| `self.metadata.name == 'singleton'` | Validate that an object's name matches a specific value (making it a singleton) |
+| `self.set1.all(e, !(e in self.set2))` | Validate that two listSets are disjoint |
+| `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet |
 {{< /table >}}
 
 ## CEL community libraries
@@ -90,12 +90,12 @@ comparable types.
 Examples:
 
 {{< table caption="Examples of CEL expressions using list library functions" >}}
-| CEL Expression                                                                     | Purpose                                                   |
+| CEL Expression | Purpose |
 |------------------------------------------------------------------------------------|-----------------------------------------------------------|
-| `names.isSorted()`                                                                 | Verify that a list of names is kept in alphabetical order |
-| `items.map(x, x.weight).sum() == 1.0`                                              | Verify that the "weights" of a list of objects sum to 1.0 |
-| `lowPriorities.map(x, x.priority).max() < highPriorities.map(x, x.priority).min()` | Verify that two sets of priorities do not overlap         |
-| `names.indexOf('should-be-first') == 1`                                            | Require that the first name in a list if a specific value | 
+| `names.isSorted()` | Verify that a list of names is kept in alphabetical order |
+| `items.map(x, x.weight).sum() == 1.0` | Verify that the "weights" of a list of objects sum to 1.0 |
+| `lowPriorities.map(x, x.priority).max() < highPriorities.map(x, x.priority).min()` | Verify that two sets of priorities do not overlap |
+| `names.indexOf('should-be-first') == 1` | Require that the first name in a list if a specific value |
 {{< /table >}}
 
 See the [Kubernetes List Library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)
@@ -110,9 +110,9 @@ regex operations.
 Examples:
 
 {{< table caption="Examples of CEL expressions using regex library functions" >}}
-| CEL Expression                                              | Purpose                                                  |
+| CEL Expression | Purpose |
 |-------------------------------------------------------------|----------------------------------------------------------|
-| `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
+| `"abc 123".find('[0-9]*')` | Find the first number in a string |
 | `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
 {{< /table >}}
 
@@ -135,10 +135,10 @@ Once parsed via the `url` function, the resulting URL object has `getScheme`,
 Examples:
 
 {{< table caption="Examples of CEL expressions using URL library functions" >}}
-| CEL Expression                                                  | Purpose                                        |
+| CEL Expression | Purpose |
 |-----------------------------------------------------------------|------------------------------------------------|
-| `url('https://example.com:80/').getHost()`                      | Get the 'example.com:80' host part of the URL. |
-| `url('https://example.com/path with spaces/').getEscapedPath()` | Returns '/path%20with%20spaces/'               |
+| `url('https://example.com:80/').getHost()` | Get the 'example.com:80' host part of the URL. |
+| `url('https://example.com/path with spaces/').getEscapedPath()` | Returns '/path%20with%20spaces/' |
 {{< /table >}}
 
 See the [Kubernetes URL library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)
@@ -175,26 +175,26 @@ has(object.namex) ? object.namex == 'special' : request.name == 'special'
 ## Type system integration
 
 {{< table caption="Table showing the relationship between OpenAPIv3 types and CEL types" >}}
-| OpenAPIv3 type                                     | CEL type                                                                                                                     |
+| OpenAPIv3 type | CEL type |
 |----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| 'object' with Properties                           | object / "message type" (`type(<object>)` evaluates to `selfType<uniqueNumber>.path.to.object.from.self`                     |
-| 'object' with AdditionalProperties                 | map                                                                                                                          |
-| 'object' with x-kubernetes-embedded-type           | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
-| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression                                                 |
-| x-kubernetes-int-or-string                         | union of int or string,  `self.intOrString < 100 \|\| self.intOrString == '50%'` evaluates to true for both `50` and `"50%"` |
-| 'array                                             | list                                                                                                                         |
-| 'array' with x-kubernetes-list-type=map            | list with map based Equality & unique key guarantees                                                                         |
-| 'array' with x-kubernetes-list-type=set            | list with set based Equality & unique entry guarantees                                                                       |
-| 'boolean'                                          | boolean                                                                                                                      |
-| 'number' (all formats)                             | double                                                                                                                       |
-| 'integer' (all formats)                            | int (64)                                                                                                                     |
-| _no equivalent_                                    | uint (64)                                                                                                                    |
-| 'null'                                             | null_type                                                                                                                    |
-| 'string'                                           | string                                                                                                                       |
-| 'string' with format=byte (base64 encoded)         | bytes                                                                                                                        |
-| 'string' with format=date                          | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
+| 'object' with Properties | object / "message type" (`type(<object>)` evaluates to `selfType<uniqueNumber>.path.to.object.from.self` |
+| 'object' with AdditionalProperties | map |
+| 'object' with x-kubernetes-embedded-type | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
+| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression |
+| x-kubernetes-int-or-string | union of int or string, `self.intOrString < 100 \|\| self.intOrString == '50%'` evaluates to true for both `50` and `"50%"` |
+| 'array | list |
+| 'array' with x-kubernetes-list-type=map | list with map based Equality & unique key guarantees |
+| 'array' with x-kubernetes-list-type=set | list with set based Equality & unique entry guarantees |
+| 'boolean' | boolean |
+| 'number' (all formats) | double |
+| 'integer' (all formats) | int (64) |
+| _no equivalent_ | uint (64) |
+| 'null' | null_type |
+| 'string' | string |
+| 'string' with format=byte (base64 encoded) | bytes |
+| 'string' with format=date | timestamp (google.protobuf.Timestamp) |
+| 'string' with format=datetime | timestamp (google.protobuf.Timestamp) |
+| 'string' with format=duration | duration (google.protobuf.Duration) |
 {{< /table >}}
 
 Also see: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
@@ -223,13 +223,13 @@ names are escaped according to the following rules when accessed in the
 expression:
 
 {{< table caption="Table of CEL identifier escaping rules" >}}
-| escape sequence   | property name equivalent                                                                     |
+| escape sequence | property name equivalent |
 |-------------------|----------------------------------------------------------------------------------------------|
-| `__underscores__` | `__`                                                                                         |
-| `__dot__`         | `.`                                                                                          |
-| `__dash__`        | `-`                                                                                          |
-| `__slash__`       | `/`                                                                                          |
-| `__{keyword}__`   | [CEL **RESERVED** keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
+| `__underscores__` | `__` |
+| `__dot__` | `.` |
+| `__dash__` | `-` |
+| `__slash__` | `/` |
+| `__{keyword}__` | [CEL **RESERVED** keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
 {{< /table >}}
 
 When you escape any of CEL's **RESERVED** keywords you need to match the exact property name
@@ -239,12 +239,12 @@ use the underscore escaping
 Examples on escaping:
 
 {{< table caption="Examples escaped CEL identifiers" >}}
-| property name | rule with escaped property name   |
+| property name | rule with escaped property name |
 |---------------|-----------------------------------|
-| `namespace`   | `self.__namespace__ > 0`          |
-| `x-prop`      | `self.x__dash__prop > 0`          |
-| `redact__d`   | `self.redact__underscores__d > 0` |
-| `string`      | `self.startsWith('kube')`         |
+| `namespace` | `self.__namespace__ > 0` |
+| `x-prop` | `self.x__dash__prop > 0` |
+| `redact__d` | `self.redact__underscores__d > 0` |
+| `string` | `self.startsWith('kube')` |
 {{< /table >}}
 
 ## Resource constraints

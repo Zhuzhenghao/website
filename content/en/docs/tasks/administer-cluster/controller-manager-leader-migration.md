@@ -1,7 +1,7 @@
 ---
 reviewers:
-- jpbetz
-- cheftako
+  - jpbetz
+  - cheftako
 title: "Migrate Replicated Control Plane To Use Cloud Controller Manager"
 linkTitle: "Migrate Replicated Control Plane To Use Cloud Controller Manager"
 content_type: task
@@ -157,4 +157,3 @@ controllerLeaders:
 ## {{% heading "whatsnext" %}}
 
 - Read the [Controller Manager Leader Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cloud-provider/2436-controller-manager-leader-migration) enhancement proposal.
-

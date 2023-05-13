@@ -46,12 +46,12 @@ culpa qui officia deserunt mollit anim id est laborum.
 
 - **bold**
 - _italic_
-- ***bold italic***
+- **_bold italic_**
 - ~~strikethrough~~
 - <u>underline</u>
 - _<u>underline italic</u>_
 - **<u>underline bold</u>**
-- ***<u>underline bold italic</u>***
+- **_<u>underline bold italic</u>_**
 - `monospace text`
 - **`monospace bold`**
 
@@ -61,7 +61,7 @@ Markdown doesn't have strict rules about how to process lists. When we moved
 from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
 mind:
 
-- Make sure you indent sub-list items **2 spaces**. 
+- Make sure you indent sub-list items **2 spaces**.
 
 - To end a list and start another, you need a HTML comment block on a new line
   between the lists, flush with the left-hand border. The first list won't end
@@ -70,7 +70,9 @@ mind:
 ### Bullet lists
 
 - This is a list item
+
 * This is another list item in the same list
+
 - You can mix `-` and `*`
   - To make a sub-item, indent two spaces.
     - This is a sub-sub-item. Indent two more spaces.
@@ -93,8 +95,8 @@ mind:
   - And a sub-list after some block-level content
 
 - A bullet list item can contain a numbered list.
-    1.  Numbered sub-list item 1
-    2.  Numbered sub-list item 2
+  1.  Numbered sub-list item 1
+  2.  Numbered sub-list item 2
 
 ### Numbered lists
 
@@ -251,7 +253,6 @@ You can also use HTML for images, but it is not preferred.
 
 <img src="/images/pencil.png" alt="pencil icon" />
 
-
 ## Tables
 
 Simple tables have one row per line, and columns are separated by `|`
@@ -260,7 +261,7 @@ but at least three `-` characters. For ease of maintenance, try to keep all the
 cell separators even, even if you heed to use extra space.
 
 | Heading cell 1 | Heading cell 2 |
-|----------------|----------------|
+| -------------- | -------------- |
 | Body cell 1    | Body cell 2    |
 
 The header is optional. Any text separated by `|` will render as a table.
@@ -299,14 +300,14 @@ graph TD;
 {{</*/ mermaid */>}}
 ```
 
-Produces: 
+Produces:
 
 {{< mermaid >}}
 graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
+A-->B;
+A-->C;
+B-->D;
+C-->D;
 {{</ mermaid >}}
 
 ```
@@ -323,18 +324,19 @@ sequenceDiagram
 {{</*/ mermaid */>}}
 ```
 
-Produces: 
+Produces:
 
 {{< mermaid >}}
 sequenceDiagram
-    Alice ->> Bob: Hello Bob, how are you?
-    Bob-->>John: How about you John?
-    Bob--x Alice: I am good thanks!
-    Bob-x John: I am good thanks!
-    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+Alice ->> Bob: Hello Bob, how are you?
+Bob-->>John: How about you John?
+Bob--x Alice: I am good thanks!
+Bob-x John: I am good thanks!
+Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
 
     Bob-->Alice: Checking with John...
     Alice->John: Yes... John, how are you?
+
 {{</ mermaid >}}
 
 <br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
@@ -358,7 +360,6 @@ A sidebar offsets text visually, but without the visual prominence of
 > ```bash
 > sudo dmesg
 > ```
->
 
 ### Admonitions
 
@@ -376,12 +377,9 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 The reader should proceed with caution.
 {{< /caution >}}
 
-
 {{< warning >}}
 Warnings point out something that could cause harm if ignored.
 {{< /warning >}}
-
-
 
 ## Includes
 

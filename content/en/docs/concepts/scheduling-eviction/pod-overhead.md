@@ -1,8 +1,8 @@
 ---
 reviewers:
-- dchen1107
-- egernst
-- tallclair
+  - dchen1107
+  - egernst
+  - tallclair
 title: Pod Overhead
 content_type: concept
 weight: 30
@@ -63,20 +63,20 @@ metadata:
 spec:
   runtimeClassName: kata-fc
   containers:
-  - name: busybox-ctr
-    image: busybox:1.28
-    stdin: true
-    tty: true
-    resources:
-      limits:
-        cpu: 500m
-        memory: 100Mi
-  - name: nginx-ctr
-    image: nginx
-    resources:
-      limits:
-        cpu: 1500m
-        memory: 100Mi
+    - name: busybox-ctr
+      image: busybox:1.28
+      stdin: true
+      tty: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 100Mi
+    - name: nginx-ctr
+      image: nginx
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 100Mi
 ```
 
 At admission time the RuntimeClass [admission controller](/docs/reference/access-authn-authz/admission-controllers/)
@@ -193,7 +193,6 @@ running with a defined overhead.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [RuntimeClass](/docs/concepts/containers/runtime-class/)
-* Read the [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+- Learn more about [RuntimeClass](/docs/concepts/containers/runtime-class/)
+- Read the [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
   enhancement proposal for extra context
-

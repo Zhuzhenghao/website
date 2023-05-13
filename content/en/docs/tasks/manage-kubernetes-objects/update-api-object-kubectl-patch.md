@@ -10,15 +10,9 @@ weight: 50
 This task shows how to use `kubectl patch` to update an API object in place. The exercises
 in this task demonstrate a strategic merge patch and a JSON merge patch.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
 
 <!-- steps -->
 
@@ -44,7 +38,6 @@ kubectl get pods
 The output shows that the Deployment has two Pods. The `1/1` indicates that
 each Pod has one container:
 
-
 ```
 NAME                        READY     STATUS    RESTARTS   AGE
 patch-demo-28633765-670qr   1/1       Running   0          23s
@@ -64,8 +57,8 @@ spec:
   template:
     spec:
       containers:
-      - name: patch-demo-ctr-2
-        image: redis
+        - name: patch-demo-ctr-2
+          image: redis
 ```
 
 Patch your Deployment:
@@ -129,7 +122,7 @@ containers:
 
 ### Notes on the strategic merge patch
 
-The patch you did in the preceding exercise is called a *strategic merge patch*.
+The patch you did in the preceding exercise is called a _strategic merge patch_.
 Notice that the patch did not replace the `containers` list. Instead it added a new
 Container to the list. In other words, the list in the patch was merged with the
 existing list. This is not always what happens when you use a strategic merge patch on a list.
@@ -152,15 +145,16 @@ You can also see the patch strategy in the
 [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 
 ```yaml
-"io.k8s.api.core.v1.PodSpec": {
+"io.k8s.api.core.v1.PodSpec":
+  {
     ...,
-    "containers": {
-        "description": "List of containers belonging to the pod.  ...."
-    },
+    "containers":
+      { "description": "List of containers belonging to the pod.  ...." },
     "x-kubernetes-patch-merge-key": "name",
-    "x-kubernetes-patch-strategy": "merge"
-}
+    "x-kubernetes-patch-strategy": "merge",
+  }
 ```
+
 <!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the patch strategy in the
@@ -173,9 +167,9 @@ spec:
   template:
     spec:
       tolerations:
-      - effect: NoSchedule
-        key: disktype
-        value: ssd
+        - effect: NoSchedule
+          key: disktype
+          value: ssd
 ```
 
 Patch your Deployment:
@@ -194,9 +188,9 @@ The output shows that the PodSpec in the Deployment has only one Toleration:
 
 ```yaml
 tolerations:
-- effect: NoSchedule
-  key: disktype
-  value: ssd
+  - effect: NoSchedule
+    key: disktype
+    value: ssd
 ```
 
 Notice that the `tolerations` list in the PodSpec was replaced, not merged. This is because
@@ -242,8 +236,8 @@ spec:
   template:
     spec:
       containers:
-      - name: patch-demo-ctr-3
-        image: gcr.io/google-samples/node-hello:1.0
+        - name: patch-demo-ctr-3
+          image: gcr.io/google-samples/node-hello:1.0
 ```
 
 In your patch command, set `type` to `merge`:
@@ -326,7 +320,7 @@ Create another file named `patch-file-retainkeys.yaml` that has this content:
 spec:
   strategy:
     $retainKeys:
-    - type
+      - type
     type: Recreate
 ```
 
@@ -355,7 +349,7 @@ spec:
 
 ### Notes on the strategic merge patch using the retainKeys strategy
 
-The patch you did in the preceding exercise is called a *strategic merge patch with retainKeys strategy*. This method introduces a new directive `$retainKeys` that has the following strategies:
+The patch you did in the preceding exercise is called a _strategic merge patch with retainKeys strategy_. This method introduces a new directive `$retainKeys` that has the following strategies:
 
 - It contains a list of strings.
 - All fields needing to be preserved must be present in the `$retainKeys` list.
@@ -377,16 +371,19 @@ type DeploymentSpec struct {
 You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 
 ```yaml
-"io.k8s.api.apps.v1.DeploymentSpec": {
+"io.k8s.api.apps.v1.DeploymentSpec":
+  {
     ...,
-    "strategy": {
+    "strategy":
+      {
         "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
         "description": "The deployment strategy to use to replace existing pods with new ones.",
-        "x-kubernetes-patch-strategy": "retainKeys"
-    },
-    ....
-}
+        "x-kubernetes-patch-strategy": "retainKeys",
+      },
+    ....,
+  }
 ```
+
 <!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the `retainKeys` strategy in the
@@ -401,23 +398,22 @@ Create a file named `patch-file.json` that has this content:
 
 ```json
 {
-   "spec": {
-      "template": {
-         "spec": {
-            "containers": [
-               {
-                  "name": "patch-demo-ctr-2",
-                  "image": "redis"
-               }
-            ]
-         }
+  "spec": {
+    "template": {
+      "spec": {
+        "containers": [
+          {
+            "name": "patch-demo-ctr-2",
+            "image": "redis"
+          }
+        ]
       }
-   }
+    }
+  }
 }
 ```
 
 The following commands are equivalent:
-
 
 ```shell
 kubectl patch deployment patch-demo --patch-file patch-file.yaml
@@ -523,18 +519,13 @@ create the Deployment object. Other commands for updating API objects include
 and
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands/#apply).
 
-
 {{< note >}}
 Strategic merge patch is not supported for custom resources.
 {{< /note >}}
 
-
 ## {{% heading "whatsnext" %}}
 
-
-* [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-
-
+- [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)

@@ -1,38 +1,29 @@
 ---
 reviewers:
-- eparis
-- pmorie
+  - eparis
+  - pmorie
 title: Configuring Redis using a ConfigMap
 content_type: tutorial
 ---
 
 <!-- overview -->
 
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
-
-
+This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
 
 ## {{% heading "objectives" %}}
 
-
-* Create a ConfigMap with Redis configuration values
-* Create a Redis Pod that mounts and uses the created ConfigMap
-* Verify that the configuration was correctly applied.
-
-
+- Create a ConfigMap with Redis configuration values
+- Create a Redis Pod that mounts and uses the created ConfigMap
+- Verify that the configuration was correctly applied.
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* The example shown on this page works with `kubectl` 1.14 and above.
-* Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
-
-
+- The example shown on this page works with `kubectl` 1.14 and above.
+- Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 <!-- lessoncontent -->
-
 
 ## Real World Example: Configuring Redis using a ConfigMap
 
@@ -60,10 +51,10 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 
 Examine the contents of the Redis pod manifest and note the following:
 
-* A volume named `config` is created by `spec.volumes[1]`
-* The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the 
+- A volume named `config` is created by `spec.volumes[1]`
+- The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
-* The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
+- The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
 This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
 ConfigMap above as `/redis-master/redis.conf` inside the Pod.
@@ -73,7 +64,7 @@ ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 Examine the created objects:
 
 ```shell
-kubectl get pod/redis configmap/example-redis-config 
+kubectl get pod/redis configmap/example-redis-config
 ```
 
 You should see the following output:
@@ -249,5 +240,4 @@ kubectl delete pod/redis configmap/example-redis-config
 
 ## {{% heading "whatsnext" %}}
 
-
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+- Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).

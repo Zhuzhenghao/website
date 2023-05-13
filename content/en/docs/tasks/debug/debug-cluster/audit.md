@@ -1,8 +1,8 @@
 ---
 reviewers:
-- soltysh
-- sttts
-- ericchiang
+  - soltysh
+  - sttts
+  - ericchiang
 content_type: concept
 title: Auditing
 ---
@@ -15,13 +15,13 @@ by applications that use the Kubernetes API, and by the control plane itself.
 
 Auditing allows cluster administrators to answer the following questions:
 
- - what happened?
- - when did it happen?
- - who initiated it?
- - on what did it happen?
- - where was it observed?
- - from where was it initiated?
- - to where was it going?
+- what happened?
+- when did it happen?
+- who initiated it?
+- on what did it happen?
+- where was it observed?
+- from where was it initiated?
+- to where was it going?
 
 <!-- body -->
 
@@ -76,7 +76,7 @@ _audit level_ of the event. The defined audit levels are:
 
 You can pass a file with the policy to `kube-apiserver`
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
-Note that the `rules` field __must__ be provided in the audit policy file.
+Note that the `rules` field **must** be provided in the audit policy file.
 A policy with no (0) rules is treated as illegal.
 
 Below is an example audit policy file:
@@ -90,7 +90,7 @@ You can use a minimal audit policy file to log all requests at the `Metadata` le
 apiVersion: audit.k8s.io/v1
 kind: Policy
 rules:
-- level: Metadata
+  - level: Metadata
 ```
 
 If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
@@ -145,14 +145,17 @@ You can configure the log audit backend using the following `kube-apiserver` fla
 
 If your cluster's control plane runs the kube-apiserver as a Pod, remember to mount the `hostPath`
 to the location of the policy file and log file, so that audit records are persisted. For example:
+
 ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml \
     --audit-log-path=/var/log/kubernetes/audit/audit.log
 ```
+
 then mount the volumes:
 
 ```yaml
-...
+
+---
 volumeMounts:
   - mountPath: /etc/kubernetes/audit-policy.yaml
     name: audit
@@ -161,20 +164,22 @@ volumeMounts:
     name: audit-log
     readOnly: false
 ```
+
 and finally configure the `hostPath`:
 
 ```yaml
-...
-volumes:
-- name: audit
-  hostPath:
-    path: /etc/kubernetes/audit-policy.yaml
-    type: File
 
-- name: audit-log
-  hostPath:
-    path: /var/log/kubernetes/audit/
-    type: DirectoryOrCreate
+---
+volumes:
+  - name: audit
+    hostPath:
+      path: /etc/kubernetes/audit-policy.yaml
+      type: File
+
+  - name: audit-log
+    hostPath:
+      path: /var/log/kubernetes/audit/
+      type: DirectoryOrCreate
 ```
 
 ### Webhook backend
@@ -203,7 +208,7 @@ throttling is enabled in `webhook` and disabled in `log`.
   - `batch` - buffer events and asynchronously process them in batches. This is the default.
   - `blocking` - block API server responses on processing each individual event.
   - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at the
-     RequestReceived stage, the whole request to the kube-apiserver fails.
+    RequestReceived stage, the whole request to the kube-apiserver fails.
 
 The following flags are used only in the `batch` mode:
 
@@ -250,8 +255,7 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
-* Learn more about [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+- Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
+- Learn more about [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
   and the [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
   resource types by reading the Audit configuration reference.
-

@@ -21,17 +21,17 @@ express them in `.yaml` format.
 
 ## Understanding Kubernetes objects {#kubernetes-objects}
 
-*Kubernetes objects* are persistent entities in the Kubernetes system. Kubernetes uses these
+_Kubernetes objects_ are persistent entities in the Kubernetes system. Kubernetes uses these
 entities to represent the state of your cluster. Specifically, they can describe:
 
-* What containerized applications are running (and on which nodes)
-* The resources available to those applications
-* The policies around how those applications behave, such as restart policies, upgrades, and fault-tolerance
+- What containerized applications are running (and on which nodes)
+- The resources available to those applications
+- The policies around how those applications behave, such as restart policies, upgrades, and fault-tolerance
 
 A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system
 will constantly work to ensure that object exists. By creating an object, you're effectively
 telling the Kubernetes system what you want your cluster's workload to look like; this is your
-cluster's *desired state*.
+cluster's _desired state_.
 
 To work with Kubernetes objects--whether to create, modify, or delete them--you'll need to use the
 [Kubernetes API](/docs/concepts/overview/kubernetes-api/). When you use the `kubectl` command-line
@@ -42,7 +42,7 @@ the Kubernetes API directly in your own programs using one of the
 ### Object spec and status
 
 Almost every Kubernetes object includes two nested object fields that govern
-the object's configuration: the object *`spec`* and the object *`status`*.
+the object's configuration: the object _`spec`_ and the object _`status`_.
 For objects that have a `spec`, you have to set this when you create the object,
 providing a description of the characteristics you want the resource to have:
 its _desired state_.
@@ -97,10 +97,10 @@ deployment.apps/nginx-deployment created
 
 In the `.yaml` file for the Kubernetes object you want to create, you'll need to set values for the following fields:
 
-* `apiVersion` - Which version of the Kubernetes API you're using to create this object
-* `kind` - What kind of object you want to create
-* `metadata` - Data that helps uniquely identify the object, including a `name` string, `UID`, and optional `namespace`
-* `spec` - What state you desire for the object
+- `apiVersion` - Which version of the Kubernetes API you're using to create this object
+- `kind` - What kind of object you want to create
+- `metadata` - Data that helps uniquely identify the object, including a `name` string, `UID`, and optional `namespace`
+- `spec` - What state you desire for the object
 
 The precise format of the object `spec` is different for every Kubernetes object, and contains
 nested fields specific to that object. The [Kubernetes API Reference](/docs/reference/kubernetes-api/)
@@ -124,14 +124,15 @@ detail the structure of that `.status` field, and its content for each different
 
 If you're new to Kubernetes, read more about the following:
 
-* [Pods](/docs/concepts/workloads/pods/) which are the most important basic Kubernetes objects.
-* [Deployment](/docs/concepts/workloads/controllers/deployment/) objects.
-* [Controllers](/docs/concepts/architecture/controller/) in Kubernetes.
-* [kubectl](/docs/reference/kubectl/) and [kubectl commands](/docs/reference/generated/kubectl/kubectl-commands).
+- [Pods](/docs/concepts/workloads/pods/) which are the most important basic Kubernetes objects.
+- [Deployment](/docs/concepts/workloads/controllers/deployment/) objects.
+- [Controllers](/docs/concepts/architecture/controller/) in Kubernetes.
+- [kubectl](/docs/reference/kubectl/) and [kubectl commands](/docs/reference/generated/kubectl/kubectl-commands).
 
 To learn about the Kubernetes API in general, visit:
 
-* [Kubernetes API overview](/docs/reference/using-api/)
+- [Kubernetes API overview](/docs/reference/using-api/)
 
 To learn about objects in Kubernetes in more depth, read other pages in this section:
+
 <!-- Docsy automatically includes a list of pages in the section -->

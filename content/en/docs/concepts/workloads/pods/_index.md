@@ -1,6 +1,6 @@
 ---
 reviewers:
-- erictune
+  - erictune
 title: Pods
 content_type: concept
 weight: 10
@@ -51,6 +51,7 @@ The following is an example of a Pod which consists of a container running the i
 {{< codenew file="pods/simple-pod.yaml" >}}
 
 To create the Pod shown above, run the following command:
+
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/simple-pod.yaml
 ```
@@ -68,11 +69,11 @@ If your Pods need to track state, consider the
 
 Pods in a Kubernetes cluster are used in two main ways:
 
-* **Pods that run a single container**. The "one-container-per-Pod" model is the
+- **Pods that run a single container**. The "one-container-per-Pod" model is the
   most common Kubernetes use case; in this case, you can think of a Pod as a
   wrapper around a single container; Kubernetes manages Pods rather than managing
   the containers directly.
-* **Pods that run multiple containers that need to work together**. A Pod can
+- **Pods that run multiple containers that need to work together**. A Pod can
   encapsulate an application composed of multiple co-located containers that are
   tightly coupled and need to share resources. These co-located containers
   form a single cohesive unit of service—for example, one container serving data
@@ -125,7 +126,7 @@ a Pod gets created (directly by you, or indirectly by a
 {{< glossary_tooltip text="controller" term_id="controller" >}}), the new Pod is
 scheduled to run on a {{< glossary_tooltip term_id="node" >}} in your cluster.
 The Pod remains on that node until the Pod finishes execution, the Pod object is deleted,
-the Pod is *evicted* for lack of resources, or the node fails.
+the Pod is _evicted_ for lack of resources, or the node fails.
 
 {{< note >}}
 Restarting a container in a Pod should not be confused with restarting a Pod. A Pod
@@ -135,7 +136,7 @@ it is deleted.
 
 The name of a Pod must be a valid
 [DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
-value, but this can produce unexpected results for the Pod hostname.  For best compatibility,
+value, but this can produce unexpected results for the Pod hostname. For best compatibility,
 the name should follow the more restrictive rules for a
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
@@ -144,7 +145,7 @@ the name should follow the more restrictive rules for a
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
-which you want the pod to run. These two are the only operating systems supported for now by 
+which you want the pod to run. These two are the only operating systems supported for now by
 Kubernetes. In future, this list may be expanded.
 
 In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
@@ -166,9 +167,9 @@ replacement Pod onto a healthy Node.
 
 Here are some examples of workload resources that manage one or more Pods:
 
-* {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
-* {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
-* {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
+- {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+- {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
+- {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
 ### Pod templates
 
@@ -197,9 +198,9 @@ spec:
     # This is the pod template
     spec:
       containers:
-      - name: hello
-        image: busybox:1.28
-        command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+        - name: hello
+          image: busybox:1.28
+          command: ["sh", "-c", 'echo "Hello, Kubernetes!" && sleep 3600']
       restartPolicy: OnFailure
     # The pod template ends here
 ```
@@ -231,7 +232,7 @@ template instead of updating or patching the existing Pods.
 
 Kubernetes doesn't prevent you from managing Pods directly. It is possible to
 update some fields of a running Pod, in place. However, Pod update operations
-like 
+like
 [`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), and
 [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
 have some limitations:
@@ -248,7 +249,7 @@ have some limitations:
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
 
-  1. setting the unassigned field to a positive number; 
+  1. setting the unassigned field to a positive number;
   1. updating the field from a positive number to a smaller, non-negative
      number.
 
@@ -273,12 +274,12 @@ Each Pod is assigned a unique IP address for each address family. Every
 container in a Pod shares the network namespace, including the IP address and
 network ports. Inside a Pod (and **only** then), the containers that belong to the Pod
 can communicate with one another using `localhost`. When containers in a Pod communicate
-with entities *outside the Pod*,
+with entities _outside the Pod_,
 they must coordinate how they use the shared network resources (such as ports).
 Within a Pod, containers share an IP address and port space, and
 can find each other via `localhost`. The containers in a Pod can also communicate
 with each other using standard inter-process communications like SystemV semaphores
-or POSIX shared memory.  Containers in different Pods have distinct IP addresses
+or POSIX shared memory. Containers in different Pods have distinct IP addresses
 and can not communicate by OS-level IPC without special configuration.
 Containers that want to interact with a container running in a different Pod can
 use IP networking to communicate.
@@ -307,7 +308,7 @@ capabilities such as manipulating the network stack or accessing hardware device
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the 
+In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the
 `windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
 pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used
 to perform administrative tasks as is done with Linux privileged containers.
@@ -345,25 +346,25 @@ A _probe_ is a diagnostic performed periodically by the kubelet on a container. 
 - `TCPSocketAction` (checked directly by the kubelet)
 - `HTTPGetAction` (checked directly by the kubelet)
 
-You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 in the Pod Lifecycle documentation.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
+- Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
+- Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
-* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
-* Pod is a top-level resource in the Kubernetes REST API.
+- Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
+- Pod is a top-level resource in the Kubernetes REST API.
   The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
-* [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
-* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+- [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
+- Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
 
-* [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-* [Borg](https://research.google.com/pubs/pub43438.html)
-* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
-* [Omega](https://research.google/pubs/pub41684/)
-* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
+- [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
+- [Borg](https://research.google.com/pubs/pub43438.html)
+- [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+- [Omega](https://research.google/pubs/pub41684/)
+- [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).

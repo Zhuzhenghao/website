@@ -1,8 +1,8 @@
 ---
 reviewers:
-- bprashanth
-- liggitt
-- thockin
+  - bprashanth
+  - liggitt
+  - thockin
 title: Configure Service Accounts for Pods
 content_type: task
 weight: 120
@@ -74,7 +74,6 @@ kind: ServiceAccount
 metadata:
   name: build-robot
 automountServiceAccountToken: false
-...
 ```
 
 You can also opt out of automounting API credentials for a particular Pod:
@@ -361,30 +360,30 @@ command line arguments to `kube-apiserver`:
 
 `--service-account-issuer`
 : defines the Identifier of the service account token issuer. You can specify the
-  `--service-account-issuer` argument multiple times, this can be useful to enable
-  a non-disruptive change of the issuer. When this flag is specified multiple times,
-  the first is used to generate tokens and all are used to determine which issuers
-  are accepted. You must be running Kubernetes v1.22 or later to be able to specify
-  `--service-account-issuer` multiple times.
+`--service-account-issuer` argument multiple times, this can be useful to enable
+a non-disruptive change of the issuer. When this flag is specified multiple times,
+the first is used to generate tokens and all are used to determine which issuers
+are accepted. You must be running Kubernetes v1.22 or later to be able to specify
+`--service-account-issuer` multiple times.
 
 `--service-account-key-file`
 : specifies the path to a file containing PEM-encoded X.509 private or public keys
-  (RSA or ECDSA), used to verify ServiceAccount tokens. The specified file can contain
-  multiple keys, and the flag can be specified multiple times with different files.
-  If specified multiple times, tokens signed by any of the specified keys are considered
-  valid by the Kubernetes API server.
+(RSA or ECDSA), used to verify ServiceAccount tokens. The specified file can contain
+multiple keys, and the flag can be specified multiple times with different files.
+If specified multiple times, tokens signed by any of the specified keys are considered
+valid by the Kubernetes API server.
 
 `--service-account-signing-key-file`
 : specifies the path to a file that contains the current private key of the service
-  account token issuer. The issuer signs issued ID tokens with this private key.
+account token issuer. The issuer signs issued ID tokens with this private key.
 
 `--api-audiences` (can be omitted)
 : defines audiences for ServiceAccount tokens. The service account token authenticator
-  validates that tokens used against the API are bound to at least one of these audiences.
-  If `api-audiences` is specified multiple times, tokens for any of the specified audiences
-  are considered valid by the Kubernetes API server. If you specify the `--service-account-issuer`
-  command line argument but you don't set `--api-audiences`, the control plane defaults to
-  a single element audience list that contains only the issuer URL.
+validates that tokens used against the API are bound to at least one of these audiences.
+If `api-audiences` is specified multiple times, tokens for any of the specified audiences
+are considered valid by the Kubernetes API server. If you specify the `--service-account-issuer`
+command line argument but you don't set `--api-audiences`, the control plane defaults to
+a single element audience list that contains only the issuer URL.
 
 {{< /note >}}
 

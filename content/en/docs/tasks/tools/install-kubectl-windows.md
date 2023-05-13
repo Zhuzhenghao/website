@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+  - mikedanese
 title: Install and Set Up kubectl on Windows
 content_type: task
 weight: 10
@@ -83,14 +83,12 @@ The following methods exist for installing kubectl on Windows:
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
    {{< /note >}}
-   
+
    Or use this for detailed view of version:
 
    ```cmd
    kubectl version --client --output=yaml
    ```
-
-
 
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)
@@ -107,19 +105,25 @@ installer or remove the Docker Desktop's `kubectl`.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
+
    ```powershell
    choco install kubernetes-cli
    ```
+
    {{% /tab %}}
    {{% tab name="scoop" %}}
+
    ```powershell
    scoop install kubectl
    ```
+
    {{% /tab %}}
    {{% tab name="winget" %}}
+
    ```powershell
    winget install -e --id Kubernetes.kubectl
    ```
+
    {{% /tab %}}
    {{< /tabs >}}
 

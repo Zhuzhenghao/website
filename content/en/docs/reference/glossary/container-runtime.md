@@ -4,14 +4,15 @@ id: container-runtime
 date: 2019-06-05
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
- The container runtime is the software that is responsible for running containers.
+  The container runtime is the software that is responsible for running containers.
 
 aka:
 tags:
-- fundamental
-- workload
+  - fundamental
+  - workload
 ---
- The container runtime is the software that is responsible for running containers.
+
+The container runtime is the software that is responsible for running containers.
 
 <!--more-->
 

@@ -15,26 +15,17 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
-
-
-
-
-
 
 ## allowWatchBookmarks {#allowWatchBookmarks}
 
 allowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
 
 <hr>
-
-
-
-
 
 ## continue {#continue}
 
@@ -44,19 +35,11 @@ This field is not supported when watch is true. Clients may start a watch from t
 
 <hr>
 
-
-
-
-
 ## dryRun {#dryRun}
 
 When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
 
 <hr>
-
-
-
-
 
 ## fieldManager {#fieldManager}
 
@@ -64,19 +47,11 @@ fieldManager is a name associated with the actor or entity that is making these 
 
 <hr>
 
-
-
-
-
 ## fieldSelector {#fieldSelector}
 
 A selector to restrict the list of returned objects by their fields. Defaults to everything.
 
 <hr>
-
-
-
-
 
 ## fieldValidation {#fieldValidation}
 
@@ -84,19 +59,11 @@ fieldValidation instructs the server on how to handle objects in the request (PO
 
 <hr>
 
-
-
-
-
 ## force {#force}
 
 Force is going to "force" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 
 <hr>
-
-
-
-
 
 ## gracePeriodSeconds {#gracePeriodSeconds}
 
@@ -104,19 +71,11 @@ The duration in seconds before the object should be deleted. Value must be non-n
 
 <hr>
 
-
-
-
-
 ## labelSelector {#labelSelector}
 
 A selector to restrict the list of returned objects by their labels. Defaults to everything.
 
 <hr>
-
-
-
-
 
 ## limit {#limit}
 
@@ -126,19 +85,11 @@ The server guarantees that the objects returned when using continue will be iden
 
 <hr>
 
-
-
-
-
 ## namespace {#namespace}
 
 object name and auth scope, such as for teams and projects
 
 <hr>
-
-
-
-
 
 ## pretty {#pretty}
 
@@ -146,19 +97,11 @@ If 'true', then the output is pretty printed.
 
 <hr>
 
-
-
-
-
 ## propagationPolicy {#propagationPolicy}
 
 Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
 
 <hr>
-
-
-
-
 
 ## resourceVersion {#resourceVersion}
 
@@ -168,10 +111,6 @@ Defaults to unset
 
 <hr>
 
-
-
-
-
 ## resourceVersionMatch {#resourceVersionMatch}
 
 resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.
@@ -180,21 +119,18 @@ Defaults to unset
 
 <hr>
 
-
-
-
-
 ## sendInitialEvents {#sendInitialEvents}
 
-`sendInitialEvents=true` may be set together with `watch=true`. In that case, the watch stream will begin with synthetic events to produce the current state of objects in the collection. Once all such events have been sent, a synthetic "Bookmark" event  will be sent. The bookmark will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with `"k8s.io/initial-events-end": "true"` annotation. Afterwards, the watch stream will proceed as usual, sending watch events corresponding to changes (subsequent to the RV) to objects watched.
+`sendInitialEvents=true` may be set together with `watch=true`. In that case, the watch stream will begin with synthetic events to produce the current state of objects in the collection. Once all such events have been sent, a synthetic "Bookmark" event will be sent. The bookmark will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with `"k8s.io/initial-events-end": "true"` annotation. Afterwards, the watch stream will proceed as usual, sending watch events corresponding to changes (subsequent to the RV) to objects watched.
 
 When `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set. The semantic of the watch request is as following: - `resourceVersionMatch` = NotOlderThan
-  is interpreted as "data at least as new as the provided `resourceVersion`"
-  and the bookmark event is send when the state is synced
-  to a `resourceVersion` at least as fresh as the one provided by the ListOptions.
-  If `resourceVersion` is unset, this is interpreted as "consistent read" and the
-  bookmark event is send when the state is synced at least to the moment
-  when request started being processed.
+is interpreted as "data at least as new as the provided `resourceVersion`"
+and the bookmark event is send when the state is synced
+to a `resourceVersion` at least as fresh as the one provided by the ListOptions.
+If `resourceVersion` is unset, this is interpreted as "consistent read" and the
+bookmark event is send when the state is synced at least to the moment
+when request started being processed.
+
 - `resourceVersionMatch` set to any other value or unset
   Invalid error is returned.
 
@@ -202,27 +138,14 @@ Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward 
 
 <hr>
 
-
-
-
-
 ## timeoutSeconds {#timeoutSeconds}
 
 Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
 
 <hr>
 
-
-
-
-
 ## watch {#watch}
 
 Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
 
 <hr>
-
-
-
-
-

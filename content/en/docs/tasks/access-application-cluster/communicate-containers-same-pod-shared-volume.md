@@ -17,7 +17,7 @@ between containers.
 
 <!-- steps -->
 
-##  Creating a Pod that runs two Containers
+## Creating a Pod that runs two Containers
 
 In this exercise, you create a Pod that runs two Containers. The two containers
 share a Volume that they can use to communicate. Here is the configuration file
@@ -126,16 +126,14 @@ the shared Volume is lost.
 
 ## {{% heading "whatsnext" %}}
 
+- Learn more about [patterns for composite containers](/blog/2015/06/the-distributed-system-toolkit-patterns/).
 
-* Learn more about [patterns for composite containers](/blog/2015/06/the-distributed-system-toolkit-patterns/).
+- Learn about [composite containers for modular architecture](https://www.slideshare.net/Docker/slideshare-burns).
 
-* Learn about [composite containers for modular architecture](https://www.slideshare.net/Docker/slideshare-burns).
+- See [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
 
-* See [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
+- See [Configure a Pod to share process namespace between containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/)
 
-* See [Configure a Pod to share process namespace between containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/)
+- See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 
-* See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
-
-* See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
-
+- See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).

@@ -7,9 +7,10 @@ short_description: >
 
 aka:
 tags:
-- networking
+  - networking
 ---
- In computing, a proxy is a server that acts as an intermediary for a remote
+
+In computing, a proxy is a server that acts as an intermediary for a remote
 service.
 
 <!--more-->

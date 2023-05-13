@@ -6,9 +6,10 @@ full_link: /docs/concepts/services-networking/service/
 short_description: >
   A way to expose an application running on a set of Pods as a network service.
 tags:
-- fundamental
-- core-object
+  - fundamental
+  - core-object
 ---
+
 A method for exposing a network application that is running as one or more
 {{< glossary_tooltip text="Pods" term_id="pod" >}} in your cluster.
 

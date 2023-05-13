@@ -33,15 +33,15 @@ evaluated on its merits.
 
 - [ ] `system:masters` group is not used for user or component authentication after bootstrapping.
 - [ ] The kube-controller-manager is running with `--use-service-account-credentials`
-  enabled.
+      enabled.
 - [ ] The root certificate is protected (either an offline CA, or a managed
-  online CA with effective access controls).
+      online CA with effective access controls).
 - [ ] Intermediate and leaf certificates have an expiry date no more than 3
-  years in the future.
+      years in the future.
 - [ ] A process exists for periodic access review, and reviews occur no more
-  than 24 months apart.
+      than 24 months apart.
 - [ ] The [Role Based Access Control Good Practices](/docs/concepts/security/rbac-good-practices/)
-  is followed for guidance related to authentication and authorization.
+      is followed for guidance related to authentication and authorization.
 
 After bootstrapping, neither users nor components should authenticate to the
 Kubernetes API as `system:masters`. Similarly, running all of
@@ -53,9 +53,9 @@ an admin user.
 
 - [ ] CNI plugins in-use supports network policies.
 - [ ] Ingress and egress network policies are applied to all workloads in the
-  cluster.
+      cluster.
 - [ ] Default network policies within each namespace, selecting all pods, denying
-  everything, are in place.
+      everything, are in place.
 - [ ] If appropriate, a service mesh is used to encrypt all communications inside of the cluster.
 - [ ] The Kubernetes API, kubelet API and etcd are not exposed publicly on Internet.
 - [ ] Access from the workloads to the cloud metadata API is filtered.
@@ -97,6 +97,7 @@ For restricted LoadBalancer and ExternalIPs use, see
 [CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)
 and the [DenyServiceExternalIPs admission controller](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 for further information.
+
 ## Pod security
 
 - [ ] RBAC rights to `create`, `update`, `patch`, `delete` workloads is only granted if necessary.
@@ -104,9 +105,9 @@ for further information.
 - [ ] Memory limit is set for the workloads with a limit equal or inferior to the request.
 - [ ] CPU limit might be set on sensitive workloads.
 - [ ] For nodes that support it, Seccomp is enabled with appropriate syscalls
-  profile for programs.
+      profile for programs.
 - [ ] For nodes that support it, AppArmor or SELinux is enabled with appropriate
-  profile for programs.
+      profile for programs.
 
 RBAC authorization is crucial but
 [cannot be granular enough to have authorization on the Pods' resources](/docs/concepts/security/rbac-good-practices/#workload-creation)
@@ -210,7 +211,7 @@ SELinux is only available on Linux nodes, and enabled in
 
 - [ ] Audit logs, if enabled, are protected from general access.
 - [ ] The `/logs` API is disabled (you are running kube-apiserver with
-  `--enable-logs-handler=false`).
+      `--enable-logs-handler=false`).
 
   Kubernetes includes a `/logs` API endpoint, enabled by default,
   that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
@@ -228,9 +229,9 @@ Kubernetes API server logs only.
 ## Pod placement
 
 - [ ] Pod placement is done in accordance with the tiers of sensitivity of the
-  application.
+      application.
 - [ ] Sensitive applications are running isolated on nodes or with specific
-  sandboxed runtimes.
+      sandboxed runtimes.
 
 Pods that are on different tiers of sensitivity, for example, an application pod
 and the Kubernetes API server, should be deployed onto separate nodes. The
@@ -264,10 +265,10 @@ overhead.
 - [ ] ConfigMaps are not used to hold confidential data.
 - [ ] Encryption at rest is configured for the Secret API.
 - [ ] If appropriate, a mechanism to inject secrets stored in third-party storage
-  is deployed and available.
+      is deployed and available.
 - [ ] Service account tokens are not mounted in pods that don't require them.
 - [ ] [Bound service account token volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
-  is in-use instead of non-expiring tokens.
+      is in-use instead of non-expiring tokens.
 
 Secrets required for pods should be stored within Kubernetes Secrets as opposed
 to alternatives such as ConfigMap. Secret resources stored within etcd should
@@ -296,10 +297,10 @@ for time-bound service account credentials.
 - [ ] Minimize unnecessary content in container images.
 - [ ] Container images are configured to be run as unprivileged user.
 - [ ] References to container images are made by sha256 digests (rather than
-tags) or the provenance of the image is validated by verifying the image's
-digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller).
+      tags) or the provenance of the image is validated by verifying the image's
+      digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller).
 - [ ] Container images are regularly scanned during creation and in deployment, and
-  known vulnerable software is patched.
+      known vulnerable software is patched.
 
 Container image should contain the bare minimum to run the program they
 package. Preferably, only the program and its dependencies, building the image
@@ -338,7 +339,7 @@ Production.
 
 - [ ] An appropriate selection of admission controllers is enabled.
 - [ ] A pod security policy is enforced by the Pod Security Admission or/and a
-  webhook admission controller.
+      webhook admission controller.
 - [ ] The admission chain plugins and webhooks are securely configured.
 
 Admission controllers can help to improve the security of the cluster. However,

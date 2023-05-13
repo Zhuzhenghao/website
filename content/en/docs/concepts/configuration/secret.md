@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+  - mikedanese
 title: Secrets
 content_type: concept
 feature:
@@ -56,6 +56,7 @@ See [Information security for Secrets](#information-security-for-secrets) for mo
 ## Uses for Secrets
 
 There are three main ways for a Pod to use a Secret:
+
 - As [files](#using-secrets-as-files-from-a-pod) in a
   {{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
   its containers.
@@ -111,7 +112,7 @@ The name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 You can specify the `data` and/or the `stringData` field when creating a
-configuration file for a Secret.  The `data` and the `stringData` fields are optional.
+configuration file for a Secret. The `data` and the `stringData` fields are optional.
 The values for all keys in the `data` field have to be base64-encoded strings.
 If the conversion to base64 string is not desirable, you can choose to specify
 the `stringData` field instead, which accepts arbitrary strings as values.
@@ -135,8 +136,8 @@ number of Secrets (or other resources) in a namespace.
 You can edit an existing Secret unless it is [immutable](#secret-immutable). To
 edit a Secret, use one of the following methods:
 
-*  [Use `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
-*  [Use a configuration file](/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
+- [Use `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
+- [Use a configuration file](/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
 
 You can also edit the data in a Secret using the [Kustomize tool](/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret). However, this
 method creates a new `Secret` object with the edited data.
@@ -176,17 +177,17 @@ metadata:
   name: mypod
 spec:
   containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
+    - name: mypod
+      image: redis
+      volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
+          readOnly: true
   volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      optional: true
+    - name: foo
+      secret:
+        secretName: mysecret
+        optional: true
 ```
 
 By default, Secrets are required. None of a Pod's containers will start until
@@ -341,16 +342,16 @@ metadata:
     name: secret-test
 spec:
   volumes:
-  - name: secret-volume
-    secret:
-      secretName: ssh-key-secret
-  containers:
-  - name: ssh-test-container
-    image: mySshImage
-    volumeMounts:
     - name: secret-volume
-      readOnly: true
-      mountPath: "/etc/secret-volume"
+      secret:
+        secretName: ssh-key-secret
+  containers:
+    - name: ssh-test-container
+      image: mySshImage
+      volumeMounts:
+        - name: secret-volume
+          readOnly: true
+          mountPath: "/etc/secret-volume"
 ```
 
 When the container's command runs, the pieces of the key will be available in:
@@ -394,7 +395,7 @@ secret "test-db-secret" created
 
 {{< note >}}
 Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your
-[shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+[shell](<https://en.wikipedia.org/wiki/Shell_(computing)>) and require escaping.
 
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
 For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
@@ -495,8 +496,8 @@ metadata:
 spec:
   serviceAccount: prod-db-client
   containers:
-  - name: db-client-container
-    image: myClientImage
+    - name: db-client-container
+      image: myClientImage
 ```
 
 ### Use case: dotfiles in a secret volume
@@ -519,20 +520,20 @@ metadata:
   name: secret-dotfiles-pod
 spec:
   volumes:
-  - name: secret-volume
-    secret:
-      secretName: dotfile-secret
-  containers:
-  - name: dotfile-test-container
-    image: registry.k8s.io/busybox
-    command:
-    - ls
-    - "-l"
-    - "/etc/secret-volume"
-    volumeMounts:
     - name: secret-volume
-      readOnly: true
-      mountPath: "/etc/secret-volume"
+      secret:
+        secretName: dotfile-secret
+  containers:
+    - name: dotfile-test-container
+      image: registry.k8s.io/busybox
+      command:
+        - ls
+        - "-l"
+        - "/etc/secret-volume"
+      volumeMounts:
+        - name: secret-volume
+          readOnly: true
+          mountPath: "/etc/secret-volume"
 ```
 
 The volume will contain a single file, called `.secret-file`, and
@@ -540,7 +541,7 @@ the `dotfile-test-container` will have this file present at the path
 `/etc/secret-volume/.secret-file`.
 
 {{< note >}}
-Files beginning with dot characters are hidden from the output of  `ls -l`;
+Files beginning with dot characters are hidden from the output of `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
 {{< /note >}}
 
@@ -571,16 +572,16 @@ Kubernetes provides several built-in types for some common usage scenarios.
 These types vary in terms of the validations performed and the constraints
 Kubernetes imposes on them.
 
-| Built-in Type | Usage |
-|--------------|-------|
-| `Opaque`     |  arbitrary user-defined data |
-| `kubernetes.io/service-account-token` | ServiceAccount token |
-| `kubernetes.io/dockercfg` | serialized `~/.dockercfg` file |
-| `kubernetes.io/dockerconfigjson` | serialized `~/.docker/config.json` file |
-| `kubernetes.io/basic-auth` | credentials for basic authentication |
-| `kubernetes.io/ssh-auth` | credentials for SSH authentication |
-| `kubernetes.io/tls` | data for a TLS client or server |
-| `bootstrap.kubernetes.io/token` | bootstrap token data |
+| Built-in Type                         | Usage                                   |
+| ------------------------------------- | --------------------------------------- |
+| `Opaque`                              | arbitrary user-defined data             |
+| `kubernetes.io/service-account-token` | ServiceAccount token                    |
+| `kubernetes.io/dockercfg`             | serialized `~/.dockercfg` file          |
+| `kubernetes.io/dockerconfigjson`      | serialized `~/.docker/config.json` file |
+| `kubernetes.io/basic-auth`            | credentials for basic authentication    |
+| `kubernetes.io/ssh-auth`              | credentials for SSH authentication      |
+| `kubernetes.io/tls`                   | data for a TLS client or server         |
+| `bootstrap.kubernetes.io/token`       | bootstrap token data                    |
 
 You can define and use your own Secret type by assigning a non-empty string as the
 `type` value for a Secret object (an empty string is treated as an `Opaque` type).
@@ -788,7 +789,7 @@ metadata:
   name: secret-basic-auth
 type: kubernetes.io/basic-auth
 stringData:
-  username: admin      # required field for kubernetes.io/basic-auth
+  username: admin # required field for kubernetes.io/basic-auth
   password: t0p-Secret # required field for kubernetes.io/basic-auth
 ```
 
@@ -818,7 +819,7 @@ type: kubernetes.io/ssh-auth
 data:
   # the data is abbreviated in this example
   ssh-privatekey: |
-     MIIEpQIBAAKCAQEAulqb/Y ...
+    MIIEpQIBAAKCAQEAulqb/Y ...
 ```
 
 The SSH authentication Secret type is provided only for user's convenience.
@@ -959,7 +960,6 @@ stringData:
   usage-bootstrap-signing: "true"
 ```
 
-
 ## Immutable Secrets {#secret-immutable}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
@@ -980,10 +980,8 @@ You can create an immutable Secret by setting the `immutable` field to `true`. F
 ```yaml
 apiVersion: v1
 kind: Secret
-metadata:
-  ...
-data:
-  ...
+metadata: ...
+data: ...
 immutable: true
 ```
 
@@ -1035,4 +1033,3 @@ Secrets used on that node.
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 - Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`
-

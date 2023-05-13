@@ -16,6 +16,7 @@ or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
 <!-- body -->
+
 ## Motivation
 
 Use a ConfigMap for setting configuration data separately from application code.
@@ -39,7 +40,7 @@ separate database or file service.
 A ConfigMap is an {{< glossary_tooltip text="API object" term_id="object" >}}
 that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
-fields. These fields accept key-value pairs as their values.  Both the `data`
+fields. These fields accept key-value pairs as their values. Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
 contain UTF-8 strings while the `binaryData` field is designed to
 contain binary data as base64-encoded strings.
@@ -122,7 +123,7 @@ container as `/config` creates two files,
 `/config/game.properties` and `/config/user-interface.properties`,
 even though there are four keys in the ConfigMap. This is because the Pod
 definition specifies an `items` array in the `volumes` section.
-If you omit the `items` array entirely, every key  in the ConfigMap becomes
+If you omit the `items` array entirely, every key in the ConfigMap becomes
 a file with the same name as the key, and you get 4 files.
 
 ## Using ConfigMaps
@@ -166,16 +167,16 @@ metadata:
   name: mypod
 spec:
   containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
+    - name: mypod
+      image: redis
+      volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
+          readOnly: true
   volumes:
-  - name: foo
-    configMap:
-      name: myconfigmap
+    - name: foo
+      configMap:
+        name: myconfigmap
 ```
 
 Each ConfigMap you want to use needs to be referred to in `.spec.volumes`.
@@ -197,7 +198,7 @@ when new keys are projected to the Pod can be as long as the kubelet sync period
 propagation delay, where the cache propagation delay depends on the chosen cache type
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 
-ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
+ConfigMaps consumed as environment variables are not updated automatically and require a pod restart.
 
 {{< note >}}
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
@@ -224,10 +225,8 @@ For example:
 ```yaml
 apiVersion: v1
 kind: ConfigMap
-metadata:
-  ...
-data:
-  ...
+metadata: ...
+data: ...
 immutable: true
 ```
 
@@ -238,8 +237,8 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Secrets](/docs/concepts/configuration/secret/).
-* Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
-* Read about [changing a ConfigMap (or any other Kubernetes object)](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
-* Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
+- Read about [Secrets](/docs/concepts/configuration/secret/).
+- Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+- Read about [changing a ConfigMap (or any other Kubernetes object)](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
+- Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.

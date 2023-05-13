@@ -1,15 +1,18 @@
 ---
 reviewers:
-- luxas
-- jbeda
+  - luxas
+  - jbeda
 title: kubeadm join
 content_type: concept
 weight: 30
 ---
+
 <!-- overview -->
+
 This command initializes a Kubernetes worker node and joins it to the cluster.
 
 <!-- body -->
+
 {{< include "generated/kubeadm_join.md" >}}
 
 ### The join workflow {#join-workflow}
@@ -35,7 +38,7 @@ This action consists of the following steps for worker nodes:
 For control-plane nodes additional steps are performed:
 
 1. Downloading certificates shared among control-plane nodes from the cluster
-  (if explicitly requested by the user).
+   (if explicitly requested by the user).
 
 1. Generating control-plane component manifests, certificates and kubeconfig.
 
@@ -236,12 +239,12 @@ This forces the workflow that `kubeadm join` will only succeed if `kubectl certi
 #### Turning off public access to the `cluster-info` ConfigMap
 
 In order to achieve the joining flow using the token as the only piece of validation information, a
- ConfigMap with some data needed for validation of the control-plane node's identity is exposed publicly by
+ConfigMap with some data needed for validation of the control-plane node's identity is exposed publicly by
 default. While there is no private data in this ConfigMap, some users might wish to turn
 it off regardless. Doing so will disable the ability to use the `--discovery-token` flag of the
 `kubeadm join` flow. Here are the steps to do so:
 
-* Fetch the `cluster-info` file from the API Server:
+- Fetch the `cluster-info` file from the API Server:
 
 ```shell
 kubectl -n kube-public get cm cluster-info -o jsonpath='{.data.kubeconfig}' | tee cluster-info.yaml
@@ -253,19 +256,19 @@ The output is similar to this:
 apiVersion: v1
 kind: Config
 clusters:
-- cluster:
-    certificate-authority-data: <ca-cert>
-    server: https://<ip>:<port>
-  name: ""
+  - cluster:
+      certificate-authority-data: <ca-cert>
+      server: https://<ip>:<port>
+    name: ""
 contexts: []
 current-context: ""
 preferences: {}
 users: []
 ```
 
-* Use the `cluster-info.yaml` file as an argument to `kubeadm join --discovery-file`.
+- Use the `cluster-info.yaml` file as an argument to `kubeadm join --discovery-file`.
 
-* Turn off public access to the `cluster-info` ConfigMap:
+- Turn off public access to the `cluster-info` ConfigMap:
 
 ```shell
 kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
@@ -296,6 +299,6 @@ For more information on the fields and usage of the configuration you can naviga
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node.
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`.
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`.
+- [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node.
+- [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`.
+- [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`.

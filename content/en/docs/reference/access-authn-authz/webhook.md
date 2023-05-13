@@ -1,19 +1,20 @@
 ---
 reviewers:
-- erictune
-- lavalamp
-- deads2k
-- liggitt
+  - erictune
+  - lavalamp
+  - deads2k
+  - liggitt
 title: Webhook Mode
 content_type: concept
 weight: 100
 ---
 
 <!-- overview -->
+
 A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen.
 
-
 <!-- body -->
+
 When specified, mode `Webhook` causes Kubernetes to query an outside REST
 service when determining user privileges.
 
@@ -47,15 +48,15 @@ users:
   - name: name-of-api-server
     user:
       client-certificate: /path/to/cert.pem # cert for the webhook plugin to use
-      client-key: /path/to/key.pem          # key matching the cert
+      client-key: /path/to/key.pem # key matching the cert
 
 # kubeconfig files require a context. Provide one for the API Server.
 current-context: webhook
 contexts:
-- context:
-    cluster: name-of-remote-authz-service
-    user: name-of-api-server
-  name: webhook
+  - context:
+      cluster: name-of-remote-authz-service
+      user: name-of-api-server
+    name: webhook
 ```
 
 ## Request Payloads
@@ -86,10 +87,7 @@ An example request body:
       "resource": "pods"
     },
     "user": "jane",
-    "group": [
-      "group1",
-      "group2"
-    ]
+    "group": ["group1", "group2"]
   }
 }
 ```
@@ -111,9 +109,9 @@ the request and respond to either allow or disallow access. The response body's
 For disallowing access there are two methods.
 
 The first method is preferred in most cases, and indicates the authorization
-webhook does not allow, or has "no opinion" about the request, but if other 
-authorizers are configured, they are given a chance to allow the request. 
-If there are no other authorizers, or none of them allow the request, the 
+webhook does not allow, or has "no opinion" about the request, but if other
+authorizers are configured, they are given a chance to allow the request.
+If there are no other authorizers, or none of them allow the request, the
 request is forbidden. The webhook would return:
 
 ```json
@@ -127,9 +125,9 @@ request is forbidden. The webhook would return:
 }
 ```
 
-The second method denies immediately, short-circuiting evaluation by other 
-configured authorizers. This should only be used by webhooks that have 
-detailed knowledge of the full authorizer configuration of the cluster. 
+The second method denies immediately, short-circuiting evaluation by other
+configured authorizers. This should only be used by webhooks that have
+detailed knowledge of the full authorizer configuration of the cluster.
 The webhook would return:
 
 ```json
@@ -156,10 +154,7 @@ Access to non-resource paths are sent as:
       "verb": "get"
     },
     "user": "jane",
-    "group": [
-      "group1",
-      "group2"
-    ]
+    "group": ["group1", "group2"]
   }
 }
 ```
@@ -173,4 +168,3 @@ to the REST api.
 
 For further documentation refer to the authorization.v1beta1 API objects and
 [webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
-

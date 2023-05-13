@@ -2,8 +2,8 @@
 title: Localizing Kubernetes documentation
 content_type: concept
 approvers:
-- remyleone
-- rlenferink
+  - remyleone
+  - rlenferink
 weight: 50
 card:
   name: contribute
@@ -120,7 +120,7 @@ localization teams to collaborate on defining and documenting the processes for
 creating localized contribution guides. In addition, the SIG Docs localization
 subgroup looks for opportunities to create and share common tools across
 localization teams and identify new requirements for the SIG Docs Leadership
-team.  If you have questions about this meeting, please inquire on the [SIG Docs
+team. If you have questions about this meeting, please inquire on the [SIG Docs
 Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
 
 You can also create a Slack channel for your localization in the
@@ -245,13 +245,13 @@ language code `es`, looks like this:
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
 reviewers:
-- sig-docs-es-reviews
+  - sig-docs-es-reviews
 
 approvers:
-- sig-docs-es-owners
+  - sig-docs-es-owners
 
 labels:
-- language/es
+  - language/es
 ```
 
 After adding the language-specific `OWNERS` file, update the [root
@@ -325,20 +325,20 @@ Docs does the following:
 
 ## Translating content
 
-Localizing *all* the Kubernetes documentation is an enormous task. It's okay to
+Localizing _all_ the Kubernetes documentation is an enormous task. It's okay to
 start small and expand over time.
 
 ### Minimum required content
 
 At a minimum, all localizations must include:
 
-Description | URLs
------|-----
-Home | [All heading and subheading URLs](/docs/home/)
-Setup | [All heading and subheading URLs](/docs/setup/)
-Tutorials | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/hello-minikube/)
-Site strings | [All site strings](#site-strings-in-i18n) in a new localized TOML file
-Releases | [All heading and subheading URLs](/releases)
+| Description  | URLs                                                                                                       |
+| ------------ | ---------------------------------------------------------------------------------------------------------- |
+| Home         | [All heading and subheading URLs](/docs/home/)                                                             |
+| Setup        | [All heading and subheading URLs](/docs/setup/)                                                            |
+| Tutorials    | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/hello-minikube/) |
+| Site strings | [All site strings](#site-strings-in-i18n) in a new localized TOML file                                     |
+| Releases     | [All heading and subheading URLs](/releases)                                                               |
 
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise, follow the
 same URL path as the English source. For example, to prepare the
@@ -374,11 +374,11 @@ To find source files for your target version:
 
 2. Select a branch for your target version from the following table:
 
-Target version | Branch
------|-----
-Latest version | [`main`](https://github.com/kubernetes/website/tree/main)
-Previous version | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
-Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+| Target version   | Branch                                                                                                                      |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Latest version   | [`main`](https://github.com/kubernetes/website/tree/main)                                                                   |
+| Previous version | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}}) |
+| Next version     | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})         |
 
 The `main` branch holds content for the current release `{{< latest-version >}}`.
 The release team creates a `{{< release-branch >}}` branch before the next

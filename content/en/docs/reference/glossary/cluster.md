@@ -2,19 +2,21 @@
 title: Cluster
 id: cluster
 date: 2019-06-15
-full_link: 
+full_link:
 short_description: >
-   A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
+  A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
 
-aka: 
+aka:
 tags:
-- fundamental
-- operation
+  - fundamental
+  - operation
 ---
+
 A set of worker machines, called {{< glossary_tooltip text="nodes" term_id="node" >}},
 that run containerized applications. Every cluster has at least one worker node.
 
 <!--more-->
+
 The worker node(s) host the {{< glossary_tooltip text="Pods" term_id="pod" >}} that are
 the components of the application workload. The
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} manages the worker

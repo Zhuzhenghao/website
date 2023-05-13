@@ -17,10 +17,11 @@ to improve the control over the handling of container- or Pod-level failure
 within a {{<glossary_tooltip text="Job" term_id="job">}}.
 
 The definition of Pod failure policy may help you to:
-* better utilize the computational resources by avoiding unnecessary Pod retries.
-* avoid Job failures due to Pod disruptions (such {{<glossary_tooltip text="preemption" term_id="preemption" >}},
-{{<glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
-or {{<glossary_tooltip text="taint" term_id="taint" >}}-based eviction).
+
+- better utilize the computational resources by avoiding unnecessary Pod retries.
+- avoid Job failures due to Pod disruptions (such {{<glossary_tooltip text="preemption" term_id="preemption" >}},
+  {{<glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
+  or {{<glossary_tooltip text="taint" term_id="taint" >}}-based eviction).
 
 ## {{% heading "prerequisites" %}}
 
@@ -100,7 +101,7 @@ node while the Pod is running on it (within 90s since the Pod is scheduled).
    ```
 
 3. Drain the node to evict the Pod before it completes (within 90s):
-   
+
    ```sh
    kubectl drain nodes/$nodeName --ignore-daemonsets --grace-period=0
    ```
@@ -162,6 +163,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    ```
 
    You will see output similar to this:
+
    ```yaml
    containerStatuses:
    - image: non-existing-repo/non-existing-image:example
@@ -191,7 +193,9 @@ deleted pods, in the `Pending` phase, to a terminal phase
        lastTransitionTime: "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
    EOF
    ```
+
    Second, select one of the pods created by the job by running:
+
    ```
    podName=$(kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o jsonpath='{.items[0].metadata.name}')
    ```
@@ -246,5 +250,5 @@ You could rely solely on the
 [Pod backoff failure policy](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy),
 by specifying the Job's `.spec.backoffLimit` field. However, in many situations
 it is problematic to find a balance between setting a low value for `.spec.backoffLimit`
- to avoid unnecessary Pod retries, yet high enough to make sure the Job would
+to avoid unnecessary Pod retries, yet high enough to make sure the Job would
 not be terminated by Pod disruptions.

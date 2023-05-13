@@ -6,10 +6,11 @@ full_link: /docs/reference/command-line-tools-reference/kube-scheduler/
 short_description: >
   Control plane component that watches for newly created pods with no assigned node, and selects a node for them to run on.
 
-aka: 
+aka:
 tags:
-- architecture
+  - architecture
 ---
+
 Control plane component that watches for newly created
 {{< glossary_tooltip term_id="pod" text="Pods" >}} with no assigned
 {{< glossary_tooltip term_id="node" text="node">}}, and selects a node for them

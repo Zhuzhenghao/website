@@ -27,7 +27,6 @@ If you are using an older Kubernetes version, switch to the documentation for th
 
 If you haven't already set up a cluster locally, run `minikube start` to create a cluster.
 
-
 <!-- steps -->
 
 ## Enable the Ingress controller
@@ -157,7 +156,6 @@ The following manifest defines an Ingress that sends traffic to your Service via
    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
    ```
 
-
 1. Verify that the Ingress controller is directing traffic:
 
    ```shell
@@ -174,8 +172,9 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
    You can also visit `hello-world.info` from your browser.
 
-   * **Optionally**
+   - **Optionally**
      Look up the external IP address as reported by minikube:
+
      ```shell
      minikube ip
      ```
@@ -225,15 +224,15 @@ The following manifest defines an Ingress that sends traffic to your Service via
 1. Edit the existing `example-ingress.yaml` manifest, and add the
    following lines at the end:
 
-    ```yaml
-    - path: /v2
-      pathType: Prefix
-      backend:
-        service:
-          name: web2
-          port:
-            number: 8080
-    ```
+   ```yaml
+   - path: /v2
+     pathType: Prefix
+     backend:
+       service:
+         name: web2
+         port:
+           number: 8080
+   ```
 
 1. Apply the changes:
 
@@ -284,7 +283,6 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 ## {{% heading "whatsnext" %}}
 
-* Read more about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read more about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
-* Read more about [Services](/docs/concepts/services-networking/service/)
-
+- Read more about [Ingress](/docs/concepts/services-networking/ingress/)
+- Read more about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
+- Read more about [Services](/docs/concepts/services-networking/service/)

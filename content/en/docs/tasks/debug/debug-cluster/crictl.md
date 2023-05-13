@@ -1,13 +1,12 @@
 ---
 reviewers:
-- Random-Liu
-- feiskyer
-- mrunalp
+  - Random-Liu
+  - feiskyer
+  - mrunalp
 title: Debugging Kubernetes nodes with crictl
 content_type: task
 weight: 30
 ---
-
 
 <!-- overview -->
 
@@ -39,10 +38,10 @@ The `crictl` command has several subcommands and runtime flags. Use
 
 You can set the endpoint for `crictl` by doing one of the following:
 
-* Set the `--runtime-endpoint` and `--image-endpoint` flags.
-* Set the `CONTAINER_RUNTIME_ENDPOINT` and `IMAGE_SERVICE_ENDPOINT` environment
+- Set the `--runtime-endpoint` and `--image-endpoint` flags.
+- Set the `CONTAINER_RUNTIME_ENDPOINT` and `IMAGE_SERVICE_ENDPOINT` environment
   variables.
-* Set the endpoint in the configuration file `/etc/crictl.yaml`. To specify a
+- Set the endpoint in the configuration file `/etc/crictl.yaml`. To specify a
   different file, use the `--config=PATH_TO_FILE` flag when you run `crictl`.
 
 {{<note>}}
@@ -258,8 +257,7 @@ deleted by the Kubelet.
        "uid": "hdishd83djaidwnduwk28bcsb"
      },
      "log_directory": "/tmp",
-     "linux": {
-     }
+     "linux": {}
    }
    ```
 
@@ -282,6 +280,7 @@ deleted by the Kubelet.
    ```shell
    crictl pull busybox
    ```
+
    ```none
    Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
    ```
@@ -299,8 +298,7 @@ deleted by the Kubelet.
        "uid": "aewi4aeThua7ooShohbo1phoj"
      },
      "log_directory": "/tmp",
-     "linux": {
-     }
+     "linux": {}
    }
    ```
 
@@ -311,15 +309,12 @@ deleted by the Kubelet.
      "metadata": {
        "name": "busybox"
      },
-     "image":{
+     "image": {
        "image": "busybox"
      },
-     "command": [
-       "top"
-     ],
-     "log_path":"busybox.log",
-     "linux": {
-     }
+     "command": ["top"],
+     "log_path": "busybox.log",
+     "linux": {}
    }
    ```
 
@@ -339,7 +334,7 @@ deleted by the Kubelet.
    ```
 
    The output is similar to this:
-      
+
    ```
    CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
    3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
@@ -364,6 +359,7 @@ Check the container has its state set to `Running`.
 ```shell
 crictl ps
 ```
+
 The output is similar to this:
 
 ```
@@ -373,6 +369,5 @@ CONTAINER ID   IMAGE    CREATED              STATE    NAME     ATTEMPT
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
-
+- [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
+- [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).

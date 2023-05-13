@@ -8,10 +8,11 @@ short_description: >
 
 aka:
 tags:
-- fundamental
-- networking
+  - fundamental
+  - networking
 ---
- kube-proxy is a network proxy that runs on each
+
+kube-proxy is a network proxy that runs on each
 {{< glossary_tooltip text="node" term_id="node" >}} in your cluster,
 implementing part of the Kubernetes
 {{< glossary_tooltip term_id="service">}} concept.

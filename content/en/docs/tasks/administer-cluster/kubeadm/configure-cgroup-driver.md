@@ -100,6 +100,7 @@ nodes before deleting the old nodes.
   ```yaml
   cgroupDriver: systemd
   ```
+
   This field must be present under the `kubelet:` section of the ConfigMap.
 
 ### Update the cgroup driver on all nodes

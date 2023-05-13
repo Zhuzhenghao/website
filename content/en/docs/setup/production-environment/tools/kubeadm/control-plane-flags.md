@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Customizing components with the kubeadm API
 content_type: concept
 weight: 40
@@ -169,13 +169,13 @@ The directory must contain files named `target[suffix][+patchtype].extension`.
 For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 
 - `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
-and `kubeletconfiguration`.
+  and `kubeletconfiguration`.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
-[supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
-The default `patchtype` is `strategic`.
+  [supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
+  The default `patchtype` is `strategic`.
 - `extension` must be either `json` or `yaml`.
 - `suffix` is an optional string that can be used to determine which patches are applied first
-alpha-numerically.
+  alpha-numerically.
 
 {{< note >}}
 If you are using `kubeadm upgrade` to upgrade your kubeadm nodes you must again provide the same

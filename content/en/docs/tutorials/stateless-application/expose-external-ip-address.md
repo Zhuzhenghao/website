@@ -11,19 +11,19 @@ external IP address.
 
 ## {{% heading "prerequisites" %}}
 
-* Install [kubectl](/docs/tasks/tools/).
-* Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
+- Install [kubectl](/docs/tasks/tools/).
+- Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
   create a Kubernetes cluster. This tutorial creates an
   [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
   which requires a cloud provider.
-* Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
+- Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
   documentation for your cloud provider.
 
 ## {{% heading "objectives" %}}
 
-* Run five instances of a Hello World application.
-* Create a Service object that exposes an external IP address.
-* Use the Service object to access the running application.
+- Run five instances of a Hello World application.
+- Create a Service object that exposes an external IP address.
+- Use the Service object to access the running application.
 
 <!-- lessoncontent -->
 
@@ -36,6 +36,7 @@ external IP address.
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
    ```
+
    The preceding command creates a
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
    and an associated

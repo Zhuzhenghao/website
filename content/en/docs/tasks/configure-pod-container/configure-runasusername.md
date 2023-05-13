@@ -10,14 +10,9 @@ weight: 40
 
 This page shows how to use the `runAsUserName` setting for Pods and containers that will run on Windows nodes. This is roughly equivalent of the Linux-specific `runAsUser` setting, allowing you to run applications in a container as a different username than the default.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads will get scheduled.
-
-
 
 <!-- steps -->
 
@@ -109,18 +104,14 @@ In order to use this feature, the value set in the `runAsUserName` field must be
 - The `DOMAIN` must be either a NetBios name, or a DNS name, each with their own restrictions:
   - NetBios names: maximum 15 characters, cannot start with `.` (dot), and cannot contain the following characters: `\ / : * ? " < > |`
   - DNS names: maximum 255 characters, contains only alphanumeric characters, dots, and dashes, and it cannot start or end with a `.` (dot) or `-` (dash).
-- The `USER` must have at most 20 characters, it cannot contain *only* dots or spaces, and it cannot contain the following characters: `" / \ [ ] : ; | = , + * ? < > @`.
+- The `USER` must have at most 20 characters, it cannot contain _only_ dots or spaces, and it cannot contain the following characters: `" / \ [ ] : ; | = , + * ? < > @`.
 
 Examples of acceptable values for the `runAsUserName` field: `ContainerAdministrator`, `ContainerUser`, `NT AUTHORITY\NETWORK SERVICE`, `NT AUTHORITY\LOCAL SERVICE`.
 
 For more information about these limtations, check [here](https://support.microsoft.com/en-us/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and) and [here](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/new-localuser?view=powershell-5.1).
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* [Guide for scheduling Windows containers in Kubernetes](/docs/concepts/windows/user-guide/)
-* [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
-* [Configure GMSA for Windows pods and containers](/docs/tasks/configure-pod-container/configure-gmsa/)
-
+- [Guide for scheduling Windows containers in Kubernetes](/docs/concepts/windows/user-guide/)
+- [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
+- [Configure GMSA for Windows pods and containers](/docs/tasks/configure-pod-container/configure-gmsa/)

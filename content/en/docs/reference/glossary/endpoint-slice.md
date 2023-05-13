@@ -8,9 +8,10 @@ short_description: >
 
 aka:
 tags:
-- networking
+  - networking
 ---
- A way to group network endpoints together with Kubernetes resources.
+
+A way to group network endpoints together with Kubernetes resources.
 
 <!--more-->
 

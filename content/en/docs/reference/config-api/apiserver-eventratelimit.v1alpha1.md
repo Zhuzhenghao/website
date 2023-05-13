@@ -5,21 +5,14 @@ package: eventratelimit.admission.k8s.io/v1alpha1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [Configuration](#eventratelimit-admission-k8s-io-v1alpha1-Configuration)
-  
-    
 
-## `Configuration`     {#eventratelimit-admission-k8s-io-v1alpha1-Configuration}
-    
-
+## `Configuration` {#eventratelimit-admission-k8s-io-v1alpha1-Configuration}
 
 <p>Configuration provides configuration for the EventRateLimit admission
 controller.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -42,16 +35,13 @@ At least one limit is required.</p>
 </tbody>
 </table>
 
-## `Limit`     {#eventratelimit-admission-k8s-io-v1alpha1-Limit}
-    
+## `Limit` {#eventratelimit-admission-k8s-io-v1alpha1-Limit}
 
 **Appears in:**
 
 - [Configuration](#eventratelimit-admission-k8s-io-v1alpha1-Configuration)
 
-
 <p>Limit is the configuration for a particular limit type</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -105,17 +95,12 @@ allowance of burst queries.</p>
 </tbody>
 </table>
 
-## `LimitType`     {#eventratelimit-admission-k8s-io-v1alpha1-LimitType}
-    
+## `LimitType` {#eventratelimit-admission-k8s-io-v1alpha1-LimitType}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [Limit](#eventratelimit-admission-k8s-io-v1alpha1-Limit)
 
-
 <p>LimitType is the type of the limit (e.g., per-namespace)</p>
-
-
-
-  

@@ -123,20 +123,20 @@ finds issues that might need triage.
    [Issue Triage Guidelines](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)
    define priority labels in detail)
 
-  {{< table caption="Issue labels" >}}
-  Label | Description
-  :------------|:------------------
-  `priority/critical-urgent` | Do this right now.
-  `priority/important-soon` | Do this within 3 months.
-  `priority/important-longterm` | Do this within 6 months.
-  `priority/backlog` | Deferrable indefinitely. Do when resources are available.
-  `priority/awaiting-more-evidence` | Placeholder for a potentially good issue so it doesn't get lost.
-  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) for more information.
+{{< table caption="Issue labels" >}}
+Label | Description
+:------------|:------------------
+`priority/critical-urgent` | Do this right now.
+`priority/important-soon` | Do this within 3 months.
+`priority/important-longterm` | Do this within 6 months.
+`priority/backlog` | Deferrable indefinitely. Do when resources are available.
+`priority/awaiting-more-evidence` | Placeholder for a potentially good issue so it doesn't get lost.
+`help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) for more information.
 
-  {{< /table >}}
+{{< /table >}}
 
-  At your discretion, take ownership of an issue and submit a PR for it
-  (especially if it's quick or relates to work you're already doing).
+At your discretion, take ownership of an issue and submit a PR for it
+(especially if it's quick or relates to work you're already doing).
 
 If you have questions about triaging an issue, ask in `#sig-docs` on Slack or
 the [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
@@ -260,13 +260,13 @@ squash for them:
 
 - The kubernetes/website repo is
   [configured to allow squashing for pull request merges](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests).
-  Simply select the *Squash commits* button.
+  Simply select the _Squash commits_ button.
 - In the PR, if the contributor enables maintainers to manage the PR, you can
   squash their commits and update their fork with the result. Before you squash,
   advise them to save and push their latest changes to the PR. After you squash,
   advise them to pull the squashed commit to their local clone.
 - You can get GitHub to squash the commits by using a label so that Tide / GitHub
-  performs the squash or by clicking the *Squash commits* button when you merge the PR.
+  performs the squash or by clicking the _Squash commits_ button when you merge the PR.
 
 **Advise contributors to avoid squashing**
 

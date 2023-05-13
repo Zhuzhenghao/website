@@ -57,8 +57,8 @@ created anew.
 
 {{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
 
-*A multi-container Pod that contains a file puller and a
-web server that uses a persistent volume for shared storage between the containers.*
+_A multi-container Pod that contains a file puller and a
+web server that uses a persistent volume for shared storage between the containers._
 
 ## Pod phase
 
@@ -76,13 +76,13 @@ have a given `phase` value.
 
 Here are the possible values for `phase`:
 
-Value       | Description
-:-----------|:-----------
-`Pending`   | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network.
-`Running`   | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
-`Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
-`Failed`    | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
-`Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
+| Value       | Description                                                                                                                                                                                                                                                        |
+| :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Pending`   | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network. |
+| `Running`   | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.                                                                                            |
+| `Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.                                                                                                                                                                                   |
+| `Failed`    | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.                                                                        |
+| `Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.                                                                                            |
 
 {{< note >}}
 When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
@@ -163,24 +163,23 @@ A Pod has a PodStatus, which has an array of
 through which the Pod has or has not passed. Kubelet manages the following
 PodConditions:
 
-* `PodScheduled`: the Pod has been scheduled to a node.
-* `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+- `PodScheduled`: the Pod has been scheduled to a node.
+- `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
   Pod sandbox has been successfully created and networking configured.
-* `ContainersReady`: all containers in the Pod are ready.
-* `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
+- `ContainersReady`: all containers in the Pod are ready.
+- `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
-* `Ready`: the Pod is able to serve requests and should be added to the load
+- `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
 
-Field name           | Description
-:--------------------|:-----------
-`type`               | Name of this Pod condition.
-`status`             | Indicates whether that condition is applicable, with possible values "`True`", "`False`", or "`Unknown`".
-`lastProbeTime`      | Timestamp of when the Pod condition was last probed.
-`lastTransitionTime` | Timestamp for when the Pod last transitioned from one status to another.
-`reason`             | Machine-readable, UpperCamelCase text indicating the reason for the condition's last transition.
-`message`            | Human-readable message indicating details about the last status transition.
-
+| Field name           | Description                                                                                               |
+| :------------------- | :-------------------------------------------------------------------------------------------------------- |
+| `type`               | Name of this Pod condition.                                                                               |
+| `status`             | Indicates whether that condition is applicable, with possible values "`True`", "`False`", or "`Unknown`". |
+| `lastProbeTime`      | Timestamp of when the Pod condition was last probed.                                                      |
+| `lastTransitionTime` | Timestamp for when the Pod last transitioned from one status to another.                                  |
+| `reason`             | Machine-readable, UpperCamelCase text indicating the reason for the condition's last transition.          |
+| `message`            | Human-readable message indicating details about the last status transition.                               |
 
 ### Pod readiness {#pod-readiness-gate}
 
@@ -199,28 +198,26 @@ Here is an example:
 
 ```yaml
 kind: Pod
-...
+---
 spec:
   readinessGates:
     - conditionType: "www.example.com/feature-1"
 status:
   conditions:
-    - type: Ready                              # a built in PodCondition
+    - type: Ready # a built in PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
-    - type: "www.example.com/feature-1"        # an extra PodCondition
+    - type: "www.example.com/feature-1" # an extra PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
   containerStatuses:
     - containerID: docker://abcd...
       ready: true
-...
 ```
 
 The Pod conditions you add must have names that meet the Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
-
 
 ### Status for Pod readiness {#pod-readiness-status}
 
@@ -234,8 +231,8 @@ write code that sets custom Pod conditions for Pod readiness.
 For a Pod that uses custom conditions, that Pod is evaluated to be ready **only**
 when both the following statements apply:
 
-* All containers in the Pod are ready.
-* All conditions specified in `readinessGates` are `True`.
+- All containers in the Pod are ready.
+- All conditions specified in `readinessGates` are `True`.
 
 When a Pod's containers are Ready but at least one custom condition is missing or
 `False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
@@ -255,11 +252,12 @@ the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
 The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
 the following scenarios:
-* Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
-* Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due
+
+- Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
+- Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due
   to either:
-  * the node rebooting, without the Pod getting evicted
-  * for container runtimes that use virtual machines for isolation, the Pod
+  - the node rebooting, without the Pod getting evicted
+  - for container runtimes that use virtual machines for isolation, the Pod
     sandbox virtual machine rebooting, which then requires creating a new sandbox and fresh container network configuration.
 
 The `PodHasNetwork` condition is set to `True` by the kubelet after the
@@ -295,26 +293,26 @@ Each probe must define exactly one of these four mechanisms:
 
 `exec`
 : Executes a specified command inside the container. The diagnostic
-  is considered successful if the command exits with a status code of 0.
+is considered successful if the command exits with a status code of 0.
 
 `grpc`
 : Performs a remote procedure call using [gRPC](https://grpc.io/).
-  The target should implement
-  [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
-  The diagnostic is considered successful if the `status`
-  of the response is `SERVING`.  
+The target should implement
+[gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
+The diagnostic is considered successful if the `status`
+of the response is `SERVING`.
 
 `httpGet`
 : Performs an HTTP `GET` request against the Pod's IP
-  address on a specified port and path. The diagnostic is
-  considered successful if the response has a status code
-  greater than or equal to 200 and less than 400.
+address on a specified port and path. The diagnostic is
+considered successful if the response has a status code
+greater than or equal to 200 and less than 400.
 
 `tcpSocket`
 : Performs a TCP check against the Pod's IP address on
-  a specified port. The diagnostic is considered successful if
-  the port is open. If the remote system (the container) closes
-  the connection immediately after it opens, this counts as healthy.
+a specified port. The diagnostic is considered successful if
+the port is open. If the remote system (the container) closes
+the connection immediately after it opens, this counts as healthy.
 
 ### Probe outcome
 
@@ -328,7 +326,7 @@ Each probe has one of three results:
 
 `Unknown`
 : The diagnostic failed (no action should be taken, and the kubelet
-  will make further checks).
+will make further checks).
 
 ### Types of probe
 
@@ -337,23 +335,23 @@ containers:
 
 `livenessProbe`
 : Indicates whether the container is running. If
-  the liveness probe fails, the kubelet kills the container, and the container
-  is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a liveness probe, the default state is `Success`.
+the liveness probe fails, the kubelet kills the container, and the container
+is subjected to its [restart policy](#restart-policy). If a container does not
+provide a liveness probe, the default state is `Success`.
 
 `readinessProbe`
 : Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the endpoints controller removes the Pod's IP
-  address from the endpoints of all Services that match the Pod. The default
-  state of readiness before the initial delay is `Failure`. If a container does
-  not provide a readiness probe, the default state is `Success`.
+If the readiness probe fails, the endpoints controller removes the Pod's IP
+address from the endpoints of all Services that match the Pod. The default
+state of readiness before the initial delay is `Failure`. If a container does
+not provide a readiness probe, the default state is `Success`.
 
 `startupProbe`
 : Indicates whether the application within the container is started.
-  All other probes are disabled if a startup probe is provided, until it succeeds.
-  If the startup probe fails, the kubelet kills the container, and the container
- is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a startup probe, the default state is `Success`.
+All other probes are disabled if a startup probe is provided, until it succeeds.
+If the startup probe fails, the kubelet kills the container, and the container
+is subjected to its [restart policy](#restart-policy). If a container does not
+provide a startup probe, the default state is `Success`.
 
 For more information about how to set up a liveness, readiness, or startup probe,
 see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
@@ -547,6 +545,7 @@ The Pod garbage collector (PodGC), which is a controller in the control plane, c
 This avoids a resource leak as Pods are created and terminated over time.
 
 Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
+
 1. are orphan pods - bound to a node which no longer exists,
 2. are unscheduled terminating pods,
 3. are terminating pods, bound to a non-ready node tainted with [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service), when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
@@ -559,14 +558,14 @@ pod (see also:
 
 ## {{% heading "whatsnext" %}}
 
-* Get hands-on experience
+- Get hands-on experience
   [attaching handlers to container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-* Get hands-on experience
+- Get hands-on experience
   [configuring Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
-* Learn more about [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
+- Learn more about [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
-* For detailed information about Pod and container status in the API, see
+- For detailed information about Pod and container status in the API, see
   the API reference documentation covering
   [`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) for Pod.

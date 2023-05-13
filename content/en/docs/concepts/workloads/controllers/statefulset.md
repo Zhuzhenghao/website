@@ -1,11 +1,11 @@
 ---
 reviewers:
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
+  - enisoc
+  - erictune
+  - foxish
+  - janetkuo
+  - kow3ns
+  - smarterclayton
 title: StatefulSets
 content_type: concept
 weight: 30
@@ -17,7 +17,6 @@ StatefulSet is the workload API object used to manage stateful applications.
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
 
-
 <!-- body -->
 
 ## Using StatefulSets
@@ -25,10 +24,10 @@ StatefulSet is the workload API object used to manage stateful applications.
 StatefulSets are valuable for applications that require one or more of the
 following.
 
-* Stable, unique network identifiers.
-* Stable, persistent storage.
-* Ordered, graceful deployment and scaling.
-* Ordered, automated rolling updates.
+- Stable, unique network identifiers.
+- Stable, persistent storage.
+- Ordered, graceful deployment and scaling.
+- Ordered, automated rolling updates.
 
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
 If an application doesn't require any stable identifiers or ordered deployment,
@@ -39,19 +38,19 @@ that provides a set of stateless replicas.
 
 ## Limitations
 
-* The storage for a given Pod must either be provisioned by a
+- The storage for a given Pod must either be provisioned by a
   [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)
   based on the requested `storage class`, or pre-provisioned by an admin.
-* Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the
+- Deleting and/or scaling a StatefulSet down will _not_ delete the volumes associated with the
   StatefulSet. This is done to ensure data safety, which is generally more valuable than an
   automatic purge of all related StatefulSet resources.
-* StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
+- StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
   to be responsible for the network identity of the Pods. You are responsible for creating this
   Service.
-* StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is
+- StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is
   deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is
   possible to scale the StatefulSet down to 0 prior to deletion.
-* When using [Rolling Updates](#rolling-updates) with the default
+- When using [Rolling Updates](#rolling-updates) with the default
   [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
   it's possible to get into a broken state that requires
   [manual intervention to repair](#forced-rollback).
@@ -69,8 +68,8 @@ metadata:
     app: nginx
 spec:
   ports:
-  - port: 80
-    name: web
+    - port: 80
+      name: web
   clusterIP: None
   selector:
     app: nginx
@@ -93,30 +92,30 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: nginx
-        image: registry.k8s.io/nginx-slim:0.8
-        ports:
-        - containerPort: 80
-          name: web
-        volumeMounts:
-        - name: www
-          mountPath: /usr/share/nginx/html
+        - name: nginx
+          image: registry.k8s.io/nginx-slim:0.8
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: www
+              mountPath: /usr/share/nginx/html
   volumeClaimTemplates:
-  - metadata:
-      name: www
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "my-storage-class"
-      resources:
-        requests:
-          storage: 1Gi
+    - metadata:
+        name: www
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "my-storage-class"
+        resources:
+          requests:
+            storage: 1Gi
 ```
 
 In the above example:
 
-* A Headless Service, named `nginx`, is used to control the network domain.
-* The StatefulSet, named `web`, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The `volumeClaimTemplates` will provide stable storage using
+- A Headless Service, named `nginx`, is used to control the network domain.
+- The StatefulSet, named `web`, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
+- The `volumeClaimTemplates` will provide stable storage using
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a
   PersistentVolume Provisioner.
 
@@ -134,7 +133,6 @@ validation error during StatefulSet creation.
 You can set the `.spec.volumeClaimTemplates` which can provide stable storage using
 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume
 Provisioner.
-
 
 ### Minimum ready seconds
 
@@ -168,7 +166,7 @@ ordinals assigned to each Pod. It defaults to nil. You must enable the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 use this field. Once enabled, you can configure the following options:
 
-* `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
+- `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
   be assigned ordinals from `.spec.ordinals.start` up through
   `.spec.ordinals.start + .spec.replicas - 1`.
 
@@ -205,11 +203,11 @@ responsible for the network identity of the pods.
 Here are some examples of choices for Cluster Domain, Service name,
 StatefulSet name, and how that affects the DNS names for the StatefulSet's Pods.
 
-Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain  | Pod DNS | Pod Hostname |
--------------- | ----------------- | ----------------- | -------------- | ------- | ------------ |
- cluster.local | default/nginx     | default/web       | nginx.default.svc.cluster.local | web-{0..N-1}.nginx.default.svc.cluster.local | web-{0..N-1} |
- cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
- kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
+| Cluster Domain | Service (ns/name) | StatefulSet (ns/name) | StatefulSet Domain              | Pod DNS                                      | Pod Hostname |
+| -------------- | ----------------- | --------------------- | ------------------------------- | -------------------------------------------- | ------------ |
+| cluster.local  | default/nginx     | default/web           | nginx.default.svc.cluster.local | web-{0..N-1}.nginx.default.svc.cluster.local | web-{0..N-1} |
+| cluster.local  | foo/nginx         | foo/web               | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
+| kube.local     | foo/nginx         | foo/web               | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
 Cluster Domain will be set to `cluster.local` unless
@@ -236,10 +234,10 @@ the StatefulSet.
 
 ## Deployment and Scaling Guarantees
 
-* For a StatefulSet with N replicas, when Pods are being deployed, they are created sequentially, in order from {0..N-1}.
-* When Pods are being deleted, they are terminated in reverse order, from {N-1..0}.
-* Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready.
-* Before a Pod is terminated, all of its successors must be completely shutdown.
+- For a StatefulSet with N replicas, when Pods are being deployed, they are created sequentially, in order from {0..N-1}.
+- When Pods are being deleted, they are terminated in reverse order, from {N-1..0}.
+- Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready.
+- Before a Pod is terminated, all of its successors must be completely shutdown.
 
 The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice
 is unsafe and strongly discouraged. For further explanation, please refer to
@@ -259,6 +257,7 @@ is completely shutdown, but prior to web-1's termination, web-1 would not be ter
 until web-0 is Running and Ready.
 
 ### Pod Management Policies
+
 StatefulSet allows you to relax its ordering guarantees while
 preserving its uniqueness and identity guarantees via its `.spec.podManagementPolicy` field.
 
@@ -275,7 +274,6 @@ and Ready or completely terminated prior to launching or terminating another
 Pod. This option only affects the behavior for scaling operations. Updates are not
 affected.
 
-
 ## Update strategies
 
 A StatefulSet's `.spec.updateStrategy` field allows you to configure
@@ -284,13 +282,13 @@ annotations for the Pods in a StatefulSet. There are two possible values:
 
 `OnDelete`
 : When a StatefulSet's `.spec.updateStrategy.type` is set to `OnDelete`,
-  the StatefulSet controller will not automatically update the Pods in a
-  StatefulSet. Users must manually delete Pods to cause the controller to
-  create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
+the StatefulSet controller will not automatically update the Pods in a
+StatefulSet. Users must manually delete Pods to cause the controller to
+create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
 `RollingUpdate`
 : The `RollingUpdate` update strategy implements automated, rolling updates for the Pods in a
-  StatefulSet. This is the default update strategy.
+StatefulSet. This is the default update strategy.
 
 ## Rolling Updates
 
@@ -357,7 +355,6 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 
-
 ## PersistentVolumeClaim retention
 
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
@@ -365,7 +362,7 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the
 `StatefulSetAutoDeletePVC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the API server and the controller manager to use this field. 
+on the API server and the controller manager to use this field.
 Once enabled, there are two policies you can configure for each StatefulSet:
 
 `whenDeleted`
@@ -373,27 +370,27 @@ Once enabled, there are two policies you can configure for each StatefulSet:
 
 `whenScaled`
 : configures the volume retention behavior that applies when the replica count of
-  the StatefulSet   is reduced; for example, when scaling down the set.
-  
+the StatefulSet is reduced; for example, when scaling down the set.
+
 For each policy that you can configure, you can set the value to either `Delete` or `Retain`.
 
 `Delete`
 : The PVCs created from the StatefulSet `volumeClaimTemplate` are deleted for each Pod
-  affected by the policy. With the `whenDeleted` policy all PVCs from the
-  `volumeClaimTemplate` are deleted after their Pods have been deleted. With the
-  `whenScaled` policy, only PVCs corresponding to Pod replicas being scaled down are
-  deleted, after their Pods have been deleted.
+affected by the policy. With the `whenDeleted` policy all PVCs from the
+`volumeClaimTemplate` are deleted after their Pods have been deleted. With the
+`whenScaled` policy, only PVCs corresponding to Pod replicas being scaled down are
+deleted, after their Pods have been deleted.
 
 `Retain` (default)
 : PVCs from the `volumeClaimTemplate` are not affected when their Pod is
-  deleted. This is the behavior before this new feature.
+deleted. This is the behavior before this new feature.
 
 Bear in mind that these policies **only** apply when Pods are being removed due to the
 StatefulSet being deleted or scaled down. For example, if a Pod associated with a StatefulSet
 fails due to node failure, and the control plane creates a replacement Pod, the StatefulSet
-retains the existing PVC.  The existing volume is unaffected, and the cluster will attach it to
+retains the existing PVC. The existing volume is unaffected, and the cluster will attach it to
 the node where the new Pod is about to launch.
-  
+
 The default for policies is `Retain`, matching the StatefulSet behavior before this new feature.
 
 Here is an example policy.
@@ -401,12 +398,11 @@ Here is an example policy.
 ```yaml
 apiVersion: apps/v1
 kind: StatefulSet
-...
+---
 spec:
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Retain
     whenScaled: Delete
-...
 ```
 
 The StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} adds
@@ -414,7 +410,7 @@ The StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} ad
 to its PVCs, which are then deleted by the {{<glossary_tooltip text="garbage collector"
 term_id="garbage-collection">}} after the Pod is terminated. This enables the Pod to
 cleanly unmount all volumes before the PVCs are deleted (and before the backing PV and
-volume are deleted, depending on the retain policy).  When you set the `whenDeleted`
+volume are deleted, depending on the retain policy). When you set the `whenDeleted`
 policy to `Delete`, an owner reference to the StatefulSet instance is placed on all PVCs
 associated with that StatefulSet.
 
@@ -454,18 +450,17 @@ the `.spec.replicas` field automatically.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods).
-* Find out how to use StatefulSets
-  * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
-  * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
-  * Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
-  * Learn how to [scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-  * Learn what's involved when you [delete a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
-  * Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
-  * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
-* `StatefulSet` is a top-level resource in the Kubernetes REST API.
+- Learn about [Pods](/docs/concepts/workloads/pods).
+- Find out how to use StatefulSets
+  - Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
+  - Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
+  - Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
+  - Learn how to [scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+  - Learn what's involved when you [delete a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+  - Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
+  - Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+- `StatefulSet` is a top-level resource in the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/stateful-set-v1" >}}
   object definition to understand the API for stateful sets.
-* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
+- Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
-

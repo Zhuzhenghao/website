@@ -1,6 +1,6 @@
 ---
 reviewers:
-- johnbelamaric
+  - johnbelamaric
 title: Using CoreDNS for Service Discovery
 min-kubernetes-server-version: v1.9
 content_type: task
@@ -8,13 +8,12 @@ weight: 380
 ---
 
 <!-- overview -->
-This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
 
+This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 
 <!-- steps -->
 
@@ -63,7 +62,6 @@ upgrading your cluster.
 If you are upgrading your cluster using the `kubeadm` tool, `kubeadm`
 can take care of retaining the existing CoreDNS configuration automatically.
 
-
 ## Tuning CoreDNS
 
 When resource utilisation is a concern, it may be useful to tune the
@@ -75,7 +73,6 @@ configuration of CoreDNS. For more details, check out the
 You can configure [CoreDNS](https://coredns.io) to support many more use cases than
 kube-dns does by modifying the CoreDNS configuration ("Corefile").
 For more information, see the [documentation](https://coredns.io/plugins/kubernetes/)
-for the `kubernetes` CoreDNS plugin, or read the 
+for the `kubernetes` CoreDNS plugin, or read the
 [Custom DNS Entries for Kubernetes](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
 in the CoreDNS blog.
-

@@ -5,20 +5,17 @@ weight: 80
 ---
 
 <!-- overview -->
+
 This page shows how to enable and configure autoscaling of the DNS service in
 your Kubernetes cluster.
 
-
 ## {{% heading "prerequisites" %}}
 
+- {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+- This guide assumes your nodes use the AMD64 or Intel 64 CPU architecture.
 
-* This guide assumes your nodes use the AMD64 or Intel 64 CPU architecture.
-
-* Make sure [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) is enabled.
-
-
+- Make sure [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) is enabled.
 
 <!-- steps -->
 
@@ -64,7 +61,6 @@ kubectl get deployment --namespace=kube-system
 ```
 
 and look for a deployment named `coredns` or `kube-dns`.
-
 
 Your scale target is
 
@@ -203,36 +199,31 @@ The common path for this dns-autoscaler is:
 After the manifest file is deleted, the Addon Manager will delete the
 dns-autoscaler Deployment.
 
-
-
 <!-- discussion -->
 
 ## Understanding how DNS horizontal autoscaling works
 
-* The cluster-proportional-autoscaler application is deployed separately from
-the DNS service.
+- The cluster-proportional-autoscaler application is deployed separately from
+  the DNS service.
 
-* An autoscaler Pod runs a client that polls the Kubernetes API server for the
-number of nodes and cores in the cluster.
+- An autoscaler Pod runs a client that polls the Kubernetes API server for the
+  number of nodes and cores in the cluster.
 
-* A desired replica count is calculated and applied to the DNS backends based on
-the current schedulable nodes and cores and the given scaling parameters.
+- A desired replica count is calculated and applied to the DNS backends based on
+  the current schedulable nodes and cores and the given scaling parameters.
 
-* The scaling parameters and data points are provided via a ConfigMap to the
-autoscaler, and it refreshes its parameters table every poll interval to be up
-to date with the latest desired scaling parameters.
+- The scaling parameters and data points are provided via a ConfigMap to the
+  autoscaler, and it refreshes its parameters table every poll interval to be up
+  to date with the latest desired scaling parameters.
 
-* Changes to the scaling parameters are allowed without rebuilding or restarting
-the autoscaler Pod.
+- Changes to the scaling parameters are allowed without rebuilding or restarting
+  the autoscaler Pod.
 
-* The autoscaler provides a controller interface to support two control
-patterns: *linear* and *ladder*.
-
-
+- The autoscaler provides a controller interface to support two control
+  patterns: _linear_ and _ladder_.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Guaranteed Scheduling For Critical Add-On Pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
-* Learn more about the
-[implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
-
+- Read about [Guaranteed Scheduling For Critical Add-On Pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+- Learn more about the
+  [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).

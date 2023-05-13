@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -25,7 +25,6 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/api/core/v1"`
 
-
 ## Service {#Service}
 
 Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
@@ -34,9 +33,7 @@ Service is a named abstraction of software service (for example, mysql) consisti
 
 - **apiVersion**: v1
 
-
 - **kind**: Service
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -50,10 +47,6 @@ Service is a named abstraction of software service (for example, mysql) consisti
 
   Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-
-
-
-
 ## ServiceSpec {#ServiceSpec}
 
 ServiceSpec describes the attributes that a user creates on a service.
@@ -66,14 +59,14 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **ports** ([]ServicePort)
 
-  *Patch strategy: merge on key `port`*
-  
-  *Map: unique values on keys `port, protocol` will be kept during a merge*
-  
+  _Patch strategy: merge on key `port`_
+
+  _Map: unique values on keys `port, protocol` will be kept during a merge_
+
   The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
   <a name="ServicePort"></a>
-  *ServicePort contains information on service's port.*
+  _ServicePort contains information on service's port._
 
   - **ports.port** (int32), required
 
@@ -84,7 +77,7 @@ ServiceSpec describes the attributes that a user creates on a service.
     Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 
     <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+    _IntOrString is a type that can hold an int32 or a string. When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type. This allows you to have, for example, a JSON field that can accept a name or number._
 
   - **ports.protocol** (string)
 
@@ -96,7 +89,7 @@ ServiceSpec describes the attributes that a user creates on a service.
 
   - **ports.nodePort** (int32)
 
-    The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+    The port on each node on which this service is exposed when type is NodePort or LoadBalancer. Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail. If not specified, a port will be allocated if this Service requires one. If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
 
   - **ports.appProtocol** (string)
 
@@ -108,11 +101,11 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **ipFamilies** ([]string)
 
-  *Atomic: will be replaced during a merge*
-  
-  IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
-  
-  This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+  _Atomic: will be replaced during a merge_
+
+  IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6". This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
+
+  This field may hold a maximum of two entries (dual-stack families, in either order). These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
 
 - **ipFamilyPolicy** (string)
 
@@ -120,19 +113,19 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **clusterIP** (string)
 
-  clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+  clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above). Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
 - **clusterIPs** ([]string)
 
-  *Atomic: will be replaced during a merge*
-  
-  ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
-  
+  _Atomic: will be replaced during a merge_
+
+  ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above). Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. If this field is not specified, it will be initialized from the clusterIP field. If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
+
   This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
 - **externalIPs** ([]string)
 
-  externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
+  externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service. These IPs are not managed by Kubernetes. The user is responsible for ensuring that traffic arrives at a node with this IP. A common example is external load-balancers that are not part of the Kubernetes system.
 
 - **sessionAffinity** (string)
 
@@ -152,7 +145,7 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **externalName** (string)
 
-  externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
+  externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
 
 - **externalTrafficPolicy** (string)
 
@@ -164,7 +157,7 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **healthCheckNodePort** (int32)
 
-  healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
+  healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used. If not specified, a value will be automatically allocated. External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not. If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
 
 - **publishNotReadyAddresses** (boolean)
 
@@ -175,14 +168,14 @@ ServiceSpec describes the attributes that a user creates on a service.
   sessionAffinityConfig contains the configurations of session affinity.
 
   <a name="SessionAffinityConfig"></a>
-  *SessionAffinityConfig represents the configurations of session affinity.*
+  _SessionAffinityConfig represents the configurations of session affinity._
 
   - **sessionAffinityConfig.clientIP** (ClientIPConfig)
 
     clientIP contains the configurations of Client IP based session affinity.
 
     <a name="ClientIPConfig"></a>
-    *ClientIPConfig represents the configurations of Client IP based session affinity.*
+    _ClientIPConfig represents the configurations of Client IP based session affinity._
 
     - **sessionAffinityConfig.clientIP.timeoutSeconds** (int32)
 
@@ -190,11 +183,7 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **allocateLoadBalancerNodePorts** (boolean)
 
-  allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
-
-
-
-
+  allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer. Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
 
 ## ServiceStatus {#ServiceStatus}
 
@@ -204,21 +193,21 @@ ServiceStatus represents the current status of a service.
 
 - **conditions** ([]Condition)
 
-  *Patch strategy: merge on key `type`*
-  
-  *Map: unique values on key type will be kept during a merge*
-  
+  _Patch strategy: merge on key `type`_
+
+  _Map: unique values on key type will be kept during a merge_
+
   Current service state
 
   <a name="Condition"></a>
-  *Condition contains details for one aspect of the current state of this API Resource.*
+  _Condition contains details for one aspect of the current state of this API Resource._
 
   - **conditions.lastTransitionTime** (Time), required
 
-    lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+    lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.message** (string), required
 
@@ -245,14 +234,14 @@ ServiceStatus represents the current status of a service.
   LoadBalancer contains the current status of the load-balancer, if one is present.
 
   <a name="LoadBalancerStatus"></a>
-  *LoadBalancerStatus represents the status of a load-balancer.*
+  _LoadBalancerStatus represents the status of a load-balancer._
 
   - **loadBalancer.ingress** ([]LoadBalancerIngress)
 
     Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
 
     <a name="LoadBalancerIngress"></a>
-    *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
+    _LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point._
 
     - **loadBalancer.ingress.hostname** (string)
 
@@ -264,12 +253,12 @@ ServiceStatus represents the current status of a service.
 
     - **loadBalancer.ingress.ports** ([]PortStatus)
 
-      *Atomic: will be replaced during a merge*
-      
+      _Atomic: will be replaced during a merge_
+
       Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 
       <a name="PortStatus"></a>
-      **
+      \*\*
 
       - **loadBalancer.ingress.ports.port** (int32), required
 
@@ -282,13 +271,10 @@ ServiceStatus represents the current status of a service.
       - **loadBalancer.ingress.ports.error** (string)
 
         Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
-          CamelCase names
+        CamelCase names
+
         - cloud provider specific error values must have names that comply with the
           format foo.example.com/CamelCase.
-
-
-
-
 
 ## ServiceList {#ServiceList}
 
@@ -298,9 +284,7 @@ ServiceList holds a list of services.
 
 - **apiVersion**: v1
 
-
 - **kind**: ServiceList
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -310,20 +294,9 @@ ServiceList holds a list of services.
 
   List of services
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `get` read the specified Service
 
@@ -333,30 +306,23 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Service
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 401: Unauthorized
-
 
 ### `get` read status of the specified Service
 
@@ -366,30 +332,23 @@ GET /api/v1/namespaces/{namespace}/services/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Service
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind Service
 
@@ -399,75 +358,59 @@ GET /api/v1/namespaces/{namespace}/services
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#ServiceList" >}}">ServiceList</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind Service
 
@@ -477,70 +420,55 @@ GET /api/v1/services
 
 #### Parameters
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#ServiceList" >}}">ServiceList</a>): OK
 
 401: Unauthorized
-
 
 ### `create` create a Service
 
@@ -550,40 +478,29 @@ POST /api/v1/namespaces/{namespace}/services
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
@@ -592,7 +509,6 @@ POST /api/v1/namespaces/{namespace}/services
 202 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Accepted
 
 401: Unauthorized
-
 
 ### `update` replace the specified Service
 
@@ -602,52 +518,39 @@ PUT /api/v1/namespaces/{namespace}/services/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Service
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 201 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Created
 
 401: Unauthorized
-
 
 ### `update` replace status of the specified Service
 
@@ -657,52 +560,39 @@ PUT /api/v1/namespaces/{namespace}/services/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Service
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 201 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update the specified Service
 
@@ -712,57 +602,43 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Service
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 201 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update status of the specified Service
 
@@ -772,57 +648,43 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Service
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 201 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Created
 
 401: Unauthorized
-
 
 ### `delete` delete a Service
 
@@ -832,52 +694,39 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Service
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 202 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Accepted
 
 401: Unauthorized
-
 
 ### `deletecollection` delete collection of Service
 
@@ -887,82 +736,62 @@ DELETE /api/v1/namespaces/{namespace}/services
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

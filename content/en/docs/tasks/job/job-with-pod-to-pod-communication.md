@@ -15,11 +15,11 @@ to learn the IPs of the other Pods, but it's much simpler to rely on Kubernetes'
 
 Jobs in Indexed completion mode automatically set the pods' hostname to be in the format of
 `${jobName}-${completionIndex}`. You can use this format to deterministically build
-pod hostnames and enable pod communication *without* needing to create a client connection to
-the Kubernetes control plane to obtain pod hostnames/IPs via API requests. 
+pod hostnames and enable pod communication _without_ needing to create a client connection to
+the Kubernetes control plane to obtain pod hostnames/IPs via API requests.
 
 This configuration is useful
-for use cases where pod networking is required but you don't want to depend on a network 
+for use cases where pod networking is required but you don't want to depend on a network
 connection with the Kubernetes API server.
 
 ## {{% heading "prerequisites" %}}
@@ -41,27 +41,27 @@ to ensure you have DNS.
 To enable pod-to-pod communication using pod hostnames in a Job, you must do the following:
 
 1. Set up a [headless service](/docs/concepts/services-networking/service/#headless-services)
-with a valid label selector for the pods created by your Job. The headless service must be in the same namespace as 
-the Job. One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. This configuration will trigger the DNS system to create records of the hostnames of 
-the pods running your Job. 
+   with a valid label selector for the pods created by your Job. The headless service must be in the same namespace as
+   the Job. One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. This configuration will trigger the DNS system to create records of the hostnames of
+   the pods running your Job.
 
-2. Configure the headless service as subdomain service for the Job pods by including the following value in your Job template spec: 
+2. Configure the headless service as subdomain service for the Job pods by including the following value in your Job template spec:
 
    ```yaml
    subdomain: <headless-svc-name>
    ```
 
-### Example 
+### Example
+
 Below is a working example of a Job with pod-to-pod communication via pod hostnames enabled.
 The Job is completed only after all pods successfully ping each other using hostnames.
 
 {{<note>}}
 In the Bash script executed on each pod in the example below, the pod hostnames can be prefixed
-by the namespace as well  if the pod needs to be reached from outside the namespace.
+by the namespace as well if the pod needs to be reached from outside the namespace.
 {{</note>}}
 
 ```yaml
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -84,27 +84,27 @@ spec:
       subdomain: headless-svc # has to match Service name
       restartPolicy: Never
       containers:
-      - name: example-workload
-        image: bash:latest
-        command:
-        - bash
-        - -c
-        - |
-          for i in 0 1 2
-          do
-            gotStatus="-1"
-            wantStatus="0"             
-            while [ $gotStatus -ne $wantStatus ]
-            do                                       
-              ping -c 1 example-job-${i}.headless-svc > /dev/null 2>&1
-              gotStatus=$?                
-              if [ $gotStatus -ne $wantStatus ]; then
-                echo "Failed to ping pod example-job-${i}.headless-svc, retrying in 1 second..."
-                sleep 1
-              fi
-            done                                                         
-            echo "Successfully pinged pod: example-job-${i}.headless-svc"
-          done
+        - name: example-workload
+          image: bash:latest
+          command:
+            - bash
+            - -c
+            - |
+              for i in 0 1 2
+              do
+                gotStatus="-1"
+                wantStatus="0"             
+                while [ $gotStatus -ne $wantStatus ]
+                do                                       
+                  ping -c 1 example-job-${i}.headless-svc > /dev/null 2>&1
+                  gotStatus=$?                
+                  if [ $gotStatus -ne $wantStatus ]; then
+                    echo "Failed to ping pod example-job-${i}.headless-svc, retrying in 1 second..."
+                    sleep 1
+                  fi
+                done                                                         
+                echo "Successfully pinged pod: example-job-${i}.headless-svc"
+              done
 ```
 
 After applying the example above, reach each other over the network

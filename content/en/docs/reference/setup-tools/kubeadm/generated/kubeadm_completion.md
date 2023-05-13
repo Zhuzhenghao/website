@@ -3,18 +3,15 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
 Output shell completion code for the specified shell (bash or zsh)
 
 ### Synopsis
-
-
 
 Output shell completion code for the specified shell (bash or zsh).
 The shell code must be evaluated to provide interactive
@@ -24,10 +21,10 @@ the .bash_profile.
 Note: this requires the bash-completion framework.
 
 To install it on Mac use homebrew:
-    $ brew install bash-completion
+$ brew install bash-completion
 Once installed, bash_completion must be evaluated. This can be done by adding the
 following line to the .bash_profile
-    $ source $(brew --prefix)/etc/bash_completion
+$ source $(brew --prefix)/etc/bash_completion
 
 If bash-completion is not installed on Linux, please install the 'bash-completion' package
 via your distribution's package manager.
@@ -78,8 +75,6 @@ source <(kubeadm completion zsh)
 </tbody>
 </table>
 
-
-
 ### Options inherited from parent commands
 
    <table style="width: 100%; table-layout: fixed;">
@@ -98,6 +93,3 @@ source <(kubeadm completion zsh)
 
 </tbody>
 </table>
-
-
-

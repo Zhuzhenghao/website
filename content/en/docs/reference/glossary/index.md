@@ -1,7 +1,7 @@
 ---
 approvers:
-- chenopis
-- abiogenesis-now
+  - chenopis
+  - abiogenesis-now
 title: Glossary
 layout: glossary
 noedit: true
@@ -12,4 +12,3 @@ card:
   weight: 10
   title: Glossary
 ---
-

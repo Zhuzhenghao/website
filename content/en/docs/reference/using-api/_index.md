@@ -1,9 +1,9 @@
 ---
 title: API Overview
 reviewers:
-- erictune
-- lavalamp
-- jbeda
+  - erictune
+  - lavalamp
+  - jbeda
 content_type: concept
 weight: 20
 no_list: true
@@ -32,7 +32,6 @@ For general background information, read
 describes how clients can authenticate to the Kubernetes API server, and how their
 requests are authorized.
 
-
 ## API versioning
 
 The JSON and Protobuf serialization schemas follow the same guidelines for
@@ -49,6 +48,7 @@ can find more information about the criteria for each level in the
 Here's a summary of each level:
 
 - Alpha:
+
   - The version names contain `alpha` (for example, `v1alpha1`).
   - Built-in alpha API versions are disabled by default and must be explicitly enabled in the `kube-apiserver` configuration to be used.
   - The software may contain bugs. Enabling a feature may expose bugs.
@@ -58,6 +58,7 @@ Here's a summary of each level:
     due to increased risk of bugs and lack of long-term support.
 
 - Beta:
+
   - The version names contain `beta` (for example, `v2beta3`).
   - Built-in beta API versions are disabled by default and must be explicitly enabled in the `kube-apiserver` configuration to be used
     (**except** for beta versions of APIs introduced prior to Kubernetes 1.22, which were enabled by default).
@@ -95,25 +96,25 @@ serialized object.
 
 There are several API groups in Kubernetes:
 
-*  The *core* (also called *legacy*) group is found at REST path `/api/v1`.
-   The core group is not specified as part of the `apiVersion` field, for
-   example, `apiVersion: v1`.
-*  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION` and use
-   `apiVersion: $GROUP_NAME/$VERSION` (for example, `apiVersion: batch/v1`).
-   You can find the full list of supported API groups in
-   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-).
+- The _core_ (also called _legacy_) group is found at REST path `/api/v1`.
+  The core group is not specified as part of the `apiVersion` field, for
+  example, `apiVersion: v1`.
+- The named groups are at REST path `/apis/$GROUP_NAME/$VERSION` and use
+  `apiVersion: $GROUP_NAME/$VERSION` (for example, `apiVersion: batch/v1`).
+  You can find the full list of supported API groups in
+  [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-).
 
-## Enabling or disabling API groups   {#enabling-or-disabling}
+## Enabling or disabling API groups {#enabling-or-disabling}
 
 Certain resources and API groups are enabled by default. You can enable or
-disable them by setting `--runtime-config` on the API server.  The
+disable them by setting `--runtime-config` on the API server. The
 `--runtime-config` flag accepts comma separated `<key>[=<value>]` pairs
 describing the runtime configuration of the API server. If the `=<value>`
 part is omitted, it is treated as if `=true` is specified. For example:
 
- - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
- - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
- - to enable a specific version of an API, such as `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`
+- to disable `batch/v1`, set `--runtime-config=batch/v1=false`
+- to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
+- to enable a specific version of an API, such as `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`
 
 {{< note >}}
 When you enable or disable groups or resources, you need to restart the API

@@ -49,7 +49,9 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kind create cluster --name psa-wo-cluster-pss
    ```
+
    The output is similar to:
+
    ```
    Creating cluster "psa-wo-cluster-pss" ...
    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
@@ -71,6 +73,7 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl cluster-info --context kind-psa-wo-cluster-pss
    ```
+
    The output is similar to this:
 
    ```
@@ -86,7 +89,9 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl get ns
    ```
+
    The output is similar to this:
+
    ```
    NAME                 STATUS   AGE
    default              Active   9m30s
@@ -100,12 +105,14 @@ that are most appropriate for your configuration, do the following:
    are applied:
 
    1. Privileged
+
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
 
       The output is similar to:
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -113,13 +120,16 @@ that are most appropriate for your configuration, do the following:
       namespace/kube-system labeled
       namespace/local-path-storage labeled
       ```
+
    2. Baseline
+
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
 
       The output is similar to:
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -133,12 +143,14 @@ that are most appropriate for your configuration, do the following:
       ```
 
    3. Restricted
+
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
       ```
 
       The output is similar to:
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -162,8 +174,8 @@ warnings, specifically in the `kube-system` namespace.
 
 In this section, you apply the following Pod Security Standards to the `latest` version:
 
-* `baseline` standard in `enforce` mode.
-* `restricted` standard in `warn` and `audit` mode.
+- `baseline` standard in `enforce` mode.
+- `restricted` standard in `warn` and `audit` mode.
 
 The `baseline` Pod Security Standard provides a convenient
 middle ground that allows keeping the exemption list short and prevents known
@@ -216,7 +228,6 @@ following:
    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
    {{< /note >}}
 
-
 1. Configure the API server to consume this file during cluster creation:
 
    ```
@@ -265,7 +276,9 @@ following:
    ```shell
    kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
+
    The output is similar to this:
+
    ```
    Creating cluster "psa-with-cluster-pss" ...
     ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
@@ -283,10 +296,13 @@ following:
    ```
 
 1. Point kubectl to the cluster:
+
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
    ```
+
    The output is similar to this:
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:63855
    CoreDNS is running at https://127.0.0.1:63855/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
@@ -301,6 +317,7 @@ following:
    ```
 
    The pod is started normally, but the output includes a warning:
+
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
@@ -313,6 +330,7 @@ Now delete the clusters which you created above by running the following command
 ```shell
 kind delete cluster --name psa-with-cluster-pss
 ```
+
 ```shell
 kind delete cluster --name psa-wo-cluster-pss
 ```

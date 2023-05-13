@@ -6,6 +6,7 @@ weight: 40
 ---
 
 <!-- overview -->
+
 This page gives writing style guidelines for the Kubernetes documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
@@ -265,7 +266,6 @@ Be careful to not include incorrect statements in your examples as comments, suc
 ```yaml
 apiVersion: v1 # earlier versions use...
 kind: Pod
-...
 ```
 
 ## Kubernetes.io word list
@@ -341,9 +341,9 @@ The output is:
 
 1. A second item with an embedded note
 
-    {{< note >}}
-    Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
-    {{< /note >}}
+   {{< note >}}
+   Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
+   {{< /note >}}
 
 1. A third item in a list
 
@@ -493,7 +493,7 @@ This section contains suggested best practices for clear, concise, and consisten
 Do | Don't
 :--| :-----
 This command starts a proxy. | This command will start a proxy.
- {{< /table >}}
+{{< /table >}}
 
 Exception: Use future or past tense if it is required to convey the correct
 meaning.
@@ -606,7 +606,7 @@ These steps ... | These simple steps ...
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
-* Learn about [using page templates](/docs/contribute/style/page-content-types/).
-* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
-* Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
+- Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+- Learn about [using page templates](/docs/contribute/style/page-content-types/).
+- Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
+- Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

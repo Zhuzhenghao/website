@@ -1,9 +1,9 @@
 ---
 reviewers:
-- jayunit100
-- jsturtevant
-- marosset
-- perithompson
+  - jayunit100
+  - jsturtevant
+  - marosset
+  - perithompson
 title: Resource Management for Windows nodes
 content_type: concept
 weight: 75
@@ -60,7 +60,7 @@ To ensure that running Pods do not starve the kubelet of CPU cycles, set this fl
 
 To account for memory and CPU used by the operating system, the container runtime, and by
 Kubernetes host processes such as the kubelet, you can (and should) reserve
-memory and CPU resources with the  `--kube-reserved` and/or `--system-reserved` kubelet flags.
+memory and CPU resources with the `--kube-reserved` and/or `--system-reserved` kubelet flags.
 On Windows these values are only used to calculate the node's
 [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) resources.
 

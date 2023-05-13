@@ -66,9 +66,9 @@ kind: RuntimeClass
 metadata:
   # The name the RuntimeClass will be referenced by.
   # RuntimeClass is a non-namespaced resource.
-  name: myclass 
+  name: myclass
 # The name of the corresponding CRI configuration
-handler: myconfiguration 
+handler: myconfiguration
 ```
 
 The name of a RuntimeClass object must be a valid
@@ -172,4 +172,3 @@ are accounted for in Kubernetes.
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
-

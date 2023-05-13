@@ -2,14 +2,14 @@
 title: Monitor Node Health
 content_type: task
 reviewers:
-- Random-Liu
-- dchen1107
+  - Random-Liu
+  - dchen1107
 weight: 20
 ---
 
 <!-- overview -->
 
-*Node Problem Detector* is a daemon for monitoring and reporting about a node's health.
+_Node Problem Detector_ is a daemon for monitoring and reporting about a node's health.
 You can run Node Problem Detector as a `DaemonSet` or as a standalone daemon.
 Node Problem Detector collects information about node problems from various daemons
 and reports these conditions to the API server as Node [Condition](/docs/concepts/architecture/nodes/#condition)s
@@ -26,7 +26,7 @@ To learn how to install and use Node Problem Detector, see
 
 ## Limitations
 
-* Node Problem Detector uses the kernel log format for reporting kernel issues.
+- Node Problem Detector uses the kernel log format for reporting kernel issues.
   To learn how to extend the kernel log format, see [Add support for another log format](#support-other-log-format).
 
 ## Enabling Node Problem Detector
@@ -159,8 +159,7 @@ It is recommended to run the Node Problem Detector in your cluster to monitor no
 When running the Node Problem Detector, you can expect extra resource overhead on each node.
 Usually this is fine, because:
 
-* The kernel log grows relatively slowly.
-* A resource limit is set for the Node Problem Detector.
-* Even under high load, the resource usage is acceptable. For more information, see the Node Problem Detector
+- The kernel log grows relatively slowly.
+- A resource limit is set for the Node Problem Detector.
+- Even under high load, the resource usage is acceptable. For more information, see the Node Problem Detector
   [benchmark result](https://github.com/kubernetes/node-problem-detector/issues/2#issuecomment-220255629).
-

@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -25,7 +25,6 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/api/apps/v1"`
 
-
 ## Deployment {#Deployment}
 
 Deployment enables declarative updates for Pods and ReplicaSets.
@@ -34,9 +33,7 @@ Deployment enables declarative updates for Pods and ReplicaSets.
 
 - **apiVersion**: apps/v1
 
-
 - **kind**: Deployment
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -49,10 +46,6 @@ Deployment enables declarative updates for Pods and ReplicaSets.
 - **status** (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentStatus" >}}">DeploymentStatus</a>)
 
   Most recently observed status of the Deployment.
-
-
-
-
 
 ## DeploymentSpec {#DeploymentSpec}
 
@@ -78,12 +71,12 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
 
 - **strategy** (DeploymentStrategy)
 
-  *Patch strategy: retainKeys*
-  
+  _Patch strategy: retainKeys_
+
   The deployment strategy to use to replace existing pods with new ones.
 
   <a name="DeploymentStrategy"></a>
-  *DeploymentStrategy describes how to replace existing pods with new ones.*
+  _DeploymentStrategy describes how to replace existing pods with new ones._
 
   - **strategy.type** (string)
 
@@ -94,21 +87,21 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
     Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 
     <a name="RollingUpdateDeployment"></a>
-    *Spec to control the desired behavior of rolling update.*
+    _Spec to control the desired behavior of rolling update._
 
     - **strategy.rollingUpdate.maxSurge** (IntOrString)
 
       The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 
       <a name="IntOrString"></a>
-      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      _IntOrString is a type that can hold an int32 or a string. When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type. This allows you to have, for example, a JSON field that can accept a name or number._
 
     - **strategy.rollingUpdate.maxUnavailable** (IntOrString)
 
       The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
 
       <a name="IntOrString"></a>
-      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      _IntOrString is a type that can hold an int32 or a string. When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type. This allows you to have, for example, a JSON field that can accept a name or number._
 
 - **revisionHistoryLimit** (int32)
 
@@ -121,10 +114,6 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
 - **paused** (boolean)
 
   Indicates that the deployment is paused.
-
-
-
-
 
 ## DeploymentStatus {#DeploymentStatus}
 
@@ -158,12 +147,12 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
 - **conditions** ([]DeploymentCondition)
 
-  *Patch strategy: merge on key `type`*
-  
+  _Patch strategy: merge on key `type`_
+
   Represents the latest available observations of a deployment's current state.
 
   <a name="DeploymentCondition"></a>
-  *DeploymentCondition describes the state of a deployment at a certain point.*
+  _DeploymentCondition describes the state of a deployment at a certain point._
 
   - **conditions.status** (string), required
 
@@ -178,14 +167,14 @@ DeploymentStatus is the most recently observed status of the Deployment.
     Last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.lastUpdateTime** (Time)
 
     The last time this condition was updated.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.message** (string)
 
@@ -199,10 +188,6 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
   The generation observed by the deployment controller.
 
-
-
-
-
 ## DeploymentList {#DeploymentList}
 
 DeploymentList is a list of Deployments.
@@ -211,9 +196,7 @@ DeploymentList is a list of Deployments.
 
 - **apiVersion**: apps/v1
 
-
 - **kind**: DeploymentList
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -223,20 +206,9 @@ DeploymentList is a list of Deployments.
 
   Items is the list of Deployments.
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `get` read the specified Deployment
 
@@ -246,30 +218,23 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Deployment
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 401: Unauthorized
-
 
 ### `get` read status of the specified Deployment
 
@@ -279,30 +244,23 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Deployment
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind Deployment
 
@@ -312,75 +270,59 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentList" >}}">DeploymentList</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind Deployment
 
@@ -390,70 +332,55 @@ GET /apis/apps/v1/deployments
 
 #### Parameters
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentList" >}}">DeploymentList</a>): OK
 
 401: Unauthorized
-
 
 ### `create` create a Deployment
 
@@ -463,40 +390,29 @@ POST /apis/apps/v1/namespaces/{namespace}/deployments
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
@@ -506,7 +422,6 @@ POST /apis/apps/v1/namespaces/{namespace}/deployments
 
 401: Unauthorized
 
-
 ### `update` replace the specified Deployment
 
 #### HTTP Request
@@ -515,52 +430,39 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Deployment
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Created
 
 401: Unauthorized
-
 
 ### `update` replace status of the specified Deployment
 
@@ -570,52 +472,39 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Deployment
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update the specified Deployment
 
@@ -625,57 +514,43 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Deployment
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update status of the specified Deployment
 
@@ -685,57 +560,43 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Deployment
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Created
 
 401: Unauthorized
-
 
 ### `delete` delete a Deployment
 
@@ -745,52 +606,39 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Deployment
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
-
 
 ### `deletecollection` delete collection of Deployment
 
@@ -800,82 +648,62 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

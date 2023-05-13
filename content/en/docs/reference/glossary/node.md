@@ -8,9 +8,10 @@ short_description: >
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
- A node is a worker machine in Kubernetes.
+
+A node is a worker machine in Kubernetes.
 
 <!--more-->
 

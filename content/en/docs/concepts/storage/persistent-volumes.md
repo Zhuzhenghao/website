@@ -1,10 +1,10 @@
 ---
 reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
-- xing-yang
+  - jsafrane
+  - saad-ali
+  - thockin
+  - msau42
+  - xing-yang
 title: Persistent Volumes
 feature:
   title: Storage orchestration
@@ -229,22 +229,28 @@ metadata:
 spec:
   restartPolicy: Never
   volumes:
-  - name: vol
-    hostPath:
-      path: /any/path/it/will/be/replaced
-  containers:
-  - name: pv-recycler
-    image: "registry.k8s.io/busybox"
-    command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
-    volumeMounts:
     - name: vol
-      mountPath: /scrub
+      hostPath:
+        path: /any/path/it/will/be/replaced
+  containers:
+    - name: pv-recycler
+      image: "registry.k8s.io/busybox"
+      command:
+        [
+          "/bin/sh",
+          "-c",
+          'test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z "$(ls -A /scrub)" || exit 1',
+        ]
+      volumeMounts:
+        - name: vol
+          mountPath: /scrub
 ```
 
 However, the particular path specified in the custom recycler Pod template in the
 `volumes` part is replaced with the particular path of the volume that is being recycled.
 
 ### PersistentVolume deletion protection finalizer
+
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
 
 Finalizers can be added on a PersistentVolume to ensure that PersistentVolumes
@@ -273,7 +279,7 @@ Access Modes:    RWO
 VolumeMode:      Filesystem
 Capacity:        1Gi
 Node Affinity:   <none>
-Message:         
+Message:
 Source:
     Type:               vSphereVolume (a Persistent Disk resource in vSphere)
     VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
@@ -298,7 +304,7 @@ Access Modes:    RWO
 VolumeMode:      Filesystem
 Capacity:        200Mi
 Node Affinity:   <none>
-Message:         
+Message:
 Source:
     Type:              CSI (a Container Storage Interface (CSI) volume source)
     Driver:            csi.vsphere.vmware.com
@@ -368,15 +374,15 @@ to `Retain`, including cases where you are reusing an existing PV.
 Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
 
-* azureDisk
-* azureFile
-* awsElasticBlockStore
-* cinder (deprecated)
-* {{< glossary_tooltip text="csi" term_id="csi" >}}
-* flexVolume (deprecated)
-* gcePersistentDisk
-* rbd
-* portworxVolume
+- azureDisk
+- azureFile
+- awsElasticBlockStore
+- cinder (deprecated)
+- {{< glossary_tooltip text="csi" term_id="csi" >}}
+- flexVolume (deprecated)
+- gcePersistentDisk
+- rbd
+- portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
@@ -505,49 +511,49 @@ Kubernetes does not support shrinking a PVC to less than its current size.
 
 PersistentVolume types are implemented as plugins. Kubernetes currently supports the following plugins:
 
-* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
-* [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
-* [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
-* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
+- [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+- [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
+- [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
+- [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
   (for single node testing only; WILL NOT WORK in a multi-node cluster;
   consider using `local` volume instead)
-* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) storage
-* [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
+- [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) storage
+- [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
   mounted on nodes.
-* [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
+- [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
+- [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
 
 The following types of PersistentVolume are deprecated.
 This means that support is still available but will be removed in a future Kubernetes release.
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+- [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
   (**deprecated** in v1.17)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+- [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
   (**deprecated** in v1.19)
-* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+- [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
   (**deprecated** in v1.21)
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+- [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**deprecated** in v1.18)
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+- [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** in v1.23)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+- [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
   (**deprecated** in v1.17)
-* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+- [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**deprecated** in v1.25)
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
+- [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
   (**deprecated** in v1.19)
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
-* `photonPersistentDisk` - Photon controller persistent disk.
+- `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+- [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
   (**not available** starting v1.21)
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+- [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
   (**not available** starting v1.25)
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+- [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
   (**not available** starting v1.25)
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+- [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
   (**not available** starting v1.25)
 
 ## Persistent Volumes
@@ -579,7 +585,7 @@ spec:
 
 {{< note >}}
 Helper programs relating to the volume type may be required for consumption of
-a PersistentVolume within a cluster.  In this example, the PersistentVolume is
+a PersistentVolume within a cluster. In this example, the PersistentVolume is
 of type NFS and the helper program /sbin/mount.nfs is required to support the
 mounting of NFS filesystems.
 {{< /note >}}
@@ -603,7 +609,7 @@ Kubernetes supports two `volumeModes` of PersistentVolumes: `Filesystem` and `Bl
 `volumeMode` is an optional API parameter.
 `Filesystem` is the default mode used when `volumeMode` parameter is omitted.
 
-A volume with `volumeMode: Filesystem` is *mounted* into Pods into a directory. If the volume
+A volume with `volumeMode: Filesystem` is _mounted_ into Pods into a directory. If the volume
 is backed by a block device and the device is empty, Kubernetes creates a filesystem
 on the device before mounting it for the first time.
 
@@ -628,7 +634,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are running on the same node.
+mode still can allow multiple pods to access the volume when the pods are running on the same node.
 
 `ReadOnlyMany`
 : the volume can be mounted as read-only by many nodes.
@@ -636,12 +642,12 @@ The access modes are:
 `ReadWriteMany`
 : the volume can be mounted as read-write by many nodes.
 
- `ReadWriteOncePod`
+`ReadWriteOncePod`
 : {{< feature-state for_k8s_version="v1.27" state="beta" >}}
-  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
-  access mode if you want to ensure that only one pod across whole cluster can
-  read that PVC or write to it. This is only supported for CSI volumes and
-  Kubernetes version 1.22+.
+the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
+access mode if you want to ensure that only one pod across whole cluster can
+read that PVC or write to it. This is only supported for CSI volumes and
+Kubernetes version 1.22+.
 
 The blog article
 [Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/)
@@ -649,10 +655,10 @@ covers this in more detail.
 
 In the CLI, the access modes are abbreviated to:
 
-* RWO - ReadWriteOnce
-* ROX - ReadOnlyMany
-* RWX - ReadWriteMany
-* RWOP - ReadWriteOncePod
+- RWO - ReadWriteOnce
+- ROX - ReadOnlyMany
+- RWX - ReadWriteMany
+- RWOP - ReadWriteOncePod
 
 {{< note >}}
 Kubernetes uses volume access modes to match PersistentVolumeClaims and PersistentVolumes.
@@ -664,28 +670,28 @@ created as ReadOnlyMany, it is no guarantee that it will be read-only. If the ac
 are specified as ReadWriteOncePod, the volume is constrained and can be mounted on only a single Pod.
 {{< /note >}}
 
-> __Important!__ A volume can only be mounted using one access mode at a time,
+> **Important!** A volume can only be mounted using one access mode at a time,
 > even if it supports many. For example, a GCEPersistentDisk can be mounted as
 > ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
-| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
-| :---                 | :---:                  | :---:                 | :---:         | -                      |
-| AWSElasticBlockStore | &#x2713;               | -                     | -             | -                      |
-| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| AzureDisk            | &#x2713;               | -                     | -             | -                      |
-| CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | ([if multi-attach volumes are available](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes))            | -                      |
-| CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
-| FC                   | &#x2713;               | &#x2713;              | -             | -                      |
-| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
-| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
-| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| HostPath             | &#x2713;               | -                     | -             | -                      |
-| iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
-| NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
-| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
-| PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
+| Volume Plugin        |     ReadWriteOnce     |     ReadOnlyMany      |                                                                             ReadWriteMany                                                                             | ReadWriteOncePod      |
+| :------------------- | :-------------------: | :-------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: | --------------------- | --- |
+| AWSElasticBlockStore |       &#x2713;        |           -           |                                                                                   -                                                                                   | -                     |
+| AzureFile            |       &#x2713;        |       &#x2713;        |                                                                               &#x2713;                                                                                | -                     |
+| AzureDisk            |       &#x2713;        |           -           |                                                                                   -                                                                                   | -                     |
+| CephFS               |       &#x2713;        |       &#x2713;        |                                                                               &#x2713;                                                                                | -                     |
+| Cinder               |       &#x2713;        |           -           | ([if multi-attach volumes are available](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes)) | -                     |
+| CSI                  | depends on the driver | depends on the driver |                                                                         depends on the driver                                                                         | depends on the driver |
+| FC                   |       &#x2713;        |       &#x2713;        |                                                                                   -                                                                                   | -                     |
+| FlexVolume           |       &#x2713;        |       &#x2713;        |                                                                         depends on the driver                                                                         | -                     |
+| GCEPersistentDisk    |       &#x2713;        |       &#x2713;        |                                                                                   -                                                                                   | -                     |
+| Glusterfs            |       &#x2713;        |       &#x2713;        |                                                                               &#x2713;                                                                                | -                     |
+| HostPath             |       &#x2713;        |           -           |                                                                                   -                                                                                   | -                     |
+| iSCSI                |       &#x2713;        |       &#x2713;        |                                                                                   -                                                                                   | -                     |
+| NFS                  |       &#x2713;        |       &#x2713;        |                                                                               &#x2713;                                                                                | -                     |
+| RBD                  |       &#x2713;        |       &#x2713;        |                                                                                   -                                                                                   | -                     |
+| VsphereVolume        |       &#x2713;        |           -           |                                                                  - (works when Pods are collocated)                                                                   | -                     |
+| PortworxVolume       |       &#x2713;        |           -           |                                                                               &#x2713;                                                                                | -                     | -   |
 
 ### Class
 
@@ -704,9 +710,9 @@ it will become fully deprecated in a future Kubernetes release.
 
 Current reclaim policies are:
 
-* Retain -- manual reclamation
-* Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk,
+- Retain -- manual reclamation
+- Recycle -- basic scrub (`rm -rf /thevolume/*`)
+- Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk,
   or OpenStack Cinder volume is deleted
 
 Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk,
@@ -723,16 +729,16 @@ Not all Persistent Volume types support mount options.
 
 The following volume types support mount options:
 
-* `awsElasticBlockStore`
-* `azureDisk`
-* `azureFile`
-* `cephfs`
-* `cinder` (**deprecated** in v1.18)
-* `gcePersistentDisk`
-* `iscsi`
-* `nfs`
-* `rbd`
-* `vsphereVolume`
+- `awsElasticBlockStore`
+- `azureDisk`
+- `azureFile`
+- `cephfs`
+- `cinder` (**deprecated** in v1.18)
+- `gcePersistentDisk`
+- `iscsi`
+- `nfs`
+- `rbd`
+- `vsphereVolume`
 
 Mount options are not validated. If a mount option is invalid, the mount fails.
 
@@ -761,10 +767,10 @@ API reference has more details on this field.
 
 A volume will be in one of the following phases:
 
-* Available -- a free resource that is not yet bound to a claim
-* Bound -- the volume is bound to a claim
-* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
-* Failed -- the volume has failed its automatic reclamation
+- Available -- a free resource that is not yet bound to a claim
+- Bound -- the volume is bound to a claim
+- Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
+- Failed -- the volume has failed its automatic reclamation
 
 The CLI will show the name of the PVC bound to the PV.
 
@@ -791,7 +797,7 @@ spec:
     matchLabels:
       release: "stable"
     matchExpressions:
-      - {key: environment, operator: In, values: [dev]}
+      - { key: environment, operator: In, values: [dev] }
 ```
 
 ### Access Modes
@@ -818,8 +824,8 @@ Claims can specify a
 to further filter the set of volumes. Only the volumes whose labels match the selector
 can be bound to the claim. The selector can consist of two fields:
 
-* `matchLabels` - the volume must have a label with this value
-* `matchExpressions` - a list of requirements made by specifying key, list of values,
+- `matchLabels` - the volume must have a label with this value
+- `matchExpressions` - a list of requirements made by specifying key, list of values,
   and operator that relates the key and values. Valid operators include In, NotIn,
   Exists, and DoesNotExist.
 
@@ -842,7 +848,7 @@ by the cluster, depending on whether the
 [`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 is turned on.
 
-* If the admission plugin is turned on, the administrator may specify a
+- If the admission plugin is turned on, the administrator may specify a
   default StorageClass. All PVCs that have no `storageClassName` can be bound only to
   PVs of that default. Specifying a default StorageClass is done by setting the
   annotation `storageclass.kubernetes.io/is-default-class` equal to `true` in
@@ -850,7 +856,7 @@ is turned on.
   cluster responds to PVC creation as if the admission plugin were turned off. If
   more than one default is specified, the admission plugin forbids the creation of
   all PVCs.
-* If the admission plugin is turned off, there is no notion of a default
+- If the admission plugin is turned off, there is no notion of a default
   StorageClass. All PVCs that have `storageClassName` set to `""` can be
   bound only to PVs that have `storageClassName` also set to `""`.
   However, PVCs with missing `storageClassName` can be updated later once
@@ -917,8 +923,8 @@ spec:
     - name: myfrontend
       image: nginx
       volumeMounts:
-      - mountPath: "/var/www/html"
-        name: mypd
+        - mountPath: "/var/www/html"
+          name: mypd
   volumes:
     - name: mypd
       persistentVolumeClaim:
@@ -944,16 +950,16 @@ network-attached storage. See
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable:
 
-* AWSElasticBlockStore
-* AzureDisk
-* CSI
-* FC (Fibre Channel)
-* GCEPersistentDisk
-* iSCSI
-* Local volume
-* OpenStack Cinder
-* RBD (Ceph Block Device)
-* VsphereVolume
+- AWSElasticBlockStore
+- AzureDisk
+- CSI
+- FC (Fibre Channel)
+- GCEPersistentDisk
+- iSCSI
+- Local volume
+- OpenStack Cinder
+- RBD (Ceph Block Device)
+- VsphereVolume
 
 ### PersistentVolume using a Raw Block Volume {#persistent-volume-using-a-raw-block-volume}
 
@@ -1003,7 +1009,7 @@ spec:
     - name: fc-container
       image: fedora:26
       command: ["/bin/sh", "-c"]
-      args: [ "tail -f /dev/null" ]
+      args: ["tail -f /dev/null"]
       volumeDevices:
         - name: data
           devicePath: /dev/xvda
@@ -1027,17 +1033,17 @@ Listed is a table of possible combinations the user and admin might specify for
 requesting a raw block device. The table indicates if the volume will be bound or
 not given the combinations: Volume binding matrix for statically provisioned volumes:
 
-| PV volumeMode | PVC volumeMode  | Result           |
-| --------------|:---------------:| ----------------:|
-|   unspecified | unspecified     | BIND             |
-|   unspecified | Block           | NO BIND          |
-|   unspecified | Filesystem      | BIND             |
-|   Block       | unspecified     | NO BIND          |
-|   Block       | Block           | BIND             |
-|   Block       | Filesystem      | NO BIND          |
-|   Filesystem  | Filesystem      | BIND             |
-|   Filesystem  | Block           | NO BIND          |
-|   Filesystem  | unspecified     | BIND             |
+| PV volumeMode | PVC volumeMode |  Result |
+| ------------- | :------------: | ------: |
+| unspecified   |  unspecified   |    BIND |
+| unspecified   |     Block      | NO BIND |
+| unspecified   |   Filesystem   |    BIND |
+| Block         |  unspecified   | NO BIND |
+| Block         |     Block      |    BIND |
+| Block         |   Filesystem   | NO BIND |
+| Filesystem    |   Filesystem   |    BIND |
+| Filesystem    |     Block      | NO BIND |
+| Filesystem    |  unspecified   |    BIND |
 
 {{< note >}}
 Only statically provisioned volumes are supported for alpha release. Administrators
@@ -1148,17 +1154,17 @@ contents.
 There are two differences between the `dataSourceRef` field and the `dataSource` field that
 users should be aware of:
 
-* The `dataSource` field ignores invalid values (as if the field was blank) while the
+- The `dataSource` field ignores invalid values (as if the field was blank) while the
   `dataSourceRef` field never ignores values and will cause an error if an invalid value is
   used. Invalid values are any core object (objects with no apiGroup) except for PVCs.
-* The `dataSourceRef` field may contain different types of objects, while the `dataSource` field
+- The `dataSourceRef` field may contain different types of objects, while the `dataSource` field
   only allows PVCs and VolumeSnapshots.
 
 When the `CrossNamespaceVolumeDataSource` feature is enabled, there are additional differences:
 
-* The `dataSource` field only allows local objects, while the `dataSourceRef` field allows
-  objects in any namespaces.  
-* When namespace is specified, `dataSource` and `dataSourceRef` are not synced.
+- The `dataSource` field only allows local objects, while the `dataSourceRef` field allows
+  objects in any namespaces.
+- When namespace is specified, `dataSource` and `dataSourceRef` are not synced.
 
 Users should always use `dataSourceRef` on clusters that have the feature gate enabled, and
 fall back to `dataSource` on clusters that do not. It is not necessary to look at both fields
@@ -1209,43 +1215,43 @@ You define a populated volume by specifying a cross namespace volume data source
 using the `dataSourceRef` field. You must already have a valid ReferenceGrant
 in the source namespace:
 
-   ```yaml
-   apiVersion: gateway.networking.k8s.io/v1beta1
-   kind: ReferenceGrant
-   metadata:
-     name: allow-ns1-pvc
-     namespace: default
-   spec:
-     from:
-     - group: ""
-       kind: PersistentVolumeClaim
-       namespace: ns1
-     to:
-     - group: snapshot.storage.k8s.io
-       kind: VolumeSnapshot
-       name: new-snapshot-demo
-   ```
+```yaml
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-ns1-pvc
+  namespace: default
+spec:
+  from:
+    - group: ""
+      kind: PersistentVolumeClaim
+      namespace: ns1
+  to:
+    - group: snapshot.storage.k8s.io
+      kind: VolumeSnapshot
+      name: new-snapshot-demo
+```
 
-   ```yaml
-   apiVersion: v1
-   kind: PersistentVolumeClaim
-   metadata:
-     name: foo-pvc
-     namespace: ns1
-   spec:
-     storageClassName: example
-     accessModes:
-     - ReadWriteOnce
-     resources:
-       requests:
-         storage: 1Gi
-     dataSourceRef:
-       apiGroup: snapshot.storage.k8s.io
-       kind: VolumeSnapshot
-       name: new-snapshot-demo
-       namespace: default
-     volumeMode: Filesystem
-   ```
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foo-pvc
+  namespace: ns1
+spec:
+  storageClassName: example
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  dataSourceRef:
+    apiGroup: snapshot.storage.k8s.io
+    kind: VolumeSnapshot
+    name: new-snapshot-demo
+    namespace: default
+  volumeMode: Filesystem
+```
 
 ## Writing Portable Configuration
 
@@ -1275,13 +1281,13 @@ and need persistent storage, it is recommended that you use the following patter
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
-* Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
+- Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+- Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
+- Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### API references {#reference}
 
 Read about the APIs described in this page:
 
-* [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
-* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
+- [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
+- [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)

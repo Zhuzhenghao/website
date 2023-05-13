@@ -1,7 +1,7 @@
 ---
 reviewers:
-- davidopp
-- wojtek-t
+  - davidopp
+  - wojtek-t
 title: Pod Priority and Preemption
 content_type: concept
 weight: 90
@@ -16,10 +16,7 @@ importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 
-
-
 <!-- body -->
-
 
 {{< warning >}}
 In a cluster where not all users are trusted, a malicious user could create Pods
@@ -64,7 +61,7 @@ and it cannot be prefixed with `system-`.
 
 A PriorityClass object can have any 32-bit integer value smaller than or equal
 to 1 billion. This means that the range of values for a PriorityClass object is
-from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for 
+from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for
 built-in PriorityClasses that represent critical system Pods. A cluster
 admin should create one PriorityClass object for each such mapping that they want.
 
@@ -80,16 +77,16 @@ cluster when they should use this PriorityClass.
 
 ### Notes about PodPriority and existing clusters
 
--   If you upgrade an existing cluster without this feature, the priority
-    of your existing Pods is effectively zero.
+- If you upgrade an existing cluster without this feature, the priority
+  of your existing Pods is effectively zero.
 
--   Addition of a PriorityClass with `globalDefault` set to `true` does not
-    change the priorities of existing Pods. The value of such a PriorityClass is
-    used only for Pods created after the PriorityClass is added.
+- Addition of a PriorityClass with `globalDefault` set to `true` does not
+  change the priorities of existing Pods. The value of such a PriorityClass is
+  used only for Pods created after the PriorityClass is added.
 
--   If you delete a PriorityClass, existing Pods that use the name of the
-    deleted PriorityClass remain unchanged, but you cannot create more Pods that
-    use the name of the deleted PriorityClass.
+- If you delete a PriorityClass, existing Pods that use the name of the
+  deleted PriorityClass remain unchanged, but you cannot create more Pods that
+  use the name of the deleted PriorityClass.
 
 ### Example PriorityClass
 
@@ -158,8 +155,7 @@ the priority. If the priority class is not found, the Pod is rejected.
 
 The following YAML is an example of a Pod configuration that uses the
 PriorityClass created in the preceding example. The priority admission
-controller checks the specification and resolves the priority of the Pod to
-1000000.
+controller checks the specification and resolves the priority of the Pod to 1000000.
 
 ```yaml
 apiVersion: v1
@@ -170,9 +166,9 @@ metadata:
     env: test
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    imagePullPolicy: IfNotPresent
+    - name: nginx
+      image: nginx
+      imagePullPolicy: IfNotPresent
   priorityClassName: high-priority
 ```
 
@@ -256,9 +252,9 @@ the Node is not considered for preemption.
 
 If a pending Pod has inter-pod {{< glossary_tooltip text="affinity" term_id="affinity" >}}
 to one or more of the lower-priority Pods on the Node, the inter-Pod affinity
-rule cannot be satisfied in the absence of those lower-priority Pods. In this case, 
+rule cannot be satisfied in the absence of those lower-priority Pods. In this case,
 the scheduler does not preempt any Pods on the Node. Instead, it looks for another
-Node. The scheduler might find a suitable Node or it might not. There is no 
+Node. The scheduler might find a suitable Node or it might not. There is no
 guarantee that the pending Pod can be scheduled.
 
 Our recommended solution for this problem is to create inter-Pod affinity only
@@ -270,15 +266,15 @@ Suppose a Node N is being considered for preemption so that a pending Pod P can
 be scheduled on N. P might become feasible on N only if a Pod on another Node is
 preempted. Here's an example:
 
-*   Pod P is being considered for Node N.
-*   Pod Q is running on another Node in the same Zone as Node N.
-*   Pod P has Zone-wide anti-affinity with Pod Q (`topologyKey:
-    topology.kubernetes.io/zone`).
-*   There are no other cases of anti-affinity between Pod P and other Pods in
-    the Zone.
-*   In order to schedule Pod P on Node N, Pod Q can be preempted, but scheduler
-    does not perform cross-node preemption. So, Pod P will be deemed
-    unschedulable on Node N.
+- Pod P is being considered for Node N.
+- Pod Q is running on another Node in the same Zone as Node N.
+- Pod P has Zone-wide anti-affinity with Pod Q (`topologyKey:
+topology.kubernetes.io/zone`).
+- There are no other cases of anti-affinity between Pod P and other Pods in
+  the Zone.
+- In order to schedule Pod P on Node N, Pod Q can be preempted, but scheduler
+  does not perform cross-node preemption. So, Pod P will be deemed
+  unschedulable on Node N.
 
 If Pod Q were removed from its Node, the Pod anti-affinity violation would be
 gone, and Pod P could possibly be scheduled on Node N.
@@ -359,9 +355,9 @@ The kubelet uses Priority to determine pod order for [node-pressure eviction](/d
 You can use the QoS class to estimate the order in which pods are most likely
 to get evicted. The kubelet ranks pods for eviction based on the following factors:
 
-  1. Whether the starved resource usage exceeds requests
-  1. Pod Priority
-  1. Amount of resource usage relative to requests 
+1. Whether the starved resource usage exceeds requests
+1. Pod Priority
+1. Amount of resource usage relative to requests
 
 See [Pod selection for kubelet eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
 for more details.
@@ -373,7 +369,7 @@ that exceeds its requests may be evicted.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about using ResourceQuotas in connection with PriorityClasses: [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
-* Learn about [Pod Disruption](/docs/concepts/workloads/pods/disruptions/)
-* Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
-* Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+- Read about using ResourceQuotas in connection with PriorityClasses: [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+- Learn about [Pod Disruption](/docs/concepts/workloads/pods/disruptions/)
+- Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+- Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)

@@ -1,26 +1,24 @@
 ---
 reviewers:
-- danwent
-- aanm
+  - danwent
+  - aanm
 title: Use Cilium for NetworkPolicy
 content_type: task
 weight: 30
 ---
 
 <!-- overview -->
+
 This page shows how to use Cilium for NetworkPolicy.
 
 For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/overview/intro).
 
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-
-
 <!-- steps -->
+
 ## Deploying Cilium on Minikube for Basic Testing
 
 To get familiar with Cilium easily you can follow the
@@ -33,6 +31,7 @@ following arguments:
 ```shell
 minikube version
 ```
+
 ```
 minikube version: v1.5.2
 ```
@@ -55,7 +54,7 @@ sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
 rm cilium-linux-amd64.tar.gz
 ```
 
-After running the above commands, you can now install Cilium with the following command: 
+After running the above commands, you can now install Cilium with the following command:
 
 ```shell
 cilium install
@@ -73,7 +72,7 @@ The components are:
 
 After the installation, you can view the overall status of the Cilium deployment with the `cilium status` command.
 See the expected output of the `status` command
-[here](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/#validate-the-installation). 
+[here](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/#validate-the-installation).
 
 The remainder of the Getting Started Guide explains how to enforce both L3/L4
 (i.e., IP address + port) security policies, as well as L7 (e.g., HTTP) security
@@ -86,10 +85,9 @@ For detailed instructions around deploying Cilium for production, see:
 This documentation includes detailed requirements, instructions and example
 production DaemonSet files.
 
-
-
 <!-- discussion -->
-##  Understanding Cilium components
+
+## Understanding Cilium components
 
 Deploying a cluster with Cilium adds Pods to the `kube-system` namespace. To see
 this list of Pods run:
@@ -109,8 +107,6 @@ cilium-kkdhz   1/1     Running   0          3m23s
 A `cilium` Pod runs on each node in your cluster and enforces network policy
 on the traffic to/from Pods on that node using Linux BPF.
 
-
-
 ## {{% heading "whatsnext" %}}
 
 Once your cluster is running, you can follow the
@@ -118,6 +114,3 @@ Once your cluster is running, you can follow the
 to try out Kubernetes NetworkPolicy with Cilium.
 Have fun, and if you have questions, contact us using the
 [Cilium Slack Channel](https://cilium.herokuapp.com/).
-
-
-

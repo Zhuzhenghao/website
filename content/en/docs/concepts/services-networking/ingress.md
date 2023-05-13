@@ -1,6 +1,6 @@
 ---
 reviewers:
-- bprashanth
+  - bprashanth
 title: Ingress
 content_type: concept
 description: >-
@@ -12,9 +12,9 @@ weight: 30
 ---
 
 <!-- overview -->
+
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
-
 
 <!-- body -->
 
@@ -22,11 +22,11 @@ weight: 30
 
 For clarity, this guide defines the following terms:
 
-* Node: A worker machine in Kubernetes, part of a cluster.
-* Cluster: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet.
-* Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
-* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
-* Service: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+- Node: A worker machine in Kubernetes, part of a cluster.
+- Cluster: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet.
+- Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
+- Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
+- Service: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 
 ## What is Ingress?
 
@@ -68,10 +68,10 @@ An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
- Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
- is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
+Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
+is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
- your choice of Ingress controller to learn which annotations are supported.
+your choice of Ingress controller to learn which annotations are supported.
 
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
@@ -84,22 +84,22 @@ should be defined.
 There are some ingress controllers, that work without the definition of a
 default `IngressClass`. For example, the Ingress-NGINX controller can be
 configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do) though, to specify the
 default `IngressClass` as shown [below](#default-ingress-class).
 
 ### Ingress rules
 
 Each HTTP rule contains the following information:
 
-* An optional host. In this example, no host is specified, so the rule applies to all inbound
+- An optional host. In this example, no host is specified, so the rule applies to all inbound
   HTTP traffic through the IP address specified. If a host is provided (for example,
   foo.bar.com), the rules apply to that host.
-* A list of paths (for example, `/testpath`), each of which has an associated
+- A list of paths (for example, `/testpath`), each of which has an associated
   backend defined with a `service.name` and a `service.port.name` or
   `service.port.number`. Both the host and path must match the content of an
   incoming request before the load balancer directs traffic to the referenced
   Service.
-* A backend is a combination of Service and port names as described in the
+- A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. HTTP (and HTTPS) requests to the
   Ingress that match the host and path of the rule are sent to the listed backend.
 
@@ -156,13 +156,13 @@ Each path in an Ingress is required to have a corresponding path type. Paths
 that do not include an explicit `pathType` will fail validation. There are three
 supported path types:
 
-* `ImplementationSpecific`: With this path type, matching is up to the
+- `ImplementationSpecific`: With this path type, matching is up to the
   IngressClass. Implementations can treat this as a separate `pathType` or treat
   it identically to `Prefix` or `Exact` path types.
 
-* `Exact`: Matches the URL path exactly and with case sensitivity.
+- `Exact`: Matches the URL path exactly and with case sensitivity.
 
-* `Prefix`: Matches based on a URL path prefix split by `/`. Matching is case
+- `Prefix`: Matches based on a URL path prefix split by `/`. Matching is case
   sensitive and done on a path element by element basis. A path element refers
   to the list of labels in the path split by the `/` separator. A request is a
   match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
@@ -174,41 +174,43 @@ supported path types:
 
 ### Examples
 
-| Kind   | Path(s)                         | Request path(s)               | Matches?                           |
-|--------|---------------------------------|-------------------------------|------------------------------------|
-| Prefix | `/`                             | (all paths)                   | Yes                                |
-| Exact  | `/foo`                          | `/foo`                        | Yes                                |
-| Exact  | `/foo`                          | `/bar`                        | No                                 |
-| Exact  | `/foo`                          | `/foo/`                       | No                                 |
-| Exact  | `/foo/`                         | `/foo`                        | No                                 |
-| Prefix | `/foo`                          | `/foo`, `/foo/`               | Yes                                |
-| Prefix | `/foo/`                         | `/foo`, `/foo/`               | Yes                                |
-| Prefix | `/aaa/bb`                       | `/aaa/bbb`                    | No                                 |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb`                    | Yes                                |
-| Prefix | `/aaa/bbb/`                     | `/aaa/bbb`                    | Yes, ignores trailing slash        |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/`                   | Yes,  matches trailing slash       |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`                | Yes, matches subpath               |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 | No, does not match string prefix   |
-| Prefix | `/`, `/aaa`                     | `/aaa/ccc`                    | Yes, matches `/aaa` prefix         |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`                    | Yes, matches `/aaa/bbb` prefix     |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`                        | Yes, matches `/` prefix            |
-| Prefix | `/aaa`                          | `/ccc`                        | No, uses default backend           |
-| Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`                        | Yes, prefers Exact                 |
+| Kind   | Path(s)                         | Request path(s) | Matches?                         |
+| ------ | ------------------------------- | --------------- | -------------------------------- |
+| Prefix | `/`                             | (all paths)     | Yes                              |
+| Exact  | `/foo`                          | `/foo`          | Yes                              |
+| Exact  | `/foo`                          | `/bar`          | No                               |
+| Exact  | `/foo`                          | `/foo/`         | No                               |
+| Exact  | `/foo/`                         | `/foo`          | No                               |
+| Prefix | `/foo`                          | `/foo`, `/foo/` | Yes                              |
+| Prefix | `/foo/`                         | `/foo`, `/foo/` | Yes                              |
+| Prefix | `/aaa/bb`                       | `/aaa/bbb`      | No                               |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb`      | Yes                              |
+| Prefix | `/aaa/bbb/`                     | `/aaa/bbb`      | Yes, ignores trailing slash      |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb/`     | Yes, matches trailing slash      |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`  | Yes, matches subpath             |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`   | No, does not match string prefix |
+| Prefix | `/`, `/aaa`                     | `/aaa/ccc`      | Yes, matches `/aaa` prefix       |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`      | Yes, matches `/aaa/bbb` prefix   |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`          | Yes, matches `/` prefix          |
+| Prefix | `/aaa`                          | `/ccc`          | No, uses default backend         |
+| Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`          | Yes, prefers Exact               |
 
 #### Multiple matches
+
 In some cases, multiple paths within an Ingress will match a request. In those
 cases precedence will be given first to the longest matching path. If two paths
 are still equally matched, precedence will be given to paths with an exact path
 type over prefix path type.
 
 ## Hostname wildcards
+
 Hosts can be precise matches (for example “`foo.bar.com`”) or a wildcard (for
 example “`*.foo.com`”). Precise matches require that the HTTP `host` header
 matches the `host` field. Wildcard matches require the HTTP `host` header is
 equal to the suffix of the wildcard rule.
 
 | Host        | Host header       | Match?                                            |
-| ----------- |-------------------| --------------------------------------------------|
+| ----------- | ----------------- | ------------------------------------------------- |
 | `*.foo.com` | `bar.foo.com`     | Matches based on shared suffix                    |
 | `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
 | `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
@@ -248,6 +250,7 @@ the `name` of the parameters identifies a specific cluster scoped
 resource for that API.
 
 For example:
+
 ```yaml
 ---
 apiVersion: networking.k8s.io/v1
@@ -266,6 +269,7 @@ spec:
     kind: ClusterIngressParameter
     name: external-config-1
 ```
+
 {{% /tab %}}
 {{% tab name="Namespaced" %}}
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
@@ -295,6 +299,7 @@ The IngressClass API itself is always cluster-scoped.
 
 Here is an example of an IngressClass that refers to parameters that are
 namespaced:
+
 ```yaml
 ---
 apiVersion: networking.k8s.io/v1
@@ -347,7 +352,7 @@ IngressClass is marked as default in your cluster.
 There are some ingress controllers, that work without the definition of a
 default `IngressClass`. For example, the Ingress-NGINX controller can be
 configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do) though, to specify the
 default `IngressClass`:
 
 {{< codenew file="service/networking/default-ingressclass.yaml" >}}
@@ -358,7 +363,7 @@ default `IngressClass`:
 
 There are existing Kubernetes concepts that allow you to expose a single Service
 (see [alternatives](#alternatives)). You can also do this with an Ingress by specifying a
-*default backend* with no rules.
+_default backend_ with no rules.
 
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
@@ -389,7 +394,6 @@ based on the HTTP URI being requested. An Ingress allows you to keep the number 
 down to a minimum. For example, a setup like:
 
 {{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="Figure. Ingress Fan Out" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
-
 
 would require an Ingress such as:
 
@@ -434,7 +438,6 @@ you are using, you may need to create a default-http-backend
 Name-based virtual hosts support routing HTTP traffic to multiple host names at the same IP address.
 
 {{< figure src="/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="Figure. Ingress Name Based Virtual hosting" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
-
 
 The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
@@ -612,13 +615,11 @@ Please check the documentation of the relevant [Ingress controller](/docs/concep
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
-* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
-
-
+- Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+- Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
-* Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
+- Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
+- Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
+- [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)

@@ -15,18 +15,17 @@ from a task queue, processes it, and repeats until the end of the queue is reach
 
 Here is an overview of the steps in this example:
 
-1. **Start a storage service to hold the work queue.**  In this example, we use Redis to store
-   our work items.  In the previous example, we used RabbitMQ.  In this example, we use Redis and
+1. **Start a storage service to hold the work queue.** In this example, we use Redis to store
+   our work items. In the previous example, we used RabbitMQ. In this example, we use Redis and
    a custom work-queue client library because AMQP does not provide a good way for clients to
-   detect when a finite-length work queue is empty.  In practice you would set up a store such
+   detect when a finite-length work queue is empty. In practice you would set up a store such
    as Redis once and reuse it for the work queues of many jobs, and other things.
-1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
+1. **Create a queue, and fill it with messages.** Each message represents one task to be done. In
    this example, a message is an integer that we will do a lengthy computation on.
-1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
+1. **Start a Job that works on tasks from the queue**. The Job starts several pods. Each pod takes
    one task from the message queue, processes it, and repeats until the end of the queue is reached.
 
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -52,10 +51,9 @@ You could also download the following files directly:
 - [`rediswq.py`](/examples/application/job/redis/rediswq.py)
 - [`worker.py`](/examples/application/job/redis/worker.py)
 
-
 ## Filling the Queue with tasks
 
-Now let's fill the queue with some "tasks".  In our example, our tasks are strings to be
+Now let's fill the queue with some "tasks". In our example, our tasks are strings to be
 printed.
 
 Start a temporary interactive pod for running the Redis CLI.
@@ -105,7 +103,6 @@ So, the list with key `job2` will be our work queue.
 Note: if you do not have Kube DNS setup correctly, you may need to change
 the first step of the above block to `redis-cli -h $REDIS_SERVICE_HOST`.
 
-
 ## Create an Image
 
 Now we are ready to create an image that we will run.
@@ -117,7 +114,7 @@ A simple Redis work queue client library is provided,
 called rediswq.py ([Download](/examples/application/job/redis/rediswq.py)).
 
 The "worker" program in each Pod of the Job uses the work queue
-client library to get work.  Here it is:
+client library to get work. Here it is:
 
 {{< codenew language="python" file="application/job/redis/worker.py" >}}
 
@@ -166,11 +163,10 @@ change `gcr.io/myproject` to your own path.
 In this example, each pod works on several items from the queue and then exits when there are no more items.
 Since the workers themselves detect when the workqueue is empty, and the Job controller does not
 know about the workqueue, it relies on the workers to signal when they are done working.
-The workers signal that the queue is empty by exiting with success.  So, as soon as any worker
+The workers signal that the queue is empty by exiting with success. So, as soon as any worker
 exits with success, the controller knows the work is done, and the Pods will exit soon.
-So, we set the completion count of the Job to 1.  The job controller will wait for the other pods to complete
+So, we set the completion count of the Job to 1. The job controller will wait for the other pods to complete
 too.
-
 
 ## Running the Job
 
@@ -211,6 +207,7 @@ Events:
 ```
 
 You can wait for the Job to succeed, with a timeout:
+
 ```shell
 # The check for condition name is case insensitive
 kubectl wait --for=condition=complete --timeout=300s job/job-wq-2
@@ -219,6 +216,7 @@ kubectl wait --for=condition=complete --timeout=300s job/job-wq-2
 ```shell
 kubectl logs pods/job-wq-2-7r7b2
 ```
+
 ```
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False
@@ -241,5 +239,3 @@ If you have a continuous stream of background processing work to run, then
 consider running your background workers with a `ReplicaSet` instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
-
-

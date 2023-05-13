@@ -1,7 +1,7 @@
 ---
 reviewers:
-- davidopp
-- madhusudancs
+  - davidopp
+  - madhusudancs
 title: Configure Multiple Schedulers
 content_type: task
 weight: 20
@@ -78,7 +78,7 @@ the `kube-scheduler` during initialization with the `--config` option. The `my-s
 In the aforementioned Scheduler Configuration, your scheduler implementation is represented via
 a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile).
 {{< note >}}
-To determine if a scheduler is responsible for scheduling a specific Pod, the `spec.schedulerName` field in a 
+To determine if a scheduler is responsible for scheduling a specific Pod, the `spec.schedulerName` field in a
 PodTemplate or Pod manifest must match the `schedulerName` field of the `KubeSchedulerProfile`.
 All schedulers running in the cluster must have unique names.
 {{< /note >}}
@@ -123,9 +123,9 @@ To run multiple-scheduler with leader election enabled, you must do the followin
 
 Update the following fields for the KubeSchedulerConfiguration in the `my-scheduler-config` ConfigMap in your YAML file:
 
-* `leaderElection.leaderElect` to `true`
-* `leaderElection.resourceNamespace` to `<lock-object-namespace>`
-* `leaderElection.resourceName` to `<lock-object-name>`
+- `leaderElection.leaderElect` to `true`
+- `leaderElection.resourceNamespace` to `<lock-object-namespace>`
+- `leaderElection.resourceName` to `<lock-object-name>`
 
 {{< note >}}
 The control plane creates the lock objects for you, but the namespace must already exist.
@@ -213,7 +213,7 @@ verify that the pods were scheduled by the desired schedulers.
 ```shell
 kubectl get events
 ```
+
 You can also use a [custom scheduler configuration](/docs/reference/scheduling/config/#multiple-profiles)
 or a custom container image for the cluster's main scheduler by modifying its static pod manifest
 on the relevant control plane nodes.
-

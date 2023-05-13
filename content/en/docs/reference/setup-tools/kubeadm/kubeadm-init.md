@@ -1,7 +1,7 @@
 ---
 reviewers:
-- luxas
-- jbeda
+  - luxas
+  - jbeda
 title: kubeadm init
 content_type: concept
 weight: 20
@@ -192,14 +192,17 @@ if that does not succeed, kubeadm falls back to using the legacy (versioned) nam
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the kubeadm configuration see:
+
 - [kube-proxy reference](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 For information about enabling IPVS mode with kubeadm see:
+
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 
 ### Passing custom flags to control plane components {#control-plane-flags}
 
 For information about passing flags to control plane components see:
+
 - [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 ### Running kubeadm without an Internet connection {#without-internet-connection}
@@ -227,10 +230,10 @@ requested Kubernetes version is a CI label (such as `ci/latest`)
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
 Allowed customization are:
 
-* To provide `kubernetesVersion` which affects the version of the images.
-* To provide an alternative `imageRepository` to be used instead of
+- To provide `kubernetesVersion` which affects the version of the images.
+- To provide an alternative `imageRepository` to be used instead of
   `registry.k8s.io`.
-* To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
+- To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 
 Image paths between the default `registry.k8s.io` and a custom repository specified using
 `imageRepository` may differ for backwards compatibility reasons. For example,
@@ -240,15 +243,15 @@ to `my.customrepository.io/image` when using a custom repository.
 To ensure you push the images to your custom repository in paths that kubeadm
 can consume, you must:
 
-* Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
-* Push images to the paths from `kubeadm config images list --config=config.yaml`,
-where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
-for etcd and CoreDNS.
-* Pass the same `config.yaml` to `kubeadm init`.
+- Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
+- Push images to the paths from `kubeadm config images list --config=config.yaml`,
+  where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
+  for etcd and CoreDNS.
+- Pass the same `config.yaml` to `kubeadm init`.
 
 #### Custom sandbox (pause) images {#custom-pause-image}
 
-To set a custom image for these you need to configure this in your 
+To set a custom image for these you need to configure this in your
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use the image.
 Consult the documentation for your container runtime to find out how to change this setting;
@@ -269,6 +272,7 @@ The following phase command can be used to re-upload the certificates after expi
 ```shell
 kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
+
 {{< note >}}
 A predefined `certificateKey` can be provided in `InitConfiguration` when passing the [configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
 {{< /note >}}
@@ -321,8 +325,8 @@ you can parallelize the token distribution for easier automation. To implement t
 you must know the IP address that the control-plane node will have after it is started, or use a
 DNS name or an address of a load balancer.
 
-1. Generate a token. This token must have the form  `<6 character string>.<16
-   character string>`. More formally, it must match the regex:
+1. Generate a token. This token must have the form `<6 character string>.<16
+character string>`. More formally, it must match the regex:
    `[a-z0-9]{6}\.[a-z0-9]{16}`.
 
    kubeadm can generate a token for you:
@@ -332,7 +336,7 @@ DNS name or an address of a load balancer.
    ```
 
 1. Start both the control-plane node and the worker nodes concurrently with this token.
-   As they come up they should find each other and form the cluster.  The same
+   As they come up they should find each other and form the cluster. The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
 1. Similar can be done for `--certificate-key` when joining additional control-plane
@@ -352,12 +356,11 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
+- [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
   `kubeadm init` phases
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes
+- [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes
   worker node and join it to the cluster
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes
+- [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes
   cluster to a newer version
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made
+- [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made
   to this host by `kubeadm init` or `kubeadm join`
-

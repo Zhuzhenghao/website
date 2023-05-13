@@ -5,21 +5,14 @@ package: client.authentication.k8s.io/v1beta1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [ExecCredential](#client-authentication-k8s-io-v1beta1-ExecCredential)
-  
-    
 
-## `ExecCredential`     {#client-authentication-k8s-io-v1beta1-ExecCredential}
-    
-
+## `ExecCredential` {#client-authentication-k8s-io-v1beta1-ExecCredential}
 
 <p>ExecCredential is used by exec-based plugins to communicate credentials to
 HTTP transports.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -47,13 +40,11 @@ should use to contact the API.</p>
 </tbody>
 </table>
 
-## `Cluster`     {#client-authentication-k8s-io-v1beta1-Cluster}
-    
+## `Cluster` {#client-authentication-k8s-io-v1beta1-Cluster}
 
 **Appears in:**
 
 - [ExecCredentialSpec](#client-authentication-k8s-io-v1beta1-ExecCredentialSpec)
-
 
 <p>Cluster contains information to allow an exec plugin to communicate
 with the kubernetes cluster being authenticated to.</p>
@@ -61,7 +52,6 @@ with the kubernetes cluster being authenticated to.</p>
 with a kubernetes cluster (just like they would via a kubeconfig), the fields
 should shadow &quot;k8s.io/client-go/tools/clientcmd/api/v1&quot;.Cluster, with the exception
 of CertificateAuthority, since CA data will always be passed to the plugin as bytes.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -149,17 +139,14 @@ to be stored directly in the kubeconfig.</p>
 </tbody>
 </table>
 
-## `ExecCredentialSpec`     {#client-authentication-k8s-io-v1beta1-ExecCredentialSpec}
-    
+## `ExecCredentialSpec` {#client-authentication-k8s-io-v1beta1-ExecCredentialSpec}
 
 **Appears in:**
 
 - [ExecCredential](#client-authentication-k8s-io-v1beta1-ExecCredential)
 
-
 <p>ExecCredentialSpec holds request and runtime specific information provided by
 the transport.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -186,19 +173,16 @@ ExecConfig.ProvideClusterInfo).</p>
 </tbody>
 </table>
 
-## `ExecCredentialStatus`     {#client-authentication-k8s-io-v1beta1-ExecCredentialStatus}
-    
+## `ExecCredentialStatus` {#client-authentication-k8s-io-v1beta1-ExecCredentialStatus}
 
 **Appears in:**
 
 - [ExecCredential](#client-authentication-k8s-io-v1beta1-ExecCredential)
 
-
 <p>ExecCredentialStatus holds credentials for the transport to use.</p>
 <p>Token and ClientKeyData are sensitive fields. This data should only be
 transmitted in-memory between client and exec plugin process. Exec plugin
 itself should at least be protected via file permissions.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -235,4 +219,3 @@ itself should at least be protected via file permissions.</p>
 </tr>
 </tbody>
 </table>
-  

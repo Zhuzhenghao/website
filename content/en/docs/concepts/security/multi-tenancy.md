@@ -21,6 +21,7 @@ While Kubernetes does not have first-class concepts of end users or tenants, it 
 features to help manage different tenancy requirements. These are discussed below.
 
 <!-- body -->
+
 ## Use cases
 
 The first step to determining how to share your cluster is understanding your use case, so you can
@@ -95,7 +96,7 @@ implies strong isolation, and “soft” multi-tenancy, which implies weaker iso
 often from security and resource sharing perspectives (e.g. guarding against attacks such as data
 exfiltration or DoS). Since data planes typically have much larger attack surfaces, "hard"
 multi-tenancy often requires extra attention to isolating the data-plane, though control plane
-isolation  also remains critical.
+isolation also remains critical.
 
 However, the terms "hard" and "soft" can often be confusing, as there is no single definition that
 will apply to all users. Rather, "hardness" or "softness" is better understood as a broad
@@ -171,9 +172,9 @@ fine-grained policies where necessary.
 
 ### Quotas
 
-Kubernetes workloads consume node resources, like CPU and memory.  In a multi-tenant environment,
+Kubernetes workloads consume node resources, like CPU and memory. In a multi-tenant environment,
 you can use [Resource Quotas](/docs/concepts/policy/resource-quotas/) to manage resource usage of
-tenant workloads.  For the multiple teams use case, where tenants have access to the Kubernetes
+tenant workloads. For the multiple teams use case, where tenants have access to the Kubernetes
 API, you can use resource quotas to limit the number of API resources (for example: the number of
 Pods, or the number of ConfigMaps) that a tenant can create. Limits on object count ensure
 fairness and aim to avoid _noisy neighbor_ issues from affecting other tenants that share a
@@ -289,9 +290,9 @@ access to the host system and all the processes/files running on that host.
 Virtual machines and userspace kernels are 2 popular approaches to sandboxing. The following
 sandboxing implementations are available:
 
-* [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
+- [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
   userspace kernel, written in Go, with limited access to the underlying host.
-* [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run
+- [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run
   containers in a VM. The hardware virtualization available in Kata offers an added layer of
   security for containers running untrusted code.
 
@@ -403,10 +404,10 @@ multi-tenancy use case.
 Operators used in a multi-tenant environment should follow a stricter set of guidelines.
 Specifically, the Operator should:
 
-* Support creating resources within different tenant namespaces, rather than just in the namespace
+- Support creating resources within different tenant namespaces, rather than just in the namespace
   in which the Operator is deployed.
-* Ensure that the Pods are configured with resource requests and limits, to ensure scheduling and fairness.
-* Support configuration of Pods for data-plane isolation techniques such as node isolation and
+- Ensure that the Pods are configured with resource requests and limits, to ensure scheduling and fairness.
+- Support configuration of Pods for data-plane isolation techniques such as node isolation and
   sandboxed containers.
 
 ## Implementations
@@ -462,19 +463,19 @@ listed below.
 
 #### Multi-team tenancy
 
-* [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
+- [Capsule](https://github.com/clastix/capsule)
+- [Kiosk](https://github.com/loft-sh/kiosk)
 
 #### Multi-customer tenancy
 
-* [Kubeplus](https://github.com/cloud-ark/kubeplus)
+- [Kubeplus](https://github.com/cloud-ark/kubeplus)
 
 #### Policy engines
 
 Policy engines provide features to validate and generate tenant configurations:
 
-* [Kyverno](https://kyverno.io/)
-* [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
+- [Kyverno](https://kyverno.io/)
+- [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
 ### Virtual control plane per tenant
 
@@ -499,11 +500,11 @@ super-cluster.
 By using per-tenant dedicated control planes, most of the isolation problems due to sharing one
 API server among all tenants are solved. Examples include noisy neighbors in the control plane,
 uncontrollable blast radius of policy misconfigurations, and conflicts between cluster scope
-objects such as webhooks and CRDs.  Hence, the virtual control plane model is particularly
+objects such as webhooks and CRDs. Hence, the virtual control plane model is particularly
 suitable for cases where each tenant requires access to a Kubernetes API server and expects the
 full cluster manageability.
 
-The improved isolation comes at the  cost of running and maintaining an individual virtual control
+The improved isolation comes at the cost of running and maintaining an individual virtual control
 plane per tenant. In addition, per-tenant control planes do not solve isolation problems in the
 data plane, such as node-level noisy neighbors or security threats. These must still be addressed
 separately.
@@ -513,5 +514,5 @@ project provides an implementation of virtual control planes.
 
 #### Other implementations
 
-* [Kamaji](https://github.com/clastix/kamaji)
-* [vcluster](https://github.com/loft-sh/vcluster)
+- [Kamaji](https://github.com/clastix/kamaji)
+- [vcluster](https://github.com/loft-sh/vcluster)

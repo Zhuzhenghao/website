@@ -17,7 +17,7 @@ internally within the Kubernetes project for a key implementation detail.
 
 ## {{% heading "prerequisites" %}}
 
-* You need to run a version of Kubernetes that provides this feature.
+- You need to run a version of Kubernetes that provides this feature.
   Kubernetes {{< skew currentVersion >}} includes beta support for event-based container
   status updates. The feature is beta and is disabled by default.
   {{< version-check >}}
@@ -27,10 +27,10 @@ internally within the Kubernetes project for a key implementation detail.
 
 ## Why switch to Evented PLEG?
 
-* The current `Generic PLEG` incurs non-negligible overhead due to frequent polling of container statuses.
-* This overhead is exacerbated by Kubelet's parallelism, limiting its scalability
+- The current `Generic PLEG` incurs non-negligible overhead due to frequent polling of container statuses.
+- This overhead is exacerbated by Kubelet's parallelism, limiting its scalability
   and causing poor performance and reliability problems.
-* The goal of `Evented PLEG` is to reduce unnecessary work during inactivity by replacing periodic polling.
+- The goal of `Evented PLEG` is to reduce unnecessary work during inactivity by replacing periodic polling.
 
 ## Switching to Evented PLEG
 
@@ -94,5 +94,5 @@ internally within the Kubernetes project for a key implementation detail.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about
+- Learn more about
   [KEP 3386](https://github.com/kubernetes/enhancements/blob/5b258a990adabc2ffdc9d84581ea6ed696f7ce6c/keps/sig-node/3386-kubelet-evented-pleg/README.md).

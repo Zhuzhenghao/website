@@ -1,9 +1,9 @@
 ---
 reviewers:
-- floreks
-- maciaszczykm
-- shu-mutou
-- mikedanese
+  - floreks
+  - maciaszczykm
+  - shu-mutou
+  - mikedanese
 title: Deploy and Access the Kubernetes Dashboard
 description: >-
   Deploy the web UI (Kubernetes Dashboard) and access it.
@@ -254,8 +254,5 @@ The viewer allows for drilling down logs from containers belonging to a single P
 
 ## {{% heading "whatsnext" %}}
 
-
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
-
-

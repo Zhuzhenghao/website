@@ -5,7 +5,6 @@ weight: 30
 min-kubernetes-server-version: 1.27
 ---
 
-
 <!-- overview -->
 
 {{< feature-state state="alpha" for_k8s_version="v1.27" >}}
@@ -19,6 +18,7 @@ allocates resources for a pod based on its `requests`, and restricts the pod's
 resource usage based on the `limits` specified in the pod's containers.
 
 For in-place resize of pod resources:
+
 - Container's resource `requests` and `limits` are _mutable_ for CPU
   and memory resources.
 - `allocatedResources` field in `containerStatuses` of the Pod's status reflects
@@ -39,12 +39,9 @@ For in-place resize of pod resources:
     resize. This can happen if the requested resize exceeds the maximum
     resources the node can ever allocate for a pod.
 
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 
 ## Container Resize Policies
 
@@ -55,8 +52,9 @@ but resizing memory may require that the application hence the containers be res
 
 To enable this, the Container specification allows users to specify a `resizePolicy`.
 The following restart policies can be specified for resizing CPU and memory:
-* `NotRequired`: Resize the container's resources while it is running.
-* `RestartContainer`: Restart the container and apply new resources upon restart.
+
+- `NotRequired`: Resize the container's resources while it is running.
+- `RestartContainer`: Restart the container and apply new resources upon restart.
 
 If `resizePolicy[*].restartPolicy` is not specified, it defaults to `NotRequired`.
 
@@ -76,20 +74,20 @@ metadata:
   namespace: qos-example
 spec:
   containers:
-  - name: qos-demo-ctr-5
-    image: nginx
-    resizePolicy:
-    - resourceName: cpu
-      restartPolicy: NotRequired
-    - resourceName: memory
-      restartPolicy: RestartContainer
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "700m"
-      requests:
-        memory: "200Mi"
-        cpu: "700m"
+    - name: qos-demo-ctr-5
+      image: nginx
+      resizePolicy:
+        - resourceName: cpu
+          restartPolicy: NotRequired
+        - resourceName: memory
+          restartPolicy: RestartContainer
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "700m"
+        requests:
+          memory: "200Mi"
+          cpu: "700m"
 ```
 
 {{< note >}}
@@ -98,7 +96,6 @@ have changed, the container will be restarted in order to resize its memory.
 {{< /note >}}
 
 <!-- steps -->
-
 
 ## Create a pod with resource requests and limits
 
@@ -167,7 +164,6 @@ spec:
   qosClass: Guaranteed
 ```
 
-
 ## Updating the pod's resources
 
 Let's say the CPU requirements have increased, and 0.8 CPU is now desired. This
@@ -229,7 +225,6 @@ In the Container's status, updated CPU resource values shows that new CPU
 resources have been applied. The Container's `restartCount` remains unchanged,
 indicating that container's CPU resources were resized without restarting the container.
 
-
 ## Clean up
 
 Delete your namespace:
@@ -238,24 +233,22 @@ Delete your namespace:
 kubectl delete namespace qos-example
 ```
 
-
 ## {{% heading "whatsnext" %}}
-
 
 ### For application developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+- [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+- [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+- [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

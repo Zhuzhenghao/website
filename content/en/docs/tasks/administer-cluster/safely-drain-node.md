@@ -1,26 +1,28 @@
 ---
 reviewers:
-- davidopp
-- mml
-- foxish
-- kow3ns
+  - davidopp
+  - mml
+  - foxish
+  - kow3ns
 title: Safely Drain a Node
 content_type: task
 weight: 310
 ---
 
 <!-- overview -->
+
 This page shows how to safely drain a {{< glossary_tooltip text="node" term_id="node" >}},
 optionally respecting the PodDisruptionBudget you have defined.
 
 ## {{% heading "prerequisites" %}}
 
 This task assumes that you have met the following prerequisites:
-  1. You do not require your applications to be highly available during the
-     node drain, or
-  1. You have read about the [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) concept,
-     and have [configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
-     applications that need them.
+
+1. You do not require your applications to be highly available during the
+   node drain, or
+1. You have read about the [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) concept,
+   and have [configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
+   applications that need them.
 
 <!-- steps -->
 
@@ -86,6 +88,7 @@ If you leave the node in the cluster during the maintenance operation, you need 
 ```shell
 kubectl uncordon <node name>
 ```
+
 afterwards to tell Kubernetes that it can resume scheduling new pods onto the node.
 
 ## Draining multiple nodes in parallel
@@ -117,5 +120,4 @@ For more information, see [API-initiated eviction](/docs/concepts/scheduling-evi
 
 ## {{% heading "whatsnext" %}}
 
-* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
-
+- Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).

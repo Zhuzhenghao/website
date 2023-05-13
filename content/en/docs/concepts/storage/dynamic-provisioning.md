@@ -1,9 +1,9 @@
 ---
 reviewers:
-- saad-ali
-- jsafrane
-- thockin
-- msau42
+  - saad-ali
+  - jsafrane
+  - thockin
+  - msau42
 title: Dynamic Volume Provisioning
 content_type: concept
 weight: 50
@@ -25,8 +25,8 @@ automatically provisions storage when it is requested by users.
 
 The implementation of dynamic volume provisioning is based on the API object `StorageClass`
 from the API group `storage.k8s.io`. A cluster administrator can define as many
-`StorageClass` objects as needed, each specifying a *volume plugin* (aka
-*provisioner*) that provisions a volume and the set of parameters to pass to
+`StorageClass` objects as needed, each specifying a _volume plugin_ (aka
+_provisioner_) that provisions a volume and the set of parameters to pass to
 that provisioner when provisioning.
 A cluster administrator can define and expose multiple flavors of storage (from
 the same or different storage systems) within a cluster, each with a custom set
@@ -108,7 +108,7 @@ Dynamic provisioning can be enabled on a cluster such that all claims are
 dynamically provisioned if no storage class is specified. A cluster administrator
 can enable this behavior by:
 
-- Marking one `StorageClass` object as *default*;
+- Marking one `StorageClass` object as _default_;
 - Making sure that the [`DefaultStorageClass` admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
   is enabled on the API server.
 
@@ -119,7 +119,7 @@ When a default `StorageClass` exists in a cluster and a user creates a
 `DefaultStorageClass` admission controller automatically adds the
 `storageClassName` field pointing to the default storage class.
 
-Note that there can be at most one *default* storage class on a cluster, or
+Note that there can be at most one _default_ storage class on a cluster, or
 a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
 be created.
 
@@ -129,5 +129,3 @@ In [Multi-Zone](/docs/setup/best-practices/multiple-zones/) clusters, Pods can b
 Zones in a Region. Single-Zone storage backends should be provisioned in the Zones where
 Pods are scheduled. This can be accomplished by setting the
 [Volume Binding Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
-
-

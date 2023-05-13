@@ -1,7 +1,7 @@
 ---
 reviewers:
-- mikedanese
-- thockin
+  - mikedanese
+  - thockin
 title: Container Lifecycle Hooks
 content_type: concept
 weight: 40
@@ -11,9 +11,6 @@ weight: 40
 
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
 to run code triggered by events during their management lifecycle.
-
-
-
 
 <!-- body -->
 
@@ -52,9 +49,9 @@ A more detailed description of the termination behavior can be found in
 Containers can access a hook by implementing and registering a handler for that hook.
 There are two types of hook handlers that can be implemented for Containers:
 
-* Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
-Resources consumed by the command are counted against the Container.
-* HTTP - Executes an HTTP request against a specific endpoint on the Container.
+- Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
+  Resources consumed by the command are counted against the Container.
+- HTTP - Executes an HTTP request against a specific endpoint on the Container.
 
 ### Hook handler execution
 
@@ -87,7 +84,7 @@ such as when saving state prior to stopping a Container.
 
 ### Hook delivery guarantees
 
-Hook delivery is intended to be *at least once*,
+Hook delivery is intended to be _at least once_,
 which means that a hook may be called multiple times for any given event,
 such as for `PostStart` or `PreStop`.
 It is up to the hook implementation to handle this correctly.
@@ -123,12 +120,8 @@ Events:
   Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
-* Get hands-on experience
+- Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
+- Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
-

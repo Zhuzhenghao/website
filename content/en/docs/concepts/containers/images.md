@@ -1,7 +1,7 @@
 ---
 reviewers:
-- erictune
-- thockin
+  - erictune
+  - thockin
 title: Images
 content_type: concept
 weight: 10
@@ -36,7 +36,7 @@ and possibly a port number as well; for example: `fictional.registry.example:104
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
 After the image name part you can add a _tag_ (in the same way you would when using with commands
-like `docker` or `podman`).  Tags let you identify different versions of the same series of images.
+like `docker` or `podman`). Tags let you identify different versions of the same series of images.
 
 Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
 periods (`.`), and dashes (`-`).  
@@ -67,16 +67,16 @@ these values have:
 
 `Always`
 : every time the kubelet launches a container, the kubelet queries the container
-  image registry to resolve the name to an image
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
-  If the kubelet has a container image with that exact digest cached locally, the kubelet uses its
-  cached image; otherwise, the kubelet pulls the image with the resolved digest, and uses that image
-  to launch the container.
+image registry to resolve the name to an image
+[digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
+If the kubelet has a container image with that exact digest cached locally, the kubelet uses its
+cached image; otherwise, the kubelet pulls the image with the resolved digest, and uses that image
+to launch the container.
 
 `Never`
 : the kubelet does not try fetching the image. If the image is somehow already present
-  locally, the kubelet attempts to start the container; otherwise, startup fails.
-  See [pre-pulled images](#pre-pulled-images) for more details.
+locally, the kubelet attempts to start the container; otherwise, startup fails.
+See [pre-pulled images](#pre-pulled-images) for more details.
 
 The caching semantics of the underlying image provider make even
 `imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
@@ -223,7 +223,7 @@ Credentials can be provided in several ways:
   - all pods can read any configured private registries
   - requires node configuration by cluster administrator
 - Kubelet Credential Provider to dynamically fetch credentials for private registries
-  - kubelet can be configured to use credential provider exec plugin 
+  - kubelet can be configured to use credential provider exec plugin
     for the respective private registry.
 - Pre-pulled Images
   - all pods can use any images cached on a node
@@ -250,7 +250,7 @@ task. That example uses a private registry in Docker Hub.
 
 {{< note >}}
 This approach is especially suitable when kubelet needs to fetch registry credentials dynamically.
-Most commonly used for registries provided by cloud providers where auth tokens are short-lived. 
+Most commonly used for registries provided by cloud providers where auth tokens are short-lived.
 {{< /note >}}
 
 You can configure the kubelet to invoke a plugin binary to dynamically fetch registry credentials for a container image.
@@ -267,11 +267,11 @@ prefix-matched paths. This means that a `config.json` like this is valid:
 
 ```json
 {
-    "auths": {
-        "*my-registry.io/images": {
-            "auth": "…"
-        }
+  "auths": {
+    "*my-registry.io/images": {
+      "auth": "…"
     }
+  }
 }
 ```
 
@@ -310,14 +310,14 @@ means, that multiple entries in `config.json` are possible, too:
 
 ```json
 {
-    "auths": {
-        "my-registry.io/images": {
-            "auth": "…"
-        },
-        "my-registry.io/images/subpath": {
-            "auth": "…"
-        }
+  "auths": {
+    "my-registry.io/images": {
+      "auth": "…"
+    },
+    "my-registry.io/images/subpath": {
+      "auth": "…"
     }
+  }
 }
 ```
 
@@ -328,7 +328,7 @@ authentication sources if one of them fails.
 ### Pre-pulled images
 
 {{< note >}}
-This approach is suitable if you can control node configuration.  It
+This approach is suitable if you can control node configuration. It
 will not work reliably if your cloud provider manages nodes and replaces
 them automatically.
 {{< /note >}}
@@ -422,15 +422,15 @@ in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-acco
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 for detailed instructions.
 
-You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
+You can use this in conjunction with a per-node `.docker/config.json`. The credentials
 will be merged.
 
 ## Use cases
 
-There are a number of solutions for configuring private registries.  Here are some
+There are a number of solutions for configuring private registries. Here are some
 common use cases and suggested solutions.
 
-1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
+1. Cluster running only non-proprietary (e.g. open-source) images. No need to hide images.
    - Use public images from a public registry
      - No configuration required.
      - Some cloud providers automatically cache or mirror public images, which improves
@@ -460,7 +460,6 @@ If you need access to multiple registries, you can create one secret for each re
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
-* Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
-* Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
-
+- Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
+- Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
+- Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).

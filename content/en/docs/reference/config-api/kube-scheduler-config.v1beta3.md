@@ -5,9 +5,7 @@ package: kubescheduler.config.k8s.io/v1beta3
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [DefaultPreemptionArgs](#kubescheduler-config-k8s-io-v1beta3-DefaultPreemptionArgs)
 - [InterPodAffinityArgs](#kubescheduler-config-k8s-io-v1beta3-InterPodAffinityArgs)
@@ -17,16 +15,11 @@ auto_generated: true
 - [NodeResourcesFitArgs](#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs)
 - [PodTopologySpreadArgs](#kubescheduler-config-k8s-io-v1beta3-PodTopologySpreadArgs)
 - [VolumeBindingArgs](#kubescheduler-config-k8s-io-v1beta3-VolumeBindingArgs)
-  
-    
 
-## `DefaultPreemptionArgs`     {#kubescheduler-config-k8s-io-v1beta3-DefaultPreemptionArgs}
-    
-
+## `DefaultPreemptionArgs` {#kubescheduler-config-k8s-io-v1beta3-DefaultPreemptionArgs}
 
 <p>DefaultPreemptionArgs holds arguments used to configure the
 DefaultPreemption plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -62,12 +55,9 @@ that play a role in the number of candidates shortlisted. Must be at least
 </tbody>
 </table>
 
-## `InterPodAffinityArgs`     {#kubescheduler-config-k8s-io-v1beta3-InterPodAffinityArgs}
-    
-
+## `InterPodAffinityArgs` {#kubescheduler-config-k8s-io-v1beta3-InterPodAffinityArgs}
 
 <p>InterPodAffinityArgs holds arguments used to configure the InterPodAffinity plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -96,12 +86,9 @@ rules when scoring candidate nodes, unless the incoming pod has inter-pod affini
 </tbody>
 </table>
 
-## `KubeSchedulerConfiguration`     {#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration}
-    
-
+## `KubeSchedulerConfiguration` {#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration}
 
 <p>KubeSchedulerConfiguration configures a scheduler</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -194,12 +181,9 @@ with the extender. These extenders are shared by all scheduler profiles.</p>
 </tbody>
 </table>
 
-## `NodeAffinityArgs`     {#kubescheduler-config-k8s-io-v1beta3-NodeAffinityArgs}
-    
-
+## `NodeAffinityArgs` {#kubescheduler-config-k8s-io-v1beta3-NodeAffinityArgs}
 
 <p>NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -224,12 +208,9 @@ a specific Node (such as Daemonset Pods) might remain unschedulable.</p>
 </tbody>
 </table>
 
-## `NodeResourcesBalancedAllocationArgs`     {#kubescheduler-config-k8s-io-v1beta3-NodeResourcesBalancedAllocationArgs}
-    
-
+## `NodeResourcesBalancedAllocationArgs` {#kubescheduler-config-k8s-io-v1beta3-NodeResourcesBalancedAllocationArgs}
 
 <p>NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResourcesBalancedAllocation plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -249,12 +230,9 @@ a specific Node (such as Daemonset Pods) might remain unschedulable.</p>
 </tbody>
 </table>
 
-## `NodeResourcesFitArgs`     {#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs}
-    
-
+## `NodeResourcesFitArgs` {#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs}
 
 <p>NodeResourcesFitArgs holds arguments used to configure the NodeResourcesFit plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -293,12 +271,9 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
 </tbody>
 </table>
 
-## `PodTopologySpreadArgs`     {#kubescheduler-config-k8s-io-v1beta3-PodTopologySpreadArgs}
-    
-
+## `PodTopologySpreadArgs` {#kubescheduler-config-k8s-io-v1beta3-PodTopologySpreadArgs}
 
 <p>PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -337,12 +312,9 @@ Nodes and Zones.</li>
 </tbody>
 </table>
 
-## `VolumeBindingArgs`     {#kubescheduler-config-k8s-io-v1beta3-VolumeBindingArgs}
-    
-
+## `VolumeBindingArgs` {#kubescheduler-config-k8s-io-v1beta3-VolumeBindingArgs}
 
 <p>VolumeBindingArgs holds arguments used to configure the VolumeBinding plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -383,17 +355,14 @@ All points must be sorted in increasing order by utilization.</li>
 </tbody>
 </table>
 
-## `Extender`     {#kubescheduler-config-k8s-io-v1beta3-Extender}
-    
+## `Extender` {#kubescheduler-config-k8s-io-v1beta3-Extender}
 
 **Appears in:**
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-
 <p>Extender holds the parameters used to communicate with the extender. If a verb is unspecified/empty,
 it is assumed that the extender chose not to provide that extension.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -503,17 +472,14 @@ fail when the extender returns an error or is not reachable.</p>
 </tbody>
 </table>
 
-## `ExtenderManagedResource`     {#kubescheduler-config-k8s-io-v1beta3-ExtenderManagedResource}
-    
+## `ExtenderManagedResource` {#kubescheduler-config-k8s-io-v1beta3-ExtenderManagedResource}
 
 **Appears in:**
 
 - [Extender](#kubescheduler-config-k8s-io-v1beta3-Extender)
 
-
 <p>ExtenderManagedResource describes the arguments of extended resources
 managed by an extender.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -538,16 +504,13 @@ resource when applying predicates.</p>
 </tbody>
 </table>
 
-## `ExtenderTLSConfig`     {#kubescheduler-config-k8s-io-v1beta3-ExtenderTLSConfig}
-    
+## `ExtenderTLSConfig` {#kubescheduler-config-k8s-io-v1beta3-ExtenderTLSConfig}
 
 **Appears in:**
 
 - [Extender](#kubescheduler-config-k8s-io-v1beta3-Extender)
 
-
 <p>ExtenderTLSConfig contains settings to enable TLS with extender</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -618,16 +581,13 @@ CAData takes precedence over CAFile</p>
 </tbody>
 </table>
 
-## `KubeSchedulerProfile`     {#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile}
-    
+## `KubeSchedulerProfile` {#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile}
 
 **Appears in:**
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-
 <p>KubeSchedulerProfile is a scheduling profile.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -669,16 +629,13 @@ for that plugin.</p>
 </tbody>
 </table>
 
-## `Plugin`     {#kubescheduler-config-k8s-io-v1beta3-Plugin}
-    
+## `Plugin` {#kubescheduler-config-k8s-io-v1beta3-Plugin}
 
 **Appears in:**
 
 - [PluginSet](#kubescheduler-config-k8s-io-v1beta3-PluginSet)
 
-
 <p>Plugin specifies a plugin name and its weight when applicable. Weight is used only for Score plugins.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -702,18 +659,15 @@ for that plugin.</p>
 </tbody>
 </table>
 
-## `PluginConfig`     {#kubescheduler-config-k8s-io-v1beta3-PluginConfig}
-    
+## `PluginConfig` {#kubescheduler-config-k8s-io-v1beta3-PluginConfig}
 
 **Appears in:**
 
 - [KubeSchedulerProfile](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile)
 
-
 <p>PluginConfig specifies arguments that should be passed to a plugin at the time of initialization.
 A plugin that is invoked at multiple extension points is initialized once. Args can have arbitrary structure.
 It is up to the plugin to process these Args.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -737,17 +691,14 @@ It is up to the plugin to process these Args.</p>
 </tbody>
 </table>
 
-## `PluginSet`     {#kubescheduler-config-k8s-io-v1beta3-PluginSet}
-    
+## `PluginSet` {#kubescheduler-config-k8s-io-v1beta3-PluginSet}
 
 **Appears in:**
 
 - [Plugins](#kubescheduler-config-k8s-io-v1beta3-Plugins)
 
-
 <p>PluginSet specifies enabled and disabled plugins for an extension point.
 If an array is empty, missing, or nil, default plugins at that extension point will be used.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -775,20 +726,17 @@ When all default plugins need to be disabled, an array containing only one &quot
 </tbody>
 </table>
 
-## `Plugins`     {#kubescheduler-config-k8s-io-v1beta3-Plugins}
-    
+## `Plugins` {#kubescheduler-config-k8s-io-v1beta3-Plugins}
 
 **Appears in:**
 
 - [KubeSchedulerProfile](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile)
-
 
 <p>Plugins include multiple extension points. When specified, the list of plugins for
 a particular extension point are the only ones enabled. If an extension point is
 omitted from the config, then the default set of plugins is used for that extension point.
 Enabled plugins are called in the order specified here, after default plugins. If they need to
 be invoked before default plugins, default plugins must be disabled and re-enabled here in desired order.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -907,31 +855,24 @@ plugin through MultiPoint. This follows the same behavior as all other extension
 </tbody>
 </table>
 
-## `PodTopologySpreadConstraintsDefaulting`     {#kubescheduler-config-k8s-io-v1beta3-PodTopologySpreadConstraintsDefaulting}
-    
+## `PodTopologySpreadConstraintsDefaulting` {#kubescheduler-config-k8s-io-v1beta3-PodTopologySpreadConstraintsDefaulting}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [PodTopologySpreadArgs](#kubescheduler-config-k8s-io-v1beta3-PodTopologySpreadArgs)
 
-
 <p>PodTopologySpreadConstraintsDefaulting defines how to set default constraints
 for the PodTopologySpread plugin.</p>
 
-
-
-
-## `RequestedToCapacityRatioParam`     {#kubescheduler-config-k8s-io-v1beta3-RequestedToCapacityRatioParam}
-    
+## `RequestedToCapacityRatioParam` {#kubescheduler-config-k8s-io-v1beta3-RequestedToCapacityRatioParam}
 
 **Appears in:**
 
 - [ScoringStrategy](#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy)
 
-
 <p>RequestedToCapacityRatioParam define RequestedToCapacityRatio parameters</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -948,8 +889,7 @@ for the PodTopologySpread plugin.</p>
 </tbody>
 </table>
 
-## `ResourceSpec`     {#kubescheduler-config-k8s-io-v1beta3-ResourceSpec}
-    
+## `ResourceSpec` {#kubescheduler-config-k8s-io-v1beta3-ResourceSpec}
 
 **Appears in:**
 
@@ -957,9 +897,7 @@ for the PodTopologySpread plugin.</p>
 
 - [ScoringStrategy](#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy)
 
-
 <p>ResourceSpec represents a single resource.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -983,16 +921,13 @@ for the PodTopologySpread plugin.</p>
 </tbody>
 </table>
 
-## `ScoringStrategy`     {#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy}
-    
+## `ScoringStrategy` {#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy}
 
 **Appears in:**
 
 - [NodeResourcesFitArgs](#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs)
 
-
 <p>ScoringStrategy define ScoringStrategyType for node resource plugin</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1026,22 +961,17 @@ Weight defaults to 1 if not specified or explicitly set to 0.</p>
 </tbody>
 </table>
 
-## `ScoringStrategyType`     {#kubescheduler-config-k8s-io-v1beta3-ScoringStrategyType}
-    
+## `ScoringStrategyType` {#kubescheduler-config-k8s-io-v1beta3-ScoringStrategyType}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [ScoringStrategy](#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy)
 
-
 <p>ScoringStrategyType the type of scoring strategy used in NodeResourcesFit plugin.</p>
 
-
-
-
-## `UtilizationShapePoint`     {#kubescheduler-config-k8s-io-v1beta3-UtilizationShapePoint}
-    
+## `UtilizationShapePoint` {#kubescheduler-config-k8s-io-v1beta3-UtilizationShapePoint}
 
 **Appears in:**
 
@@ -1049,9 +979,7 @@ Weight defaults to 1 if not specified or explicitly set to 0.</p>
 
 - [RequestedToCapacityRatioParam](#kubescheduler-config-k8s-io-v1beta3-RequestedToCapacityRatioParam)
 
-
 <p>UtilizationShapePoint represents single point of priority function shape.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1076,10 +1004,9 @@ Weight defaults to 1 if not specified or explicitly set to 0.</p>
 </table>
   
   
-    
 
-## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
-    
+
+## `ClientConnectionConfiguration` {#ClientConnectionConfiguration}
 
 **Appears in:**
 
@@ -1087,9 +1014,7 @@ Weight defaults to 1 if not specified or explicitly set to 0.</p>
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-
 <p>ClientConnectionConfiguration contains details for constructing a client.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1136,8 +1061,7 @@ client.</p>
 </tbody>
 </table>
 
-## `DebuggingConfiguration`     {#DebuggingConfiguration}
-    
+## `DebuggingConfiguration` {#DebuggingConfiguration}
 
 **Appears in:**
 
@@ -1145,9 +1069,7 @@ client.</p>
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-
 <p>DebuggingConfiguration holds configuration for Debugging related features.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1172,8 +1094,7 @@ enableProfiling is true.</p>
 </tbody>
 </table>
 
-## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
-    
+## `LeaderElectionConfiguration` {#LeaderElectionConfiguration}
 
 **Appears in:**
 
@@ -1181,10 +1102,8 @@ enableProfiling is true.</p>
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-
 <p>LeaderElectionConfiguration defines the configuration of leader election
 clients for components that can run with leader election enabled.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>

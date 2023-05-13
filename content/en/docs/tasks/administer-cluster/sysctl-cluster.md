@@ -1,7 +1,7 @@
 ---
 title: Using sysctls in a Kubernetes Cluster
 reviewers:
-- sttts
+  - sttts
 content_type: task
 weight: 400
 ---
@@ -24,6 +24,7 @@ For more sysctl parameter conversion method details, please refer to
 the page [sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html) from
 the Linux man-pages project.
 {{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< note >}}
@@ -35,7 +36,6 @@ and it is not available on non-Linux operating systems.
 
 For some steps, you also need to be able to reconfigure the command line
 options for the kubelets running on your cluster.
-
 
 <!-- steps -->
 
@@ -82,7 +82,7 @@ There are some exceptions to the set of safe sysctls:
 
 - The `net.*` sysctls are not allowed with host networking enabled.
 - The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
-{{< /note >}}
+  {{< /note >}}
 
 This list will be extended in future Kubernetes versions when the kubelet
 supports better isolation mechanisms.
@@ -164,7 +164,6 @@ spec:
       value: "65536"
   ...
 ```
-
 
 <!-- discussion -->
 

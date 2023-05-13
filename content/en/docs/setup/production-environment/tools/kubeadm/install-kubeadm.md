@@ -15,26 +15,24 @@ This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process,
 see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
-
 ## {{% heading "prerequisites" %}}
 
-
-* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
+- A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
   based on Debian and Red Hat, and those distributions without a package manager.
-* 2 GB or more of RAM per machine (any less will leave little room for your apps).
-* 2 CPUs or more.
-* Full network connectivity between all machines in the cluster (public or private network is fine).
-* Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
-* Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
-    * For example, `sudo swapoff -a` will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
+- 2 GB or more of RAM per machine (any less will leave little room for your apps).
+- 2 CPUs or more.
+- Full network connectivity between all machines in the cluster (public or private network is fine).
+- Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
+- Certain ports are open on your machines. See [here](#check-required-ports) for more details.
+- Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
+  - For example, `sudo swapoff -a` will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 
 <!-- steps -->
 
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
 
-* You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
-* The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
+- You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
+- The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
 
 It is very likely that hardware devices will have unique addresses, although some virtual machines may have
 identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
@@ -47,6 +45,7 @@ If you have more than one network adapter, and your Kubernetes components are no
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
 ## Check required ports
+
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
 You can use tools like netcat to check if a port is open. For example:
@@ -91,11 +90,11 @@ The tables below include the known endpoints for supported operating systems:
 {{% tab name="Linux" %}}
 
 {{< table caption="Linux container runtimes" >}}
-| Runtime                            | Path to Unix domain socket                   |
+| Runtime | Path to Unix domain socket |
 |------------------------------------|----------------------------------------------|
-| containerd                         | `unix:///var/run/containerd/containerd.sock` |
-| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
-| Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
+| containerd | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O | `unix:///var/run/crio/crio.sock` |
+| Docker Engine (using cri-dockerd) | `unix:///var/run/cri-dockerd.sock` |
 {{< /table >}}
 
 {{% /tab %}}
@@ -103,10 +102,10 @@ The tables below include the known endpoints for supported operating systems:
 {{% tab name="Windows" %}}
 
 {{< table caption="Windows container runtimes" >}}
-| Runtime                            | Path to Windows named pipe                   |
+| Runtime | Path to Windows named pipe |
 |------------------------------------|----------------------------------------------|
-| containerd                         | `npipe:////./pipe/containerd-containerd`     |
-| Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+| containerd | `npipe:////./pipe/containerd-containerd` |
+| Docker Engine (using cri-dockerd) | `npipe:////./pipe/cri-dockerd` |
 {{< /table >}}
 
 {{% /tab %}}
@@ -116,12 +115,12 @@ The tables below include the known endpoints for supported operating systems:
 
 You will install these packages on all of your machines:
 
-* `kubeadm`: the command to bootstrap the cluster.
+- `kubeadm`: the command to bootstrap the cluster.
 
-* `kubelet`: the component that runs on all of the machines in your cluster
-    and does things like starting pods and containers.
+- `kubelet`: the component that runs on all of the machines in your cluster
+  and does things like starting pods and containers.
 
-* `kubectl`: the command line util to talk to your cluster.
+- `kubectl`: the command line util to talk to your cluster.
 
 kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
 need to ensure they match the version of the Kubernetes control plane you want
@@ -141,8 +140,8 @@ This is because kubeadm and Kubernetes require
 
 For more information on version skews, see:
 
-* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+- Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
+- Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Debian-based distributions" %}}
@@ -173,13 +172,15 @@ For more information on version skews, see:
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
-{{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
-You can create this directory if you need to, making it world-readable but writeable only by admins.
-{{< /note >}}
+
+   {{< note >}}
+   In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+   You can create this directory if you need to, making it world-readable but writeable only by admins.
+   {{< /note >}}
 
 {{% /tab %}}
 {{% tab name="Red Hat-based distributions" %}}
+
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -200,15 +201,15 @@ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
 ```
 
-  **Notes:**
+**Notes:**
 
-  - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
-    This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
-    You have to do this until SELinux support is improved in the kubelet.
+- Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
+  This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
+  You have to do this until SELinux support is improved in the kubelet.
 
-  - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
+- You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
-  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
+- If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
   Type `uname -m` to see that value.
   For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 
@@ -275,7 +276,6 @@ See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools
 {{% /tab %}}
 {{< /tabs >}}
 
-
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
@@ -297,4 +297,4 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 ## {{% heading "whatsnext" %}}
 
-* [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+- [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)

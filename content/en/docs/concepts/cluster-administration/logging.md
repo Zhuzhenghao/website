@@ -1,7 +1,7 @@
 ---
 reviewers:
-- piosz
-- x13n
+  - piosz
+  - x13n
 title: Logging Architecture
 content_type: concept
 weight: 60
@@ -110,7 +110,6 @@ When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file. The kubelet returns the content of the log file.
 
-
 {{< note >}}
 Only the contents of the latest log file are available through
 `kubectl logs`.
@@ -124,9 +123,9 @@ after 10 MiB, running `kubectl logs` returns at most 10MiB of data.
 There are two types of system components: those that typically run in a container,
 and those components directly involved in running containers. For example:
 
-* The kubelet and container runtime do not run in containers. The kubelet runs
+- The kubelet and container runtime do not run in containers. The kubelet runs
   your containers (grouped together in {{< glossary_tooltip text="pods" term_id="pod" >}})
-* The Kubernetes scheduler, controller manager, and API server run within pods
+- The Kubernetes scheduler, controller manager, and API server run within pods
   (usually {{< glossary_tooltip text="static Pods" term_id="static-pod" >}}).
   The etcd component runs in the control plane, and most commonly also as a static pod.
   If your cluster uses kube-proxy, you typically run this as a `DaemonSet`.
@@ -203,9 +202,9 @@ as your responsibility.
 
 While Kubernetes does not provide a native solution for cluster-level logging, there are several common approaches you can consider. Here are some options:
 
-* Use a node-level logging agent that runs on every node.
-* Include a dedicated sidecar container for logging in an application pod.
-* Push logs directly to a backend from within an application.
+- Use a node-level logging agent that runs on every node.
+- Include a dedicated sidecar container for logging in an application pod.
+- Push logs directly to a backend from within an application.
 
 ### Using a node logging agent
 
@@ -224,8 +223,8 @@ Containers write to stdout and stderr, but with no agreed format. A node-level a
 
 You can use a sidecar container in one of the following ways:
 
-* The sidecar container streams application logs to its own `stdout`.
-* The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
+- The sidecar container streams application logs to its own `stdout`.
+- The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
 
 #### Streaming sidecar container
 
@@ -344,6 +343,6 @@ Cluster-logging that exposes or pushes logs directly from every application is o
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Kubernetes system logs](/docs/concepts/cluster-administration/system-logs/)
-* Learn about [Traces For Kubernetes System Components](/docs/concepts/cluster-administration/system-traces/)
-* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message) that Kubernetes records when a Pod fails
+- Read about [Kubernetes system logs](/docs/concepts/cluster-administration/system-logs/)
+- Learn about [Traces For Kubernetes System Components](/docs/concepts/cluster-administration/system-traces/)
+- Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message) that Kubernetes records when a Pod fails

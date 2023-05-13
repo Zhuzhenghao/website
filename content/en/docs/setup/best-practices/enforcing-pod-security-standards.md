@@ -1,7 +1,7 @@
 ---
 reviewers:
-- tallclair
-- liggitt
+  - tallclair
+  - liggitt
 title: Enforcing Pod Security Standards
 weight: 40
 ---
@@ -18,7 +18,7 @@ This page provides an overview of best practices when it comes to enforcing
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 The [Pod Security Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
-intends to replace the deprecated PodSecurityPolicies. 
+intends to replace the deprecated PodSecurityPolicies.
 
 ### Configure all cluster namespaces
 

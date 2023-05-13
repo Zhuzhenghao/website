@@ -1,8 +1,8 @@
 ---
 reviewers:
-- jlowdermilk
-- justinsb
-- quinton-hoole
+  - jlowdermilk
+  - justinsb
+  - quinton-hoole
 title: Running in multiple zones
 weight: 20
 content_type: concept

@@ -1,9 +1,9 @@
 ---
 reviewers:
-- aravindhp
-- jayunit100
-- jsturtevant
-- marosset
+  - aravindhp
+  - jayunit100
+  - jsturtevant
+  - marosset
 title: Windows debugging tips
 content_type: concept
 ---
@@ -170,7 +170,6 @@ content_type: concept
 
 If these steps don't resolve your problem, you can get help running Windows containers on Windows nodes in Kubernetes through:
 
-* StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
-* Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
-* Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)
-
+- StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
+- Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
+- Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)

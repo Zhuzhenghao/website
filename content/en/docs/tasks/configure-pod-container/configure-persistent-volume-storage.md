@@ -22,13 +22,13 @@ Here is a summary of the process:
 
 ## {{% heading "prerequisites" %}}
 
-* You need to have a Kubernetes cluster that has only one Node, and the
+- You need to have a Kubernetes cluster that has only one Node, and the
   {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
   command-line tool must be configured to communicate with your cluster. If you
   do not already have a single-node cluster, you can create one by using
   [Minikube](https://minikube.sigs.k8s.io/docs/).
 
-* Familiarize yourself with the material in
+- Familiarize yourself with the material in
   [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
 <!-- steps -->
@@ -76,7 +76,7 @@ You can now close the shell to your Node.
 
 ## Create a PersistentVolume
 
-In this exercise, you create a *hostPath* PersistentVolume. Kubernetes supports
+In this exercise, you create a _hostPath_ PersistentVolume. Kubernetes supports
 hostPath for development and testing on a single-node cluster. A hostPath
 PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
 
@@ -285,12 +285,12 @@ PersistentVolume are not present on the Pod resource itself.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
+- Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
+- Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### Reference
 
-* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
-* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
+- [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
+- [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
+- [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
+- [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)

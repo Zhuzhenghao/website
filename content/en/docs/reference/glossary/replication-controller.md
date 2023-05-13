@@ -2,16 +2,17 @@
 title: ReplicationController
 id: replication-controller
 date: 2018-04-12
-full_link: 
+full_link:
 short_description: >
   A (deprecated) API object that manages a replicated application.
 
-aka: 
+aka:
 tags:
-- workload
-- core-object
+  - workload
+  - core-object
 ---
- A workload resource that manages a replicated application, ensuring that
+
+A workload resource that manages a replicated application, ensuring that
 a specific number of instances of a {{< glossary_tooltip text="Pod" term_id="pod" >}} are running.
 
 <!--more-->

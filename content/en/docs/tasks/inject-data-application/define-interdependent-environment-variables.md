@@ -9,12 +9,9 @@ weight: 20
 This page shows how to define dependent environment variables for a container
 in a Kubernetes Pod.
 
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
-
 
 <!-- steps -->
 
@@ -33,6 +30,7 @@ Pod:
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/inject/dependent-envars.yaml
    ```
+
    ```
    pod/dependent-envars-demo created
    ```
@@ -42,6 +40,7 @@ Pod:
    ```shell
    kubectl get pods dependent-envars-demo
    ```
+
    ```
    NAME                      READY     STATUS    RESTARTS   AGE
    dependent-envars-demo     1/1       Running   0          9s
@@ -52,6 +51,7 @@ Pod:
    ```shell
    kubectl logs pod/dependent-envars-demo
    ```
+
    ```
 
    UNCHANGED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
@@ -76,7 +76,5 @@ is defined or not. This can be seen from the `ESCAPED_REFERENCE` case above.
 
 ## {{% heading "whatsnext" %}}
 
-
-* Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
-* See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
-
+- Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
+- See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).

@@ -1,6 +1,6 @@
 ---
 reviewers:
-- bboreham
+  - bboreham
 title: Weave Net for NetworkPolicy
 content_type: task
 weight: 60
@@ -54,4 +54,3 @@ Once you have installed the Weave Net addon, you can follow the
 [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 to try out Kubernetes NetworkPolicy. If you have any question, contact us at
 [#weave-community on Slack or Weave User Group](https://github.com/weaveworks/weave#getting-help).
-

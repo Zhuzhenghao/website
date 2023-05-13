@@ -1,8 +1,8 @@
 ---
 title: "Example: Deploying PHP Guestbook application with Redis"
 reviewers:
-- ahmetb
-- jimangel
+  - ahmetb
+  - jimangel
 content_type: tutorial
 weight: 20
 card:
@@ -14,21 +14,22 @@ source: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 ---
 
 <!-- overview -->
+
 This tutorial shows you how to build and deploy a simple _(not production
 ready)_, multi-tier web application using Kubernetes and
 [Docker](https://www.docker.com/). This example consists of the following
 components:
 
-* A single-instance [Redis](https://www.redis.io/) to store guestbook entries
-* Multiple web frontend instances
+- A single-instance [Redis](https://www.redis.io/) to store guestbook entries
+- Multiple web frontend instances
 
 ## {{% heading "objectives" %}}
 
-* Start up a Redis leader.
-* Start up two Redis followers.
-* Start up the guestbook frontend.
-* Expose and view the Frontend Service.
-* Clean up.
+- Start up a Redis leader.
+- Start up two Redis followers.
+- Start up the guestbook frontend.
+- Expose and view the Frontend Service.
+- Clean up.
 
 ## {{% heading "prerequisites" %}}
 
@@ -416,7 +417,7 @@ labels to delete multiple resources with one command.
 
 ## {{% heading "whatsnext" %}}
 
-* Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
-* Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
-* Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+- Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
+- Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
+- Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
+- Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)

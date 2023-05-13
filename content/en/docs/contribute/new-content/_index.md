@@ -5,35 +5,33 @@ main_menu: true
 weight: 20
 ---
 
-
-
 <!-- overview -->
 
 This section contains information you should know before contributing new
-content. 
+content.
+
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
 
 {{< mermaid >}}
-flowchart LR 
-    subgraph second[Before you begin]
-    direction TB
-    S[ ] -.-
-    A[Sign the CNCF CLA] --> B[Choose Git branch]
-    B --> C[One language per PR]
-    C --> F[Check out<br>contributor tools]
-    end
-    subgraph first[Contributing Basics]
-    direction TB
-       T[ ] -.-
-       D[Write docs in markdown<br>and build site with Hugo] --- E[source in GitHub]
-       E --- G['/content/../docs' folder contains docs<br>for multiple languages]
-       G --- H[Review Hugo page content<br>types and shortcodes]
-    end
-    
+flowchart LR
+subgraph second[Before you begin]
+direction TB
+S[ ] -.-
+A[Sign the CNCF CLA] --> B[Choose Git branch]
+B --> C[One language per PR]
+C --> F[Check out<br>contributor tools]
+end
+subgraph first[Contributing Basics]
+direction TB
+T[ ] -.-
+D[Write docs in markdown<br>and build site with Hugo] --- E[source in GitHub]
+E --- G['/content/../docs' folder contains docs<br>for multiple languages]
+G --- H[Review Hugo page content<br>types and shortcodes]
+end
 
     first ----> second
-     
+
 
 classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
 classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
@@ -43,12 +41,10 @@ class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
 
-***Figure - Contributing new content preparation***
+**_Figure - Contributing new content preparation_**
 
 The figure above depicts the information you should know
 prior to submitting new content. The information details follow.
-
-
 
 <!-- body -->
 
@@ -56,7 +52,7 @@ prior to submitting new content. The information details follow.
 
 - Write Kubernetes documentation in Markdown and build the Kubernetes site
   using [Hugo](https://gohugo.io/).
-- Kubernetes documentation uses [CommonMark](https://commonmark.org/) as its flavor of  Markdown. 
+- Kubernetes documentation uses [CommonMark](https://commonmark.org/) as its flavor of Markdown.
 - The source is in [GitHub](https://github.com/kubernetes/website). You can find
   Kubernetes documentation at `/content/en/docs/`. Some of the reference
   documentation is automatically generated from scripts in
@@ -94,11 +90,11 @@ CNCF CLA.
 When opening a pull request, you need to know in advance which branch to base
 your work on.
 
-Scenario | Branch
-:---------|:------------
-Existing or new English language content for the current release | `main`
-Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-<version>`. For example, if a feature changes in the `v{{< skew nextMinorVersion >}}` release, then add documentation changes to the ``dev-{{< skew nextMinorVersion >}}`` branch.
-Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.
+| Scenario                                                         | Branch                                                                                                                                                                                                                                                                                        |
+| :--------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Existing or new English language content for the current release | `main`                                                                                                                                                                                                                                                                                        |
+| Content for a feature change release                             | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-<version>`. For example, if a feature changes in the `v{{< skew nextMinorVersion >}}` release, then add documentation changes to the `dev-{{< skew nextMinorVersion >}}` branch. |
+| Content in other languages (localizations)                       | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.                                                                                                                                         |
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 
@@ -117,4 +113,3 @@ each language.
 The [doc contributors tools](https://github.com/kubernetes/website/tree/main/content/en/docs/doc-contributor-tools)
 directory in the `kubernetes/website` repository contains tools to help your
 contribution journey go more smoothly.
-

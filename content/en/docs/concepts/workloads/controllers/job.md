@@ -1,8 +1,8 @@
 ---
 reviewers:
-- alculquicondor
-- erictune
-- soltysh
+  - alculquicondor
+  - erictune
+  - soltysh
 title: Jobs
 content_type: concept
 feature:
@@ -15,8 +15,8 @@ weight: 50
 <!-- overview -->
 
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
-As pods successfully complete, the Job tracks the successful completions.  When a specified number
-of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
+As pods successfully complete, the Job tracks the successful completions. When a specified number
+of successful completions is reached, the task (ie, Job) is complete. Deleting a Job will clean up
 the Pods it created. Suspending a Job will delete its active Pods until the Job
 is resumed again.
 
@@ -33,7 +33,7 @@ see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
 
 ## Running an example Job
 
-Here is an example Job config.  It computes π to 2000 places and prints it out.
+Here is an example Job config. It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 
 {{< codenew file="controllers/job.yaml" >}}
@@ -54,94 +54,91 @@ Check on the status of the Job with `kubectl`:
 
 {{< tabs name="Check status of Job" >}}
 {{< tab name="kubectl describe job pi" codelang="bash" >}}
-Name:           pi
-Namespace:      default
-Selector:       batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-Labels:         batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-                batch.kubernetes.io/job-name=pi
-                ...
-Annotations:    batch.kubernetes.io/job-tracking: ""
-Parallelism:    1
-Completions:    1
-Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
-Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
-Duration:       65s
-Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
+Name: pi
+Namespace: default
+Selector: batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+Labels: batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+batch.kubernetes.io/job-name=pi
+...
+Annotations: batch.kubernetes.io/job-tracking: ""
+Parallelism: 1
+Completions: 1
+Start Time: Mon, 02 Dec 2019 15:20:11 +0200
+Completed At: Mon, 02 Dec 2019 15:21:16 +0200
+Duration: 65s
+Pods Statuses: 0 Running / 1 Succeeded / 0 Failed
 Pod Template:
-  Labels:  batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-           batch.kubernetes.io/job-name=pi
-  Containers:
-   pi:
-    Image:      perl:5.34.0
-    Port:       <none>
-    Host Port:  <none>
-    Command:
-      perl
-      -Mbignum=bpi
-      -wle
-      print bpi(2000)
-    Environment:  <none>
-    Mounts:       <none>
-  Volumes:        <none>
+Labels: batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+batch.kubernetes.io/job-name=pi
+Containers:
+pi:
+Image: perl:5.34.0
+Port: <none>
+Host Port: <none>
+Command:
+perl
+-Mbignum=bpi
+-wle
+print bpi(2000)
+Environment: <none>
+Mounts: <none>
+Volumes: <none>
 Events:
-  Type    Reason            Age   From            Message
-  ----    ------            ----  ----            -------
-  Normal  SuccessfulCreate  21s   job-controller  Created pod: pi-xf9p4
-  Normal  Completed         18s   job-controller  Job completed
+Type Reason Age From Message
+
+---
+
+Normal SuccessfulCreate 21s job-controller Created pod: pi-xf9p4
+Normal Completed 18s job-controller Job completed
 {{< /tab >}}
 {{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  annotations: batch.kubernetes.io/job-tracking: ""
-             ...  
-  creationTimestamp: "2022-11-10T17:53:53Z"
-  generation: 1
-  labels:
-    batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
-    batch.kubernetes.io/job-name: pi
-  name: pi
-  namespace: default
-  resourceVersion: "4751"
-  uid: 204fb678-040b-497f-9266-35ffa8716d14
+annotations: batch.kubernetes.io/job-tracking: ""
+...  
+ creationTimestamp: "2022-11-10T17:53:53Z"
+generation: 1
+labels:
+batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+batch.kubernetes.io/job-name: pi
+name: pi
+namespace: default
+resourceVersion: "4751"
+uid: 204fb678-040b-497f-9266-35ffa8716d14
 spec:
-  backoffLimit: 4
-  completionMode: NonIndexed
-  completions: 1
-  parallelism: 1
-  selector:
-    matchLabels:
-      batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
-  suspend: false
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
-        batch.kubernetes.io/job-name: pi
-    spec:
-      containers:
-      - command:
-        - perl
-        - -Mbignum=bpi
-        - -wle
-        - print bpi(2000)
-        image: perl:5.34.0
-        imagePullPolicy: IfNotPresent
-        name: pi
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
-      restartPolicy: Never
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
+backoffLimit: 4
+completionMode: NonIndexed
+completions: 1
+parallelism: 1
+selector:
+matchLabels:
+batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+suspend: false
+template:
+metadata:
+creationTimestamp: null
+labels:
+batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+batch.kubernetes.io/job-name: pi
+spec:
+containers: - command: - perl - -Mbignum=bpi - -wle - print bpi(2000)
+image: perl:5.34.0
+imagePullPolicy: IfNotPresent
+name: pi
+resources: {}
+terminationMessagePath: /dev/termination-log
+terminationMessagePolicy: File
+dnsPolicy: ClusterFirst
+restartPolicy: Never
+schedulerName: default-scheduler
+securityContext: {}
+terminationGracePeriodSeconds: 30
 status:
-  active: 1
-  ready: 0
-  startTime: "2022-11-10T17:53:57Z"
-  uncountedTerminatedPods: {}
+active: 1
+ready: 0
+startTime: "2022-11-10T17:53:57Z"
+uncountedTerminatedPods: {}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -160,7 +157,7 @@ The output is similar to this:
 pi-5rwd7
 ```
 
-Here, the selector is the same as the selector for the Job.  The `--output=jsonpath` option specifies an expression
+Here, the selector is the same as the selector for the Job. The `--output=jsonpath` option specifies an expression
 with the name from each Pod in the returned list.
 
 View the standard output of one of the pods:
@@ -186,9 +183,9 @@ The output is similar to this:
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
 
 When the control plane creates new Pods for a Job, the `.metadata.name` of the
-Job is part of the basis for naming those Pods.  The name of a Job must be a valid
+Job is part of the basis for naming those Pods. The name of a Job must be a valid
 [DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
-value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+value, but this can produce unexpected results for the Pod hostnames. For best compatibility,
 the name should follow the more restrictive rules for a
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 Even when the name is a DNS subdomain, the name must be no longer than 63
@@ -204,7 +201,6 @@ Job labels will have `batch.kubernetes.io/` prefix for `job-name` and `controlle
 
 The `.spec.template` is the only required field of the `.spec`.
 
-
 The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a Job must specify appropriate
@@ -214,9 +210,8 @@ Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-po
 
 ### Pod selector
 
-The `.spec.selector` field is optional.  In almost all cases you should not specify it.
+The `.spec.selector` field is optional. In almost all cases you should not specify it.
 See section [specifying your own pod selector](#specifying-your-own-pod-selector).
-
 
 ### Parallel execution for Jobs {#parallel-jobs}
 
@@ -225,19 +220,19 @@ There are three main types of task suitable to run as a Job:
 1. Non-parallel Jobs
    - normally, only one Pod is started, unless the Pod fails.
    - the Job is complete as soon as its Pod terminates successfully.
-1. Parallel Jobs with a *fixed completion count*:
+1. Parallel Jobs with a _fixed completion count_:
    - specify a non-zero positive value for `.spec.completions`.
    - the Job represents the overall task, and is complete when there are `.spec.completions` successful Pods.
    - when using `.spec.completionMode="Indexed"`, each Pod gets a different index in the range 0 to `.spec.completions-1`.
-1. Parallel Jobs with a *work queue*:
+1. Parallel Jobs with a _work queue_:
    - do not specify `.spec.completions`, default to `.spec.parallelism`.
    - the Pods must coordinate amongst themselves or an external service to determine what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
    - each Pod is independently capable of determining whether or not all its peers are done, and thus that the entire Job is done.
    - when _any_ Pod from the Job terminates with success, no new Pods are created.
    - once at least one Pod has terminated with success and all Pods are terminated, then the Job is completed with success.
-   - once any Pod has exited with success, no other Pod should still be doing any work for this task or writing any output.  They should all be in the process of exiting.
+   - once any Pod has exited with success, no other Pod should still be doing any work for this task or writing any output. They should all be in the process of exiting.
 
-For a _non-parallel_ Job, you can leave both `.spec.completions` and `.spec.parallelism` unset.  When both are
+For a _non-parallel_ Job, you can leave both `.spec.completions` and `.spec.parallelism` unset. When both are
 unset, both are defaulted to 1.
 
 For a _fixed completion count_ Job, you should set `.spec.completions` to the number of completions needed.
@@ -258,7 +253,7 @@ Actual parallelism (number of pods running at any instant) may be more or less t
 parallelism, for a variety of reasons:
 
 - For _fixed completion count_ Jobs, the actual number of pods running in parallel will not exceed the number of
-  remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
+  remaining completions. Higher values of `.spec.parallelism` are effectively ignored.
 - For _work queue_ Jobs, no new Pods are started after any Pod has succeeded -- remaining Pods are allowed to complete, however.
 - If the Job {{< glossary_tooltip term_id="controller" >}} has not had time to react.
 - If the Job controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
@@ -279,6 +274,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   `.spec.completions` are implicitly `NonIndexed`.
 - `Indexed`: the Pods of a Job get an associated completion index from 0 to
   `.spec.completions-1`. The index is available through three mechanisms:
+
   - The Pod annotation `batch.kubernetes.io/job-completion-index`.
   - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
     When you use an Indexed Job in combination with a
@@ -286,28 +282,27 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     the deterministic hostnames to address each other via DNS. For more information about
     how to configure this, see [Job with Pod-to-Pod Communication](/docs/tasks/job/job-with-pod-to-pod-communication/).
   - From the containerized task, in the environment variable `JOB_COMPLETION_INDEX`.
-  
+
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
   Note that, although rare, more than one Pod could be started for the same
   index, but only one of them will count towards the completion count.
 
-
 ## Handling Pod and container failures
 
 A container in a Pod may fail for a number of reasons, such as because the process in it exited with
-a non-zero exit code, or the container was killed for exceeding a memory limit, etc.  If this
+a non-zero exit code, or the container was killed for exceeding a memory limit, etc. If this
 happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
-on the node, but the container is re-run.  Therefore, your program needs to handle the case when it is
+on the node, but the container is re-run. Therefore, your program needs to handle the case when it is
 restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
 See [pod lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, deleted, etc.), or if a container of the Pod fails and the
-`.spec.template.spec.restartPolicy = "Never"`.  When a Pod fails, then the Job controller
-starts a new Pod.  This means that your application needs to handle the case when it is restarted in a new
-pod.  In particular, it needs to handle temporary files, locks, incomplete output and the like
+`.spec.template.spec.restartPolicy = "Never"`. When a Pod fails, then the Job controller
+starts a new Pod. This means that your application needs to handle the case when it is restarted in a new
+pod. In particular, it needs to handle temporary files, locks, incomplete output and the like
 caused by previous runs.
 
 By default, each pod failure is counted towards the `.spec.backoffLimit` limit,
@@ -319,7 +314,7 @@ Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1
 sometimes be started twice.
 
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
-multiple pods running at once.  Therefore, your pods must also be tolerant of concurrency.
+multiple pods running at once. Therefore, your pods must also be tolerant of concurrency.
 
 When the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled,
@@ -344,6 +339,7 @@ Pods associated with the Job are recreated by the Job controller with an
 exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
 
 The number of retries is calculated in two ways:
+
 - The number of Pods with `.status.phase = "Failed"`.
 - When using `restartPolicy = "OnFailure"`, the number of retries in all the
   containers of Pods with `.status.phase` equal to `Pending` or `Running`.
@@ -376,14 +372,15 @@ A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
 your cluster to handle Pod failures based on the container exit codes and the
 Pod conditions.
 
-In some situations, you  may want to have a better control when handling Pod
+In some situations, you may want to have a better control when handling Pod
 failures than the control provided by the [Pod backoff failure policy](#pod-backoff-failure-policy),
 which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases:
-* To optimize costs of running workloads by avoiding unnecessary Pod restarts,
+
+- To optimize costs of running workloads by avoiding unnecessary Pod restarts,
   you can terminate a Job as soon as one of its Pods fails with an exit code
   indicating a software bug.
-* To guarantee that your Job finishes even if there are disruptions, you can
-  ignore Pod failures caused by disruptions  (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
+- To guarantee that your Job finishes even if there are disruptions, you can
+  ignore Pod failures caused by disruptions (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
   {{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
   or {{< glossary_tooltip text="taint" term_id="taint" >}}-based eviction) so
   that they don't count towards the `.spec.backoffLimit` limit of retries.
@@ -422,6 +419,7 @@ the Pods in that Job that are still Pending or Running.
 {{< /note >}}
 
 These are some requirements and semantics of the API:
+
 - if you want to use a `.spec.podFailurePolicy` field for a Job, you must
   also define that Job's pod template with `.spec.restartPolicy` set to `Never`.
 - the Pod failure policy rules you specify under `spec.podFailurePolicy.rules`
@@ -435,11 +433,11 @@ These are some requirements and semantics of the API:
 - you may specify the action taken when a Pod failure policy is matched by
   `spec.podFailurePolicy.rules[*].action`. Possible values are:
   - `FailJob`: use to indicate that the Pod's job should be marked as Failed and
-     all running Pods should be terminated.
+    all running Pods should be terminated.
   - `Ignore`: use to indicate that the counter towards the `.spec.backoffLimit`
-     should not be incremented and a replacement Pod should be created.
+    should not be incremented and a replacement Pod should be created.
   - `Count`: use to indicate that the Pod should be handled in the default way.
-     The counter towards the `.spec.backoffLimit` should be incremented.
+    The counter towards the `.spec.backoffLimit` should be incremented.
 
 {{< note >}}
 When you use a `podFailurePolicy`, the job controller only matches Pods in the
@@ -457,8 +455,8 @@ ensures that deleted pods have their finalizers removed by the Job controller.
 When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
 Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
-The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
-old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
+The job object also remains after it is completed so that you can view its status. It is up to the user to delete
+old jobs after noting their status. Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
 
 By default, a Job will run uninterrupted unless a Pod fails (`restartPolicy=Never`) or a Container exits in error (`restartPolicy=OnFailure`), at which point the Job defers to the
 `.spec.backoffLimit` described above. Once `.spec.backoffLimit` has been reached the Job will be marked as failed and any running Pods will be terminated.
@@ -483,9 +481,9 @@ spec:
   template:
     spec:
       containers:
-      - name: pi
-        image: perl:5.34.0
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        - name: pi
+          image: perl:5.34.0
+          command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
 
@@ -529,9 +527,9 @@ spec:
   template:
     spec:
       containers:
-      - name: pi
-        image: perl:5.34.0
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        - name: pi
+          image: perl:5.34.0
+          command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
 
@@ -560,59 +558,57 @@ cap on the amount of resources that a particular namespace can
 consume.
 {{< /note >}}
 
-
 ## Job patterns
 
-The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
+The Job object can be used to support reliable parallel execution of Pods. The Job object is not
 designed to support closely-communicating parallel processes, as commonly found in scientific
-computing.  It does support parallel processing of a set of independent but related *work items*.
+computing. It does support parallel processing of a set of independent but related _work items_.
 These might be emails to be sent, frames to be rendered, files to be transcoded, ranges of keys in a
 NoSQL database to scan, and so on.
 
-In a complex system, there may be multiple different sets of work items.  Here we are just
-considering one set of work items that the user wants to manage together &mdash; a *batch job*.
+In a complex system, there may be multiple different sets of work items. Here we are just
+considering one set of work items that the user wants to manage together &mdash; a _batch job_.
 
 There are several different patterns for parallel computation, each with strengths and weaknesses.
 The tradeoffs are:
 
-- One Job object for each work item, vs. a single Job object for all work items.  The latter is
-  better for large numbers of work items.  The former creates some overhead for the user and for the
+- One Job object for each work item, vs. a single Job object for all work items. The latter is
+  better for large numbers of work items. The former creates some overhead for the user and for the
   system to manage large numbers of Job objects.
 - Number of pods created equals number of work items, vs. each Pod can process multiple work items.
-  The former typically requires less modification to existing code and containers.  The latter
+  The former typically requires less modification to existing code and containers. The latter
   is better for large numbers of work items, for similar reasons to the previous bullet.
-- Several approaches use a work queue.  This requires running a queue service,
+- Several approaches use a work queue. This requires running a queue service,
   and modifications to the existing program or container to make it use the work queue.
   Other approaches are easier to adapt to an existing containerised application.
-
 
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                  Pattern                        | Single Job object | Fewer pods than work items? | Use app unmodified? |
-| ----------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
-| [Queue with Pod Per Work Item]                  |         ✓         |                             |      sometimes      |
-| [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
-| [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
-| [Job Template Expansion]                        |                   |                             |          ✓          |
-| [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      | 
+| Pattern                                   | Single Job object | Fewer pods than work items? | Use app unmodified? |
+| ----------------------------------------- | :---------------: | :-------------------------: | :-----------------: |
+| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
+| [Queue with Variable Pod Count]           |         ✓         |              ✓              |                     |
+| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          |
+| [Job Template Expansion]                  |                   |                             |          ✓          |
+| [Job with Pod-to-Pod Communication]       |         ✓         |          sometimes          |      sometimes      |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
-has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
+has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status). This means that
 all pods for a task will have the same command line and the same
-image, the same volumes, and (almost) the same environment variables.  These patterns
+image, the same volumes, and (almost) the same environment variables. These patterns
 are different ways to arrange for pods to work on different things.
 
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|             Pattern                             | `.spec.completions` |  `.spec.parallelism` |
-| ----------------------------------------------- |:-------------------:|:--------------------:|
-| [Queue with Pod Per Work Item]                  |          W          |        any           |
-| [Queue with Variable Pod Count]                 |         null        |        any           |
-| [Indexed Job with Static Work Assignment]       |          W          |        any           |
-| [Job Template Expansion]                        |          1          |     should be 1      |
-| [Job with Pod-to-Pod Communication]             |          W          |         W            |
+| Pattern                                   | `.spec.completions` | `.spec.parallelism` |
+| ----------------------------------------- | :-----------------: | :-----------------: |
+| [Queue with Pod Per Work Item]            |          W          |         any         |
+| [Queue with Variable Pod Count]           |        null         |         any         |
+| [Indexed Job with Static Work Assignment] |          W          |         any         |
+| [Job Template Expansion]                  |          1          |     should be 1     |
+| [Job with Pod-to-Pod Communication]       |          W          |          W          |
 
 [Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
 [Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
@@ -663,8 +659,7 @@ spec:
   parallelism: 1
   completions: 5
   template:
-    spec:
-      ...
+    spec: ...
 ```
 
 You can also toggle Job suspension by patching the Job using the command line.
@@ -694,10 +689,10 @@ kind: Job
 # .metadata and .spec omitted
 status:
   conditions:
-  - lastProbeTime: "2021-02-05T13:14:33Z"
-    lastTransitionTime: "2021-02-05T13:14:33Z"
-    status: "True"
-    type: Suspended
+    - lastProbeTime: "2021-02-05T13:14:33Z"
+      lastTransitionTime: "2021-02-05T13:14:33Z"
+      status: "True"
+      type: Suspended
   startTime: "2021-02-05T13:13:48Z"
 ```
 
@@ -735,19 +730,19 @@ as soon as the Job was resumed.
 
 {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
-In most cases a parallel job will want the pods to run with constraints, 
+In most cases a parallel job will want the pods to run with constraints,
 like all in the same zone, or all either on GPU model x or y but not a mix of both.
 
-The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
+The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a
 custom queue controller to decide when a job should start; However, once a job is unsuspended,
 a custom queue controller has no influence on where the pods of a job will actually land.
 
 This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
-controllers the ability to influence pod placement while at the same time offloading actual 
-pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never 
+controllers the ability to influence pod placement while at the same time offloading actual
+pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never
 been unsuspended before.
 
-The fields in a Job's pod template that can be updated are node affinity, node selector, 
+The fields in a Job's pod template that can be updated are node affinity, node selector,
 tolerations, labels, annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/).
 
 ### Specifying your own Pod selector
@@ -759,17 +754,17 @@ It picks a selector value that will not overlap with any other jobs.
 However, in some cases, you might need to override this automatically set selector.
 To do this, you can specify the `.spec.selector` of the Job.
 
-Be very careful when doing this.  If you specify a label selector which is not
+Be very careful when doing this. If you specify a label selector which is not
 unique to the pods of that Job, and which matches unrelated Pods, then pods of the unrelated
 job may be deleted, or this Job may count other Pods as completing it, or one or both
-Jobs may refuse to create Pods or run to completion.  If a non-unique selector is
+Jobs may refuse to create Pods or run to completion. If a non-unique selector is
 chosen, then other controllers (e.g. ReplicationController) and their Pods may behave
-in unpredictable ways too.  Kubernetes will not stop you from making a mistake when
+in unpredictable ways too. Kubernetes will not stop you from making a mistake when
 specifying `.spec.selector`.
 
 Here is an example of a case when you might want to use this feature.
 
-Say Job `old` is already running.  You want existing Pods
+Say Job `old` is already running. You want existing Pods
 to keep running, but you want the rest of the Pods it creates
 to use a different pod template and for the Job to have a new name.
 You cannot update the Job because these fields are not updatable.
@@ -815,7 +810,7 @@ spec:
   ...
 ```
 
-The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`.  Setting
+The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`. Setting
 `manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 
@@ -853,13 +848,13 @@ are tracked using Pod finalizers.
 
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
-You can scale Indexed Jobs up or down by mutating both `.spec.parallelism` 
-and `.spec.completions` together such that `.spec.parallelism == .spec.completions`. 
+You can scale Indexed Jobs up or down by mutating both `.spec.parallelism`
+and `.spec.completions` together such that `.spec.parallelism == .spec.completions`.
 When the `ElasticIndexedJob`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 is disabled, `.spec.completions` is immutable.
 
-Use cases for elastic Indexed Jobs include batch workloads which require 
+Use cases for elastic Indexed Jobs include batch workloads which require
 scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 
 ## Alternatives
@@ -867,7 +862,7 @@ scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 ### Bare Pods
 
 When the node that a Pod is running on reboots or fails, the pod is terminated
-and will not be restarted.  However, a Job will create new Pods to replace terminated ones.
+and will not be restarted. However, a Job will create new Pods to replace terminated ones.
 For this reason, we recommend that you use a Job rather than a bare Pod, even if your application
 requires only a single Pod.
 
@@ -877,14 +872,14 @@ Jobs are complementary to [Replication Controllers](/docs/concepts/workloads/con
 A Replication Controller manages Pods which are not expected to terminate (e.g. web servers), and a Job
 manages Pods that are expected to terminate (e.g. batch tasks).
 
-As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` is *only* appropriate
+As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` is _only_ appropriate
 for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
 (Note: If `RestartPolicy` is not set, the default value is `Always`.)
 
 ### Single Job starts controller Pod
 
 Another pattern is for a single Job to create a Pod which then creates other Pods, acting as a sort
-of custom controller for those Pods.  This allows the most flexibility, but may be somewhat
+of custom controller for those Pods. This allows the most flexibility, but may be somewhat
 complicated to get started with and offers less integration with Kubernetes.
 
 One example of this pattern would be a Job which starts a Pod which runs a script that in turn
@@ -896,19 +891,19 @@ object, but maintains complete control over what Pods are created and how work i
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods).
-* Read about different ways of running Jobs:
-   * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
-   * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
-   * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
-* Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
+- Learn about [Pods](/docs/concepts/workloads/pods).
+- Read about different ways of running Jobs:
+  - [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
+  - [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
+  - Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
+  - Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
+- Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.
-* `Job` is part of the Kubernetes REST API.
+- `Job` is part of the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/job-v1" >}}
   object definition to understand the API for jobs.
-* Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
+- Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
   can use to define a series of Jobs that will run based on a schedule, similar to
   the UNIX tool `cron`.
-* Practice how to configure handling of retriable and non-retriable pod failures
+- Practice how to configure handling of retriable and non-retriable pod failures
   using `podFailurePolicy`, based on the step-by-step [examples](/docs/tasks/job/pod-failure-policy/).

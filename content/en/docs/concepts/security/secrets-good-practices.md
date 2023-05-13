@@ -58,9 +58,9 @@ Secret. You can detect or limit the impact caused by Secret data being exposed,
 either intentionally or unintentionally, by a user with this access. Some
 recommendations include:
 
-*  Use short-lived Secrets
-*  Implement audit rules that alert on specific events, such as concurrent
-   reading of multiple Secrets by a single user
+- Use short-lived Secrets
+- Implement audit rules that alert on specific events, such as concurrent
+  reading of multiple Secrets by a single user
 
 ### Improve etcd management policies
 

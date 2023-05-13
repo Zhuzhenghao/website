@@ -10,8 +10,8 @@ This tutorial applies only for new clusters.
 
 Pod Security admission (PSA) is enabled by default in v1.23 and later, as it
 [graduated to beta](/blog/2021/12/09/pod-security-admission-beta/). Pod Security Admission
-is an admission controller that applies 
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/) 
+is an admission controller that applies
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 when pods are created. In this tutorial, you will enforce the `baseline` Pod Security Standard,
 one namespace at a time.
 
@@ -38,17 +38,17 @@ Install the following on your workstation:
 
    ```
    Creating cluster "psa-ns-level" ...
-    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼 
-    ✓ Preparing nodes 📦  
-    ✓ Writing configuration 📜 
-    ✓ Starting control-plane 🕹️ 
-    ✓ Installing CNI 🔌 
-    ✓ Installing StorageClass 💾 
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
+    ✓ Preparing nodes 📦
+    ✓ Writing configuration 📜
+    ✓ Starting control-plane 🕹️
+    ✓ Installing CNI 🔌
+    ✓ Installing StorageClass 💾
    Set kubectl context to "kind-psa-ns-level"
    You can now use your cluster with:
-    
+
    kubectl cluster-info --context kind-psa-ns-level
-    
+
    Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
    ```
 
@@ -57,12 +57,13 @@ Install the following on your workstation:
    ```shell
    kubectl cluster-info --context kind-psa-ns-level
    ```
+
    The output is similar to this:
 
    ```
    Kubernetes control plane is running at https://127.0.0.1:50996
    CoreDNS is running at https://127.0.0.1:50996/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-    
+
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
@@ -115,6 +116,7 @@ namespace/example created
    ```shell
    kubectl apply -n example -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
+
    The Pod does start OK; the output includes a warning. For example:
 
    ```
@@ -127,6 +129,7 @@ namespace/example created
    ```shell
    kubectl apply -n default -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
+
    Output is similar to this:
 
    ```

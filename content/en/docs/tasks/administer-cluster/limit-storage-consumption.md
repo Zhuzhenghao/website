@@ -12,15 +12,12 @@ The following resources are used in the demonstration: [ResourceQuota](/docs/con
 [LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/),
 and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 
-
 ## {{% heading "prerequisites" %}}
 
-
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
+- {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!-- steps -->
+
 ## Scenario: Limiting Storage Consumption
 
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
@@ -31,7 +28,6 @@ The admin would like to limit:
 1. The number of persistent volume claims in a namespace
 2. The amount of storage each claim can request
 3. The amount of cumulative storage the namespace can have
-
 
 ## LimitRange to limit requests for storage
 
@@ -48,11 +44,11 @@ metadata:
   name: storagelimits
 spec:
   limits:
-  - type: PersistentVolumeClaim
-    max:
-      storage: 2Gi
-    min:
-      storage: 1Gi
+    - type: PersistentVolumeClaim
+      max:
+        storage: 2Gi
+      min:
+        storage: 1Gi
 ```
 
 Minimum storage requests are used when the underlying storage provider requires certain minimums. For example,
@@ -65,7 +61,7 @@ either maximum value will be rejected.
 
 In this example, a 6th PVC in the namespace would be rejected because it exceeds the maximum count of 5. Alternatively,
 a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PVCs where each has 2Gi. That would be 6Gi requested
- for a namespace capped at 5Gi.
+for a namespace capped at 5Gi.
 
 ```yaml
 apiVersion: v1

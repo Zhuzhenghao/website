@@ -1,11 +1,11 @@
 ---
 reviewers:
-- sig-api-machinery
-- sig-architecture
-- sig-cli
-- sig-cluster-lifecycle
-- sig-node
-- sig-release
+  - sig-api-machinery
+  - sig-architecture
+  - sig-cli
+  - sig-cluster-lifecycle
+  - sig-node
+  - sig-release
 title: Version Skew Policy
 type: docs
 description: >
@@ -13,6 +13,7 @@ description: >
 ---
 
 <!-- overview -->
+
 This document describes the maximum version skew supported between various Kubernetes components.
 Specific cluster deployment tools may place additional restrictions on version skew.
 
@@ -40,8 +41,8 @@ In [highly-available (HA) clusters](/docs/setup/production-environment/tools/kub
 
 Example:
 
-* newest `kube-apiserver` is at **{{< skew currentVersion >}}**
-* other `kube-apiserver` instances are supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+- newest `kube-apiserver` is at **{{< skew currentVersion >}}**
+- other `kube-apiserver` instances are supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
 
 ### kubelet
 
@@ -49,8 +50,8 @@ Example:
 
 Example:
 
-* `kube-apiserver` is at **{{< skew currentVersion >}}**
-* `kubelet` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
+- `kube-apiserver` is at **{{< skew currentVersion >}}**
+- `kubelet` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
 
 {{< note >}}
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kubelet` versions.
@@ -58,8 +59,8 @@ If version skew exists between `kube-apiserver` instances in an HA cluster, this
 
 Example:
 
-* `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
-* `kubelet` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
+- `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+- `kubelet` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
 ### kube-proxy
 
@@ -68,8 +69,8 @@ Example:
 
 Example:
 
-* `kube-apiserver` is at **{{< skew currentVersion >}}**
-* `kube-proxy` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
+- `kube-apiserver` is at **{{< skew currentVersion >}}**
+- `kube-proxy` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
 
 {{< note >}}
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kube-proxy` versions.
@@ -77,8 +78,8 @@ If version skew exists between `kube-apiserver` instances in an HA cluster, this
 
 Example:
 
-* `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
-* `kube-proxy` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
+- `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+- `kube-proxy` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
 
@@ -86,8 +87,8 @@ Example:
 
 Example:
 
-* `kube-apiserver` is at **{{< skew currentVersion >}}**
-* `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` are supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+- `kube-apiserver` is at **{{< skew currentVersion >}}**
+- `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` are supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
 
 {{< note >}}
 If version skew exists between `kube-apiserver` instances in an HA cluster, and these components can communicate with any `kube-apiserver` instance in the cluster (for example, via a load balancer), this narrows the allowed versions of these components.
@@ -95,9 +96,9 @@ If version skew exists between `kube-apiserver` instances in an HA cluster, and 
 
 Example:
 
-* `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
-* `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` communicate with a load balancer that can route to any `kube-apiserver` instance
-* `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` are supported at **{{< skew currentVersionAddMinor -1 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
+- `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+- `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` communicate with a load balancer that can route to any `kube-apiserver` instance
+- `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` are supported at **{{< skew currentVersionAddMinor -1 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
 ### kubectl
 
@@ -105,8 +106,8 @@ Example:
 
 Example:
 
-* `kube-apiserver` is at **{{< skew currentVersion >}}**
-* `kubectl` is supported at **{{< skew currentVersionAddMinor 1 >}}**, **{{< skew currentVersion >}}**, and **{{< skew currentVersionAddMinor -1 >}}**
+- `kube-apiserver` is at **{{< skew currentVersion >}}**
+- `kubectl` is supported at **{{< skew currentVersionAddMinor 1 >}}**, **{{< skew currentVersion >}}**, and **{{< skew currentVersionAddMinor -1 >}}**
 
 {{< note >}}
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the supported `kubectl` versions.
@@ -114,8 +115,8 @@ If version skew exists between `kube-apiserver` instances in an HA cluster, this
 
 Example:
 
-* `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
-* `kubectl` is supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}** (other versions would be more than one minor version skewed from one of the `kube-apiserver` components)
+- `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+- `kubectl` is supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}** (other versions would be more than one minor version skewed from one of the `kube-apiserver` components)
 
 ## Supported component upgrade order
 
@@ -124,12 +125,12 @@ This section describes the order in which components must be upgraded to transit
 
 Optionally, when preparing to upgrade, the Kubernetes project recommends that
 you do the following to benefit from as many regression and bug fixes as
-possible during your upgrade: 
+possible during your upgrade:
 
-*  Ensure that components are on the most recent patch version of your current
-   minor version.
-*  Upgrade components to the most recent patch version of the target minor
-   version.
+- Ensure that components are on the most recent patch version of your current
+  minor version.
+- Upgrade components to the most recent patch version of the target minor
+  version.
 
 For example, if you're running version {{<skew currentVersionAddMinor -1>}},
 ensure that you're on the most recent patch version. Then, upgrade to the most
@@ -139,13 +140,13 @@ recent patch version of {{<skew currentVersion>}}.
 
 Pre-requisites:
 
-* In a single-instance cluster, the existing `kube-apiserver` instance is **{{< skew currentVersionAddMinor -1 >}}**
-* In an HA cluster, all `kube-apiserver` instances are at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersion >}}** (this ensures maximum skew of 1 minor version between the oldest and newest `kube-apiserver` instance)
-* The `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` instances that communicate with this server are at version **{{< skew currentVersionAddMinor -1 >}}** (this ensures they are not newer than the existing API server version, and are within 1 minor version of the new API server version)
-* `kubelet` instances on all nodes are at version **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}** (this ensures they are not newer than the existing API server version, and are within 2 minor versions of the new API server version)
-* Registered admission webhooks are able to handle the data the new `kube-apiserver` instance will send them:
-  * `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects are updated to include any new versions of REST resources added in **{{< skew currentVersion >}}** (or use the [`matchPolicy: Equivalent` option](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy) available in v1.15+)
-  * The webhooks are able to handle any new versions of REST resources that will be sent to them, and any new fields added to existing versions in **{{< skew currentVersion >}}**
+- In a single-instance cluster, the existing `kube-apiserver` instance is **{{< skew currentVersionAddMinor -1 >}}**
+- In an HA cluster, all `kube-apiserver` instances are at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersion >}}** (this ensures maximum skew of 1 minor version between the oldest and newest `kube-apiserver` instance)
+- The `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` instances that communicate with this server are at version **{{< skew currentVersionAddMinor -1 >}}** (this ensures they are not newer than the existing API server version, and are within 1 minor version of the new API server version)
+- `kubelet` instances on all nodes are at version **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}** (this ensures they are not newer than the existing API server version, and are within 2 minor versions of the new API server version)
+- Registered admission webhooks are able to handle the data the new `kube-apiserver` instance will send them:
+  - `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects are updated to include any new versions of REST resources added in **{{< skew currentVersion >}}** (or use the [`matchPolicy: Equivalent` option](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy) available in v1.15+)
+  - The webhooks are able to handle any new versions of REST resources that will be sent to them, and any new fields added to existing versions in **{{< skew currentVersion >}}**
 
 Upgrade `kube-apiserver` to **{{< skew currentVersion >}}**
 
@@ -159,7 +160,7 @@ require `kube-apiserver` to not skip minor versions when upgrading, even in sing
 
 Pre-requisites:
 
-* The `kube-apiserver` instances these components communicate with are at **{{< skew currentVersion >}}** (in HA clusters in which these control plane components can communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
+- The `kube-apiserver` instances these components communicate with are at **{{< skew currentVersion >}}** (in HA clusters in which these control plane components can communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
 
 Upgrade `kube-controller-manager`, `kube-scheduler`, and
 `cloud-controller-manager` to **{{< skew currentVersion >}}**. There is no
@@ -171,7 +172,7 @@ even simultaneously.
 
 Pre-requisites:
 
-* The `kube-apiserver` instances the `kubelet` communicates with are at **{{< skew currentVersion >}}**
+- The `kube-apiserver` instances the `kubelet` communicates with are at **{{< skew currentVersion >}}**
 
 Optionally upgrade `kubelet` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}**)
 
@@ -188,7 +189,7 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 
 Pre-requisites:
 
-* The `kube-apiserver` instances `kube-proxy` communicates with are at **{{< skew currentVersion >}}**
+- The `kube-apiserver` instances `kube-proxy` communicates with are at **{{< skew currentVersion >}}**
 
 Optionally upgrade `kube-proxy` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}**)
 

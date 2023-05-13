@@ -1,6 +1,6 @@
 ---
 reviewers:
-- vishh
+  - vishh
 content_type: concept
 title: Schedule GPUs
 description: Configure and schedule GPUs for use as a resource by nodes in a cluster.
@@ -29,9 +29,9 @@ As an administrator, you have to install GPU drivers from the corresponding
 hardware vendor on the nodes and run the corresponding device plugin from the
 GPU vendor. Here are some links to vendors' instructions:
 
-* [AMD](https://github.com/RadeonOpenCompute/k8s-device-plugin#deployment)
-* [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
-* [NVIDIA](https://github.com/NVIDIA/k8s-device-plugin#quick-start)
+- [AMD](https://github.com/RadeonOpenCompute/k8s-device-plugin#deployment)
+- [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
+- [NVIDIA](https://github.com/NVIDIA/k8s-device-plugin#quick-start)
 
 Once you have installed the plugin, your cluster exposes a custom schedulable resource such as `amd.com/gpu` or `nvidia.com/gpu`.
 
@@ -41,11 +41,12 @@ However, there are some limitations in how you specify the resource
 requirements for custom devices.
 
 GPUs are only supposed to be specified in the `limits` section, which means:
-* You can specify GPU `limits` without specifying `requests`, because
+
+- You can specify GPU `limits` without specifying `requests`, because
   Kubernetes will use the limit as the request value by default.
-* You can specify GPU in both `limits` and `requests` but these two values
+- You can specify GPU in both `limits` and `requests` but these two values
   must be equal.
-* You cannot specify GPU `requests` without specifying `limits`.
+- You cannot specify GPU `requests` without specifying `limits`.
 
 Here's an example manifest for a Pod that requests a GPU:
 

@@ -1,13 +1,14 @@
 ---
 reviewers:
-- tallclair
-- liggitt
+  - tallclair
+  - liggitt
 title: Mapping PodSecurityPolicies to Pod Security Standards
 content_type: concept
 weight: 95
 ---
 
 <!-- overview -->
+
 The tables below enumerate the configuration parameters on
 `PodSecurityPolicy` objects, whether the field mutates
 and/or validates pods, and how the configuration values map to the

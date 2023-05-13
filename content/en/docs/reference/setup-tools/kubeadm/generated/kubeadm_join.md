@@ -3,18 +3,15 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
 Run this on any machine you wish to join an existing cluster
 
 ### Synopsis
-
-
 
 When joining a kubeadm initialized cluster, we need to establish
 bidirectional trust. This is split into discovery (having the Node
@@ -59,8 +56,8 @@ approve these signing requests. This token is passed in with the
 Often times the same token is used for both parts. In this case, the
 --token flag can be used instead of specifying each token individually.
 
-
 The "join [api-server-endpoint]" command executes the following phases:
+
 ```
 preflight              Run join pre-flight checks
 control-plane-prepare  Prepare the machine for serving a control plane
@@ -74,7 +71,6 @@ control-plane-join     Join a machine as a control plane instance
   /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
   /mark-control-plane    Mark a node as a control-plane
 ```
-
 
 ```
 kubeadm join [api-server-endpoint] [flags]
@@ -218,8 +214,6 @@ kubeadm join [api-server-endpoint] [flags]
 </tbody>
 </table>
 
-
-
 ### Options inherited from parent commands
 
    <table style="width: 100%; table-layout: fixed;">
@@ -238,6 +232,3 @@ kubeadm join [api-server-endpoint] [flags]
 
 </tbody>
 </table>
-
-
-

@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -25,7 +25,6 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/api/flowcontrol/v1beta3"`
 
-
 ## FlowSchema {#FlowSchema}
 
 FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
@@ -34,9 +33,7 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
 
 - **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
-
 - **kind**: FlowSchema
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -50,10 +47,6 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
 
   `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-
-
-
-
 ## FlowSchemaSpec {#FlowSchemaSpec}
 
 FlowSchemaSpec describes how the FlowSchema's specification looks like.
@@ -65,7 +58,7 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
   `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
 
   <a name="PriorityLevelConfigurationReference"></a>
-  *PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.*
+  _PriorityLevelConfigurationReference contains information that points to the "request-priority" being used._
 
   - **priorityLevelConfiguration.name** (string), required
 
@@ -76,7 +69,7 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
   `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 
   <a name="FlowDistinguisherMethod"></a>
-  *FlowDistinguisherMethod specifies the method of a flow distinguisher.*
+  _FlowDistinguisherMethod specifies the method of a flow distinguisher._
 
   - **distinguisherMethod.type** (string), required
 
@@ -84,25 +77,25 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
 
 - **matchingPrecedence** (int32)
 
-  `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
+  `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence. Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 
 - **rules** ([]PolicyRulesWithSubjects)
 
-  *Atomic: will be replaced during a merge*
-  
+  _Atomic: will be replaced during a merge_
+
   `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
 
   <a name="PolicyRulesWithSubjects"></a>
-  *PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.*
+  _PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request._
 
   - **rules.subjects** ([]Subject), required
 
-    *Atomic: will be replaced during a merge*
-    
+    _Atomic: will be replaced during a merge_
+
     subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
 
     <a name="Subject"></a>
-    *Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.*
+    _Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account._
 
     - **rules.subjects.kind** (string), required
 
@@ -113,22 +106,22 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
       `group` matches based on user group name.
 
       <a name="GroupSubject"></a>
-      *GroupSubject holds detailed information for group-kind subject.*
+      _GroupSubject holds detailed information for group-kind subject._
 
       - **rules.subjects.group.name** (string), required
 
-        name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
+        name is the user group that matches, or "\*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 
     - **rules.subjects.serviceAccount** (ServiceAccountSubject)
 
       `serviceAccount` matches ServiceAccounts.
 
       <a name="ServiceAccountSubject"></a>
-      *ServiceAccountSubject holds detailed information for service-account-kind subject.*
+      _ServiceAccountSubject holds detailed information for service-account-kind subject._
 
       - **rules.subjects.serviceAccount.name** (string), required
 
-        `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
+        `name` is the name of matching ServiceAccount objects, or "\*" to match regardless of name. Required.
 
       - **rules.subjects.serviceAccount.namespace** (string), required
 
@@ -139,65 +132,66 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
       `user` matches based on username.
 
       <a name="UserSubject"></a>
-      *UserSubject holds detailed information for user-kind subject.*
+      _UserSubject holds detailed information for user-kind subject._
 
       - **rules.subjects.user.name** (string), required
 
-        `name` is the username that matches, or "*" to match all usernames. Required.
+        `name` is the username that matches, or "\*" to match all usernames. Required.
 
   - **rules.nonResourceRules** ([]NonResourcePolicyRule)
 
-    *Atomic: will be replaced during a merge*
-    
+    _Atomic: will be replaced during a merge_
+
     `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
 
     <a name="NonResourcePolicyRule"></a>
-    *NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.*
+    _NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request._
 
     - **rules.nonResourceRules.nonResourceURLs** ([]string), required
 
-      *Set: unique values will be kept during a merge*
-      
+      _Set: unique values will be kept during a merge_
+
       `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
-        - "/healthz" is legal
-        - "/hea*" is illegal
-        - "/hea" is legal but matches nothing
-        - "/hea/*" also matches nothing
-        - "/healthz/*" matches all per-component health checks.
-      "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+
+      - "/healthz" is legal
+      - "/hea\*" is illegal
+      - "/hea" is legal but matches nothing
+      - "/hea/\*" also matches nothing
+      - "/healthz/_" matches all per-component health checks.
+        "_" matches all non-resource urls. if it is present, it must be the only entry. Required.
 
     - **rules.nonResourceRules.verbs** ([]string), required
 
-      *Set: unique values will be kept during a merge*
-      
-      `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
+      _Set: unique values will be kept during a merge_
+
+      `verbs` is a list of matching verbs and may not be empty. "\*" matches all verbs. If it is present, it must be the only entry. Required.
 
   - **rules.resourceRules** ([]ResourcePolicyRule)
 
-    *Atomic: will be replaced during a merge*
-    
+    _Atomic: will be replaced during a merge_
+
     `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
 
     <a name="ResourcePolicyRule"></a>
-    *ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.*
+    _ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace._
 
     - **rules.resourceRules.apiGroups** ([]string), required
 
-      *Set: unique values will be kept during a merge*
-      
-      `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
+      _Set: unique values will be kept during a merge_
+
+      `apiGroups` is a list of matching API groups and may not be empty. "\*" matches all API groups and, if present, must be the only entry. Required.
 
     - **rules.resourceRules.resources** ([]string), required
 
-      *Set: unique values will be kept during a merge*
-      
-      `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
+      _Set: unique values will be kept during a merge_
+
+      `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource. For example, [ "services", "nodes/status" ]. This list may not be empty. "\*" matches all resources and, if present, must be the only entry. Required.
 
     - **rules.resourceRules.verbs** ([]string), required
 
-      *Set: unique values will be kept during a merge*
-      
-      `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
+      _Set: unique values will be kept during a merge_
+
+      `verbs` is a list of matching verbs and may not be empty. "\*" matches all verbs and, if present, must be the only entry. Required.
 
     - **rules.resourceRules.clusterScope** (boolean)
 
@@ -205,13 +199,9 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
 
     - **rules.resourceRules.namespaces** ([]string)
 
-      *Set: unique values will be kept during a merge*
-      
-      `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
+      _Set: unique values will be kept during a merge_
 
-
-
-
+      `namespaces` is a list of target namespaces that restricts matches. A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "_". Note that "_" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
 
 ## FlowSchemaStatus {#FlowSchemaStatus}
 
@@ -221,21 +211,21 @@ FlowSchemaStatus represents the current state of a FlowSchema.
 
 - **conditions** ([]FlowSchemaCondition)
 
-  *Patch strategy: merge on key `type`*
-  
-  *Map: unique values on key type will be kept during a merge*
-  
+  _Patch strategy: merge on key `type`_
+
+  _Map: unique values on key type will be kept during a merge_
+
   `conditions` is a list of the current states of FlowSchema.
 
   <a name="FlowSchemaCondition"></a>
-  *FlowSchemaCondition describes conditions for a FlowSchema.*
+  _FlowSchemaCondition describes conditions for a FlowSchema._
 
   - **conditions.lastTransitionTime** (Time)
 
     `lastTransitionTime` is the last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.message** (string)
 
@@ -253,10 +243,6 @@ FlowSchemaStatus represents the current state of a FlowSchema.
 
     `type` is the type of the condition. Required.
 
-
-
-
-
 ## FlowSchemaList {#FlowSchemaList}
 
 FlowSchemaList is a list of FlowSchema objects.
@@ -265,9 +251,7 @@ FlowSchemaList is a list of FlowSchema objects.
 
 - **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
-
 - **kind**: FlowSchemaList
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -277,20 +261,9 @@ FlowSchemaList is a list of FlowSchema objects.
 
   `items` is a list of FlowSchemas.
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `get` read the specified FlowSchema
 
@@ -300,25 +273,19 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the FlowSchema
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
-
 
 ### `get` read status of the specified FlowSchema
 
@@ -328,25 +295,19 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the FlowSchema
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind FlowSchema
 
@@ -356,70 +317,55 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### Parameters
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaList" >}}">FlowSchemaList</a>): OK
 
 401: Unauthorized
-
 
 ### `create` create a FlowSchema
 
@@ -429,35 +375,25 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
@@ -467,7 +403,6 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 401: Unauthorized
 
-
 ### `update` replace the specified FlowSchema
 
 #### HTTP Request
@@ -476,47 +411,35 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the FlowSchema
 
-
 - **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
-
 
 ### `update` replace status of the specified FlowSchema
 
@@ -526,47 +449,35 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the FlowSchema
 
-
 - **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update the specified FlowSchema
 
@@ -576,52 +487,39 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the FlowSchema
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update status of the specified FlowSchema
 
@@ -631,52 +529,39 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the FlowSchema
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
-
 
 ### `delete` delete a FlowSchema
 
@@ -686,47 +571,35 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the FlowSchema
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
-
 
 ### `deletecollection` delete collection of FlowSchema
 
@@ -736,77 +609,58 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

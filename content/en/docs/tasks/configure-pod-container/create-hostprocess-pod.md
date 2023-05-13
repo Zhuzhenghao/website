@@ -36,11 +36,11 @@ images taking up space on the node. HostProcess containers also support
 ### When should I use a Windows HostProcess container?
 
 - When you need to perform tasks which require the networking namespace of the host.
-HostProcess containers have access to the host's network interfaces and IP addresses.
+  HostProcess containers have access to the host's network interfaces and IP addresses.
 - You need access to resources on the host such as the filesystem, event logs, etc.
 - Installation of specific device drivers or Windows services.
 - Consolidation of administrative tasks and security policies. This reduces the degree of
-privileges needed by Windows nodes.
+  privileges needed by Windows nodes.
 
 ## {{% heading "prerequisites" %}}
 
@@ -153,12 +153,12 @@ spec:
       runAsUserName: "NT AUTHORITY\\Local service"
   hostNetwork: true
   containers:
-  - name: test
-    image: image1:latest
-    command:
-      - ping
-      - -t
-      - 127.0.0.1
+    - name: test
+      image: image1:latest
+      command:
+        - ping
+        - -t
+        - 127.0.0.1
   nodeSelector:
     "kubernetes.io/os": windows
 ```
@@ -239,21 +239,21 @@ Example:
 
 1. Create a local user group on the node (this can be done in another HostProcess container).
 
-    ```cmd
-    net localgroup hpc-localgroup /add
-    ```
+   ```cmd
+   net localgroup hpc-localgroup /add
+   ```
 
 1. Grant access to desired resources on the node to the local usergroup.
    This can be done with tools like [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls).
 
 1. Set `runAsUserName` to the name of the local usergroup for the pod or individual containers.
 
-    ```yaml
-    securityContext:
-      windowsOptions:
-        hostProcess: true
-        runAsUserName: hpc-localgroup
-    ```
+   ```yaml
+   securityContext:
+     windowsOptions:
+       hostProcess: true
+       runAsUserName: hpc-localgroup
+   ```
 
 1. Schedule the pod!
 
@@ -269,4 +269,3 @@ For more information please check out the [windows-host-process-containers-base-
 - HostProcess containers fail to start with `failed to create user process token: failed to logon user: Access is denied.: unknown`
 
   Ensure containerd is running as `LocalSystem` or `LocalService` service accounts. User accounts (even Administrator accounts) do not have permissions to create logon tokens for any of the supported [user accounts](#choosing-a-user-account).
-  

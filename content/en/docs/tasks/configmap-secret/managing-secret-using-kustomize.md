@@ -8,7 +8,7 @@ description: Creating Secret objects using kustomization.yaml file.
 <!-- overview -->
 
 `kubectl` supports using the [Kustomize object management tool](/docs/tasks/manage-kubernetes-objects/kustomization/) to manage Secrets
-and ConfigMaps. You create a *resource generator* using Kustomize, which
+and ConfigMaps. You create a _resource generator_ using Kustomize, which
 generates a Secret that you can apply to the API server using `kubectl`.
 
 ## {{% heading "prerequisites" %}}
@@ -29,42 +29,47 @@ file for the username `admin` and the password `1f2d1e2e67df`.
 {{< tabs name="Secret data" >}}
 {{< tab name="Literals" codelang="yaml" >}}
 secretGenerator:
+
 - name: database-creds
   literals:
   - username=admin
   - password=1f2d1e2e67df
-{{< /tab >}}
-{{% tab name="Files" %}}
+    {{< /tab >}}
+    {{% tab name="Files" %}}
+
 1.  Store the credentials in files with the values encoded in base64:
 
     ```shell
     echo -n 'admin' > ./username.txt
     echo -n '1f2d1e2e67df' > ./password.txt
     ```
+
     The `-n` flag ensures that there's no newline character at the end of your
     files.
 
 1.  Create the `kustomization.yaml` file:
 
-    ```yaml
-    secretGenerator:
-    - name: database-creds
-      files:
-      - username.txt
-      - password.txt
-    ```
-{{% /tab %}}}
-{{% tab name=".env files" %}}
-You can also define the secretGenerator in the `kustomization.yaml` file by
-providing `.env` files. For example, the following `kustomization.yaml` file
-pulls in data from an `.env.secret` file:
+        ```yaml
+        secretGenerator:
+        - name: database-creds
+          files:
+          - username.txt
+          - password.txt
+        ```
+
+    {{% /tab %}}}
+    {{% tab name=".env files" %}}
+    You can also define the secretGenerator in the `kustomization.yaml` file by
+    providing `.env` files. For example, the following `kustomization.yaml` file
+    pulls in data from an `.env.secret` file:
 
 ```yaml
 secretGenerator:
-- name: db-user-pass
-  envs:
-  - .env.secret
+  - name: db-user-pass
+    envs:
+      - .env.secret
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 

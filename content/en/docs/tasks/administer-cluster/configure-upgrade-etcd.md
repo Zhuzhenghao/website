@@ -1,8 +1,8 @@
 ---
 reviewers:
-- mml
-- wojtek-t
-- jpbetz
+  - mml
+  - wojtek-t
+  - jpbetz
 title: Operating etcd clusters for Kubernetes
 content_type: task
 weight: 270
@@ -20,13 +20,13 @@ weight: 270
 
 ## Prerequisites
 
-* Run etcd as a cluster of odd members.
+- Run etcd as a cluster of odd members.
 
-* etcd is a leader-based distributed system. Ensure that the leader
+- etcd is a leader-based distributed system. Ensure that the leader
   periodically send heartbeats on time to all followers to keep the cluster
   stable.
 
-* Ensure that no resource starvation occurs.
+- Ensure that no resource starvation occurs.
 
   Performance and stability of the cluster is sensitive to network and disk
   I/O. Any resource starvation can lead to heartbeat timeout, causing instability
@@ -34,11 +34,11 @@ weight: 270
   such circumstances, a cluster cannot make any changes to its current state,
   which implies no new pods can be scheduled.
 
-* Keeping etcd clusters stable is critical to the stability of Kubernetes
+- Keeping etcd clusters stable is critical to the stability of Kubernetes
   clusters. Therefore, run etcd clusters on dedicated machines or isolated
   environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
 
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
+- The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
 
 ## Resource requirements
 
@@ -198,8 +198,8 @@ replace it with `member4=http://10.0.0.4`.
       then stop the Kubernetes API server that communicates with the failed
       etcd.
 
-1. Stop the etcd server on the broken node. It is possible that other 
-   clients besides the Kubernetes API server is causing traffic to etcd 
+1. Stop the etcd server on the broken node. It is possible that other
+   clients besides the Kubernetes API server is causing traffic to etcd
    and it is desirable to stop all traffic to prevent writes to the data
    dir.
 
@@ -299,11 +299,11 @@ volume.
 
 ### Snapshot using etcdctl options
 
-We can also take the snapshot using various options given by etcdctl. For example 
+We can also take the snapshot using various options given by etcdctl. For example
 
 ```shell
-ETCDCTL_API=3 etcdctl -h 
-``` 
+ETCDCTL_API=3 etcdctl -h
+```
 
 will list various options available from etcdctl. For example, you can take a snapshot by specifying
 the endpoint, certificates etc as shown below:
@@ -313,6 +313,7 @@ ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
   --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
   snapshot save <backup-file-location>
 ```
+
 where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the description of the etcd Pod.
 
 ## Scaling out etcd clusters
@@ -344,11 +345,15 @@ Here is an example:
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
 ```
+
 Another example for restoring using etcdctl options:
+
 ```shell
 ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
 ```
+
 Yet another example would be to first export the environment variable
+
 ```shell
 export ETCDCTL_API=3
 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
@@ -376,18 +381,17 @@ reconfigure Kubernetes API servers to fix the issue.
 If any API servers are running in your cluster, you should not attempt to
 restore instances of etcd. Instead, follow these steps to restore etcd:
 
-- stop *all* API server instances
+- stop _all_ API server instances
 - restore state in all etcd instances
 - restart all API server instances
 
 We also recommend restarting any components (e.g. `kube-scheduler`,
 `kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
-stale data. Note that in practice, the restore takes a bit of time.  During the
+stale data. Note that in practice, the restore takes a bit of time. During the
 restoration, critical components will lose leader lock and restart themselves.
 {{< /note >}}
 
 ## Upgrading etcd clusters
-
 
 For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
 

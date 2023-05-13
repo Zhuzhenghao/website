@@ -13,8 +13,8 @@ for database debugging.
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* Install [MongoDB Shell](https://www.mongodb.com/try/download/shell).
+- {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+- Install [MongoDB Shell](https://www.mongodb.com/try/download/shell).
 
 <!-- steps -->
 
@@ -116,7 +116,6 @@ for database debugging.
 
 1. `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
 
-
    ```shell
    # Change mongo-75f59d57f4-4nd6q to the name of the Pod
    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
@@ -177,8 +176,8 @@ for database debugging.
 
 ### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
 
-If you don't need a specific local port, you can let `kubectl` choose and allocate 
-the local port and thus relieve you from having to manage local port conflicts, with 
+If you don't need a specific local port, you can let `kubectl` choose and allocate
+the local port and thus relieve you from having to manage local port conflicts, with
 the slightly simpler syntax:
 
 ```shell
@@ -210,4 +209,3 @@ The support for UDP protocol is tracked in
 ## {{% heading "whatsnext" %}}
 
 Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
-

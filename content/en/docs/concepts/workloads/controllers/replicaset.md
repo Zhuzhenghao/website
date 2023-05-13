@@ -1,8 +1,8 @@
 ---
 reviewers:
-- Kashomon
-- bprashanth
-- madhusudancs
+  - Kashomon
+  - bprashanth
+  - madhusudancs
 title: ReplicaSet
 feature:
   title: Self-healing
@@ -145,13 +145,12 @@ metadata:
   name: frontend-b2zdv
   namespace: default
   ownerReferences:
-  - apiVersion: apps/v1
-    blockOwnerDeletion: true
-    controller: true
-    kind: ReplicaSet
-    name: frontend
-    uid: f391f6db-bb9b-4c09-ae74-6a1f77f3d5cf
-...
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: frontend
+      uid: f391f6db-bb9b-4c09-ae74-6a1f77f3d5cf
 ```
 
 ## Non-Template Pod acquisitions
@@ -214,6 +213,7 @@ kubectl get pods
 ```
 
 Will reveal in its output:
+
 ```
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-hmmj2   1/1     Running   0          9s
@@ -357,6 +357,7 @@ This feature is beta and enabled by default. You can disable it using the
 `PodDeletionCost` in both kube-apiserver and kube-controller-manager.
 
 {{< note >}}
+
 - This is honored on a best-effort basis, so it does not offer any guarantees on pod deletion order.
 - Users should avoid updating the annotation frequently, such as updating it based on a metric value,
   because doing so will generate a significant number of pod updates on the apiserver.
@@ -435,12 +436,12 @@ As such, ReplicaSets are preferred over ReplicationControllers
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods).
-* Learn about [Deployments](/docs/concepts/workloads/controllers/deployment/).
-* [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/),
+- Learn about [Pods](/docs/concepts/workloads/pods).
+- Learn about [Deployments](/docs/concepts/workloads/controllers/deployment/).
+- [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/),
   which relies on ReplicaSets to work.
-* `ReplicaSet` is a top-level resource in the Kubernetes REST API.
+- `ReplicaSet` is a top-level resource in the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/replica-set-v1" >}}
   object definition to understand the API for replica sets.
-* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
+- Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.

@@ -112,12 +112,14 @@ Here is a configuration file you can use to create a Pod:
    ```
 
    Output:
+
    ```
    NAME              READY     STATUS    RESTARTS   AGE
    secret-test-pod   1/1       Running   0          42m
    ```
 
 1. Get a shell into the Container that is running in your Pod:
+
    ```shell
    kubectl exec -i -t secret-test-pod -- /bin/bash
    ```
@@ -126,11 +128,14 @@ Here is a configuration file you can use to create a Pod:
    `/etc/secret-volume`.
 
    In your shell, list the files in the `/etc/secret-volume` directory:
+
    ```shell
    # Run this in the shell inside the container
    ls /etc/secret-volume
    ```
+
    The output shows two files, one for each piece of secret data:
+
    ```
    password username
    ```
@@ -163,19 +168,19 @@ metadata:
   name: mypod
 spec:
   containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
+    - name: mypod
+      image: redis
+      volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
+          readOnly: true
   volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      items:
-      - key: username
-        path: my-group/my-username
+    - name: foo
+      secret:
+        secretName: mysecret
+        items:
+          - key: username
+            path: my-group/my-username
 ```
 
 When you deploy this Pod, the following happens:
@@ -209,16 +214,16 @@ metadata:
   name: mypod
 spec:
   containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
+    - name: mypod
+      image: redis
+      volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
   volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      defaultMode: 0400
+    - name: foo
+      secret:
+        secretName: mysecret
+        defaultMode: 0400
 ```
 
 The Secret is mounted on `/etc/foo`; all the files created by the
@@ -267,6 +272,7 @@ secrets change.
   ```
 
   The output is
+
   ```
   backend-admin
   ```
@@ -295,7 +301,9 @@ secrets change.
   ```shell
   kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
   ```
+
   The output is
+
   ```
   DB_USERNAME=db-admin
   BACKEND_USERNAME=backend-admin
@@ -330,6 +338,7 @@ This functionality is available in Kubernetes v1.6 and later.
   ```
 
   The output is
+
   ```
   username: my-app
   password: 39528$vdg7Jb

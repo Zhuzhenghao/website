@@ -26,7 +26,7 @@ and security architects can ensure that these bypasses are appropriately restric
 
 The {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} on each node loads and
 directly manages any manifests that are stored in a named directory or fetched from
-a specific URL as [*static Pods*](/docs/tasks/configure-pod-container/static-pod) in
+a specific URL as [_static Pods_](/docs/tasks/configure-pod-container/static-pod) in
 your cluster. The API server doesn't manage these static Pods. An attacker with write
 access to this location could modify the configuration of static pods loaded from that
 source, or could introduce new static Pods.

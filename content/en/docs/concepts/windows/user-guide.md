@@ -1,8 +1,8 @@
 ---
 reviewers:
-- jayunit100
-- jsturtevant
-- marosset
+  - jayunit100
+  - jsturtevant
+  - marosset
 title: Guide for Running Windows Containers in Kubernetes
 content_type: tutorial
 weight: 75
@@ -19,7 +19,6 @@ behaves in much the same way for Linux and Windows containers.
 The [kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
 The examples in this page are provided to jumpstart your experience with Windows containers.
 
-
 <!-- body -->
 
 ## Objectives
@@ -30,7 +29,6 @@ Configure an example deployment to run Windows containers on a Windows node.
 
 You should already have access to a Kubernetes cluster that includes a
 worker node running Windows Server.
-
 
 ## Getting Started: Deploying a Windows workload
 
@@ -72,15 +70,15 @@ spec:
         app: win-webserver
       name: win-webserver
     spec:
-     containers:
-      - name: windowswebserver
-        image: mcr.microsoft.com/windows/servercore:ltsc2019
-        command:
-        - powershell.exe
-        - -command
-        - "<#code used from https://gist.github.com/19WAS85/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
-     nodeSelector:
-      kubernetes.io/os: windows
+      containers:
+        - name: windowswebserver
+          image: mcr.microsoft.com/windows/servercore:ltsc2019
+          command:
+            - powershell.exe
+            - -command
+            - "<#code used from https://gist.github.com/19WAS85/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
+      nodeSelector:
+        kubernetes.io/os: windows
 ```
 
 {{< note >}}
@@ -90,31 +88,31 @@ port 80 of the container directly to the Service.
 
 1. Check that all nodes are healthy:
 
-    ```bash
-    kubectl get nodes
-    ```
+   ```bash
+   kubectl get nodes
+   ```
 
 1. Deploy the service and watch for pod updates:
 
-    ```bash
-    kubectl apply -f win-webserver.yaml
-    kubectl get pods -o wide -w
-    ```
+   ```bash
+   kubectl apply -f win-webserver.yaml
+   kubectl get pods -o wide -w
+   ```
 
-    When the service is deployed correctly both Pods are marked as Ready. To exit the watch command, press Ctrl+C.
+   When the service is deployed correctly both Pods are marked as Ready. To exit the watch command, press Ctrl+C.
 
 1. Check that the deployment succeeded. To verify:
 
-    * Several pods listed from the Linux control plane node, use `kubectl get pods`
-    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node
-      to check for a web server response
-    * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
-      using `kubectl exec`
-    * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
-      from the Linux control plane node and from individual pods
-    * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
-    * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
-    * Outbound connectivity, `curl` external IPs from inside the pod using `kubectl exec`
+   - Several pods listed from the Linux control plane node, use `kubectl get pods`
+   - Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node
+     to check for a web server response
+   - Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
+     using `kubectl exec`
+   - Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
+     from the Linux control plane node and from individual pods
+   - Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
+   - Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
+   - Outbound connectivity, `curl` external IPs from inside the pod using `kubectl exec`
 
 {{< note >}}
 Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack.
@@ -181,15 +179,15 @@ appropriate operating system.
 
 The `.spec.os.name` value has no effect on the scheduling of the Windows pods,
 so taints and tolerations (or node selectors) are still required
- to ensure that the Windows pods land onto appropriate Windows nodes.
+to ensure that the Windows pods land onto appropriate Windows nodes.
 
 ### Ensuring OS-specific workloads land on the appropriate container host
 
 Users can ensure Windows containers can be scheduled on the appropriate host using taints and tolerations.
 All Kubernetes nodes running Kubernetes {{< skew currentVersion >}} have the following default labels:
 
-* kubernetes.io/os = [windows|linux]
-* kubernetes.io/arch = [amd64|arm64|...]
+- kubernetes.io/os = [windows|linux]
+- kubernetes.io/arch = [amd64|arm64|...]
 
 If a Pod specification does not specify a `nodeSelector` such as `"kubernetes.io/os": windows`,
 it is possible the Pod can be scheduled on any host, Windows or Linux.
@@ -202,7 +200,7 @@ In those situations, you may be hesitant to make the configuration change to add
 The alternative is to use taints. Because the kubelet can set taints during registration,
 it could easily be modified to automatically add a taint when running on Windows only.
 
-For example:  `--register-with-taints='os=windows:NoSchedule'`
+For example: `--register-with-taints='os=windows:NoSchedule'`
 
 By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods).
 In order for a Windows Pod to be scheduled on a Windows node,
@@ -210,13 +208,13 @@ it would need both the `nodeSelector` and the appropriate matching toleration to
 
 ```yaml
 nodeSelector:
-    kubernetes.io/os: windows
-    node.kubernetes.io/windows-build: '10.0.17763'
+  kubernetes.io/os: windows
+  node.kubernetes.io/windows-build: "10.0.17763"
 tolerations:
-    - key: "os"
-      operator: "Equal"
-      value: "windows"
-      effect: "NoSchedule"
+  - key: "os"
+    operator: "Equal"
+    value: "windows"
+    effect: "NoSchedule"
 ```
 
 ### Handling multiple Windows versions in the same cluster
@@ -231,10 +229,10 @@ to simplify this.
 This label reflects the Windows major, minor, and build number that need to match for compatibility.
 Here are values used for each Windows Server version:
 
-| Product Name                         | Version                |
-|--------------------------------------|------------------------|
-| Windows Server 2019                  | 10.0.17763             |
-| Windows Server 2022                  | 10.0.20348             |
+| Product Name        | Version    |
+| ------------------- | ---------- |
+| Windows Server 2019 | 10.0.17763 |
+| Windows Server 2022 | 10.0.20348 |
 
 ### Simplifying with RuntimeClass
 
@@ -242,7 +240,7 @@ Here are values used for each Windows Server version:
 A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
 
 1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector`
-for the Windows OS, architecture, and version.
+   for the Windows OS, architecture, and version.
 
 ```yaml
 ---
@@ -253,14 +251,14 @@ metadata:
 handler: example-container-runtime-handler
 scheduling:
   nodeSelector:
-    kubernetes.io/os: 'windows'
-    kubernetes.io/arch: 'amd64'
-    node.kubernetes.io/windows-build: '10.0.17763'
+    kubernetes.io/os: "windows"
+    kubernetes.io/arch: "amd64"
+    node.kubernetes.io/windows-build: "10.0.17763"
   tolerations:
-  - effect: NoSchedule
-    key: os
-    operator: Equal
-    value: "windows"
+    - effect: NoSchedule
+      key: os
+      operator: Equal
+      value: "windows"
 ```
 
 1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator

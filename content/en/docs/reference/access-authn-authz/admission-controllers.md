@@ -1,11 +1,11 @@
 ---
 reviewers:
-- lavalamp
-- davidopp
-- derekwaynecarr
-- erictune
-- janetkuo
-- thockin
+  - lavalamp
+  - davidopp
+  - derekwaynecarr
+  - erictune
+  - janetkuo
+  - thockin
 title: Admission Controllers Reference
 linkTitle: Admission Controllers
 content_type: concept
@@ -13,10 +13,11 @@ weight: 30
 ---
 
 <!-- overview -->
+
 This page provides an overview of Admission Controllers.
 
-
 <!-- body -->
+
 ## What are they?
 
 An _admission controller_ is a piece of code that intercepts requests to the
@@ -35,7 +36,7 @@ The admission controllers in Kubernetes {{< skew currentVersion >}} consist of t
 [list](#what-does-each-admission-controller-do) below, are compiled into the
 `kube-apiserver` binary, and may only be configured by the cluster
 administrator. In that list, there are two special controllers:
-MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
+MutatingAdmissionWebhook and ValidatingAdmissionWebhook. These execute the
 mutating and validating (respectively)
 [admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
 which are configured in the API.
@@ -61,7 +62,7 @@ other admission controllers.
 ## Why do I need them?
 
 Several important features of Kubernetes require an admission controller to be enabled in order
-to properly support the feature.  As a result, a Kubernetes API server that is not properly
+to properly support the feature. As a result, a Kubernetes API server that is not properly
 configured with the right set of admission controllers is an incomplete server and will not
 support all the features you expect.
 
@@ -164,14 +165,14 @@ of `system:masters`.
 ### DefaultIngressClass {#defaultingressclass}
 
 This admission controller observes creation of `Ingress` objects that do not request any specific
-ingress class and automatically adds a default ingress class to them.  This way, users that do not
+ingress class and automatically adds a default ingress class to them. This way, users that do not
 request any special ingress class do not need to care about them at all and they will get the
 default one.
 
 This admission controller does not do anything when no default ingress class is configured. When more than one ingress
 class is marked as default, it rejects any creation of `Ingress` with an error and an administrator
 must revisit their `IngressClass` objects and mark only one as default (with the annotation
-"ingressclass.kubernetes.io/is-default-class").  This admission controller ignores any `Ingress`
+"ingressclass.kubernetes.io/is-default-class"). This admission controller ignores any `Ingress`
 updates; it acts only on creation.
 
 See the [Ingress](/docs/concepts/services-networking/ingress/) documentation for more about ingress
@@ -203,11 +204,11 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 
 ### DenyServiceExternalIPs
 
-This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
+This admission controller rejects all net-new usage of the `Service` field `externalIPs`. This
 feature is very powerful (allows network traffic interception) and not well
-controlled by policy.  When enabled, users of the cluster may not create new
+controlled by policy. When enabled, users of the cluster may not create new
 Services which use `externalIPs` and may not add new values to `externalIPs` on
-existing `Service` objects.  Existing uses of `externalIPs` are not affected,
+existing `Service` objects. Existing uses of `externalIPs` are not affected,
 and users may remove values from `externalIPs` on existing `Service` objects.
 
 Most users do not need this feature at all, and cluster admins should consider disabling it.
@@ -223,8 +224,8 @@ This admission controller is disabled by default.
 This admission controller mitigates the problem where the API server gets flooded by
 requests to store new Events. The cluster admin can specify event rate limits by:
 
-* Enabling the `EventRateLimit` admission controller;
-* Referencing an `EventRateLimit` configuration file from the file provided to the API
+- Enabling the `EventRateLimit` admission controller;
+- Referencing an `EventRateLimit` configuration file from the file provided to the API
   server's command line flag `--admission-control-config-file`:
 
 ```yaml
@@ -233,16 +234,15 @@ kind: AdmissionConfiguration
 plugins:
   - name: EventRateLimit
     path: eventconfig.yaml
-...
 ```
 
 There are four types of limits that can be specified in the configuration:
 
- * `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
- * `Namespace`: Each namespace has a dedicated bucket.
- * `User`: Each user is allocated a bucket.
- * `SourceAndObject`: A bucket is assigned by each combination of source and
-   involved object of the event.
+- `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+- `Namespace`: Each namespace has a dedicated bucket.
+- `User`: Each user is allocated a bucket.
+- `SourceAndObject`: A bucket is assigned by each combination of source and
+  involved object of the event.
 
 Below is a sample `eventconfig.yaml` for such a configuration:
 
@@ -307,7 +307,6 @@ kind: AdmissionConfiguration
 plugins:
   - name: ImagePolicyWebhook
     path: imagepolicyconfig.yaml
-...
 ```
 
 Alternatively, you can embed the configuration directly in the file:
@@ -339,7 +338,7 @@ must contain the returned authorizer.
 clusters:
   - name: name-of-remote-imagepolicy-service
     cluster:
-      certificate-authority: /path/to/ca.pem    # CA for verifying the remote service.
+      certificate-authority: /path/to/ca.pem # CA for verifying the remote service.
       server: https://images.example.com/policy # URL of remote service to query. Must use 'https'.
 
 # users refers to the API server's webhook configuration.
@@ -347,7 +346,7 @@ users:
   - name: name-of-api-server
     user:
       client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
-      client-key: /path/to/key.pem          # key matching the cert
+      client-key: /path/to/key.pem # key matching the cert
 ```
 
 For additional HTTP configuration, refer to the
@@ -431,9 +430,9 @@ accept different information.
 
 Examples of information you might put here are:
 
-* request to "break glass" to override a policy, in case of emergency.
-* a ticket number from a ticket system that documents the break-glass request
-* provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
+- request to "break glass" to override a policy, in case of emergency.
+- a ticket number from a ticket system that documents the break-glass request
+- provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way.
 
@@ -447,7 +446,7 @@ This admission controller is disabled by default.
 ### LimitRanger {#limitranger}
 
 This admission controller will observe the incoming request and ensure that it does not violate
-any of the constraints enumerated in the `LimitRange` object in a `Namespace`.  If you are using
+any of the constraints enumerated in the `LimitRange` object in a `Namespace`. If you are using
 `LimitRange` objects in your Kubernetes deployment, you MUST use this admission controller to
 enforce those constraints. LimitRanger can also be used to apply default resource requests to Pods
 that don't specify any; currently, the default LimitRanger applies a 0.1 CPU requirement to all
@@ -465,7 +464,7 @@ webhooks are called in serial; each one may modify the object if it desires.
 This admission controller (as implied by the name) only runs in the mutating phase.
 
 If a webhook called by this has side effects (for example, decrementing quota) it
-*must* have a reconciliation system, as it is not guaranteed that subsequent
+_must_ have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or validating admission controllers will permit the request to finish.
 
 If you disable the MutatingAdmissionWebhook, you must also disable the
@@ -474,13 +473,13 @@ group/version via the `--runtime-config` flag, both are on by default.
 
 #### Use caution when authoring and installing mutating webhooks
 
-* Users may be confused when the objects they try to create are different from
+- Users may be confused when the objects they try to create are different from
   what they get back.
-* Built in control loops may break when the objects they try to create are
+- Built in control loops may break when the objects they try to create are
   different when read back.
-  * Setting originally unset fields is less likely to cause problems than
+  - Setting originally unset fields is less likely to cause problems than
     overwriting fields set in the original request. Avoid doing the latter.
-* Future changes to control loops for built-in resources or third-party resources
+- Future changes to control loops for built-in resources or third-party resources
   may break webhooks that work well today. Even when the webhook installation API
   is finalized, not all possible webhook behaviors will be guaranteed to be supported
   indefinitely.
@@ -506,7 +505,7 @@ This admission controller also prevents deletion of three system reserved namesp
 `kube-system`, `kube-public`.
 
 A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services,
-etc.) in that namespace.  In order to enforce integrity of that process, we strongly recommend
+etc.) in that namespace. In order to enforce integrity of that process, we strongly recommend
 running this admission controller.
 
 ### NodeRestriction {#noderestriction}
@@ -519,21 +518,21 @@ kubelets are not allowed to update or remove taints from their `Node` API object
 The `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
 and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
 
-* **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
+- **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
   This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
   and kubelets will not be allowed to modify labels with that prefix.
-* **Allows** kubelets to add/remove/update these labels and label prefixes:
-  * `kubernetes.io/hostname`
-  * `kubernetes.io/arch`
-  * `kubernetes.io/os`
-  * `beta.kubernetes.io/instance-type`
-  * `node.kubernetes.io/instance-type`
-  * `failure-domain.beta.kubernetes.io/region` (deprecated)
-  * `failure-domain.beta.kubernetes.io/zone` (deprecated)
-  * `topology.kubernetes.io/region`
-  * `topology.kubernetes.io/zone`
-  * `kubelet.kubernetes.io/`-prefixed labels
-  * `node.kubernetes.io/`-prefixed labels
+- **Allows** kubelets to add/remove/update these labels and label prefixes:
+  - `kubernetes.io/hostname`
+  - `kubernetes.io/arch`
+  - `kubernetes.io/os`
+  - `beta.kubernetes.io/instance-type`
+  - `node.kubernetes.io/instance-type`
+  - `failure-domain.beta.kubernetes.io/region` (deprecated)
+  - `failure-domain.beta.kubernetes.io/zone` (deprecated)
+  - `topology.kubernetes.io/region`
+  - `topology.kubernetes.io/zone`
+  - `kubelet.kubernetes.io/`-prefixed labels
+  - `node.kubernetes.io/`-prefixed labels
 
 Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved,
 and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
@@ -547,7 +546,7 @@ This admission controller protects the access to the `metadata.ownerReferences` 
 so that only users with **delete** permission to the object can change it.
 This admission controller also protects the access to `metadata.ownerReferences[x].blockOwnerDeletion`
 of an object, so that only users with **update** permission to the `finalizers`
-subresource of the referenced *owner* can change it.
+subresource of the referenced _owner_ can change it.
 
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
@@ -558,7 +557,7 @@ This admission controller implements additional validations for checking incomin
 
 Enabling the `PersistentVolumeClaimResize` admission controller is recommended.
 This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
- explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
+explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
 
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
@@ -622,9 +621,8 @@ command line flag `--admission-control-config-file`:
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-- name: PodNodeSelector
-  path: podnodeselector.yaml
-...
+  - name: PodNodeSelector
+    path: podnodeselector.yaml
 ```
 
 #### Configuration Annotation Format
@@ -714,7 +712,7 @@ If the priority class is not found, the Pod is rejected.
 ### ResourceQuota {#resourcequota}
 
 This admission controller will observe the incoming request and ensure that it does not violate
-any of the constraints enumerated in the `ResourceQuota` object in a `Namespace`.  If you are
+any of the constraints enumerated in the `ResourceQuota` object in a `Namespace`. If you are
 using `ResourceQuota` objects in your Kubernetes deployment, you MUST use this admission
 controller to enforce quota constraints.
 
@@ -755,6 +753,7 @@ and up-to-date way.
 This admission controller will deny any Pod that attempts to set the following
 [SecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 fields:
+
 - `.spec.securityContext.supplementalGroups`
 - `.spec.securityContext.seLinuxOptions`
 - `.spec.securityContext.runAsUser`
@@ -795,7 +794,7 @@ conditions.
 
 ### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
 
-[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests. 
+[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests.
 It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
 If any of the ValidatingAdmissionPolicy fails, the request fails.
 
@@ -807,7 +806,7 @@ fails. This admission controller only runs in the validation phase; the webhooks
 mutate the object, as opposed to the webhooks called by the `MutatingAdmissionWebhook` admission controller.
 
 If a webhook called by this has side effects (for example, decrementing quota) it
-*must* have a reconciliation system, as it is not guaranteed that subsequent
+_must_ have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or other validating admission controllers will permit the request to finish.
 
 If you disable the ValidatingAdmissionWebhook, you must also disable the
@@ -821,4 +820,3 @@ Yes. The recommended admission controllers are enabled by default
 so you do not need to explicitly specify them.
 You can enable additional admission controllers beyond the default set using the
 `--enable-admission-plugins` flag (**order doesn't matter**).
-

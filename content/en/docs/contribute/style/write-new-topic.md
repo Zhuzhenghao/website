@@ -5,14 +5,13 @@ weight: 70
 ---
 
 <!-- overview -->
-This page shows how to create a new topic for the Kubernetes docs.
 
+This page shows how to create a new topic for the Kubernetes docs.
 
 ## {{% heading "prerequisites" %}}
 
 Create a fork of the Kubernetes documentation repository as described in
 [Open a PR](/docs/contribute/new-content/open-a-pr/).
-
 
 <!-- steps -->
 
@@ -67,9 +66,9 @@ triple-dashed lines at the top of the page. Here's an example:
 
 Depending on your page type, put your new file in a subdirectory of one of these:
 
-* /content/en/docs/tasks/
-* /content/en/docs/tutorials/
-* /content/en/docs/concepts/
+- /content/en/docs/tasks/
+- /content/en/docs/tutorials/
+- /content/en/docs/concepts/
 
 You can put your file in an existing subdirectory, or you can create a new
 subdirectory.
@@ -126,6 +125,7 @@ the topic. In your topic file, use the `codenew` shortcode:
 ```none
 {{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
 ```
+
 where `<RELPATH>` is the path to the file to include, relative to the
 `examples` directory. The following Hugo shortcode references a YAML
 file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
@@ -167,10 +167,7 @@ For an example of a topic that uses this technique, see
 Put image files in the `/images` directory. The preferred
 image format is SVG.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-* Learn about [using page content types](/docs/contribute/style/page-content-types/).
-* Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
-
+- Learn about [using page content types](/docs/contribute/style/page-content-types/).
+- Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

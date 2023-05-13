@@ -5,11 +5,10 @@ weight: 40
 ---
 
 <!-- overview -->
+
 This page shows how to use an HTTP proxy to access the Kubernetes API.
 
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 

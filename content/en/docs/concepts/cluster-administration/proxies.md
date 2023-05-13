@@ -5,8 +5,8 @@ weight: 100
 ---
 
 <!-- overview -->
-This page explains proxies used with Kubernetes.
 
+This page explains proxies used with Kubernetes.
 
 <!-- body -->
 
@@ -55,13 +55,9 @@ There are several different proxies you may encounter when using Kubernetes:
     - SCTP support is up to the load balancer implementation of the cloud provider
     - implementation varies by cloud provider.
 
-Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
+Kubernetes users will typically not need to worry about anything other than the first two types. The cluster admin
 will typically ensure that the latter types are set up correctly.
 
 ## Requesting redirects
 
-Proxies have replaced redirect capabilities.  Redirects have been deprecated.
-
-
-
-
+Proxies have replaced redirect capabilities. Redirects have been deprecated.

@@ -5,6 +5,7 @@ weight: 120
 ---
 
 <!-- overview -->
+
 This page explains the custom Hugo shortcodes that can be used in Kubernetes Markdown documentation.
 
 Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes).
@@ -31,10 +32,10 @@ Renders to:
 
 The valid values for `state` are:
 
-* alpha
-* beta
-* deprecated
-* stable
+- alpha
+- beta
+- deprecated
+- stable
 
 ### Feature state code
 
@@ -104,7 +105,6 @@ You can link to a page of the Kubernetes API reference using the
 
 The content of the `page` parameter is the suffix of the URL of the API reference page.
 
-
 You can link to a specific place into a page by specifying an `anchor`
 parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}}
 reference or the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}}
@@ -114,7 +114,6 @@ section of the page:
 {{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
 {{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
 ```
-
 
 You can change the text of the link by specifying a `text` parameter, for
 example by linking to the
@@ -159,7 +158,9 @@ If you inspect the HTML for the table, you should see this element immediately
 after the opening `<table>` element:
 
 ```html
-<caption style="display: none;">Configuration parameters</caption>
+<caption style="display: none;">
+  Configuration parameters
+</caption>
 ```
 
 ## Tabs
@@ -169,10 +170,10 @@ multiple flavors of a given solution.
 
 The `tabs` shortcode takes these parameters:
 
-* `name`: The name as shown on the tab.
-* `codelang`: If you provide inner content to the `tab` shortcode, you can tell Hugo
+- `name`: The name as shown on the tab.
+- `codelang`: If you provide inner content to the `tab` shortcode, you can tell Hugo
   what code language to use for highlighting.
-* `include`: The file to include in the tab. If the tab lives in a Hugo
+- `include`: The file to include in the tab. If the tab lives in a Hugo
   [leaf bundle](https://gohugo.io/content-management/page-bundles/#leaf-bundles),
   the file -- which can be any MIME type supported by Hugo -- is looked up in the bundle itself.
   If not, the content page that needs to be included is looked up relative to the current page.
@@ -181,9 +182,9 @@ The `tabs` shortcode takes these parameters:
   `{{</* tab name="Content File #1" include="example1" /*/>}}`. The language needs to be specified
   under `codelang` or the language is taken based on the file name.
   Non-content files are code-highlighted by default.
-* If your inner content is markdown, you must use the `%`-delimiter to surround the tab.
+- If your inner content is markdown, you must use the `%`-delimiter to surround the tab.
   For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
-* You can combine the variations mentioned above inside a tab set.
+- You can combine the variations mentioned above inside a tab set.
 
 Below is a demo of the tabs shortcode.
 
@@ -246,6 +247,7 @@ It can even contain shortcodes.
 
 {{% /tab %}}
 {{< tab name="HTML" >}}
+
 <div>
 	<h3>Plain HTML</h3>
 	<p>This is some <i>plain</i> HTML.</p>
@@ -292,6 +294,7 @@ When adding a new sample file, such as a YAML file, create the file in one of th
 ```none
 {{</* codenew file="<RELATIVE-PATH>/example-yaml>" */>}}
 ```
+
 where `<RELATIVE-PATH>` is the path to the sample file to include, relative to the `examples` directory. The following shortcode references a YAML file located at `/content/en/examples/configmap/configmaps.yaml`.
 
 ```none
@@ -315,9 +318,11 @@ that uses them.
 ### Lists {#third-party-content-list}
 
 For a list of several third-party items, add:
+
 ```
 {{%/* thirdparty-content */%}}
 ```
+
 just below the heading for the section that includes all items.
 
 ### Items {#third-party-content-item}
@@ -328,6 +333,7 @@ software (for example: Kubernetes itself, and the separate
 component), then there is a different form to use.
 
 Add the shortcode:
+
 ```
 {{%/* thirdparty-content single="true" */%}}
 ```
@@ -350,7 +356,7 @@ version of the Kubernetes documentation from the `version` site parameter. The
 
 {{< note >}}
 In previously released documentation, `latest` and `version` parameter values
-are not equivalent.  After a new version is released, `latest` is incremented
+are not equivalent. After a new version is released, `latest` is incremented
 and the value of `version` for the documentation set remains unchanged. For
 example, a previously released version of the documentation displays `version`
 as `v1.19` and `latest` as `v1.20`.
@@ -400,8 +406,8 @@ Renders to:
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Hugo](https://gohugo.io/).
-* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
-* Learn about [page content types](/docs/contribute/style/page-content-types/).
-* Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
-* Learn about [advanced contributing](/docs/contribute/advanced/).
+- Learn about [Hugo](https://gohugo.io/).
+- Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+- Learn about [page content types](/docs/contribute/style/page-content-types/).
+- Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
+- Learn about [advanced contributing](/docs/contribute/advanced/).

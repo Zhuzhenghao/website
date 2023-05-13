@@ -1,6 +1,6 @@
 ---
 reviewers:
-- ahg-g
+  - ahg-g
 title: Scheduling Framework
 content_type: concept
 weight: 60
@@ -17,8 +17,6 @@ scheduling framework][kep] for more technical information on the design of the
 framework.
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md
-
-
 
 <!-- body -->
 
@@ -260,4 +258,3 @@ plugins and get them configured along with default plugins. You can visit
 If you are using Kubernetes v1.18 or later, you can configure a set of plugins as
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-profiles).
-

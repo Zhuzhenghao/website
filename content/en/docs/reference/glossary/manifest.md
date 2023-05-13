@@ -7,9 +7,11 @@ short_description: >
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
- Specification of a Kubernetes API object in JSON or YAML format.
+
+Specification of a Kubernetes API object in JSON or YAML format.
 
 <!--more-->
+
 A manifest specifies the desired state of an object that Kubernetes will maintain when you apply the manifest. Each configuration file can contain multiple manifests.

@@ -1,6 +1,6 @@
 ---
 reviewers:
-- tallclair
+  - tallclair
 title: Pod Security Standards
 description: >
   A detailed look at the different policy levels defined in the Pod Security Standards.
@@ -14,11 +14,11 @@ The Pod Security Standards define three different _policies_ to broadly cover th
 spectrum. These policies are _cumulative_ and range from highly-permissive to highly-restrictive.
 This guide outlines the requirements of each policy.
 
-| Profile | Description |
-| ------ | ----------- |
-| <strong style="white-space: nowrap">Privileged</strong> | Unrestricted policy, providing the widest possible level of permissions. This policy allows for known privilege escalations. |
-| <strong style="white-space: nowrap">Baseline</strong> | Minimally restrictive policy which prevents known privilege escalations. Allows the default (minimally specified) Pod configuration. |
-| <strong style="white-space: nowrap">Restricted</strong> | Heavily restricted policy, following current Pod hardening best practices. |
+| Profile                                                 | Description                                                                                                                          |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| <strong style="white-space: nowrap">Privileged</strong> | Unrestricted policy, providing the widest possible level of permissions. This policy allows for known privilege escalations.         |
+| <strong style="white-space: nowrap">Baseline</strong>   | Minimally restrictive policy which prevents known privilege escalations. Allows the default (minimally specified) Pod configuration. |
+| <strong style="white-space: nowrap">Restricted</strong> | Heavily restricted policy, following current Pod hardening best practices.                                                           |
 
 <!-- body -->
 
@@ -285,7 +285,7 @@ applications, as well as lower-trust users. The following listed controls should
 enforced/disallowed:
 
 {{< note >}}
-In this table, wildcards (`*`) indicate all elements in a list. For example, 
+In this table, wildcards (`*`) indicate all elements in a list. For example,
 `spec.containers[*].securityContext` refers to the Security Context object for _all defined
 containers_. If any of the listed containers fails to meet the requirements, the entire pod will
 fail validation.
@@ -455,7 +455,7 @@ of individual policies are not defined here.
 
 {{% thirdparty-content %}}
 
-Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as: 
+Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as:
 
 - [Kubewarden](https://github.com/kubewarden)
 - [Kyverno](https://kyverno.io/policies/pod-security/)
@@ -474,13 +474,15 @@ Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nod
 {{< /note >}}
 
 ### Restricted Pod Security Standard changes
-Another important change, made in Kubernetes v1.25 is that the  _restricted_ Pod security
+
+Another important change, made in Kubernetes v1.25 is that the _restricted_ Pod security
 has been updated to use the `pod.spec.os.name` field. Based on the OS name, certain policies that are specific
 to a particular OS can be relaxed for the other OS.
 
-
 #### OS-specific policy controls
+
 Restrictions on the following controls are only required if `.spec.os.name` is not `windows`:
+
 - Privilege Escalation
 - Seccomp
 - Linux Capabilities
@@ -504,10 +506,9 @@ Containers at runtime. Security contexts are defined as part of the Pod and cont
 in the Pod manifest, and represent parameters to the container runtime.
 
 Security profiles are control plane mechanisms to enforce specific settings in the Security Context,
-as well as other related parameters outside the Security Context. As of July 2021, 
+as well as other related parameters outside the Security Context. As of July 2021,
 [Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
-built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
-
+built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/).
 
 ### What about sandboxed Pods?
 
@@ -521,4 +522,3 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
-

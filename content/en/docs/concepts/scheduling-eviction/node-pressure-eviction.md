@@ -51,7 +51,7 @@ the resource that should be available on the node.
 Kubelet uses the following eviction signals:
 
 | Eviction Signal      | Description                                                                           |
-|----------------------|---------------------------------------------------------------------------------------|
+| -------------------- | ------------------------------------------------------------------------------------- |
 | `memory.available`   | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
 | `nodefs.available`   | `nodefs.available` := `node.stats.fs.available`                                       |
 | `nodefs.inodesFree`  | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |
@@ -87,13 +87,13 @@ does not support other configurations.
 
 Some kubelet garbage collection features are deprecated in favor of eviction:
 
-| Existing Flag | New Flag | Rationale |
-| ------------- | -------- | --------- |
-| `--image-gc-high-threshold` | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection |
-| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
-| `--maximum-dead-containers` | - | deprecated once old logs are stored outside of container's context |
-| `--maximum-dead-containers-per-container` | - | deprecated once old logs are stored outside of container's context |
-| `--minimum-container-ttl-duration` | - | deprecated once old logs are stored outside of container's context |
+| Existing Flag                             | New Flag                               | Rationale                                                          |
+| ----------------------------------------- | -------------------------------------- | ------------------------------------------------------------------ |
+| `--image-gc-high-threshold`               | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection     |
+| `--image-gc-low-threshold`                | `--eviction-minimum-reclaim`           | eviction reclaims achieve the same behavior                        |
+| `--maximum-dead-containers`               | -                                      | deprecated once old logs are stored outside of container's context |
+| `--maximum-dead-containers-per-container` | -                                      | deprecated once old logs are stored outside of container's context |
+| `--minimum-container-ttl-duration`        | -                                      | deprecated once old logs are stored outside of container's context |
 
 ### Eviction thresholds
 
@@ -173,11 +173,11 @@ periods.
 
 The kubelet maps eviction signals to node conditions as follows:
 
-| Node Condition    | Eviction Signal                                                                       | Description                                                                                                                  |
-|-------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| `MemoryPressure`  | `memory.available`                                                                    | Available memory on the node has satisfied an eviction threshold                                                             |
-| `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
-| `PIDPressure`     | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold                                   |
+| Node Condition   | Eviction Signal                                                                       | Description                                                                                                                  |
+| ---------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `MemoryPressure` | `memory.available`                                                                    | Available memory on the node has satisfied an eviction threshold                                                             |
+| `DiskPressure`   | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
+| `PIDPressure`    | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold                                   |
 
 The kubelet updates the node conditions based on the configured
 `--node-status-update-frequency`, which defaults to `10s`.
@@ -317,11 +317,11 @@ to respond.
 
 The kubelet sets an `oom_score_adj` value for each container based on the QoS for the pod.
 
-| Quality of Service | oom_score_adj                                                                     |
-|--------------------|-----------------------------------------------------------------------------------|
-| `Guaranteed`       | -997                                                                              |
-| `BestEffort`       | 1000                                                                              |
-| `Burstable`        | min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
+| Quality of Service | oom_score_adj                                                                      |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| `Guaranteed`       | -997                                                                               |
+| `BestEffort`       | 1000                                                                               |
+| `Burstable`        | min(max(2, 1000 - (1000 \* memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
 
 {{<note>}}
 The kubelet also sets an `oom_score_adj` value of `-997` for containers in Pods that have

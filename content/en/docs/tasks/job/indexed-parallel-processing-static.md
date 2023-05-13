@@ -9,7 +9,6 @@ weight: 30
 
 <!-- overview -->
 
-
 In this example, you will run a Kubernetes Job that uses multiple parallel
 worker processes.
 Each worker is a different container running in its own Pod. The Pods have an
@@ -66,7 +65,7 @@ You'll use the `rev` tool from the
 
 As this is only an example, each Pod only does a tiny piece of work (reversing a short
 string). In a real workload you might, for example, create a Job that represents
- the
+the
 task of producing 60 seconds of video based on scene data.
 Each work item in the video rendering Job would be to render a particular
 frame of that video clip. Indexed completion would mean that each Pod in
@@ -108,13 +107,13 @@ When you create this Job, the control plane creates a series of Pods, one for ea
 Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
 
 You can wait for the Job to succeed, with a timeout:
+
 ```shell
 # The check for condition name is case insensitive
 kubectl wait --for=condition=complete --timeout=300s job/indexed-job
 ```
 
 Now, describe the Job and check that it was successful.
-
 
 ```shell
 kubectl describe jobs/indexed-job
@@ -183,7 +182,6 @@ inspect the output of one of the pods:
 ```shell
 kubectl logs indexed-job-fdhq5 # Change this to match the name of a Pod from that Job
 ```
-
 
 The output is similar to:
 

@@ -16,17 +16,15 @@ one or more configuration files, you can quickly switch between clusters by usin
 
 {{< note >}}
 A file that is used to configure access to a cluster is sometimes called
-a *kubeconfig file*. This is a generic way of referring to configuration files.
+a _kubeconfig file_. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
-
 
 {{< warning >}}
 Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig
 file could result in malicious code execution or file exposure.
 If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 {{< /warning>}}
-
 
 ## {{% heading "prerequisites" %}}
 
@@ -57,22 +55,22 @@ kind: Config
 preferences: {}
 
 clusters:
-- cluster:
-  name: development
-- cluster:
-  name: test
+  - cluster:
+    name: development
+  - cluster:
+    name: test
 
 users:
-- name: developer
-- name: experimenter
+  - name: developer
+  - name: experimenter
 
 contexts:
-- context:
-  name: dev-frontend
-- context:
-  name: dev-storage
-- context:
-  name: exp-test
+  - context:
+    name: dev-frontend
+  - context:
+    name: dev-storage
+  - context:
+    name: exp-test
 ```
 
 A configuration file describes clusters, users, and contexts. Your `config-demo` file
@@ -98,10 +96,11 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
+
 - To delete a user you can run `kubectl --kubeconfig=config-demo config unset users.<name>`
 - To remove a cluster, you can run `kubectl --kubeconfig=config-demo config unset clusters.<name>`
 - To remove a context, you can run `kubectl --kubeconfig=config-demo config unset contexts.<name>`
-{{< /note >}}
+  {{< /note >}}
 
 Add context details to your configuration file:
 
@@ -123,47 +122,47 @@ The output shows the two clusters, two users, and three contexts:
 ```yaml
 apiVersion: v1
 clusters:
-- cluster:
-    certificate-authority: fake-ca-file
-    server: https://1.2.3.4
-  name: development
-- cluster:
-    insecure-skip-tls-verify: true
-    server: https://5.6.7.8
-  name: test
+  - cluster:
+      certificate-authority: fake-ca-file
+      server: https://1.2.3.4
+    name: development
+  - cluster:
+      insecure-skip-tls-verify: true
+      server: https://5.6.7.8
+    name: test
 contexts:
-- context:
-    cluster: development
-    namespace: frontend
-    user: developer
-  name: dev-frontend
-- context:
-    cluster: development
-    namespace: storage
-    user: developer
-  name: dev-storage
-- context:
-    cluster: test
-    namespace: default
-    user: experimenter
-  name: exp-test
+  - context:
+      cluster: development
+      namespace: frontend
+      user: developer
+    name: dev-frontend
+  - context:
+      cluster: development
+      namespace: storage
+      user: developer
+    name: dev-storage
+  - context:
+      cluster: test
+      namespace: default
+      user: experimenter
+    name: exp-test
 current-context: ""
 kind: Config
 preferences: {}
 users:
-- name: developer
-  user:
-    client-certificate: fake-cert-file
-    client-key: fake-key-file
-- name: experimenter
-  user:
-    # Documentation note (this comment is NOT part of the command output).
-    # Storing passwords in Kubernetes client config is risky.
-    # A better alternative would be to use a credential plugin
-    # and store the credentials separately.
-    # See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
-    password: some-password
-    username: exp
+  - name: developer
+    user:
+      client-certificate: fake-cert-file
+      client-key: fake-key-file
+  - name: experimenter
+    user:
+      # Documentation note (this comment is NOT part of the command output).
+      # Storing passwords in Kubernetes client config is risky.
+      # A better alternative would be to use a credential plugin
+      # and store the credentials separately.
+      # See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+      password: some-password
+      username: exp
 ```
 
 The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above are the placeholders
@@ -200,24 +199,24 @@ The output shows configuration information associated with the `dev-frontend` co
 ```yaml
 apiVersion: v1
 clusters:
-- cluster:
-    certificate-authority: fake-ca-file
-    server: https://1.2.3.4
-  name: development
+  - cluster:
+      certificate-authority: fake-ca-file
+      server: https://1.2.3.4
+    name: development
 contexts:
-- context:
-    cluster: development
-    namespace: frontend
-    user: developer
-  name: dev-frontend
+  - context:
+      cluster: development
+      namespace: frontend
+      user: developer
+    name: dev-frontend
 current-context: dev-frontend
 kind: Config
 preferences: {}
 users:
-- name: developer
-  user:
-    client-certificate: fake-cert-file
-    client-key: fake-key-file
+  - name: developer
+    user:
+      client-certificate: fake-cert-file
+      client-key: fake-key-file
 ```
 
 Now suppose you want to work for a while in the test cluster.
@@ -263,11 +262,11 @@ kind: Config
 preferences: {}
 
 contexts:
-- context:
-    cluster: development
-    namespace: ramp
-    user: developer
-  name: dev-ramp-up
+  - context:
+      cluster: development
+      namespace: ramp
+      user: developer
+    name: dev-ramp-up
 ```
 
 The preceding configuration file defines a new context named `dev-ramp-up`.
@@ -290,7 +289,7 @@ export KUBECONFIG_SAVED="$KUBECONFIG"
 $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
 
- The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
+The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
 colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you have
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
 in the list.
@@ -322,26 +321,26 @@ the `config-demo` file:
 
 ```yaml
 contexts:
-- context:
-    cluster: development
-    namespace: frontend
-    user: developer
-  name: dev-frontend
-- context:
-    cluster: development
-    namespace: ramp
-    user: developer
-  name: dev-ramp-up
-- context:
-    cluster: development
-    namespace: storage
-    user: developer
-  name: dev-storage
-- context:
-    cluster: test
-    namespace: default
-    user: experimenter
-  name: exp-test
+  - context:
+      cluster: development
+      namespace: frontend
+      user: developer
+    name: dev-frontend
+  - context:
+      cluster: development
+      namespace: ramp
+      user: developer
+    name: dev-ramp-up
+  - context:
+      cluster: development
+      namespace: storage
+      user: developer
+    name: dev-storage
+  - context:
+      cluster: test
+      namespace: default
+      user: experimenter
+    name: exp-test
 ```
 
 For more information about how kubeconfig files are merged, see
@@ -400,18 +399,16 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 
 ## Check the subject represented by the kubeconfig
 
-It is not always obvious what attributes (username, groups) you will get after authenticating to the cluster. 
+It is not always obvious what attributes (username, groups) you will get after authenticating to the cluster.
 It can be even more challenging if you are managing more than one cluster at the same time.
 
-There is a `kubectl` subcommand to check subject attributes, such as username, for your selected Kubernetes 
+There is a `kubectl` subcommand to check subject attributes, such as username, for your selected Kubernetes
 client context: `kubectl auth whoami`.
 
 Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
 to learn about this in more detail.
 
-
 ## {{% heading "whatsnext" %}}
 
-* [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
-
+- [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+- [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)

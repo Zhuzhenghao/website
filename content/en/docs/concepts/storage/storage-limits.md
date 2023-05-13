@@ -1,9 +1,9 @@
 ---
 reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
+  - jsafrane
+  - saad-ali
+  - thockin
+  - msau42
 title: Node-specific Volume Limits
 content_type: concept
 weight: 90
@@ -18,8 +18,6 @@ Cloud providers like Google, Amazon, and Microsoft typically have a limit on
 how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach.
-
-
 
 <!-- body -->
 
@@ -62,21 +60,19 @@ Dynamic volume limits are supported for following volume types.
 For volumes managed by in-tree volume plugins, Kubernetes automatically determines the Node
 type and enforces the appropriate maximum number of volumes for the node. For example:
 
-* On
-<a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
-up to 127 volumes can be attached to a node, [depending on the node
-type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
+- On
+  <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
+  up to 127 volumes can be attached to a node, [depending on the node
+  type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 
-* For Amazon EBS disks on M5,C5,R5,T3 and Z1D instance types, Kubernetes allows only 25
-volumes to be attached to a Node. For other instance types on
-<a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
-Kubernetes allows 39 volumes to be attached to a Node.
+- For Amazon EBS disks on M5,C5,R5,T3 and Z1D instance types, Kubernetes allows only 25
+  volumes to be attached to a Node. For other instance types on
+  <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
+  Kubernetes allows 39 volumes to be attached to a Node.
 
-* On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
+- On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
-* If a CSI storage driver advertises a maximum number of volumes for a Node (using `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} honors that limit.
-Refer to the [CSI specifications](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for details.
+- If a CSI storage driver advertises a maximum number of volumes for a Node (using `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} honors that limit.
+  Refer to the [CSI specifications](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for details.
 
-* For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
-
-
+- For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.

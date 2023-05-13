@@ -2,8 +2,8 @@
 title: Troubleshooting CNI plugin-related errors
 content_type: task
 reviewers:
-- mikebrow
-- divya-mohan0209
+  - mikebrow
+  - divya-mohan0209
 weight: 40
 ---
 
@@ -60,22 +60,24 @@ your CNI plugins and editing the CNI config files.
 Here's an overview of the typical steps for each node:
 
 1. [Safely drain and cordon the
-node](/docs/tasks/administer-cluster/safely-drain-node/).
+   node](/docs/tasks/administer-cluster/safely-drain-node/).
 2. After stopping your container runtime and kubelet services, perform the
-following upgrade operations:
-  - If you're running CNI plugins, upgrade them to the latest version.
-  - If you're using non-CNI plugins, replace them with CNI plugins. Use the
+   following upgrade operations:
+
+- If you're running CNI plugins, upgrade them to the latest version.
+- If you're using non-CNI plugins, replace them with CNI plugins. Use the
   latest version of the plugins.
-  - Update the plugin configuration file to specify or match a version of the
+- Update the plugin configuration file to specify or match a version of the
   CNI specification that the plugin supports, as shown in the following ["An
   example containerd configuration
   file"](#an-example-containerd-configuration-file) section.
-  - For `containerd`, ensure that you have installed the latest version (v1.0.0
+- For `containerd`, ensure that you have installed the latest version (v1.0.0
   or later) of the CNI loopback plugin.
-  - Upgrade node components (for example, the kubelet) to Kubernetes v1.24
-  - Upgrade to or install the most current version of the container runtime.
+- Upgrade node components (for example, the kubelet) to Kubernetes v1.24
+- Upgrade to or install the most current version of the container runtime.
+
 3. Bring the node back into your cluster by restarting your container runtime
-and kubelet. Uncordon the node (`kubectl uncordon <nodename>`).
+   and kubelet. Uncordon the node (`kubectl uncordon <nodename>`).
 
 ## An example containerd configuration file
 

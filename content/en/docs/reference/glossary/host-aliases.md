@@ -8,9 +8,10 @@ short_description: >
 
 aka:
 tags:
-- operation
+  - operation
 ---
- A HostAliases is a mapping between the IP address and hostname to be injected into a {{< glossary_tooltip text="Pod" term_id="pod" >}}'s hosts file.
+
+A HostAliases is a mapping between the IP address and hostname to be injected into a {{< glossary_tooltip text="Pod" term_id="pod" >}}'s hosts file.
 
 <!--more-->
 

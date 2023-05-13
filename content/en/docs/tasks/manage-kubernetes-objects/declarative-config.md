@@ -5,6 +5,7 @@ weight: 10
 ---
 
 <!-- overview -->
+
 Kubernetes objects can be created, updated, and deleted by storing multiple
 object configuration files in a directory and using `kubectl apply` to
 recursively create and update those objects as needed. This method
@@ -24,9 +25,9 @@ Install [`kubectl`](/docs/tasks/tools/).
 
 The `kubectl` tool supports three kinds of object management:
 
-* Imperative commands
-* Imperative object configuration
-* Declarative object configuration
+- Imperative commands
+- Imperative object configuration
+- Declarative object configuration
 
 See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
@@ -37,18 +38,18 @@ Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 Following are definitions for terms used in this document:
 
-- *object configuration file / configuration file*: A file that defines the
+- _object configuration file / configuration file_: A file that defines the
   configuration for a Kubernetes object. This topic shows how to pass configuration
   files to `kubectl apply`. Configuration files are typically stored in source control, such as Git.
-- *live object configuration / live configuration*: The live configuration
+- _live object configuration / live configuration_: The live configuration
   values of an object, as observed by the Kubernetes cluster. These are kept in the Kubernetes
   cluster storage, typically etcd.
-- *declarative configuration writer / declarative writer*: A person or software component
+- _declarative configuration writer / declarative writer_: A person or software component
   that makes updates to a live object. The live writers referred to in this topic make changes
   to object configuration files and run `kubectl apply` to write the changes.
 
@@ -133,12 +134,12 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.14.2
-        # ...
-        name: nginx
-        ports:
-        - containerPort: 80
-        # ...
+        - image: nginx:1.14.2
+          # ...
+          name: nginx
+          ports:
+            - containerPort: 80
+          # ...
       # ...
     # ...
   # ...
@@ -213,12 +214,12 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.14.2
-        # ...
-        name: nginx
-        ports:
-        - containerPort: 80
-        # ...
+        - image: nginx:1.14.2
+          # ...
+          name: nginx
+          ports:
+            - containerPort: 80
+          # ...
       # ...
     # ...
   # ...
@@ -270,11 +271,11 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.14.2
-        # ...
-        name: nginx
-        ports:
-        - containerPort: 80
+        - image: nginx:1.14.2
+          # ...
+          name: nginx
+          ports:
+            - containerPort: 80
       # ...
 ```
 
@@ -298,12 +299,12 @@ kubectl get -f https://k8s.io/examples/application/update_deployment.yaml -o yam
 
 The output shows the following changes to the live configuration:
 
-* The `replicas` field retains the value of 2 set by `kubectl scale`.
+- The `replicas` field retains the value of 2 set by `kubectl scale`.
   This is possible because it is omitted from the configuration file.
-* The `image` field has been updated to `nginx:1.16.1` from `nginx:1.14.2`.
-* The `last-applied-configuration` annotation has been updated with the new image.
-* The `minReadySeconds` field has been cleared.
-* The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
+- The `image` field has been updated to `nginx:1.16.1` from `nginx:1.14.2`.
+- The `last-applied-configuration` annotation has been updated with the new image.
+- The `minReadySeconds` field has been cleared.
+- The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
 
 ```yaml
 apiVersion: apps/v1
@@ -335,12 +336,12 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.16.1 # Set by `kubectl apply`
-        # ...
-        name: nginx
-        ports:
-        - containerPort: 80
-        # ...
+        - image: nginx:1.16.1 # Set by `kubectl apply`
+          # ...
+          name: nginx
+          ports:
+            - containerPort: 80
+          # ...
       # ...
     # ...
   # ...
@@ -417,7 +418,7 @@ kubectl apply -f <directory> --prune -l <labels> --prune-allowlist=<gvk-list>
 {{< warning >}}
 Apply with prune should only be run against the root directory
 containing the object manifests. Running against sub-directories
-can cause objects to be unintentionally deleted if they were previously applied, 
+can cause objects to be unintentionally deleted if they were previously applied,
 have the labels given (if any), and do not appear in the subdirectory.
 {{< /warning >}}
 
@@ -434,6 +435,7 @@ changes might be introduced in subsequent releases.
 
 To use ApplySet-based pruning, set the `KUBECTL_APPLYSET=true` environment variable,
 and add the following flags to your `kubectl apply` invocation:
+
 - `--prune`: Delete previously applied objects that are not in the set passed
   to the current invocation.
 - `--applyset`: The name of an object that kubectl can use to accurately and
@@ -466,7 +468,7 @@ Caveats and restrictions:
 
 - Each object may be a member of at most one set.
 - The `--namespace` flag is required when using any namespaced parent, including
-  the default Secret.  This means that ApplySets spanning multiple namespaces must
+  the default Secret. This means that ApplySets spanning multiple namespaces must
   use a cluster-scoped custom resource as the parent object.
 - To safely use ApplySet-based pruning with multiple directories,
   use a unique ApplySet name for each.
@@ -486,7 +488,7 @@ kubectl get -f <filename|url> -o yaml
 ## How apply calculates differences and merges changes
 
 {{< caution >}}
-A *patch* is an update operation that is scoped to specific fields of an object
+A _patch_ is an update operation that is scoped to specific fields of an object
 instead of the entire object. This enables updating only a specific set of fields
 on an object without reading the object first.
 {{< /caution >}}
@@ -547,11 +549,11 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.14.2
-        # ...
-        name: nginx
-        ports:
-        - containerPort: 80
+        - image: nginx:1.14.2
+          # ...
+          name: nginx
+          ports:
+            - containerPort: 80
       # ...
 ```
 
@@ -605,12 +607,12 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.16.1 # Set by `kubectl apply`
-        # ...
-        name: nginx
-        ports:
-        - containerPort: 80
-        # ...
+        - image: nginx:1.16.1 # Set by `kubectl apply`
+          # ...
+          name: nginx
+          ports:
+            - containerPort: 80
+          # ...
       # ...
     # ...
   # ...
@@ -622,13 +624,13 @@ How a particular field in a configuration file is merged with
 the live configuration depends on the
 type of the field. There are several types of fields:
 
-- *primitive*: A field of type string, integer, or boolean.
+- _primitive_: A field of type string, integer, or boolean.
   For example, `image` and `replicas` are primitive fields. **Action:** Replace.
 
-- *map*, also called *object*: A field of type map or a complex type that contains subfields. For example, `labels`,
+- _map_, also called _object_: A field of type map or a complex type that contains subfields. For example, `labels`,
   `annotations`,`spec` and `metadata` are all maps. **Action:** Merge elements or subfields.
 
-- *list*: A field containing a list of items that can be either primitive types or maps.
+- _list_: A field containing a list of items that can be either primitive types or maps.
   For example, `containers`, `ports`, and `args` are lists. **Action:** Varies.
 
 When `kubectl apply` updates a map or list field, it typically does
@@ -645,12 +647,12 @@ Primitive fields are replaced or cleared.
 `-` is used for "not applicable" because the value is not used.
 {{< /note >}}
 
-| Field in object configuration file  | Field in live object configuration | Field in last-applied-configuration | Action                                    |
-|-------------------------------------|------------------------------------|-------------------------------------|-------------------------------------------|
-| Yes                                 | Yes                                | -                                   | Set live to configuration file value.  |
-| Yes                                 | No                                 | -                                   | Set live to local configuration.           |
-| No                                  | -                                  | Yes                                 | Clear from live configuration.            |
-| No                                  | -                                  | No                                  | Do nothing. Keep live value.             |
+| Field in object configuration file | Field in live object configuration | Field in last-applied-configuration | Action                                |
+| ---------------------------------- | ---------------------------------- | ----------------------------------- | ------------------------------------- |
+| Yes                                | Yes                                | -                                   | Set live to configuration file value. |
+| Yes                                | No                                 | -                                   | Set live to local configuration.      |
+| No                                 | -                                  | Yes                                 | Clear from live configuration.        |
+| No                                 | -                                  | No                                  | Do nothing. Keep live value.          |
 
 ### Merging changes to map fields
 
@@ -660,20 +662,20 @@ Fields that represent maps are merged by comparing each of the subfields or elem
 `-` is used for "not applicable" because the value is not used.
 {{< /note >}}
 
-| Key in object configuration file    | Key in live object configuration   | Field in last-applied-configuration | Action                           |
-|-------------------------------------|------------------------------------|-------------------------------------|----------------------------------|
-| Yes                                 | Yes                                | -                                   | Compare sub fields values.        |
-| Yes                                 | No                                 | -                                   | Set live to local configuration.  |
-| No                                  | -                                  | Yes                                 | Delete from live configuration.   |
-| No                                  | -                                  | No                                  | Do nothing. Keep live value.     |
+| Key in object configuration file | Key in live object configuration | Field in last-applied-configuration | Action                           |
+| -------------------------------- | -------------------------------- | ----------------------------------- | -------------------------------- |
+| Yes                              | Yes                              | -                                   | Compare sub fields values.       |
+| Yes                              | No                               | -                                   | Set live to local configuration. |
+| No                               | -                                | Yes                                 | Delete from live configuration.  |
+| No                               | -                                | No                                  | Do nothing. Keep live value.     |
 
 ### Merging changes for fields of type list
 
 Merging changes to a list uses one of three strategies:
 
-* Replace the list if all its elements are primitives.
-* Merge individual elements in a list of complex elements.
-* Merge a list of primitive elements.
+- Replace the list if all its elements are primitives.
+- Merge individual elements in a list of complex elements.
+- Merge a list of primitive elements.
 
 The choice of strategy is made on a per-field basis.
 
@@ -794,11 +796,11 @@ the list is replaced.
 {{< comment >}}
 TODO(pwittrock): Uncomment this for 1.6
 
-- Treat the list as a set of primitives.  Replace or delete individual
-  elements.  Does not preserve ordering.  Does not preserve duplicates.
+- Treat the list as a set of primitives. Replace or delete individual
+  elements. Does not preserve ordering. Does not preserve duplicates.
 
 **Example:** Using apply to update the `finalizers` field of ObjectMeta
-keeps elements added to the live configuration.  Ordering of finalizers
+keeps elements added to the live configuration. Ordering of finalizers
 is lost.
 {{< /comment >}}
 
@@ -848,14 +850,14 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.14.2
-        imagePullPolicy: IfNotPresent # defaulted by apiserver
-        name: nginx
-        ports:
-        - containerPort: 80
-          protocol: TCP # defaulted by apiserver
-        resources: {} # defaulted by apiserver
-        terminationMessagePath: /dev/termination-log # defaulted by apiserver
+        - image: nginx:1.14.2
+          imagePullPolicy: IfNotPresent # defaulted by apiserver
+          name: nginx
+          ports:
+            - containerPort: 80
+              protocol: TCP # defaulted by apiserver
+          resources: {} # defaulted by apiserver
+          terminationMessagePath: /dev/termination-log # defaulted by apiserver
       dnsPolicy: ClusterFirst # defaulted by apiserver
       restartPolicy: Always # defaulted by apiserver
       securityContext: {} # defaulted by apiserver
@@ -975,7 +977,7 @@ These are the only methods you should use to change an individual object field:
 
 - Use `kubectl apply`.
 - Write directly to the live configuration without modifying the configuration file:
-for example, use `kubectl scale`.
+  for example, use `kubectl scale`.
 
 ### Changing the owner from a direct imperative writer to a configuration file
 
@@ -1002,10 +1004,10 @@ It is OK to use imperative deletion with declarative management.
 {{< comment >}}
 TODO(pwittrock): We need to make using imperative commands with
 declarative object configuration work so that it doesn't write the
-fields to the annotation, and instead.  Then add this bullet point.
+fields to the annotation, and instead. Then add this bullet point.
 
 - using imperative commands with declarative configuration to manage where each manages different fields.
-{{< /comment >}}
+  {{< /comment >}}
 
 ### Migrating from imperative command management to declarative object configuration
 
@@ -1034,7 +1036,7 @@ configuration involves several manual steps:
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
 {{< comment >}}
-TODO(pwittrock): Why doesn't export remove the status field?  Seems like it should.
+TODO(pwittrock): Why doesn't export remove the status field? Seems like it should.
 {{< /comment >}}
 
 ### Migrating from imperative object configuration to declarative object configuration
@@ -1061,7 +1063,7 @@ used only by the controller selector with no other semantic meaning.
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "apps/v1/deployment/nginx"
+    controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
@@ -1070,7 +1072,7 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
-* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
+- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

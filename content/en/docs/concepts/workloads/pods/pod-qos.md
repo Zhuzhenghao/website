@@ -45,10 +45,10 @@ use of exclusive CPUs using the
 
 For a Pod to be given a QoS class of `Guaranteed`:
 
-* Every Container in the Pod must have a memory limit and a memory request.
-* For every Container in the Pod, the memory limit must equal the memory request.
-* Every Container in the Pod must have a CPU limit and a CPU request.
-* For every Container in the Pod, the CPU limit must equal the CPU request.
+- Every Container in the Pod must have a memory limit and a memory request.
+- For every Container in the Pod, the memory limit must equal the memory request.
+- Every Container in the Pod must have a CPU limit and a CPU request.
+- For every Container in the Pod, the CPU limit must equal the CPU request.
 
 ### Burstable
 
@@ -64,8 +64,8 @@ that is `Burstable` can try to use any amount of node resources.
 
 A Pod is given a QoS class of `Burstable` if:
 
-* The Pod does not meet the criteria for QoS class `Guaranteed`.
-* At least one Container in the Pod has a memory or CPU request or limit.
+- The Pod does not meet the criteria for QoS class `Guaranteed`.
+- At least one Container in the Pod has a memory or CPU request or limit.
 
 ### BestEffort
 
@@ -105,29 +105,29 @@ mechanisms that both provide controls over quality of service.
 
 Certain behavior is independent of the QoS class assigned by Kubernetes. For example:
 
-* Any Container exceeding a resource limit will be killed and restarted by the kubelet without
+- Any Container exceeding a resource limit will be killed and restarted by the kubelet without
   affecting other Containers in that Pod.
 
-* If a Container exceeds its resource request and the node it runs on faces
+- If a Container exceeds its resource request and the node it runs on faces
   resource pressure, the Pod it is in becomes a candidate for [eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
   If this occurs, all Containers in the Pod will be terminated. Kubernetes may create a
   replacement Pod, usually on a different node.
 
-* The resource request of a Pod is equal to the sum of the resource requests of
+- The resource request of a Pod is equal to the sum of the resource requests of
   its component Containers, and the resource limit of a Pod is equal to the sum of
   the resource limits of its component Containers.
 
-* The kube-scheduler does not consider QoS class when selecting which Pods to
+- The kube-scheduler does not consider QoS class when selecting which Pods to
   [preempt](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption).
   Preemption can occur when a cluster does not have enough resources to run all the Pods
   you defined.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [resource management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
-* Learn about [Node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
-* Learn about [Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
-* Learn about [Pod disruptions](/docs/concepts/workloads/pods/disruptions/).
-* Learn how to [assign memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
-* Learn how to [assign CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
-* Learn how to [configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/).
+- Learn about [resource management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
+- Learn about [Node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
+- Learn about [Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+- Learn about [Pod disruptions](/docs/concepts/workloads/pods/disruptions/).
+- Learn how to [assign memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+- Learn how to [assign CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
+- Learn how to [configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/).

@@ -6,15 +6,11 @@ weight: 10
 
 <!-- overview -->
 
-This page shows how to assign a memory *request* and a memory *limit* to a
+This page shows how to assign a memory _request_ and a memory _limit_ to a
 Container. A Container is guaranteed to have as much memory as it requests,
 but is not allowed to use more memory than its limit.
 
-
-
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -46,8 +42,6 @@ reference to `metrics.k8s.io`.
 NAME
 v1beta1.metrics.k8s.io
 ```
-
-
 
 <!-- steps -->
 
@@ -95,15 +89,14 @@ kubectl get pod memory-demo --output=yaml --namespace=mem-example
 The output shows that the one Container in the Pod has a memory request of 100 MiB
 and a memory limit of 200 MiB.
 
-
 ```yaml
-...
+
+---
 resources:
   requests:
     memory: 100Mi
   limits:
     memory: 200Mi
-...
 ```
 
 Run `kubectl top` to fetch the metrics for the pod:
@@ -173,12 +166,12 @@ The output shows that the Container was killed because it is out of memory (OOM)
 
 ```yaml
 lastState:
-   terminated:
-     containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
-     exitCode: 137
-     finishedAt: 2017-06-20T20:52:19Z
-     reason: OOMKilled
-     startedAt: null
+  terminated:
+    containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
+    exitCode: 137
+    finishedAt: 2017-06-20T20:52:19Z
+    reason: OOMKilled
+    startedAt: null
 ```
 
 The Container in this exercise can be restarted, so the kubelet restarts it. Repeat
@@ -195,6 +188,7 @@ kubectl get pod memory-demo-2 --namespace=mem-example
 NAME            READY     STATUS      RESTARTS   AGE
 memory-demo-2   0/1       OOMKilled   1          37s
 ```
+
 ```
 
 kubectl get pod memory-demo-2 --namespace=mem-example
@@ -305,13 +299,13 @@ kubectl delete pod memory-demo-3 --namespace=mem-example
 
 If you do not specify a memory limit for a Container, one of the following situations applies:
 
-* The Container has no upper bound on the amount of memory it uses. The Container
-could use all of the memory available on the Node where it is running which in turn could invoke the OOM Killer. Further, in case of an OOM Kill, a container with no resource limits will have a greater chance of being killed.
+- The Container has no upper bound on the amount of memory it uses. The Container
+  could use all of the memory available on the Node where it is running which in turn could invoke the OOM Killer. Further, in case of an OOM Kill, a container with no resource limits will have a greater chance of being killed.
 
-* The Container is running in a namespace that has a default memory limit, and the
-Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
-to specify a default value for the memory limit.
+- The Container is running in a namespace that has a default memory limit, and the
+  Container is automatically assigned the default limit. Cluster administrators can use a
+  [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+  to specify a default value for the memory limit.
 
 ## Motivation for memory requests and limits
 
@@ -320,8 +314,8 @@ cluster, you can make efficient use of the memory resources available on your cl
 Nodes. By keeping a Pod's memory request low, you give the Pod a good chance of being
 scheduled. By having a memory limit that is greater than the memory request, you accomplish two things:
 
-* The Pod can have bursts of activity where it makes use of memory that happens to be available.
-* The amount of memory a Pod can use during a burst is limited to some reasonable amount.
+- The Pod can have bursts of activity where it makes use of memory that happens to be available.
+- The amount of memory a Pod can use during a burst is limited to some reasonable amount.
 
 ## Clean up
 
@@ -331,31 +325,28 @@ Delete your namespace. This deletes all the Pods that you created for this task:
 kubectl delete namespace mem-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 ### For app developers
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+- [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
+- [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+- [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+- [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+- [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-* [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
+- [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)

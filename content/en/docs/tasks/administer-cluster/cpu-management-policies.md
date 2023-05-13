@@ -1,9 +1,9 @@
 ---
 title: Control CPU Management Policies on the Node
 reviewers:
-- sjenning
-- ConnorDoyle
-- balajismaniam
+  - sjenning
+  - ConnorDoyle
+  - balajismaniam
 
 content_type: task
 min-kubernetes-server-version: v1.26
@@ -21,16 +21,11 @@ acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
 
-
-
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 If you are running an older version of Kubernetes, please look at the documentation for the version you are actually running.
-
 
 <!-- steps -->
 
@@ -53,8 +48,8 @@ The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
 There are two supported policies:
 
-* [`none`](#none-policy): the default policy.
-* [`static`](#static-policy): allows pods with certain resource characteristics to be
+- [`none`](#none-policy): the default policy.
+- [`static`](#static-policy): allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
 
 The CPU manager periodically writes resource updates through the CRI in
@@ -86,8 +81,8 @@ policy on a node, perform the following steps:
 1. [Drain](/docs/tasks/administer-cluster/safely-drain-node) the node.
 2. Stop kubelet.
 3. Remove the old CPU manager state file. The path to this file is
-`/var/lib/kubelet/cpu_manager_state` by default. This clears the state maintained by the
-CPUManager so that the cpu-sets set up by the new policy won’t conflict with it.
+   `/var/lib/kubelet/cpu_manager_state` by default. This clears the state maintained by the
+   CPUManager so that the cpu-sets set up by the new policy won’t conflict with it.
 4. Edit the kubelet configuration to change the CPU manager policy to the desired value.
 5. Start kubelet.
 
@@ -159,8 +154,8 @@ Consider the containers in the following pod specs:
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
+    - name: nginx
+      image: nginx
 ```
 
 This pod runs in the `BestEffort` QoS class because no resource `requests` or
@@ -169,13 +164,13 @@ This pod runs in the `BestEffort` QoS class because no resource `requests` or
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-      requests:
-        memory: "100Mi"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+        requests:
+          memory: "100Mi"
 ```
 
 This pod runs in the `Burstable` QoS class because resource `requests` do not
@@ -185,15 +180,15 @@ pool.
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "2"
-      requests:
-        memory: "100Mi"
-        cpu: "1"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "2"
+        requests:
+          memory: "100Mi"
+          cpu: "1"
 ```
 
 This pod runs in the `Burstable` QoS class because resource `requests` do not
@@ -202,50 +197,48 @@ equal `limits`. It runs in the shared pool.
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "2"
-      requests:
-        memory: "200Mi"
-        cpu: "2"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "2"
+        requests:
+          memory: "200Mi"
+          cpu: "2"
 ```
 
 This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
-
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "1.5"
-      requests:
-        memory: "200Mi"
-        cpu: "1.5"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "1.5"
+        requests:
+          memory: "200Mi"
+          cpu: "1.5"
 ```
 
 This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 But the container's resource limit for the CPU resource is a fraction. It runs in
 the shared pool.
 
-
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "2"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "2"
 ```
 
 This pod runs in the `Guaranteed` QoS class because only `limits` are specified
@@ -257,14 +250,16 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 You can toggle groups of options on and off based upon their maturity level
 using the following feature gates:
-* `CPUManagerPolicyBetaOptions` default enabled. Disable to hide beta-level options.
-* `CPUManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
-You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
+
+- `CPUManagerPolicyBetaOptions` default enabled. Disable to hide beta-level options.
+- `CPUManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
+  You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
 
 The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (beta, visible by default) (1.22 or higher)
-* `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
-* `align-by-socket` (alpha, hidden by default) (1.25 or higher)
+
+- `full-pcpus-only` (beta, visible by default) (1.22 or higher)
+- `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
+- `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.

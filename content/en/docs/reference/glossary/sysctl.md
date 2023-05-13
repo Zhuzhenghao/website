@@ -8,10 +8,11 @@ short_description: >
 
 aka:
 tags:
-- tool
+  - tool
 ---
- `sysctl` is a semi-standardized interface for reading or changing the
- attributes of the running Unix kernel.
+
+`sysctl` is a semi-standardized interface for reading or changing the
+attributes of the running Unix kernel.
 
 <!--more-->
 

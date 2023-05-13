@@ -6,7 +6,6 @@ content_type: concept
 weight: 30
 ---
 
-
 <!-- overview -->
 
 Anyone can write a blog post and submit it for review.
@@ -17,7 +16,7 @@ Case studies require extensive review before they're approved.
 ## The Kubernetes Blog
 
 The Kubernetes blog is used by the project to communicate new features, community reports, and any
-news that might be relevant to the Kubernetes community. This includes end users and developers. 
+news that might be relevant to the Kubernetes community. This includes end users and developers.
 Most of the blog's content is about things happening in the core project, but we encourage you to
 submit about things happening elsewhere in the ecosystem too!
 
@@ -63,23 +62,23 @@ To submit a blog post, follow these steps:
 
 ### Guidelines and expectations
 
-- Blog posts should not be vendor pitches. 
+- Blog posts should not be vendor pitches.
 
   - Articles must contain content that applies broadly to the Kubernetes community. For example, a
     submission should focus on upstream Kubernetes as opposed to vendor-specific configurations.
     Check the [Documentation style guide](/docs/contribute/style/content-guide/#what-s-allowed) for
-    what is typically allowed on Kubernetes properties. 
+    what is typically allowed on Kubernetes properties.
   - Links should primarily be to the official Kubernetes documentation. When using external
     references, links should be diverse - For example a submission shouldn't contain only links
     back to a single company's blog.
   - Sometimes this is a delicate balance. The [blog team](https://kubernetes.slack.com/messages/sig-docs-blog/)
     is there to give guidance on whether a post is appropriate for the Kubernetes blog, so don't
-    hesitate to reach out. 
+    hesitate to reach out.
 
 - Blog posts are not published on specific dates.
 
-    - Articles are reviewed by community volunteers. We'll try our best to accommodate specific
-      timing, but we make no guarantees.
+  - Articles are reviewed by community volunteers. We'll try our best to accommodate specific
+    timing, but we make no guarantees.
   - Many core parts of the Kubernetes projects submit blog posts during release windows, delaying
     publication times. Consider submitting during a quieter period of the release cycle.
   - If you are looking for greater coordination on post release dates, coordinating with
@@ -92,9 +91,9 @@ To submit a blog post, follow these steps:
 
   - Topics related to participation in or results of Kubernetes SIGs activities are always on
     topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)
-    for support on these posts). 
+    for support on these posts).
   - The components of Kubernetes are purposely modular, so tools that use existing integration
-    points like CNI and CSI are on topic. 
+    points like CNI and CSI are on topic.
   - Posts about other CNCF projects may or may not be on topic. We recommend asking the blog team
     before submitting a draft.
     - Many CNCF projects have their own blog. These are often a better choice for posts. There are
@@ -112,7 +111,7 @@ To submit a blog post, follow these steps:
 - Blog posts should aim to be future proof
 
   - Given the development velocity of the project, we want evergreen content that won't require
-    updates to stay accurate for the reader. 
+    updates to stay accurate for the reader.
   - It can be a better choice to add a tutorial or update official documentation than to write a
     high level overview as a blog post.
     - Consider concentrating the long technical content as a call to action of the blog post, and
@@ -126,7 +125,7 @@ this technology stack.
 
 We recognize that this requirement makes the process more difficult for less-familiar folks to
 submit, and we're constantly looking at solutions to lower this bar. If you have ideas on how to
-lower the barrier, please volunteer to help out. 
+lower the barrier, please volunteer to help out.
 
 The SIG Docs [blog subproject](https://github.com/kubernetes/community/tree/master/sig-docs/blog-subproject)
 manages the review process for blog posts. For more information, see
@@ -158,7 +157,7 @@ To submit a blog post follow these directions:
 
   - The first or initial commit message should be a short summary of the work being done and
     should stand alone as a description of the blog post. Please note that subsequent edits to
-    your blog will be squashed into this main commit, so it should be as useful as possible. 
+    your blog will be squashed into this main commit, so it should be as useful as possible.
 
     - Examples of a good commit message:
       - _Add blog post on the foo kubernetes feature_
@@ -170,17 +169,18 @@ To submit a blog post follow these directions:
       - _draft post_
 
   - The blog team will then review your PR and give you comments on things you might need to fix.
-    After that the bot will merge your PR and your blog post will be published. 
+    After that the bot will merge your PR and your blog post will be published.
 
   - If the content of the blog post contains only content that is not expected to require updates
     to stay accurate for the reader, it can be marked as evergreen and exempted from the automatic
     warning about outdated content added to blog posts older than one year.
 
     - To mark a blog post as evergreen, add this to the front matter:
-      
+
       ```yaml
       evergreen: true
       ```
+
     - Examples of content that should not be marked evergreen:
       - **Tutorials** that only apply to specific releases or versions and not all future versions
       - References to pre-GA APIs or features
@@ -196,4 +196,3 @@ Have a look at the source for the
 
 Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md)
 and submit your request as outlined in the guidelines.
-

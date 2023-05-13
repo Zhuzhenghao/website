@@ -1,10 +1,10 @@
 ---
 reviewers:
-- bprashanth
-- erictune
-- foxish
-- janetkuo
-- smarterclayton
+  - bprashanth
+  - erictune
+  - foxish
+  - janetkuo
+  - smarterclayton
 title: Delete a StatefulSet
 content_type: task
 weight: 60

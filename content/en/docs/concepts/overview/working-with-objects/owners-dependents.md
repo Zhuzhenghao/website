@@ -7,9 +7,9 @@ weight: 90
 <!-- overview -->
 
 In Kubernetes, some {{< glossary_tooltip text="objects" term_id="object" >}} are
-*owners* of other objects. For example, a
+_owners_ of other objects. For example, a
 {{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner
-of a set of Pods. These owned objects are *dependents* of their owner.
+of a set of Pods. These owned objects are _dependents_ of their owner.
 
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
 mechanism that some resources also use. For example, consider a Service that
@@ -22,7 +22,7 @@ interfering with objects they don’t control.
 ## Owner references in object specifications
 
 Dependent objects have a `metadata.ownerReferences` field that references their
-owner object. A valid owner reference consists of the object name and a {{<glossary_tooltip text="UID" term_id="uid">}} 
+owner object. A valid owner reference consists of the object name and a {{<glossary_tooltip text="UID" term_id="uid">}}
 within the same {{<glossary_tooltip text="namespace" term_id="namespace">}} as the dependent object. Kubernetes sets the value of
 this field automatically for objects that are dependents of other objects like
 ReplicaSets, DaemonSets, Deployments, Jobs and CronJobs, and ReplicationControllers.
@@ -33,7 +33,7 @@ automatically manage the relationships.
 Dependent objects also have an `ownerReferences.blockOwnerDeletion` field that
 takes a boolean value and controls whether specific dependents can block garbage
 collection from deleting their owner object. Kubernetes automatically sets this
-field to `true` if a {{<glossary_tooltip text="controller" term_id="controller">}} 
+field to `true` if a {{<glossary_tooltip text="controller" term_id="controller">}}
 (for example, the Deployment controller) sets the value of the
 `metadata.ownerReferences` field. You can also set the value of the
 `blockOwnerDeletion` field manually to control which dependents block garbage
@@ -55,7 +55,7 @@ In v1.20+, if a cluster-scoped dependent specifies a namespaced kind as an owner
 it is treated as having an unresolvable owner reference, and is not able to be garbage collected.
 
 In v1.20+, if the garbage collector detects an invalid cross-namespace `ownerReference`,
-or a cluster-scoped dependent with an `ownerReference` referencing a namespaced kind, a warning Event 
+or a cluster-scoped dependent with an `ownerReference` referencing a namespaced kind, a warning Event
 with a reason of `OwnerRefInvalidNamespace` and an `involvedObject` of the invalid dependent is reported.
 You can check for that kind of Event by running
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`.
@@ -72,7 +72,7 @@ in use by a Pod, the deletion does not happen immediately because the
 `PersistentVolume` has the `kubernetes.io/pv-protection` finalizer on it.
 Instead, the [volume](/docs/concepts/storage/volumes/) remains in the `Terminating` status until Kubernetes clears
 the finalizer, which only happens after the `PersistentVolume` is no longer
-bound to a Pod. 
+bound to a Pod.
 
 Kubernetes also adds finalizers to an owner resource when you use either
 [foreground or orphan cascading deletion](/docs/concepts/architecture/garbage-collection/#cascading-deletion).
@@ -81,10 +81,10 @@ controller must delete dependent resources that also have
 `ownerReferences.blockOwnerDeletion=true` before it deletes the owner. If you
 specify an orphan deletion policy, Kubernetes adds the `orphan` finalizer so
 that the controller ignores dependent resources after it deletes the owner
-object. 
+object.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [Kubernetes finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
-* Learn about [garbage collection](/docs/concepts/architecture/garbage-collection).
-* Read the API reference for [object metadata](/docs/reference/kubernetes-api/common-definitions/object-meta/#System).
+- Learn more about [Kubernetes finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
+- Learn about [garbage collection](/docs/concepts/architecture/garbage-collection).
+- Read the API reference for [object metadata](/docs/reference/kubernetes-api/common-definitions/object-meta/#System).

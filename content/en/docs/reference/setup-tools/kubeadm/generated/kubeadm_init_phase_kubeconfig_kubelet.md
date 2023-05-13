@@ -3,21 +3,19 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
-Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
+Generate a kubeconfig file for the kubelet to use _only_ for cluster bootstrapping purposes
 
 ### Synopsis
 
-
 Generate the kubeconfig file for the kubelet to use and save it to kubelet.conf file.
 
-Please note that this should *only* be used for cluster bootstrapping purposes. After your control plane is up, you should request all kubelet credentials from the CSR API.
+Please note that this should _only_ be used for cluster bootstrapping purposes. After your control plane is up, you should request all kubelet credentials from the CSR API.
 
 ```
 kubeadm init phase kubeconfig kubelet [flags]
@@ -105,8 +103,6 @@ kubeadm init phase kubeconfig kubelet [flags]
 </tbody>
 </table>
 
-
-
 ### Options inherited from parent commands
 
    <table style="width: 100%; table-layout: fixed;">
@@ -125,6 +121,3 @@ kubeadm init phase kubeconfig kubelet [flags]
 
 </tbody>
 </table>
-
-
-

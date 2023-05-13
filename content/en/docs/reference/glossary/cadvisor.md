@@ -7,8 +7,9 @@ short_description: >
   Tool that provides understanding of the resource usage and performance characteristics for containers
 aka:
 tags:
-- tool
+  - tool
 ---
+
 cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running {{< glossary_tooltip text="containers" term_id="container" >}}.
 
 <!--more-->

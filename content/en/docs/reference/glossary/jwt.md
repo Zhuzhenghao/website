@@ -8,10 +8,11 @@ short_description: >
 
 aka:
 tags:
-- security
-- architecture
+  - security
+  - architecture
 ---
- A means of representing claims to be transferred between two parties.
+
+A means of representing claims to be transferred between two parties.
 
 <!--more-->
 

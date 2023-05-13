@@ -2,8 +2,8 @@
 title: Utilizing the NUMA-aware Memory Manager
 
 reviewers:
-- klueska
-- derekwaynecarr
+  - klueska
+  - derekwaynecarr
 
 content_type: task
 min-kubernetes-server-version: v1.21
@@ -14,11 +14,11 @@ weight: 410
 
 {{< feature-state state="beta" for_k8s_version="v1.22" >}}
 
-The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hugepages)
+The Kubernetes _Memory Manager_ enables the feature of guaranteed memory (and hugepages)
 allocation for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
 
 The Memory Manager employs hint generation protocol to yield the most suitable NUMA affinity for a pod.
-The Memory Manager feeds the central manager (*Topology Manager*) with these affinity hints.
+The Memory Manager feeds the central manager (_Topology Manager_) with these affinity hints.
 Based on both the hints and Topology Manager policy, the pod is rejected or admitted to the node.
 
 Moreover, the Memory Manager ensures that the memory which a pod requests
@@ -102,8 +102,8 @@ node stability (section [Reserved memory flag](#reserved-memory-flag)).
 
 Memory Manager supports two policies. You can select a policy via a `kubelet` flag `--memory-manager-policy`:
 
-* `None` (default)
-* `Static`
+- `None` (default)
+- `Static`
 
 #### None policy {#policy-none}
 
@@ -168,11 +168,11 @@ Syntax:
 
 `--reserved-memory N:memory-type1=value1,memory-type2=value2,...`
 
-* `N` (integer) - NUMA node index, e.g. `0`
-* `memory-type` (string) - represents memory type:
-  * `memory` - conventional memory
-  * `hugepages-2Mi` or `hugepages-1Gi` - hugepages
-* `value` (string) - the quantity of reserved memory, e.g. `1Gi`
+- `N` (integer) - NUMA node index, e.g. `0`
+- `memory-type` (string) - represents memory type:
+  - `memory` - conventional memory
+  - `hugepages-2Mi` or `hugepages-1Gi` - hugepages
+- `value` (string) - the quantity of reserved memory, e.g. `1Gi`
 
 Example usage:
 
@@ -203,9 +203,9 @@ we reserve `3Gi` in total, i.e.:
 
 An example of kubelet command-line arguments relevant to the node Allocatable configuration:
 
-* `--kube-reserved=cpu=500m,memory=50Mi`
-* `--system-reserved=cpu=123m,memory=333Mi`
-* `--eviction-hard=memory.available<500Mi`
+- `--kube-reserved=cpu=500m,memory=50Mi`
+- `--system-reserved=cpu=123m,memory=333Mi`
+- `--eviction-hard=memory.available<500Mi`
 
 {{< note >}}
 The default hard eviction threshold is 100MiB, and **not** zero.
@@ -246,17 +246,17 @@ Pod with integer CPU(s) runs in the `Guaranteed` QoS class, when `requests` are 
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "2"
-        example.com/device: "1"
-      requests:
-        memory: "200Mi"
-        cpu: "2"
-        example.com/device: "1"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "2"
+          example.com/device: "1"
+        requests:
+          memory: "200Mi"
+          cpu: "2"
+          example.com/device: "1"
 ```
 
 Also, a pod sharing CPU(s) runs in the `Guaranteed` QoS class, when `requests` are equal to `limits`.
@@ -264,17 +264,17 @@ Also, a pod sharing CPU(s) runs in the `Guaranteed` QoS class, when `requests` a
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "300m"
-        example.com/device: "1"
-      requests:
-        memory: "200Mi"
-        cpu: "300m"
-        example.com/device: "1"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "300m"
+          example.com/device: "1"
+        requests:
+          memory: "200Mi"
+          cpu: "300m"
+          example.com/device: "1"
 ```
 
 Notice that both CPU and memory requests must be specified for a Pod to lend it to Guaranteed QoS class.
@@ -295,8 +295,8 @@ became rejected at a node:
 
 This error typically occurs in the following situations:
 
-* a node has not enough resources available to satisfy the pod's request
-* the pod's request is rejected due to particular Topology Manager policy constraints
+- a node has not enough resources available to satisfy the pod's request
+- the pod's request is rejected due to particular Topology Manager policy constraints
 
 The error appears in the status of a pod:
 
@@ -343,17 +343,17 @@ metadata:
   name: guaranteed
 spec:
   containers:
-  - name: guaranteed
-    image: consumer
-    imagePullPolicy: Never
-    resources:
-      limits:
-        cpu: "2"
-        memory: 150Gi
-      requests:
-        cpu: "2"
-        memory: 150Gi
-    command: ["sleep","infinity"]
+    - name: guaranteed
+      image: consumer
+      imagePullPolicy: Never
+      resources:
+        limits:
+          cpu: "2"
+          memory: 150Gi
+        requests:
+          cpu: "2"
+          memory: 150Gi
+      command: ["sleep", "infinity"]
 ```
 
 Next, let us log into the node where it was deployed and examine the state file in
@@ -361,70 +361,61 @@ Next, let us log into the node where it was deployed and examine the state file 
 
 ```json
 {
-   "policyName":"Static",
-   "machineState":{
-      "0":{
-         "numberOfAssignments":1,
-         "memoryMap":{
-            "hugepages-1Gi":{
-               "total":0,
-               "systemReserved":0,
-               "allocatable":0,
-               "reserved":0,
-               "free":0
-            },
-            "memory":{
-               "total":134987354112,
-               "systemReserved":3221225472,
-               "allocatable":131766128640,
-               "reserved":131766128640,
-               "free":0
-            }
-         },
-         "nodes":[
-            0,
-            1
-         ]
+  "policyName": "Static",
+  "machineState": {
+    "0": {
+      "numberOfAssignments": 1,
+      "memoryMap": {
+        "hugepages-1Gi": {
+          "total": 0,
+          "systemReserved": 0,
+          "allocatable": 0,
+          "reserved": 0,
+          "free": 0
+        },
+        "memory": {
+          "total": 134987354112,
+          "systemReserved": 3221225472,
+          "allocatable": 131766128640,
+          "reserved": 131766128640,
+          "free": 0
+        }
       },
-      "1":{
-         "numberOfAssignments":1,
-         "memoryMap":{
-            "hugepages-1Gi":{
-               "total":0,
-               "systemReserved":0,
-               "allocatable":0,
-               "reserved":0,
-               "free":0
-            },
-            "memory":{
-               "total":135286722560,
-               "systemReserved":2252341248,
-               "allocatable":133034381312,
-               "reserved":29295144960,
-               "free":103739236352
-            }
-         },
-         "nodes":[
-            0,
-            1
-         ]
-      }
-   },
-   "entries":{
-      "fa9bdd38-6df9-4cf9-aa67-8c4814da37a8":{
-         "guaranteed":[
-            {
-               "numaAffinity":[
-                  0,
-                  1
-               ],
-               "type":"memory",
-               "size":161061273600
-            }
-         ]
-      }
-   },
-   "checksum":4142013182
+      "nodes": [0, 1]
+    },
+    "1": {
+      "numberOfAssignments": 1,
+      "memoryMap": {
+        "hugepages-1Gi": {
+          "total": 0,
+          "systemReserved": 0,
+          "allocatable": 0,
+          "reserved": 0,
+          "free": 0
+        },
+        "memory": {
+          "total": 135286722560,
+          "systemReserved": 2252341248,
+          "allocatable": 133034381312,
+          "reserved": 29295144960,
+          "free": 103739236352
+        }
+      },
+      "nodes": [0, 1]
+    }
+  },
+  "entries": {
+    "fa9bdd38-6df9-4cf9-aa67-8c4814da37a8": {
+      "guaranteed": [
+        {
+          "numaAffinity": [0, 1],
+          "type": "memory",
+          "size": 161061273600
+        }
+      ]
+    }
+  },
+  "checksum": 4142013182
 }
 ```
 
@@ -481,5 +472,3 @@ This information can be retrieved solely for pods in Guaranteed QoS class.
 [4]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager#design-overview
 [5]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager#memory-maps-at-start-up-with-examples
 [6]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager#memory-maps-at-runtime-with-examples
-
-

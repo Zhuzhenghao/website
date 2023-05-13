@@ -6,12 +6,13 @@ full_link: /docs/reference/command-line-tools-reference/kube-controller-manager/
 short_description: >
   Control Plane component that runs controller processes.
 
-aka: 
+aka:
 tags:
-- architecture
-- fundamental
+  - architecture
+  - fundamental
 ---
- Control plane component that runs {{< glossary_tooltip text="controller" term_id="controller" >}} processes.
+
+Control plane component that runs {{< glossary_tooltip text="controller" term_id="controller" >}} processes.
 
 <!--more-->
 

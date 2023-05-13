@@ -1,31 +1,31 @@
 ---
 title: Encrypting Confidential Data at Rest
 reviewers:
-- smarterclayton
-- enj
+  - smarterclayton
+  - enj
 content_type: task
 weight: 210
 ---
 
 <!-- overview -->
+
 This page shows how to enable and configure encryption of secret data at rest.
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}}
+- {{< include "task-tutorial-prereqs.md" >}}
 
-* This task assumes that you are running the Kubernetes API server as a
+- This task assumes that you are running the Kubernetes API server as a
   {{< glossary_tooltip text="static pod" term_id="static-pod" >}} on each control
   plane node.
 
-* Your cluster's control plane **must** use etcd v3.x (major version 3, any minor version).
+- Your cluster's control plane **must** use etcd v3.x (major version 3, any minor version).
 
-* To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
+- To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 
-* To use a wildcard to match resources, your cluster must be running Kubernetes v1.27 or newer.
+- To use a wildcard to match resources, your cluster must be running Kubernetes v1.27 or newer.
 
 {{< version-check >}}
-
 
 <!-- steps -->
 
@@ -75,27 +75,27 @@ resources:
     providers:
       - identity: {} # do not encrypt events even though  *.* is specified below
   - resources:
-      - '*.apps'
+      - "*.apps"
     providers:
       - aescbc:
           keys:
-          - name: key2
-            secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
+            - name: key2
+              secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
   - resources:
-      - '*.*'
+      - "*.*"
     providers:
       - aescbc:
           keys:
-          - name: key3
-            secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
+            - name: key3
+              secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
 ```
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted like Secrets, ConfigMaps, or other resources. 
+that should be encrypted like Secrets, ConfigMaps, or other resources.
 
-If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
-any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
+If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer,
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted.
 Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
 until they are next written to storage. This is the same behavior as built-in resources.
 See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
@@ -112,7 +112,7 @@ is returned which prevents clients from accessing that resource.
 `EncryptionConfiguration` supports the use of wildcards to specify the resources that should be encrypted.
 Use '`*.<group>`' to encrypt all resources within a group (for eg '`*.apps`' in above example) or '`*.*`'
 to encrypt all resources. '`*.`' can be used to encrypt all resource in the core group. '`*.*`' will
-encrypt all resources, even custom resources that are added after API server start. 
+encrypt all resources, even custom resources that are added after API server start.
 
 {{< note >}} Use of wildcards that overlap within the same resource list or across multiple entries are not allowed
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
@@ -130,6 +130,7 @@ The new item should look like this:
   providers:
     - identity: {}
 ```
+
 Ensure that the new item is listed before the wildcard '`*.*`' item in the resources array to give it precedence.
 
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
@@ -248,10 +249,9 @@ The following table describes each available provider:
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
 
-
 {{< caution >}}
 Storing the raw encryption key in the EncryptionConfig only moderately improves your security
-posture, compared to no encryption.  Please use `kms` provider for additional security.
+posture, compared to no encryption. Please use `kms` provider for additional security.
 {{< /caution >}}
 
 By default, the `identity` provider is used to protect secret data in etcd, which provides no
@@ -440,7 +440,7 @@ When running a single `kube-apiserver` instance, step 2 may be skipped.
 ## Decrypting all data
 
 To disable encryption at rest, place the `identity` provider as the first entry in the config
-and restart all `kube-apiserver` processes. 
+and restart all `kube-apiserver` processes.
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -464,4 +464,4 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
+- Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).

@@ -54,7 +54,7 @@ you specified and uses it as the requested value for the resource.
 
 ## Resource types
 
-*CPU* and *memory* are each a *resource type*. A resource type has a base unit.
+_CPU_ and _memory_ are each a _resource type_. A resource type has a base unit.
 CPU represents compute processing and is specified in units of [Kubernetes CPUs](#meaning-of-cpu).
 Memory is specified in units of bytes.
 For Linux workloads, you can specify _huge page_ resources.
@@ -70,7 +70,7 @@ You cannot overcommit `hugepages-*` resources.
 This is different from the `memory` and `cpu` resources.
 {{< /note >}}
 
-CPU and memory are collectively referred to as *compute resources*, or *resources*. Compute
+CPU and memory are collectively referred to as _compute resources_, or _resources_. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
 [API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
@@ -82,24 +82,24 @@ through the Kubernetes API server.
 For each container, you can specify resource limits and requests,
 including the following:
 
-* `spec.containers[].resources.limits.cpu`
-* `spec.containers[].resources.limits.memory`
-* `spec.containers[].resources.limits.hugepages-<size>`
-* `spec.containers[].resources.requests.cpu`
-* `spec.containers[].resources.requests.memory`
-* `spec.containers[].resources.requests.hugepages-<size>`
+- `spec.containers[].resources.limits.cpu`
+- `spec.containers[].resources.limits.memory`
+- `spec.containers[].resources.limits.hugepages-<size>`
+- `spec.containers[].resources.requests.cpu`
+- `spec.containers[].resources.requests.memory`
+- `spec.containers[].resources.requests.hugepages-<size>`
 
 Although you can only specify requests and limits for individual containers,
 it is also useful to think about the overall resource requests and limits for
 a Pod.
-For a particular resource, a *Pod resource request/limit* is the sum of the
+For a particular resource, a _Pod resource request/limit_ is the sum of the
 resource requests/limits of that type for each container in the Pod.
 
 ## Resource units in Kubernetes
 
 ### CPU resource units {#meaning-of-cpu}
 
-Limits and requests for CPU resources are measured in *cpu* units.
+Limits and requests for CPU resources are measured in _cpu_ units.
 In Kubernetes, 1 CPU unit is equivalent to **1 physical CPU core**,
 or **1 virtual core**, depending on whether the node is a physical host
 or a virtual machine running inside a physical machine.
@@ -153,24 +153,24 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: app
-    image: images.my-company.example/app:v4
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "250m"
-      limits:
-        memory: "128Mi"
-        cpu: "500m"
-  - name: log-aggregator
-    image: images.my-company.example/log-aggregator:v6
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "250m"
-      limits:
-        memory: "128Mi"
-        cpu: "500m"
+    - name: app
+      image: images.my-company.example/app:v4
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+    - name: log-aggregator
+      image: images.my-company.example/log-aggregator:v6
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
 ```
 
 ## How Pods with resource requests are scheduled
@@ -236,6 +236,7 @@ directly or from your monitoring tools.
 ## Local ephemeral storage
 
 <!-- feature gate LocalStorageCapacityIsolation -->
+
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 Nodes have local ephemeral storage, backed by
@@ -245,7 +246,7 @@ locally-attached writeable devices or, sometimes, by RAM.
 Pods use ephemeral local storage for scratch space, caching, and for logs.
 The kubelet can provide scratch space to Pods using local ephemeral storage to
 mount [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
- {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
+{{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
 
 The kubelet also uses this kind of storage to hold
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
@@ -326,8 +327,8 @@ The kubelet will only track the root filesystem for ephemeral storage. OS layout
 You can specify `ephemeral-storage` for managing local ephemeral storage. Each
 container of a Pod can specify either or both of the following:
 
-* `spec.containers[].resources.limits.ephemeral-storage`
-* `spec.containers[].resources.requests.ephemeral-storage`
+- `spec.containers[].resources.limits.ephemeral-storage`
+- `spec.containers[].resources.requests.ephemeral-storage`
 
 Limits and requests for `ephemeral-storage` are measured in byte quantities.
 You can express storage as a plain integer or as a fixed-point number using one of these suffixes:
@@ -356,26 +357,26 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: app
-    image: images.my-company.example/app:v4
-    resources:
-      requests:
-        ephemeral-storage: "2Gi"
-      limits:
-        ephemeral-storage: "4Gi"
-    volumeMounts:
-    - name: ephemeral
-      mountPath: "/tmp"
-  - name: log-aggregator
-    image: images.my-company.example/log-aggregator:v6
-    resources:
-      requests:
-        ephemeral-storage: "2Gi"
-      limits:
-        ephemeral-storage: "4Gi"
-    volumeMounts:
-    - name: ephemeral
-      mountPath: "/tmp"
+    - name: app
+      image: images.my-company.example/app:v4
+      resources:
+        requests:
+          ephemeral-storage: "2Gi"
+        limits:
+          ephemeral-storage: "4Gi"
+      volumeMounts:
+        - name: ephemeral
+          mountPath: "/tmp"
+    - name: log-aggregator
+      image: images.my-company.example/log-aggregator:v6
+      resources:
+        requests:
+          ephemeral-storage: "2Gi"
+        limits:
+          ephemeral-storage: "4Gi"
+      volumeMounts:
+        - name: ephemeral
+          mountPath: "/tmp"
   volumes:
     - name: ephemeral
       emptyDir:
@@ -475,13 +476,13 @@ whereas directory scans overlook the storage used by deleted files.
 
 If you want to use project quotas, you should:
 
-* Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
+- Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   using the `featureGates` field in the
   [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
   or the `--feature-gates` command line flag.
 
-* Ensure that the root filesystem (or optional runtime filesystem)
+- Ensure that the root filesystem (or optional runtime filesystem)
   has project quotas enabled. All XFS filesystems support project quotas.
   For ext4 filesystems, you need to enable the project quota tracking feature
   while the filesystem is not mounted.
@@ -491,7 +492,7 @@ If you want to use project quotas, you should:
   sudo tune2fs -O project -Q prjquota /dev/block-device
   ```
 
-* Ensure that the root filesystem (or optional runtime filesystem) is
+- Ensure that the root filesystem (or optional runtime filesystem) is
   mounted with project quotas enabled. For both XFS and ext4fs, the
   mount option is named `prjquota`.
 
@@ -515,6 +516,7 @@ Extended Resource in Pods.
 Node-level extended resources are tied to nodes.
 
 ##### Device plugin managed resources
+
 See [Device
 Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for how to advertise device plugin managed resources on each node.
@@ -569,9 +571,9 @@ cluster-level extended resource "example.com/foo" is handled by the scheduler
 extender.
 
 - The scheduler sends a Pod to the scheduler extender only if the Pod requests
-     "example.com/foo".
+  "example.com/foo".
 - The `ignoredByScheduler` field specifies that the scheduler does not check
-     the "example.com/foo" resource in its `PodFitsResources` predicate.
+  the "example.com/foo" resource in its `PodFitsResources` predicate.
 
 ```json
 {
@@ -579,7 +581,7 @@ extender.
   "apiVersion": "v1",
   "extenders": [
     {
-      "urlPrefix":"<extender-endpoint>",
+      "urlPrefix": "<extender-endpoint>",
       "bindVerb": "bind",
       "managedResources": [
         {
@@ -630,14 +632,14 @@ metadata:
   name: my-pod
 spec:
   containers:
-  - name: my-container
-    image: myimage
-    resources:
-      requests:
-        cpu: 2
-        example.com/foo: 1
-      limits:
-        example.com/foo: 1
+    - name: my-container
+      image: myimage
+      resources:
+        requests:
+          cpu: 2
+          example.com/foo: 1
+        limits:
+          example.com/foo: 1
 ```
 
 ## PID limiting
@@ -659,6 +661,7 @@ to view the events for a Pod; for example:
 ```shell
 kubectl describe pod frontend | grep -A 9999999999 Events
 ```
+
 ```
 Events:
   Type     Reason            Age   From               Message
@@ -686,6 +689,7 @@ You can check node capacities and amounts allocated with the
 ```shell
 kubectl describe nodes e2e-test-node-pool-4lw4
 ```
+
 ```
 Name:            e2e-test-node-pool-4lw4
 [ ... lines removed for clarity ...]
@@ -753,6 +757,7 @@ kubectl describe pod simmemleak-hra99
 ```
 
 The output is similar to:
+
 ```
 Name:                           simmemleak-hra99
 Namespace:                      default
@@ -801,11 +806,10 @@ memory limit (and possibly request) for that container.
 
 ## {{% heading "whatsnext" %}}
 
-* Get hands-on experience [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
-* Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
-* Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+- Get hands-on experience [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+- Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
+- Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
-* Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
-* Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-* Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
-
+- Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
+- Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+- Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)

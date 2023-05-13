@@ -1,10 +1,10 @@
 ---
 title: Server-Side Apply
 reviewers:
-- smarterclayton
-- apelisse
-- lavalamp
-- liggitt
+  - smarterclayton
+  - apelisse
+  - lavalamp
+  - liggitt
 content_type: concept
 weight: 25
 min-kubernetes-server-version: 1.16
@@ -84,17 +84,17 @@ metadata:
   labels:
     test-label: test
   managedFields:
-  - manager: kubectl
-    operation: Apply
-    apiVersion: v1
-    time: "2010-10-10T0:00:00Z"
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:labels:
-          f:test-label: {}
-      f:data:
-        f:key: {}
+    - manager: kubectl
+      operation: Apply
+      apiVersion: v1
+      time: "2010-10-10T0:00:00Z"
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            f:test-label: {}
+        f:data:
+          f:key: {}
 data:
   key: some value
 ```
@@ -104,7 +104,7 @@ manager consists of basic information about the managing entity itself, like
 operation type, API version, and the fields managed by it.
 
 {{< note >}}
-This field is managed by the  API server and should not be changed by
+This field is managed by the API server and should not be changed by
 the user.
 {{< /note >}}
 
@@ -123,19 +123,19 @@ to change a field, which another user also claims to manage. This prevents an
 applier from unintentionally overwriting the value set by another user. When
 this occurs, the applier has 3 options to resolve the conflicts:
 
-* **Overwrite value, become sole manager:** If overwriting the value was
+- **Overwrite value, become sole manager:** If overwriting the value was
   intentional (or if the applier is an automated process like a controller) the
   applier should set the `force` query parameter to true (in kubectl, it can be done by
   using the `--force-conflicts` flag with the apply command) and make the request
   again. This forces the operation to succeed, changes the value of the field,
   and removes the field from all other managers' entries in managedFields.
 
-* **Don't overwrite value, give up management claim:** If the applier doesn't
+- **Don't overwrite value, give up management claim:** If the applier doesn't
   care about the value of the field anymore, they can remove it from their
   config and make the request again. This leaves the value unchanged, and causes
   the field to be removed from the applier's entry in managedFields.
 
-* **Don't overwrite value, become shared manager:** If the applier still cares
+- **Don't overwrite value, become shared manager:** If the applier still cares
   about the value of the field, but doesn't want to overwrite it, they can
   change the value of the field in their config to match the value of the object
   on the server, and make the request again. This leaves the value unchanged,
@@ -181,20 +181,20 @@ metadata:
   labels:
     test-label: test
   managedFields:
-  - manager: kubectl
-    operation: Apply
-    apiVersion: v1
-    fields:
-      f:metadata:
-        f:labels:
-          f:test-label: {}
-  - manager: kube-controller-manager
-    operation: Update
-    apiVersion: v1
-    time: '2019-03-30T16:00:00.000Z'
-    fields:
-      f:data:
-        f:key: {}
+    - manager: kubectl
+      operation: Apply
+      apiVersion: v1
+      fields:
+        f:metadata:
+          f:labels:
+            f:test-label: {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: "2019-03-30T16:00:00.000Z"
+      fields:
+        f:data:
+          f:key: {}
 data:
   key: new value
 ```
@@ -228,12 +228,12 @@ structs. These markers can be applied to objects of the respective type,
 in Go files or in the OpenAPI schema definition of the
 [CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
 
-| Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
-|---|---|---|---|---|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `set` applies to lists that include only scalar elements. These elements must be unique. `map` applies to lists of nested types only. The key values (see `listMapKey`) must be unique in the list. `atomic` can apply to any list. If configured as `atomic`, the entire list is replaced during merge. At any point in time, a single manager owns the list. If `set` or `map`, different managers can manage entries separately. | 1.16          |
-| `//+listMapKey` | `x-kubernetes-list-map-keys` | List of field names, e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A list of field names whose values uniquely identify entries in the list. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. The key fields must be scalars. | 1.16 |
-| `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. | 1.17 |
-| `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.| 1.17 |
+| Golang marker   | OpenAPI extension            | Accepted values                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                              | Introduced in |
+| --------------- | ---------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `//+listType`   | `x-kubernetes-list-type`     | `atomic`/`set`/`map`                             | Applicable to lists. `set` applies to lists that include only scalar elements. These elements must be unique. `map` applies to lists of nested types only. The key values (see `listMapKey`) must be unique in the list. `atomic` can apply to any list. If configured as `atomic`, the entire list is replaced during merge. At any point in time, a single manager owns the list. If `set` or `map`, different managers can manage entries separately. | 1.16          |
+| `//+listMapKey` | `x-kubernetes-list-map-keys` | List of field names, e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A list of field names whose values uniquely identify entries in the list. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. The key fields must be scalars.                                                                                                                                                                                | 1.16          |
+| `//+mapType`    | `x-kubernetes-map-type`      | `atomic`/`granular`                              | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields.                                                                                                                                                                                                                                                                  | 1.17          |
+| `//+structType` | `x-kubernetes-map-type`      | `atomic`/`granular`                              | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.                                                                                                                                                                                                                                                                                                                                                                      | 1.17          |
 
 If `listType` is missing, the API server interprets a
 `patchMergeStrategy=merge` marker as a `listType=map` and the
@@ -273,12 +273,12 @@ kind: Foo
 metadata:
   name: foo-sample
   managedFields:
-  - manager: manager-one
-    operation: Apply
-    apiVersion: example.com/v1
-    fields:
-      f:spec:
-        f:data: {}
+    - manager: manager-one
+      operation: Apply
+      apiVersion: example.com/v1
+      fields:
+        f:spec:
+          f:data: {}
 spec:
   data:
     key1: val1
@@ -310,10 +310,10 @@ As a developer of a controller, you can use server-side apply as a way to
 simplify the update logic of your controller. The main differences with a
 read-modify-write and/or patch are the following:
 
-* the applied object must contain all the fields that the controller cares about.
-* there is no way to remove fields that haven't been applied by the controller
+- the applied object must contain all the fields that the controller cares about.
+- there is no way to remove fields that haven't been applied by the controller
   before (controller can still send a PATCH/UPDATE for these use-cases).
-* the object doesn't have to be read beforehand, `resourceVersion` doesn't have
+- the object doesn't have to be read beforehand, `resourceVersion` doesn't have
   to be specified.
 
 It is strongly recommended for controllers to always "force" conflicts, since they
@@ -481,7 +481,7 @@ kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 
 With the Server-Side Apply feature enabled, the `PATCH` endpoint accepts the
 additional `application/apply-patch+yaml` content type. Users of Server-Side
-Apply can send partially specified objects as YAML to this endpoint.  When
+Apply can send partially specified objects as YAML to this endpoint. When
 applying a configuration, one should always include all the fields that they
 have an opinion about.
 

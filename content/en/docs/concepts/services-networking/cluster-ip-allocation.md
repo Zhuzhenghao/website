@@ -1,12 +1,11 @@
 ---
 reviewers:
-- sftim
-- thockin
+  - sftim
+  - thockin
 title: Service ClusterIP allocation
 content_type: concept
 weight: 120
 ---
-
 
 <!-- overview -->
 
@@ -56,14 +55,14 @@ metadata:
 spec:
   clusterIP: 10.96.0.10
   ports:
-  - name: dns
-    port: 53
-    protocol: UDP
-    targetPort: 53
-  - name: dns-tcp
-    port: 53
-    protocol: TCP
-    targetPort: 53
+    - name: dns
+      port: 53
+      protocol: UDP
+      targetPort: 53
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+      targetPort: 53
   selector:
     k8s-app: kube-dns
   type: ClusterIP
@@ -96,13 +95,13 @@ Range Size: 2<sup>8</sup> - 2 = 254
 Band Offset: `min(max(16, 256/16), 256)` = `min(16, 256)` = 16  
 Static band start: 10.96.0.1  
 Static band end: 10.96.0.16  
-Range end: 10.96.0.254   
+Range end: 10.96.0.254
 
 {{< mermaid >}}
 pie showData
-    title 10.96.0.0/24
-    "Static" : 16
-    "Dynamic" : 238
+title 10.96.0.0/24
+"Static" : 16
+"Dynamic" : 238
 {{< /mermaid >}}
 
 ### Example 2 {#allocation-example-2}
@@ -114,13 +113,13 @@ Range Size: 2<sup>12</sup> - 2 = 4094
 Band Offset: `min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
 Static band start: 10.96.0.1  
 Static band end: 10.96.1.0  
-Range end: 10.96.15.254  
+Range end: 10.96.15.254
 
 {{< mermaid >}}
 pie showData
-    title 10.96.0.0/20
-    "Static" : 256
-    "Dynamic" : 3838
+title 10.96.0.0/20
+"Static" : 256
+"Dynamic" : 3838
 {{< /mermaid >}}
 
 ### Example 3 {#allocation-example-3}
@@ -132,18 +131,17 @@ Range Size: 2<sup>16</sup> - 2 = 65534
 Band Offset: `min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256  
 Static band start: 10.96.0.1  
 Static band ends: 10.96.1.0  
-Range end: 10.96.255.254  
+Range end: 10.96.255.254
 
 {{< mermaid >}}
 pie showData
-    title 10.96.0.0/16
-    "Static" : 256
-    "Dynamic" : 65278
+title 10.96.0.0/16
+"Static" : 256
+"Dynamic" : 65278
 {{< /mermaid >}}
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Read about [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
-* Read about [Services](/docs/concepts/services-networking/service/)
-
+- Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
+- Read about [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+- Read about [Services](/docs/concepts/services-networking/service/)

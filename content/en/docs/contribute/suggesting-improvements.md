@@ -15,8 +15,6 @@ In most cases, new work on Kubernetes documentation begins with an issue in GitH
 then review, categorize and tag issues as needed. Next, you or another member
 of the Kubernetes community open a pull request with changes to resolve the issue.
 
-
-
 <!-- body -->
 
 ## Opening an issue
@@ -24,7 +22,7 @@ of the Kubernetes community open a pull request with changes to resolve the issu
 If you want to suggest improvements to existing content or notice an error, then open an issue.
 
 1. Click the **Create an issue** link on the right sidebar. This redirects you
- to a GitHub issue page pre-populated with some headers.
+   to a GitHub issue page pre-populated with some headers.
 2. Describe the issue or suggestion for improvement. Provide as many details as you can.
 3. Click **Submit new issue**.
 
@@ -42,7 +40,6 @@ still file an issue. Either:
 
 ## How to file great issues
 
-
 Keep the following in mind when filing an issue:
 
 - Provide a clear issue description. Describe what specifically is missing, out of date,
@@ -58,7 +55,5 @@ Keep the following in mind when filing an issue:
   either by its full URL or by the issue or pull request number prefixed
   with a `#` character. For example, `Introduced by #987654`.
 - Follow the [Code of Conduct](/community/code-of-conduct/). Respect your
-fellow contributors. For example, "The docs are terrible" is not
+  fellow contributors. For example, "The docs are terrible" is not
   helpful or polite feedback.
-
-

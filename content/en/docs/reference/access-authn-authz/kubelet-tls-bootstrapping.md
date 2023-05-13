@@ -1,9 +1,9 @@
 ---
 reviewers:
-- mikedanese
-- liggitt
-- smarterclayton
-- awly
+  - mikedanese
+  - liggitt
+  - smarterclayton
+  - awly
 title: TLS bootstrapping
 content_type: concept
 weight: 120
@@ -39,8 +39,8 @@ Assuming that the kube-apiserver successfully validates the kubelet's credential
 
 Note that the above process depends upon:
 
-* Existence of a key and certificate on the local host in the `kubeconfig`
-* The certificate having been signed by a Certificate Authority (CA) trusted by the kube-apiserver
+- Existence of a key and certificate on the local host in the `kubeconfig`
+- The certificate having been signed by a Certificate Authority (CA) trusted by the kube-apiserver
 
 All of the following are responsibilities of whoever sets up and manages the cluster:
 
@@ -65,8 +65,8 @@ In the bootstrap initialization process, the following occurs:
 6. kubelet now has limited credentials to create and retrieve a certificate signing request (CSR)
 7. kubelet creates a CSR for itself with the signerName set to `kubernetes.io/kube-apiserver-client-kubelet`
 8. CSR is approved in one of two ways:
-   * If configured, kube-controller-manager automatically approves the CSR
-   * If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`
+   - If configured, kube-controller-manager automatically approves the CSR
+   - If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`
 9. Certificate is created for the kubelet
 10. Certificate is issued to the kubelet
 11. kubelet retrieves the certificate
@@ -81,10 +81,10 @@ The rest of this document describes the necessary steps to configure TLS Bootstr
 
 To configure for TLS bootstrapping and optional automatic approval, you must configure options on the following components:
 
-* kube-apiserver
-* kube-controller-manager
-* kubelet
-* in-cluster resources: `ClusterRoleBinding` and potentially `ClusterRole`
+- kube-apiserver
+- kube-controller-manager
+- kubelet
+- in-cluster resources: `ClusterRoleBinding` and potentially `ClusterRole`
 
 In addition, you need your Kubernetes Certificate Authority (CA).
 
@@ -102,9 +102,9 @@ All Kubernetes components that use these certificates - kubelet, kube-apiserver,
 
 The kube-apiserver has several requirements to enable TLS bootstrapping:
 
-* Recognizing CA that signs the client certificate
-* Authenticating the bootstrapping kubelet to the `system:bootstrappers` group
-* Authorize the bootstrapping kubelet to create a certificate signing request (CSR)
+- Recognizing CA that signs the client certificate
+- Authenticating the bootstrapping kubelet to the `system:bootstrappers` group
+- Authorize the bootstrapping kubelet to create a certificate signing request (CSR)
 
 ### Recognizing client certificates
 
@@ -207,9 +207,9 @@ kind: ClusterRoleBinding
 metadata:
   name: create-csrs-for-bootstrapping
 subjects:
-- kind: Group
-  name: system:bootstrappers
-  apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: system:bootstrappers
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: system:node-bootstrapper
@@ -229,8 +229,8 @@ default set of key usages.
 
 In order for the controller-manager to sign certificates, it needs the following:
 
-* access to the "Kubernetes CA key and certificate" that you created and distributed
-* enabling CSR signing
+- access to the "Kubernetes CA key and certificate" that you created and distributed
+- enabling CSR signing
 
 ### Access to key and certificate
 
@@ -266,8 +266,8 @@ RBAC permissions to the correct group.
 
 There are two distinct sets of permissions:
 
-* `nodeclient`: If a node is creating a new certificate for a node, then it does not have a certificate yet. It is authenticating using one of the tokens listed above, and thus is part of the group `system:bootstrappers`.
-* `selfnodeclient`: If a node is renewing its certificate, then it already has a certificate (by definition), which it uses continuously to authenticate as part of the group `system:nodes`.
+- `nodeclient`: If a node is creating a new certificate for a node, then it does not have a certificate yet. It is authenticating using one of the tokens listed above, and thus is part of the group `system:bootstrappers`.
+- `selfnodeclient`: If a node is renewing its certificate, then it already has a certificate (by definition), which it uses continuously to authenticate as part of the group `system:nodes`.
 
 To enable the kubelet to request and receive a new certificate, create a `ClusterRoleBinding` that binds the group in which the bootstrapping node is a member `system:bootstrappers` to the `ClusterRole` that grants it permission, `system:certificates.k8s.io:certificatesigningrequests:nodeclient`:
 
@@ -278,9 +278,9 @@ kind: ClusterRoleBinding
 metadata:
   name: auto-approve-csrs-for-group
 subjects:
-- kind: Group
-  name: system:bootstrappers
-  apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: system:bootstrappers
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: system:certificates.k8s.io:certificatesigningrequests:nodeclient
@@ -297,9 +297,9 @@ kind: ClusterRoleBinding
 metadata:
   name: auto-approve-renewals-for-nodes
 subjects:
-- kind: Group
-  name: system:nodes
-  apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: system:nodes
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
@@ -316,17 +316,16 @@ built-in approver doesn't explicitly deny CSRs. It only ignores unauthorized
 requests. The controller also prunes expired certificates as part of garbage
 collection.
 
-
 ## kubelet configuration
 
 Finally, with the control plane nodes properly set up and all of the necessary authentication and authorization in place, we can configure the kubelet.
 
 The kubelet requires the following configuration to bootstrap:
 
-* A path to store the key and certificate it generates (optional, can use default)
-* A path to a `kubeconfig` file that does not yet exist; it will place the bootstrapped config file here
-* A path to a bootstrap `kubeconfig` file to provide the URL for the server and bootstrap credentials, e.g. a bootstrap token
-* Optional: instructions to rotate certificates
+- A path to store the key and certificate it generates (optional, can use default)
+- A path to a `kubeconfig` file that does not yet exist; it will place the bootstrapped config file here
+- A path to a bootstrap `kubeconfig` file to provide the URL for the server and bootstrap credentials, e.g. a bootstrap token
+- Optional: instructions to rotate certificates
 
 The bootstrap `kubeconfig` should be in a path available to the kubelet, for example `/var/lib/kubelet/bootstrap-kubeconfig`.
 
@@ -336,28 +335,28 @@ Its format is identical to a normal `kubeconfig` file. A sample file might look 
 apiVersion: v1
 kind: Config
 clusters:
-- cluster:
-    certificate-authority: /var/lib/kubernetes/ca.pem
-    server: https://my.server.example.com:6443
-  name: bootstrap
+  - cluster:
+      certificate-authority: /var/lib/kubernetes/ca.pem
+      server: https://my.server.example.com:6443
+    name: bootstrap
 contexts:
-- context:
-    cluster: bootstrap
-    user: kubelet-bootstrap
-  name: bootstrap
+  - context:
+      cluster: bootstrap
+      user: kubelet-bootstrap
+    name: bootstrap
 current-context: bootstrap
 preferences: {}
 users:
-- name: kubelet-bootstrap
-  user:
-    token: 07401b.f395accd246ae52d
+  - name: kubelet-bootstrap
+    user:
+      token: 07401b.f395accd246ae52d
 ```
 
 The important elements to note are:
 
-* `certificate-authority`: path to a CA file, used to validate the server certificate presented by kube-apiserver
-* `server`: URL to kube-apiserver
-* `token`: the token to use
+- `certificate-authority`: path to a CA file, used to validate the server certificate presented by kube-apiserver
+- `server`: URL to kube-apiserver
+- `token`: the token to use
 
 The format of the token does not matter, as long as it matches what kube-apiserver expects. In the above example, we used a bootstrap token.
 As stated earlier, _any_ valid authentication method can be used, not only tokens.
@@ -393,9 +392,9 @@ uses to authenticate to kube-apiserver.
 A kubelet also can use _serving_ certificates. The kubelet itself exposes an https endpoint for certain features.
 To secure these, the kubelet can do one of:
 
-* use provided key and certificate, via the `--tls-private-key-file` and `--tls-cert-file` flags
-* create self-signed key and certificate, if a key and certificate are not provided
-* request serving certificates from the cluster server, via the CSR API
+- use provided key and certificate, via the `--tls-private-key-file` and `--tls-cert-file` flags
+- create self-signed key and certificate, if a key and certificate are not provided
+- request serving certificates from the cluster server, via the CSR API
 
 The client certificate provided by TLS bootstrapping is signed, by default, for `client auth` only, and thus cannot
 be used as serving certificates, or `server auth`.
@@ -406,7 +405,7 @@ However, you _can_ enable its server certificate, at least partially, via certif
 
 Kubernetes v1.8 and higher kubelet implements features for enabling
 rotation of its client and/or serving certificates. Note, rotation of serving
-certificate is a __beta__ feature and requires the `RotateKubeletServerCertificate`
+certificate is a **beta** feature and requires the `RotateKubeletServerCertificate`
 feature flag on the kubelet (enabled by default).
 
 You can configure the kubelet to rotate its client certificates by creating new CSRs
@@ -420,7 +419,7 @@ or pass the following command line argument to the kubelet (deprecated):
 
 Enabling `RotateKubeletServerCertificate` causes the kubelet **both** to request a serving
 certificate after bootstrapping its client credentials **and** to rotate that
-certificate. To enable this behavior, use the field `serverTLSBootstrap`  of 
+certificate. To enable this behavior, use the field `serverTLSBootstrap` of
 the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
 or pass the following command line argument to the kubelet (deprecated):
 
@@ -456,9 +455,8 @@ is part of the Kubernetes node components and runs on every node, but may also i
 Like the kubelet, these other components also require a method of authenticating to kube-apiserver.
 You have several options for generating these credentials:
 
-* The old way: Create and distribute certificates the same way you did for kubelet before TLS bootstrapping
-* DaemonSet: Since the kubelet itself is loaded on each node, and is sufficient to start base services, you can run kube-proxy and other node-specific services not as a standalone process, but rather as a daemonset in the `kube-system` namespace. Since it will be in-cluster, you can give it a proper service account with appropriate permissions to perform its activities. This may be the simplest way to configure such services.
-
+- The old way: Create and distribute certificates the same way you did for kubelet before TLS bootstrapping
+- DaemonSet: Since the kubelet itself is loaded on each node, and is sufficient to start base services, you can run kube-proxy and other node-specific services not as a standalone process, but rather as a daemonset in the `kube-system` namespace. Since it will be in-cluster, you can give it a proper service account with appropriate permissions to perform its activities. This may be the simplest way to configure such services.
 
 ## kubectl approval
 

@@ -1,9 +1,9 @@
 ---
 reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
+  - jsafrane
+  - saad-ali
+  - thockin
+  - msau42
 title: Storage Classes
 content_type: concept
 weight: 40
@@ -231,11 +231,11 @@ parameters:
   type: pd-standard
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
-- matchLabelExpressions:
-  - key: failure-domain.beta.kubernetes.io/zone
-    values:
-    - us-central-1a
-    - us-central-1b
+  - matchLabelExpressions:
+      - key: failure-domain.beta.kubernetes.io/zone
+        values:
+          - us-central-1a
+          - us-central-1b
 ```
 
 ## Parameters

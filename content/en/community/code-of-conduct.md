@@ -15,7 +15,6 @@ If you notice that this is out of date, please
 <a href="https://github.com/kubernetes/website/issues/new">file an issue</a>.
 </p>
 
-
 <p>
 If you notice a violation of the Code of Conduct at an event or meeting, in
 Slack, or in another communication mechanism, reach out to

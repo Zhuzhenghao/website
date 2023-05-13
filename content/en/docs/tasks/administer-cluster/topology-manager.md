@@ -2,11 +2,11 @@
 title: Control Topology Management Policies on a node
 
 reviewers:
-- ConnorDoyle
-- klueska
-- lmdaly
-- nolancon
-- bg-chun
+  - ConnorDoyle
+  - klueska
+  - lmdaly
+  - nolancon
+  - bg-chun
 
 content_type: task
 min-kubernetes-server-version: v1.18
@@ -28,7 +28,7 @@ disjoint set of components.
 
 _Topology Manager_ is a Kubelet component that aims to coordinate the set of components that are
 responsible for these optimizations.
- 
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -38,26 +38,26 @@ responsible for these optimizations.
 ## How Topology Manager Works
 
 Prior to the introduction of Topology Manager, the CPU and Device Manager in Kubernetes make
-resource allocation decisions independently of each other.  This can result in undesirable
+resource allocation decisions independently of each other. This can result in undesirable
 allocations on multiple-socketed systems, performance/latency sensitive applications will suffer
-due to these undesirable allocations.  Undesirable in this case meaning for example, CPUs and
+due to these undesirable allocations. Undesirable in this case meaning for example, CPUs and
 devices being allocated from different NUMA Nodes thus, incurring additional latency.
 
 The Topology Manager is a Kubelet component, which acts as a source of truth so that other Kubelet
 components can make topology aligned resource allocation choices.
 
-The Topology Manager provides an interface for components, called *Hint Providers*, to send and
+The Topology Manager provides an interface for components, called _Hint Providers_, to send and
 receive topology information. Topology Manager has a set of node level policies which are
 explained below.
 
-The Topology manager receives Topology information from the *Hint Providers* as a bitmask denoting
+The Topology manager receives Topology information from the _Hint Providers_ as a bitmask denoting
 NUMA Nodes available and a preferred allocation indication. The Topology Manager policies perform
 a set of operations on the hints provided and converge on the hint determined by the policy to
 give the optimal result, if an undesirable hint is stored the preferred field for the hint will be
 set to false. In the current policies preferred is the narrowest preferred mask.
 The selected hint is stored as part of the Topology Manager. Depending on the policy configured
 the pod can be accepted or rejected from the node based on the selected hint.
-The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
+The hint is then stored in the Topology Manager for use by the _Hint Providers_ when making the
 resource allocation decisions.
 
 ## Topology Manager Scopes and Policies
@@ -93,8 +93,8 @@ Manager should be enabled and proper Memory Manager policy should be configured 
 
 The Topology Manager can deal with the alignment of resources in a couple of distinct scopes:
 
-* `container` (default)
-* `pod`
+- `container` (default)
+- `pod`
 
 Either option can be selected at a time of the kubelet startup, with `--topology-manager-scope`
 flag.
@@ -120,15 +120,15 @@ Topology Manager treats a pod as a whole and attempts to allocate the entire pod
 to either a single NUMA node or a common set of NUMA nodes. The following examples illustrate the
 alignments produced by the Topology Manager on different occasions:
 
-* all containers can be and are allocated to a single NUMA node;
-* all containers can be and are allocated to a shared set of NUMA nodes.
+- all containers can be and are allocated to a single NUMA node;
+- all containers can be and are allocated to a shared set of NUMA nodes.
 
 The total amount of particular resource demanded for the entire pod is calculated according to
 [effective requests/limits](/docs/concepts/workloads/pods/init-containers/#resources) formula, and
 thus, this total value is equal to the maximum of:
 
-* the sum of all app container requests,
-* the maximum of init container requests,
+- the sum of all app container requests,
+- the maximum of init container requests,
 
 for a resource.
 
@@ -140,8 +140,8 @@ node; hence, the inter-NUMA communication overhead can be eliminated for that po
 In the case of `single-numa-node` policy, a pod is accepted only if a suitable set of NUMA nodes
 is present among possible allocations. Reconsider the example above:
 
-* a set containing only a single NUMA node - it leads to pod being admitted,
-* whereas a set containing more NUMA nodes - it results in pod rejection (because instead of one
+- a set containing only a single NUMA node - it leads to pod being admitted,
+- whereas a set containing more NUMA nodes - it results in pod rejection (because instead of one
   NUMA node, two or more NUMA nodes are required to satisfy the allocation).
 
 To recap, Topology Manager first computes a set of NUMA nodes and then tests it against Topology
@@ -152,10 +152,10 @@ Manager policy, which either leads to the rejection or admission of the pod.
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag,
 `--topology-manager-policy`. There are four supported policies:
 
-* `none` (default)
-* `best-effort`
-* `restricted`
-* `single-numa-node`
+- `none` (default)
+- `best-effort`
+- `restricted`
+- `single-numa-node`
 
 {{< note >}}
 If Topology Manager is configured with the **pod** scope, the container, which is considered by
@@ -174,13 +174,13 @@ each Hint Provider to discover their resource availability. Using this informati
 Manager stores the preferred NUMA Node affinity for that container. If the affinity is not
 preferred, Topology Manager will store this and admit the pod to the node anyway.
 
-The *Hint Providers* can then use this information when making the 
+The _Hint Providers_ can then use this information when making the
 resource allocation decision.
 
 ### restricted policy {#policy-restricted}
 
 For each container in a Pod, the kubelet, with `restricted` topology management policy, calls each
-Hint Provider to discover their resource availability.  Using this information, the Topology
+Hint Provider to discover their resource availability. Using this information, the Topology
 Manager stores the preferred NUMA Node affinity for that container. If the affinity is not
 preferred, Topology Manager will reject this pod from the node. This will result in a pod in a
 `Terminated` state with a pod admission failure.
@@ -190,16 +190,16 @@ reschedule the pod. It is recommended to use a ReplicaSet or Deployment to trigg
 the pod. An external control loop could be also implemented to trigger a redeployment of pods that
 have the `Topology Affinity` error.
 
-If the pod is admitted, the *Hint Providers* can then use this information when making the 
+If the pod is admitted, the _Hint Providers_ can then use this information when making the
 resource allocation decision.
 
 ### single-numa-node policy {#policy-single-numa-node}
 
 For each container in a Pod, the kubelet, with `single-numa-node` topology management policy,
-calls each Hint Provider to discover their resource availability.  Using this information, the
-Topology Manager determines if a single NUMA Node affinity is possible.  If it is, Topology
-Manager will store this and the *Hint Providers* can then use this information when making the
-resource allocation decision.  If, however, this is not possible then the Topology Manager will
+calls each Hint Provider to discover their resource availability. Using this information, the
+Topology Manager determines if a single NUMA Node affinity is possible. If it is, Topology
+Manager will store this and the _Hint Providers_ can then use this information when making the
+resource allocation decision. If, however, this is not possible then the Topology Manager will
 reject the pod from the node. This will result in a pod in a `Terminated` state with a pod
 admission failure.
 
@@ -214,11 +214,13 @@ Support for the Topology Manager policy options requires `TopologyManagerPolicyO
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 
 You can toggle groups of options on and off based upon their maturity level using the following feature gates:
-* `TopologyManagerPolicyBetaOptions` default disabled. Enable to show beta-level options. Currently there are no beta-level options.
-* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options. You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
+
+- `TopologyManagerPolicyBetaOptions` default disabled. Enable to show beta-level options. Currently there are no beta-level options.
+- `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options. You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
 
 The following policy options exists:
-* `prefer-closest-numa-nodes` (alpha, invisible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled)(1.26 or higher)
+
+- `prefer-closest-numa-nodes` (alpha, invisible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled)(1.26 or higher)
 
 If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
 policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
@@ -237,8 +239,8 @@ Consider the containers in the following pod specs:
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
+    - name: nginx
+      image: nginx
 ```
 
 This pod runs in the `BestEffort` QoS class because no resource `requests` or `limits` are specified.
@@ -246,13 +248,13 @@ This pod runs in the `BestEffort` QoS class because no resource `requests` or `l
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-      requests:
-        memory: "100Mi"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+        requests:
+          memory: "100Mi"
 ```
 
 This pod runs in the `Burstable` QoS class because requests are less than limits.
@@ -265,37 +267,36 @@ these Pods do not have explicitly request CPU resources.
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "2"
-        example.com/device: "1"
-      requests:
-        memory: "200Mi"
-        cpu: "2"
-        example.com/device: "1"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "2"
+          example.com/device: "1"
+        requests:
+          memory: "200Mi"
+          cpu: "2"
+          example.com/device: "1"
 ```
 
 This pod with integer CPU request runs in the `Guaranteed` QoS class because `requests` are equal
 to `limits`.
 
-
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "300m"
-        example.com/device: "1"
-      requests:
-        memory: "200Mi"
-        cpu: "300m"
-        example.com/device: "1"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          memory: "200Mi"
+          cpu: "300m"
+          example.com/device: "1"
+        requests:
+          memory: "200Mi"
+          cpu: "300m"
+          example.com/device: "1"
 ```
 
 This pod with sharing CPU request runs in the `Guaranteed` QoS class because `requests` are equal
@@ -304,21 +305,21 @@ to `limits`.
 ```yaml
 spec:
   containers:
-  - name: nginx
-    image: nginx
-    resources:
-      limits:
-        example.com/deviceA: "1"
-        example.com/deviceB: "1"
-      requests:
-        example.com/deviceA: "1"
-        example.com/deviceB: "1"
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          example.com/deviceA: "1"
+          example.com/deviceB: "1"
+        requests:
+          example.com/deviceA: "1"
+          example.com/deviceB: "1"
 ```
 
 This pod runs in the `BestEffort` QoS class because there are no CPU and memory requests.
 
 The Topology Manager would consider the above pods. The Topology Manager would consult the Hint
-Providers, which are CPU and Device Manager to get topology hints for the pods. 
+Providers, which are CPU and Device Manager to get topology hints for the pods.
 
 In the case of the `Guaranteed` pod with integer CPU request, the `static` CPU Manager policy
 would return topology hints relating to the exclusive CPU and the Device Manager would send back
@@ -337,7 +338,7 @@ of the requested devices.
 
 Using this information the Topology Manager calculates the optimal hint for the pod and stores
 this information, which will be used by the Hint Providers when they are making their resource
-assignments. 
+assignments.
 
 ### Known Limitations
 

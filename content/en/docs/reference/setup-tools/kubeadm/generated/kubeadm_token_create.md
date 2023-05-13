@@ -3,18 +3,15 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
 Create bootstrap tokens on the server
 
 ### Synopsis
-
-
 
 This command will create a bootstrap token for you.
 You can specify the usages for this token, the "time to live" and an optional human friendly description.
@@ -22,7 +19,6 @@ You can specify the usages for this token, the "time to live" and an optional hu
 The [token] is the actual token to write.
 This should be a securely generated random token of the form "[a-z0-9]{6}.[a-z0-9]{16}".
 If no [token] is given, kubeadm will generate a random token instead.
-
 
 ```
 kubeadm token create [token]
@@ -96,8 +92,6 @@ kubeadm token create [token]
 </tbody>
 </table>
 
-
-
 ### Options inherited from parent commands
 
    <table style="width: 100%; table-layout: fixed;">
@@ -130,6 +124,3 @@ kubeadm token create [token]
 
 </tbody>
 </table>
-
-
-

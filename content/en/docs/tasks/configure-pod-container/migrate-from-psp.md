@@ -1,8 +1,8 @@
 ---
 title: Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller
 reviewers:
-- tallclair
-- liggitt
+  - tallclair
+  - liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
 weight: 260
@@ -35,6 +35,7 @@ Admission. The following steps are one possible migration path, with a goal of m
 risks of a production outage and of a security gap.
 
 <!-- Keep section header numbering in sync with this list. -->
+
 0. Decide whether Pod Security Admission is the right fit for your use case.
 1. Review namespace permissions
 2. Simplify & standardize PodSecurityPolicies
@@ -74,7 +75,6 @@ Security Admission:
 Even if Pod Security Admission does not meet all of your needs it was designed to be _complementary_
 to other policy enforcement mechanisms, and can provide a useful fallback running alongside other
 admission webhooks.
-
 
 ## 1. Review namespace permissions {#review-namespace-permissions}
 
@@ -182,22 +182,22 @@ For each updated PodSecurityPolicy:
    you can compare the pod with the PodTemplate in the controller resource. If any changes are
    identified, the original Pod or PodTemplate should be updated with the desired configuration.
    The fields to review are:
-   - `.metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']` (replace * with each container name)
+   - `.metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']` (replace \* with each container name)
    - `.spec.runtimeClassName`
    - `.spec.securityContext.fsGroup`
    - `.spec.securityContext.seccompProfile`
    - `.spec.securityContext.seLinuxOptions`
    - `.spec.securityContext.supplementalGroups`
    - On containers, under `.spec.containers[*]` and `.spec.initContainers[*]`:
-       - `.securityContext.allowPrivilegeEscalation`
-       - `.securityContext.capabilities.add`
-       - `.securityContext.capabilities.drop`
-       - `.securityContext.readOnlyRootFilesystem`
-       - `.securityContext.runAsGroup`
-       - `.securityContext.runAsNonRoot`
-       - `.securityContext.runAsUser`
-       - `.securityContext.seccompProfile`
-       - `.securityContext.seLinuxOptions`
+     - `.securityContext.allowPrivilegeEscalation`
+     - `.securityContext.capabilities.add`
+     - `.securityContext.capabilities.drop`
+     - `.securityContext.readOnlyRootFilesystem`
+     - `.securityContext.runAsGroup`
+     - `.securityContext.runAsNonRoot`
+     - `.securityContext.runAsUser`
+     - `.securityContext.seccompProfile`
+     - `.securityContext.seLinuxOptions`
 3. Create the new PodSecurityPolicies. If any Roles or ClusterRoles are granting `use` on all PSPs
    this could cause the new PSPs to be used instead of their mutating counter-parts.
 4. Update your authorization to grant access to the new PSPs. In RBAC this means updating any Roles
@@ -252,10 +252,12 @@ includes several tools to help test and safely roll out profiles.
 
 First, you can dry-run the policy, which will evaluate pods currently running in the namespace
 against the applied policy, without making the new policy take effect:
+
 ```sh
 # $LEVEL is the level to dry-run, either "baseline" or "restricted".
 kubectl label --dry-run=server --overwrite ns $NAMESPACE pod-security.kubernetes.io/enforce=$LEVEL
 ```
+
 This command will return a warning for any _existing_ pods that are not valid under the proposed
 level.
 
@@ -264,6 +266,7 @@ running under audit-mode (as opposed to enforcing), pods that violate the policy
 in the audit logs, which can be reviewed later after some soak time, but are not forbidden. Warning
 mode works similarly, but returns the warning to the user immediately. You can set the audit level
 on a namespace with this command:
+
 ```sh
 kubectl label --overwrite ns $NAMESPACE pod-security.kubernetes.io/audit=$LEVEL
 ```

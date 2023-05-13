@@ -1,8 +1,8 @@
 ---
 title: Extend kubectl with plugins
 reviewers:
-- juanvallejo
-- soltysh
+  - juanvallejo
+  - soltysh
 description: Extend kubectl by creating and installing kubectl plugins.
 content_type: task
 ---
@@ -35,8 +35,8 @@ own risk, since they are arbitrary programs running on your machine.
 ### Discovering plugins
 
 `kubectl` provides a command `kubectl plugin list` that searches your `PATH` for valid plugin executables.
-Executing this command causes a traversal of all files in your `PATH`. Any files that are executable, and begin with `kubectl-` will show up *in the order in which they are present in your `PATH`* in this command's output.
-A warning will be included for any files beginning with `kubectl-` that are *not* executable.
+Executing this command causes a traversal of all files in your `PATH`. Any files that are executable, and begin with `kubectl-` will show up _in the order in which they are present in your `PATH`_ in this command's output.
+A warning will be included for any files beginning with `kubectl-` that are _not_ executable.
 A warning will also be included for any valid plugin files that overlap each other's name.
 
 You can use [Krew](https://krew.dev/) to discover and install `kubectl`
@@ -45,7 +45,7 @@ plugins from a community-curated
 
 #### Limitations
 
-It is currently not possible to create plugins that overwrite existing `kubectl` commands. For example, creating a plugin `kubectl-version` will cause that plugin to never be executed, as the existing `kubectl version` command will always take precedence over it. Due to this limitation, it is also *not* possible to use plugins to add new subcommands to existing `kubectl` commands. For example, adding a subcommand `kubectl create foo` by naming your plugin `kubectl-create-foo` will cause that plugin to be ignored.
+It is currently not possible to create plugins that overwrite existing `kubectl` commands. For example, creating a plugin `kubectl-version` will cause that plugin to never be executed, as the existing `kubectl version` command will always take precedence over it. Due to this limitation, it is also _not_ possible to use plugins to add new subcommands to existing `kubectl` commands. For example, adding a subcommand `kubectl create foo` by naming your plugin `kubectl-create-foo` will cause that plugin to be ignored.
 
 `kubectl plugin list` shows warnings for any valid plugins that attempt to do this.
 
@@ -356,7 +356,6 @@ Krew also maintains a [plugin
 index](https://krew.sigs.k8s.io/plugins/) so that other people can
 discover your plugin and install it.
 
-
 ### Native / platform specific package management {#distributing-native}
 
 Alternatively, you can use traditional package managers such as, `apt` or `yum`
@@ -377,9 +376,9 @@ installs easier.
 
 ## {{% heading "whatsnext" %}}
 
-* Check the Sample CLI Plugin repository for a
+- Check the Sample CLI Plugin repository for a
   [detailed example](https://github.com/kubernetes/sample-cli-plugin) of a
   plugin written in Go.
   In case of any questions, feel free to reach out to the
   [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
-* Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.
+- Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.

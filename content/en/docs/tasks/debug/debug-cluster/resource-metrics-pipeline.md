@@ -1,7 +1,7 @@
 ---
 reviewers:
-- fgrzadkowski
-- piosz
+  - fgrzadkowski
+  - piosz
 title: Resource metrics pipeline
 content_type: concept
 weight: 15
@@ -10,12 +10,12 @@ weight: 15
 <!-- overview -->
 
 For Kubernetes, the _Metrics API_ offers a basic set of metrics to support automatic scaling and
-similar use cases.  This API makes information available about resource usage for node and pod,
-including metrics for CPU and memory.  If you deploy the Metrics API into your cluster, clients of
+similar use cases. This API makes information available about resource usage for node and pod,
+including metrics for CPU and memory. If you deploy the Metrics API into your cluster, clients of
 the Kubernetes API can then query for this information, and you can use Kubernetes' access control
 mechanisms to manage permissions to do so.
 
-The [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)  (HPA) and
+The [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) and
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)
 use data from the metrics API to adjust workload replicas and resources to meet customer demand.
 
@@ -31,7 +31,6 @@ the simpler Metrics API by deploying a second
 [metrics pipeline](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)
 that uses the _Custom Metrics API_.
 {{< /note >}}
-
 
 Figure 1 illustrates the architecture of the resource metrics pipeline.
 
@@ -65,17 +64,17 @@ Figure 1. Resource Metrics Pipeline
 
 The architecture components, from right to left in the figure, consist of the following:
 
-* [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing
+- [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing
   container metrics included in Kubelet.
-* [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
+- [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
   resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
   API endpoints.
-* [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving
+- [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving
   per-node summarized stats available through the `/stats` endpoint.
-* [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource
+- [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource
   metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by
   the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
-* [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for
+- [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for
   workload autoscaling. To make this work in your cluster, you need an API extension server that
   provides the Metrics API.
 
@@ -90,6 +89,7 @@ The architecture components, from right to left in the figure, consist of the fo
 <!-- body -->
 
 ## Metrics API
+
 {{< feature-state for_k8s_version="1.8" state="beta" >}}
 
 The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage
@@ -177,7 +177,6 @@ To learn more about the Metrics API, see [resource metrics API design](https://g
 the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server) and the
 [resource metrics API](https://github.com/kubernetes/metrics#resource-metrics-api).
 
-
 {{< note >}}
 You must deploy the metrics-server or alternative adapter that serves the Metrics API to be able
 to access it.
@@ -229,8 +228,8 @@ selectors in the deployment.
 The metrics-server calls the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) API
 to collect metrics from each node. Depending on the metrics-server version it uses:
 
-* Metrics resource endpoint `/metrics/resource` in version v0.6.0+ or
-* Summary API endpoint `/stats/summary` in older versions
+- Metrics resource endpoint `/metrics/resource` in version v0.6.0+ or
+- Summary API endpoint `/stats/summary` in older versions
 
 ## {{% heading "whatsnext" %}}
 
@@ -239,11 +238,11 @@ To learn more about the metrics-server, see the
 
 You can also check out the following:
 
-* [metrics-server design](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
-* [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
-* [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
-* [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
-* [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
+- [metrics-server design](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
+- [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
+- [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
+- [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
+- [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
 
 To learn about how the kubelet serves node metrics, and how you can access those via
 the Kubernetes API, read [Node Metrics Data](/docs/reference/instrumentation/node-metrics).

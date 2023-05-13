@@ -7,6 +7,7 @@ min-kubernetes-server-version: v1.25
 ---
 
 <!-- overview -->
+
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
 This page explains how user namespaces are used in Kubernetes pods. A user
@@ -27,6 +28,7 @@ mitigate some future vulnerabilities too.
 [KEP-vulns]: https://github.com/kubernetes/enhancements/tree/217d790720c5aef09b8bd4d6ca96284a0affe6c2/keps/sig-node/127-user-namespaces#motivation
 
 <!-- body -->
+
 ## {{% heading "prerequisites" %}}
 
 {{% thirdparty-content %}}
@@ -34,9 +36,9 @@ mitigate some future vulnerabilities too.
 This is a Linux-only feature and support is needed in Linux for idmap mounts on
 the filesystems used. This means:
 
-* On the node, the filesystem you use for `/var/lib/kubelet/pods/`, or the
+- On the node, the filesystem you use for `/var/lib/kubelet/pods/`, or the
   custom directory you configure for this, needs idmap mount support.
-* All the filesystems used in the pod's volumes must support idmap mounts.
+- All the filesystems used in the pod's volumes must support idmap mounts.
 
 In practice this means you need at least Linux 6.3, as tmpfs started supporting
 idmap mounts in that version. This is usually needed as several Kubernetes
@@ -48,11 +50,12 @@ ext4, xfs, fat, tmpfs, overlayfs.
 
 <!-- When merging this with the dev-1.27 branch conflicts will arise. The text
 as it is in the dev-1.27 branch should be used. -->
-In addition, support is needed in the 
+
+In addition, support is needed in the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
 
-* CRI-O: version 1.25 (and later) supports user namespaces for containers.
+- CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
 Please note that containerd v1.7 supports user namespaces for containers,
 compatible with Kubernetes {{< skew currentVersion >}}. It should not be used
@@ -119,10 +122,11 @@ users in the host, it is limited what they can do to other pods too.
 
 Capabilities granted to a pod are also limited to the pod user namespace and
 mostly invalid out of it, some are even completely void. Here are two examples:
+
 - `CAP_SYS_MODULE` does not have any effect if granted to a pod using user
-namespaces, the pod isn't able to load kernel modules.
+  namespaces, the pod isn't able to load kernel modules.
 - `CAP_SYS_ADMIN` is limited to the pod's user namespace and invalid outside
-of it.
+  of it.
 
 Without using a user namespace a container running as root, in the case of a
 container breakout, has root privileges on the node. And if some capability were
@@ -155,19 +159,19 @@ When using a user namespace for the pod, it is disallowed to use other host
 namespaces. In particular, if you set `hostUsers: false` then you are not
 allowed to set any of:
 
- * `hostNetwork: true`
- * `hostIPC: true`
- * `hostPID: true`
+- `hostNetwork: true`
+- `hostIPC: true`
+- `hostPID: true`
 
 The pod is allowed to use no volumes at all or, if using volumes, only these
 volume types are allowed:
 
- * configmap
- * secret
- * projected
- * downwardAPI
- * emptyDir
+- configmap
+- secret
+- projected
+- downwardAPI
+- emptyDir
 
 ## {{% heading "whatsnext" %}}
 
-* Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
+- Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)

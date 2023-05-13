@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Reconfiguring a kubeadm cluster
 content_type: task
 weight: 30
@@ -22,7 +22,7 @@ to achieve kubeadm cluster reconfiguration.
 
 - You need a cluster that was deployed using kubeadm
 - Have administrator credentials (`/etc/kubernetes/admin.conf`) and network connectivity
-to a running kube-apiserver in the cluster from a host that has kubectl installed
+  to a running kube-apiserver in the cluster from a host that has kubectl installed
 - Have a text editor installed on all hosts
 
 <!-- steps -->
@@ -39,6 +39,7 @@ You can use the environment variables `KUBECONFIG` and `KUBE_EDITOR` to specify 
 the kubectl consumed kubeconfig file and preferred text editor.
 
 For example:
+
 ```
 KUBECONFIG=/etc/kubernetes/admin.conf KUBE_EDITOR=nano kubectl edit <parameters>
 ```
@@ -85,6 +86,7 @@ Any changes to the `ClusterConfiguration` under the `apiServer`, `controllerMana
 keys must be reflected in the associated files in the manifests directory on a control plane node.
 
 Such changes may include:
+
 - `extraArgs` - requires updating the list of flags passed to a component container
 - `extraMounts` - requires updated the volume mounts for a component container
 - `*SANs` - requires writing new certificates with updated Subject Alternative Names.
@@ -92,6 +94,7 @@ Such changes may include:
 Before proceeding with these changes, make sure you have backed up the directory `/etc/kubernetes/`.
 
 To write new certificates you can use:
+
 ```shell
 kubeadm init phase certs <component-name> --config <config-file>
 ```
@@ -129,11 +132,12 @@ The configuration is located under the `data.kubelet` key.
 #### Reflecting the kubelet changes
 
 To reflect the change on kubeadm nodes you must do the following:
+
 - Log in to a kubeadm node
 - Run `kubeadm upgrade node phase kubelet-config` to download the latest `kubelet-config`
-ConfigMap contents into the local file `/var/lib/kubelet/config.conf`
+  ConfigMap contents into the local file `/var/lib/kubelet/config.conf`
 - Edit the file `/var/lib/kubelet/kubeadm-flags.env` to apply additional configuration with
-flags
+  flags
 - Restart the kubelet service with `systemctl restart kubelet`
 
 {{< note >}}

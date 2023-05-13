@@ -94,7 +94,7 @@ discovery:
     apiServerEndpoint: 10.100.0.1:6443
     token: "clvldh.vjjwg16ucnhp94qr"
     caCertHashes:
-    - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
+      - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
     # change auth info above to match the actual token and CA certificate hash for your cluster
 nodeRegistration:
   kubeletExtraArgs:
@@ -116,12 +116,11 @@ discovery:
     apiServerEndpoint: 10.100.0.1:6443
     token: "clvldh.vjjwg16ucnhp94qr"
     caCertHashes:
-    - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
+      - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
     # change auth info above to match the actual token and CA certificate hash for your cluster
 nodeRegistration:
   kubeletExtraArgs:
     node-ip: 10.100.0.4,fd00:1:2:3::4
-
 ```
 
 `advertiseAddress` in JoinConfiguration.controlPlane specifies the IP address that the API Server will advertise it is listening on. The value of `advertiseAddress` equals the `--apiserver-advertise-address` flag of `kubeadm join`.
@@ -151,6 +150,6 @@ networking:
 
 ## {{% heading "whatsnext" %}}
 
-* [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
-* Read about [Dual-stack](/docs/concepts/services-networking/dual-stack/) cluster networking
-* Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/)
+- [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
+- Read about [Dual-stack](/docs/concepts/services-networking/dual-stack/) cluster networking
+- Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/)

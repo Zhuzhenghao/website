@@ -28,9 +28,9 @@ The `env` and `envFrom` fields have different effects.
 
 `envFrom`
 : allows you to set environment variables for a container by referencing either a ConfigMap or a Secret.
- When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret
- are set as environment variables for the container.
- You can also specify a common prefix string.
+When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret
+are set as environment variables for the container.
+You can also specify a common prefix string.
 
 You can read more about [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
 and [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
@@ -109,24 +109,23 @@ metadata:
   name: print-greeting
 spec:
   containers:
-  - name: env-print-demo
-    image: bash
-    env:
-    - name: GREETING
-      value: "Warm greetings to"
-    - name: HONORIFIC
-      value: "The Most Honorable"
-    - name: NAME
-      value: "Kubernetes"
-    command: ["echo"]
-    args: ["$(GREETING) $(HONORIFIC) $(NAME)"]
+    - name: env-print-demo
+      image: bash
+      env:
+        - name: GREETING
+          value: "Warm greetings to"
+        - name: HONORIFIC
+          value: "The Most Honorable"
+        - name: NAME
+          value: "Kubernetes"
+      command: ["echo"]
+      args: ["$(GREETING) $(HONORIFIC) $(NAME)"]
 ```
 
 Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes` is run on the container.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
-* Learn about [using secrets as environment variables](/docs/concepts/configuration/secret/#using-secrets-as-environment-variables).
-* See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
-
+- Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
+- Learn about [using secrets as environment variables](/docs/concepts/configuration/secret/#using-secrets-as-environment-variables).
+- See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).

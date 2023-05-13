@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -24,7 +24,6 @@ guide. You can file document formatting bugs against the
 `apiVersion: storage.k8s.io/v1`
 
 `import "k8s.io/api/storage/v1"`
-
 
 ## VolumeAttachment {#VolumeAttachment}
 
@@ -36,9 +35,7 @@ VolumeAttachment objects are non-namespaced.
 
 - **apiVersion**: storage.k8s.io/v1
 
-
 - **kind**: VolumeAttachment
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -51,10 +48,6 @@ VolumeAttachment objects are non-namespaced.
 - **status** (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentStatus" >}}">VolumeAttachmentStatus</a>)
 
   status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-
-
-
-
 
 ## VolumeAttachmentSpec {#VolumeAttachmentSpec}
 
@@ -75,7 +68,7 @@ VolumeAttachmentSpec is the specification of a VolumeAttachment request.
   source represents the volume that should be attached.
 
   <a name="VolumeAttachmentSource"></a>
-  *VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.*
+  _VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set._
 
   - **source.inlineVolumeSpec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
 
@@ -84,10 +77,6 @@ VolumeAttachmentSpec is the specification of a VolumeAttachment request.
   - **source.persistentVolumeName** (string)
 
     persistentVolumeName represents the name of the persistent volume to attach.
-
-
-
-
 
 ## VolumeAttachmentStatus {#VolumeAttachmentStatus}
 
@@ -104,7 +93,7 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
   attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 
   <a name="VolumeError"></a>
-  *VolumeError captures an error encountered during a volume operation.*
+  _VolumeError captures an error encountered during a volume operation._
 
   - **attachError.message** (string)
 
@@ -115,7 +104,7 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
     time represents the time the error was encountered.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
 - **attachmentMetadata** (map[string]string)
 
@@ -126,7 +115,7 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
   detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
 
   <a name="VolumeError"></a>
-  *VolumeError captures an error encountered during a volume operation.*
+  _VolumeError captures an error encountered during a volume operation._
 
   - **detachError.message** (string)
 
@@ -137,11 +126,7 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
     time represents the time the error was encountered.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-
-
-
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
 ## VolumeAttachmentList {#VolumeAttachmentList}
 
@@ -151,9 +136,7 @@ VolumeAttachmentList is a collection of VolumeAttachment objects.
 
 - **apiVersion**: storage.k8s.io/v1
 
-
 - **kind**: VolumeAttachmentList
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -163,20 +146,9 @@ VolumeAttachmentList is a collection of VolumeAttachment objects.
 
   items is the list of VolumeAttachments
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `get` read the specified VolumeAttachment
 
@@ -186,25 +158,19 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the VolumeAttachment
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 401: Unauthorized
-
 
 ### `get` read status of the specified VolumeAttachment
 
@@ -214,25 +180,19 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the VolumeAttachment
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind VolumeAttachment
 
@@ -242,70 +202,55 @@ GET /apis/storage.k8s.io/v1/volumeattachments
 
 #### Parameters
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentList" >}}">VolumeAttachmentList</a>): OK
 
 401: Unauthorized
-
 
 ### `create` create a VolumeAttachment
 
@@ -315,35 +260,25 @@ POST /apis/storage.k8s.io/v1/volumeattachments
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
@@ -352,7 +287,6 @@ POST /apis/storage.k8s.io/v1/volumeattachments
 202 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Accepted
 
 401: Unauthorized
-
 
 ### `update` replace the specified VolumeAttachment
 
@@ -362,47 +296,35 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the VolumeAttachment
 
-
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
 
 401: Unauthorized
-
 
 ### `update` replace status of the specified VolumeAttachment
 
@@ -412,47 +334,35 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the VolumeAttachment
 
-
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update the specified VolumeAttachment
 
@@ -462,52 +372,39 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the VolumeAttachment
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update status of the specified VolumeAttachment
 
@@ -517,52 +414,39 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the VolumeAttachment
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
 
 401: Unauthorized
-
 
 ### `delete` delete a VolumeAttachment
 
@@ -572,47 +456,35 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the VolumeAttachment
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 202 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Accepted
 
 401: Unauthorized
-
 
 ### `deletecollection` delete collection of VolumeAttachment
 
@@ -622,77 +494,58 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

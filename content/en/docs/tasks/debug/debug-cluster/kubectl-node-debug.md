@@ -5,17 +5,16 @@ min-kubernetes-server-version: 1.20
 ---
 
 <!-- overview -->
+
 This page shows how to debug a [node](/docs/concepts/architecture/nodes/)
 running on the Kubernetes cluster using `kubectl debug` command.
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 You need to have permission to create Pods and to assign those new Pods to arbitrary nodes.
 You also need to be authorized to create Pods that access filesystems from the host.
-
 
 <!-- steps -->
 
@@ -36,7 +35,7 @@ If you don't see a command prompt, try pressing enter.
 root@mynode:/#
 ```
 
-The debug command helps to gather information and troubleshoot issues. Commands 
+The debug command helps to gather information and troubleshoot issues. Commands
 that you might use include `ip`, `ifconfig`, `nc`, `ping`, and `ps` and so on. You can also
 install other tools, such as `mtr`, `tcpdump`, and `curl`, from the respective package manager.
 
@@ -69,10 +68,10 @@ you can look at the following paths to find relevant logs:
 
 When creating a debugging session on a Node, keep in mind that:
 
-* `kubectl debug` automatically generates the name of the new pod, based on
+- `kubectl debug` automatically generates the name of the new pod, based on
   the name of the node.
-* The root filesystem of the Node will be mounted at `/host`.
-* Although the container runs in the host IPC, Network, and PID namespaces,
+- The root filesystem of the Node will be mounted at `/host`.
+- Although the container runs in the host IPC, Network, and PID namespaces,
   the pod isn't privileged. This means that reading some process information might fail
   because access to that information is restricted to superusers. For example, `chroot /host` will fail.
   If you need a privileged pod, create it manually.
@@ -88,12 +87,12 @@ kubectl get pods
 ```none
 NAME                          READY   STATUS       RESTARTS   AGE
 node-debugger-mynode-pdx84    0/1     Completed    0          8m1s
-```	
+```
 
 ```shell
 # Change the pod name accordingly
 kubectl delete pod node-debugger-mynode-pdx84 --now
-```	
+```
 
 ```none
 pod "node-debugger-mynode-pdx84" deleted

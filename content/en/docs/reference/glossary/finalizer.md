@@ -6,11 +6,12 @@ full_link: /docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   A namespaced key that tells Kubernetes to wait until specific conditions are met
   before it fully deletes an object marked for deletion.
-aka: 
+aka:
 tags:
-- fundamental
-- operation
+  - fundamental
+  - operation
 ---
+
 Finalizers are namespaced keys that tell Kubernetes to wait until specific
 conditions are met before it fully deletes resources marked for deletion.
 Finalizers alert {{<glossary_tooltip text="controllers" term_id="controller">}}

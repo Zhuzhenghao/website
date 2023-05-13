@@ -6,11 +6,12 @@ short_description: >
   An organization that offers a cloud computing platform.
 
 aka:
-- Cloud Service Provider
+  - Cloud Service Provider
 tags:
-- community
+  - community
 ---
- A business or other organization that offers a cloud computing platform.
+
+A business or other organization that offers a cloud computing platform.
 
 <!--more-->
 

@@ -8,9 +8,10 @@ short_description: >
 
 aka:
 tags:
-- extension
+  - extension
 ---
-  The lifecycle hooks expose events in the {{< glossary_tooltip text="Container" term_id="container" >}} management lifecycle and let the user run code when the events occur.
+
+The lifecycle hooks expose events in the {{< glossary_tooltip text="Container" term_id="container" >}} management lifecycle and let the user run code when the events occur.
 
 <!--more-->
 

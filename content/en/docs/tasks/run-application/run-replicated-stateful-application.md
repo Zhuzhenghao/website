@@ -1,11 +1,11 @@
 ---
 reviewers:
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
+  - enisoc
+  - erictune
+  - foxish
+  - janetkuo
+  - kow3ns
+  - smarterclayton
 title: Run a Replicated Stateful Application
 content_type: tutorial
 weight: 30

@@ -12,8 +12,8 @@ You can use environment variables to expose Pod fields, container fields, or bot
 
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
 
-* _Environment variables_, as explained in this task
-* [Volume files](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+- _Environment variables_, as explained in this task
+- [Volume files](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 Together, these two ways of exposing Pod and container fields are called the
 downward API.
@@ -154,18 +154,17 @@ The output shows the values of selected environment variables:
 
 ## {{% heading "whatsnext" %}}
 
-
-* Read [Defining Environment Variables for a Container](/docs/tasks/inject-data-application/define-environment-variable-container/)
-* Read the [`spec`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+- Read [Defining Environment Variables for a Container](/docs/tasks/inject-data-application/define-environment-variable-container/)
+- Read the [`spec`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
   API definition for Pod. This includes the definition of Container (part of Pod).
-* Read the list of [available fields](/docs/concepts/workloads/pods/downward-api/#available-fields) that you
+- Read the list of [available fields](/docs/concepts/workloads/pods/downward-api/#available-fields) that you
   can expose using the downward API.
 
 Read about Pods, containers and environment variables in the legacy API reference:
 
-* [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* [EnvVar](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)
-* [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)
-* [ObjectFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectfieldselector-v1-core)
-* [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
+- [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
+- [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+- [EnvVar](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)
+- [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)
+- [ObjectFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectfieldselector-v1-core)
+- [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)

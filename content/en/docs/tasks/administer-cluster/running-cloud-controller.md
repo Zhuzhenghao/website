@@ -1,8 +1,8 @@
 ---
 reviewers:
-- luxas
-- thockin
-- wlan0
+  - luxas
+  - thockin
+  - wlan0
 title: Cloud Controller Manager Administration
 content_type: concept
 weight: 110
@@ -35,36 +35,36 @@ Every cloud has their own set of requirements for running their own cloud provid
 integration, it should not be too different from the requirements when running
 `kube-controller-manager`. As a general rule of thumb you'll need:
 
-* cloud authentication/authorization: your cloud may require a token or IAM rules
+- cloud authentication/authorization: your cloud may require a token or IAM rules
   to allow access to their APIs
-* kubernetes authentication/authorization: cloud-controller-manager may need RBAC
+- kubernetes authentication/authorization: cloud-controller-manager may need RBAC
   rules set to speak to the kubernetes apiserver
-* high availability: like kube-controller-manager, you may want a high available
+- high availability: like kube-controller-manager, you may want a high available
   setup for cloud controller manager using leader election (on by default).
 
 ### Running cloud-controller-manager
 
 Successfully running cloud-controller-manager requires some changes to your cluster configuration.
 
-* `kube-apiserver` and `kube-controller-manager` MUST NOT specify the `--cloud-provider`
+- `kube-apiserver` and `kube-controller-manager` MUST NOT specify the `--cloud-provider`
   flag. This ensures that it does not run any cloud specific loops that would be run by
   cloud controller manager. In the future, this flag will be deprecated and removed.
-* `kubelet` must run with `--cloud-provider=external`. This is to ensure that the
+- `kubelet` must run with `--cloud-provider=external`. This is to ensure that the
   kubelet is aware that it must be initialized by the cloud controller manager
   before it is scheduled any work.
 
 Keep in mind that setting up your cluster to use cloud controller manager will
 change your cluster behaviour in a few ways:
 
-* kubelets specifying `--cloud-provider=external` will add a taint
- `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule`
- during initialization. This marks the node as needing a second initialization
- from an external controller before it can be scheduled work. Note that in the
- event that cloud controller manager is not available, new nodes in the cluster
- will be left unschedulable. The taint is important since the scheduler may
- require cloud specific information about nodes such as their region or type
- (high cpu, gpu, high memory, spot instance, etc).
-* cloud information about nodes in the cluster will no longer be retrieved using
+- kubelets specifying `--cloud-provider=external` will add a taint
+  `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule`
+  during initialization. This marks the node as needing a second initialization
+  from an external controller before it can be scheduled work. Note that in the
+  event that cloud controller manager is not available, new nodes in the cluster
+  will be left unschedulable. The taint is important since the scheduler may
+  require cloud specific information about nodes such as their region or type
+  (high cpu, gpu, high memory, spot instance, etc).
+- cloud information about nodes in the cluster will no longer be retrieved using
   local metadata, but instead all API calls to retrieve node information will go
   through cloud controller manager. This may mean you can restrict access to your
   cloud API on the kubelets for better security. For larger clusters you may want
@@ -73,12 +73,12 @@ change your cluster behaviour in a few ways:
 
 The cloud controller manager can implement:
 
-* Node controller - responsible for updating kubernetes nodes using cloud APIs
+- Node controller - responsible for updating kubernetes nodes using cloud APIs
   and deleting kubernetes nodes that were deleted on your cloud.
-* Service controller - responsible for loadbalancers on your cloud against
+- Service controller - responsible for loadbalancers on your cloud against
   services of type LoadBalancer.
-* Route controller - responsible for setting up network routes on your cloud
-* any other features you would like to implement if you are running an out-of-tree provider.
+- Route controller - responsible for setting up network routes on your cloud
+- any other features you would like to implement if you are running an out-of-tree provider.
 
 ## Examples
 

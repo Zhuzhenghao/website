@@ -1,6 +1,6 @@
 ---
 reviewers:
-- nelvadas
+  - nelvadas
 title: Limit Ranges
 content_type: concept
 weight: 10
@@ -9,7 +9,7 @@ weight: 10
 <!-- overview -->
 
 By default, containers run with unbounded [compute resources](/docs/concepts/configuration/manage-resources-containers/) on a Kubernetes cluster.
-Using  Kubernetes [resource quotas](/docs/concepts/policy/resource-quotas/),
+Using Kubernetes [resource quotas](/docs/concepts/policy/resource-quotas/),
 administrators (also termed _cluster operators_) can restrict consumption and creation
 of cluster resources (such as CPU time, memory, and persistent storage) within a specified
 {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
@@ -26,7 +26,6 @@ A _LimitRange_ provides constraints that can:
 - Enforce a ratio between request and limit for a resource in a namespace.
 - Set default request/limit for compute resources in a namespace and automatically inject them to Containers at runtime.
 
-
 A LimitRange is enforced in a particular namespace when there is a
 LimitRange object in that namespace.
 
@@ -41,7 +40,7 @@ The name of a LimitRange object must be a valid
 - Second, the `LimitRange` tracks usage to ensure it does not exceed resource minimum, maximum and ratio defined in any `LimitRange` present in the namespace.
 - If you attempt to create or update an object (Pod or PersistentVolumeClaim) that violates a `LimitRange` constraint, your request to the API server will fail with an HTTP status code `403 Forbidden` and a message explaining the constraint that has been violated.
 - If you add a `LimitRange` in a namespace that applies to compute-related resources such as
- `cpu` and `memory`, you must specify
+  `cpu` and `memory`, you must specify
   requests or limits for those values. Otherwise, the system may reject Pod creation.
 - `LimitRange` validations occur only at Pod admission stage, not on running Pods.
   If you add or modify a LimitRange, the Pods that already exist in that namespace
@@ -56,13 +55,12 @@ For example, you define a `LimitRange` with this manifest:
 
 {{< codenew file="concepts/policy/limit-range/problematic-limit-range.yaml" >}}
 
-
 along with a Pod that declares a CPU resource request of `700m`, but not a limit:
 
 {{< codenew file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" >}}
 
-
 then that Pod will not be scheduled, failing with an error similar to:
+
 ```
 Pod "example-conflict-with-limitrange-cpu" is invalid: spec.containers[0].resources.requests: Invalid value: "700m": must be less than or equal to cpu limit
 ```
@@ -95,4 +93,3 @@ For examples on using limits, see:
 - a [detailed example on configuring quota per namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/).
 
 Refer to the [LimitRanger design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md) for context and historical information.
-

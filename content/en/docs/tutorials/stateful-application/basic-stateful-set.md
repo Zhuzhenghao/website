@@ -1,34 +1,34 @@
 ---
 reviewers:
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
+  - enisoc
+  - erictune
+  - foxish
+  - janetkuo
+  - kow3ns
+  - smarterclayton
 title: StatefulSet Basics
 content_type: tutorial
 weight: 10
 ---
 
 <!-- overview -->
+
 This tutorial provides an introduction to managing applications with
 {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}.
 It demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
-
 
 ## {{% heading "prerequisites" %}}
 
 Before you begin this tutorial, you should familiarize yourself with the
 following Kubernetes concepts:
 
-* [Pods](/docs/concepts/workloads/pods/)
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
-* The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
+- [Pods](/docs/concepts/workloads/pods/)
+- [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
+- [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+- [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
+- [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
+- [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
+- The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
 
 {{< note >}}
 This tutorial assumes that your cluster is configured to dynamically provision
@@ -47,11 +47,11 @@ topic with the latter, you will deploy a simple web application using a Stateful
 
 After this tutorial, you will be familiar with the following.
 
-* How to create a StatefulSet
-* How a StatefulSet manages its Pods
-* How to delete a StatefulSet
-* How to scale a StatefulSet
-* How to update a StatefulSet's Pods
+- How to create a StatefulSet
+- How a StatefulSet manages its Pods
+- How to delete a StatefulSet
+- How to scale a StatefulSet
+- How to update a StatefulSet's Pods
 
 <!-- lessoncontent -->
 
@@ -82,6 +82,7 @@ headless Service and StatefulSet defined in `web.yaml`.
 ```shell
 kubectl apply -f web.yaml
 ```
+
 ```
 service/nginx created
 statefulset.apps/web created
@@ -89,17 +90,22 @@ statefulset.apps/web created
 
 The command above creates two Pods, each running an
 [NGINX](https://www.nginx.com) webserver. Get the `nginx` Service...
+
 ```shell
 kubectl get service nginx
 ```
+
 ```
 NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 nginx     ClusterIP    None         <none>        80/TCP    12s
 ```
+
 ...then get the `web` StatefulSet, to verify that both were created successfully:
+
 ```shell
 kubectl get statefulset web
 ```
+
 ```
 NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
@@ -115,6 +121,7 @@ look like the example below.
 ```shell
 kubectl get pods -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     0/1       Pending   0          0s
@@ -147,6 +154,7 @@ Get the StatefulSet's Pods:
 ```shell
 kubectl get pods -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          1m
@@ -169,6 +177,7 @@ Each Pod has a stable hostname based on its ordinal index. Use
 ```shell
 for i in 0 1; do kubectl exec "web-$i" -- sh -c 'hostname'; done
 ```
+
 ```
 web-0
 web-1
@@ -182,12 +191,16 @@ addresses:
 ```shell
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
+
 which starts a new shell. In that new shell, run:
+
 ```shell
 # Run this in the dns-test container shell
 nslookup web-0.nginx
 ```
+
 The output is similar to:
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -214,6 +227,7 @@ In one terminal, watch the StatefulSet's Pods:
 ```shell
 kubectl get pod -w -l app=nginx
 ```
+
 In a second terminal, use
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete all
 the Pods in the StatefulSet:
@@ -221,6 +235,7 @@ the Pods in the StatefulSet:
 ```shell
 kubectl delete pod -l app=nginx
 ```
+
 ```
 pod "web-0" deleted
 pod "web-1" deleted
@@ -232,6 +247,7 @@ Running and Ready:
 ```shell
 kubectl get pod -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     0/1       ContainerCreating   0          0s
@@ -249,21 +265,28 @@ DNS entries. First, view the Pods' hostnames:
 ```shell
 for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
 ```
+
 ```
 web-0
 web-1
 ```
+
 then, run:
+
 ```shell
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
+
 which starts a new shell.  
 In that new shell, run:
+
 ```shell
 # Run this in the dns-test container shell
 nslookup web-0.nginx
 ```
+
 The output is similar to:
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -286,7 +309,6 @@ but the IP addresses associated with the Pods may have changed. In the cluster
 used for this tutorial, they have. This is why it is important not to configure
 other applications to connect to Pods in a StatefulSet by IP address.
 
-
 If you need to find and connect to the active members of a StatefulSet, you
 should query the CNAME of the headless Service
 (`nginx.default.svc.cluster.local`). The SRV records associated with the
@@ -307,7 +329,9 @@ Get the PersistentVolumeClaims for `web-0` and `web-1`:
 ```shell
 kubectl get pvc -l app=nginx
 ```
+
 The output is similar to:
+
 ```
 NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           48s
@@ -335,6 +359,7 @@ for i in 0 1; do kubectl exec "web-$i" -- sh -c 'echo "$(hostname)" > /usr/share
 
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -362,16 +387,19 @@ In a second terminal, delete all of the StatefulSet's Pods:
 ```shell
 kubectl delete pod -l app=nginx
 ```
+
 ```
 pod "web-0" deleted
 pod "web-1" deleted
 ```
+
 Examine the output of the `kubectl get` command in the first terminal, and wait
 for all of the Pods to transition to Running and Ready.
 
 ```shell
 kubectl get pod -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     0/1       ContainerCreating   0          0s
@@ -388,6 +416,7 @@ Verify the web servers continue to serve their hostnames:
 ```
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -420,6 +449,7 @@ to 5:
 ```shell
 kubectl scale sts web --replicas=5
 ```
+
 ```
 statefulset.apps/web scaled
 ```
@@ -430,6 +460,7 @@ for the three additional Pods to transition to Running and Ready.
 ```shell
 kubectl get pods -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          2h
@@ -469,6 +500,7 @@ three replicas:
 ```shell
 kubectl patch sts web -p '{"spec":{"replicas":3}}'
 ```
+
 ```
 statefulset.apps/web patched
 ```
@@ -478,6 +510,7 @@ Wait for `web-4` and `web-3` to transition to Terminating.
 ```shell
 kubectl get pods -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          3h
@@ -504,6 +537,7 @@ Get the StatefulSet's PersistentVolumeClaims:
 ```shell
 kubectl get pvc -l app=nginx
 ```
+
 ```
 NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           13h
@@ -519,7 +553,7 @@ When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that
 
 ## Updating StatefulSets
 
-In Kubernetes 1.7 and later, the StatefulSet controller supports automated updates.  The
+In Kubernetes 1.7 and later, the StatefulSet controller supports automated updates. The
 strategy used is determined by the `spec.updateStrategy` field of the
 StatefulSet API Object. This feature can be used to upgrade the container
 images, resource requests and/or limits, labels, and annotations of the Pods in a
@@ -538,6 +572,7 @@ Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy:
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
 ```
+
 ```
 statefulset.apps/web patched
 ```
@@ -548,6 +583,7 @@ image again:
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
 ```
+
 ```
 statefulset.apps/web patched
 ```
@@ -557,7 +593,9 @@ In another terminal, watch the Pods in the StatefulSet:
 ```shell
 kubectl get pod -l app=nginx -w
 ```
+
 The output is similar to:
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          7m
@@ -610,6 +648,7 @@ Get the Pods to view their container images:
 ```shell
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
+
 ```
 registry.k8s.io/nginx-slim:0.8
 registry.k8s.io/nginx-slim:0.8
@@ -636,6 +675,7 @@ Patch the `web` StatefulSet to add a partition to the `updateStrategy` field:
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
 ```
+
 ```
 statefulset.apps/web patched
 ```
@@ -645,6 +685,7 @@ Patch the StatefulSet again to change the container's image:
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
 ```
+
 ```
 statefulset.apps/web patched
 ```
@@ -654,6 +695,7 @@ Delete a Pod in the StatefulSet:
 ```shell
 kubectl delete pod web-2
 ```
+
 ```
 pod "web-2" deleted
 ```
@@ -663,6 +705,7 @@ Wait for the Pod to be Running and Ready.
 ```shell
 kubectl get pod -l app=nginx -w
 ```
+
 ```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
@@ -676,6 +719,7 @@ Get the Pod's container image:
 ```shell
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
+
 ```
 registry.k8s.io/nginx-slim:0.8
 ```
@@ -695,6 +739,7 @@ Patch the StatefulSet to decrement the partition:
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
 ```
+
 ```
 statefulset.apps/web patched
 ```
@@ -704,6 +749,7 @@ Wait for `web-2` to be Running and Ready.
 ```shell
 kubectl get pod -l app=nginx -w
 ```
+
 ```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
@@ -717,6 +763,7 @@ Get the Pod's container:
 ```shell
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
+
 ```
 registry.k8s.io/nginx-slim:0.7
 
@@ -731,6 +778,7 @@ Delete the `web-1` Pod:
 ```shell
 kubectl delete pod web-1
 ```
+
 ```
 pod "web-1" deleted
 ```
@@ -740,7 +788,9 @@ Wait for the `web-1` Pod to be Running and Ready.
 ```shell
 kubectl get pod -l app=nginx -w
 ```
+
 The output is similar to:
+
 ```
 NAME      READY     STATUS        RESTARTS   AGE
 web-0     1/1       Running       0          6m
@@ -760,6 +810,7 @@ Get the `web-1` Pod's container image:
 ```shell
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
+
 ```
 registry.k8s.io/nginx-slim:0.8
 ```
@@ -784,6 +835,7 @@ The partition is currently set to `2`. Set the partition to `0`:
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
 ```
+
 ```
 statefulset.apps/web patched
 ```
@@ -793,7 +845,9 @@ Wait for all of the Pods in the StatefulSet to become Running and Ready.
 ```shell
 kubectl get pod -l app=nginx -w
 ```
+
 The output is similar to:
+
 ```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          3m
@@ -817,6 +871,7 @@ Get the container image details for the Pods in the StatefulSet:
 ```shell
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
+
 ```
 registry.k8s.io/nginx-slim:0.7
 registry.k8s.io/nginx-slim:0.7
@@ -833,7 +888,6 @@ When you select this update strategy, the StatefulSet controller will not
 automatically update Pods when a modification is made to the StatefulSet's
 `.spec.template` field. This strategy can be selected by setting the
 `.spec.template.updateStrategy.type` to `OnDelete`.
-
 
 ## Deleting StatefulSets
 
@@ -857,6 +911,7 @@ not delete any of its Pods.
 ```shell
 kubectl delete statefulset web --cascade=orphan
 ```
+
 ```
 statefulset.apps "web" deleted
 ```
@@ -866,6 +921,7 @@ Get the Pods, to examine their status:
 ```shell
 kubectl get pods -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          6m
@@ -879,6 +935,7 @@ Delete `web-0`:
 ```shell
 kubectl delete pod web-0
 ```
+
 ```
 pod "web-0" deleted
 ```
@@ -888,6 +945,7 @@ Get the StatefulSet's Pods:
 ```shell
 kubectl get pods -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-1     1/1       Running   0          10m
@@ -909,6 +967,7 @@ an error indicating that the Service already exists.
 ```shell
 kubectl apply -f web.yaml
 ```
+
 ```
 statefulset.apps/web created
 service/nginx unchanged
@@ -922,6 +981,7 @@ Examine the output of the `kubectl get` command running in the first terminal.
 ```shell
 kubectl get pods -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-1     1/1       Running   0          16m
@@ -1108,6 +1168,7 @@ In another terminal, create the StatefulSet and Service in the manifest:
 ```shell
 kubectl apply -f web-parallel.yaml
 ```
+
 ```
 service/nginx created
 statefulset.apps/web created
@@ -1118,6 +1179,7 @@ Examine the output of the `kubectl get` command that you executed in the first t
 ```shell
 kubectl get pod -l app=nginx -w
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     0/1       Pending   0          0s
@@ -1138,6 +1200,7 @@ StatefulSet:
 ```shell
 kubectl scale statefulset/web --replicas=4
 ```
+
 ```
 statefulset.apps/web scaled
 ```
@@ -1153,7 +1216,6 @@ web-2     1/1       Running   0         10s
 web-3     1/1       Running   0         26s
 ```
 
-
 The StatefulSet launched two new Pods, and it did not wait for
 the first to become Running and Ready prior to launching the second.
 
@@ -1168,9 +1230,11 @@ kubectl delete sts web
 ```
 
 You can watch `kubectl get` to see those Pods being deleted.
+
 ```shell
 kubectl get pod -l app=nginx -w
 ```
+
 ```
 web-3     1/1       Terminating   0         9m
 web-2     1/1       Terminating   0         9m
@@ -1212,6 +1276,7 @@ Delete the persistent storage media for the PersistentVolumes used in this tutor
 ```shell
 kubectl get pvc
 ```
+
 ```
 NAME        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 www-web-0   Bound    pvc-2bf00408-d366-4a12-bad0-1869c65d0bee   1Gi        RWO            standard       25m
@@ -1224,6 +1289,7 @@ www-web-4   Bound    pvc-b2c73489-e70b-4a4e-9ec1-9eab439aa43e   1Gi        RWO  
 ```shell
 kubectl get pv
 ```
+
 ```
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM               STORAGECLASS   REASON   AGE
 pvc-0c04d7f0-787a-4977-8da3-d9d3a6d8d752   1Gi        RWO            Delete           Bound    default/www-web-3   standard                15m
@@ -1252,6 +1318,7 @@ kubectl get pvc
 ```
 No resources found in default namespace.
 ```
+
 {{< note >}}
 You also need to delete the persistent storage media for the PersistentVolumes
 used in this tutorial.

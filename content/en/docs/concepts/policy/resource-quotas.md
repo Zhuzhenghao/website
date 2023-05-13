@@ -1,6 +1,6 @@
 ---
 reviewers:
-- derekwaynecarr
+  - derekwaynecarr
 title: Resource Quotas
 content_type: concept
 weight: 20
@@ -16,7 +16,7 @@ Resource quotas are a tool for administrators to address this concern.
 <!-- body -->
 
 A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
-aggregate resource consumption per namespace.  It can limit the quantity of objects that can
+aggregate resource consumption per namespace. It can limit the quantity of objects that can
 be created in a namespace by type, as well as the total amount of compute resources that may
 be consumed by resources in that namespace.
 
@@ -33,23 +33,24 @@ Resource quotas work like this:
   status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
 
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
-  requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
+  requests or limits for those values; otherwise, the quota system may reject pod creation. Hint: Use
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
 
   See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
   for an example of how to avoid this problem.
 
 {{< note >}}
+
 - For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
-(new) pod in that namespace sets a limit for that resource.
-If you enforce a resource quota in a namespace for either `cpu` or `memory`,
-you, and other clients, **must** specify either `requests` or `limits` for that resource,
-for every new Pod you submit. If you don't, the control plane may reject admission
-for that Pod.
+  (new) pod in that namespace sets a limit for that resource.
+  If you enforce a resource quota in a namespace for either `cpu` or `memory`,
+  you, and other clients, **must** specify either `requests` or `limits` for that resource,
+  for every new Pod you submit. If you don't, the control plane may reject admission
+  for that Pod.
 - For other resources: ResourceQuota works and will ignore pods in the namespace without setting a limit or request for that resource. It means that you can create a new pod without limit/request ephemeral storage if the resource quota limits the ephemeral storage of this namespace.
-You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
-a default request for these resources.
-{{< /note >}}
+  You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
+  a default request for these resources.
+  {{< /note >}}
 
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -58,11 +59,11 @@ Examples of policies that could be created using namespaces and quotas are:
 
 - In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 GiB and 10 cores,
   let B use 10GiB and 4 cores, and hold 2GiB and 2 cores in reserve for future allocation.
-- Limit the "testing" namespace to using 1 core and 1GiB RAM.  Let the "production" namespace
+- Limit the "testing" namespace to using 1 core and 1GiB RAM. Let the "production" namespace
   use any amount.
 
 In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
-there may be contention for resources.  This is handled on a first-come-first-served basis.
+there may be contention for resources. This is handled on a first-come-first-served basis.
 
 Neither contention nor changes to quota will affect already created resources.
 
@@ -84,15 +85,15 @@ that can be requested in a given namespace.
 
 The following resource types are supported:
 
-| Resource Name | Description |
-| --------------------- | ----------------------------------------------------------- |
-| `limits.cpu` | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value. |
-| `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
-| `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
-| `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
+| Resource Name      | Description                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `limits.cpu`       | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value.                                  |
+| `limits.memory`    | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value.                               |
+| `requests.cpu`     | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value.                                |
+| `requests.memory`  | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value.                             |
 | `hugepages-<size>` | Across all pods in a non-terminal state, the number of huge page requests of the specified size cannot exceed this value. |
-| `cpu` | Same as `requests.cpu` |
-| `memory` | Same as `requests.memory` |
+| `cpu`              | Same as `requests.cpu`                                                                                                    |
+| `memory`           | Same as `requests.memory`                                                                                                 |
 
 ### Resource Quota For Extended Resources
 
@@ -106,10 +107,9 @@ with prefix `requests.` is allowed for now.
 Take the GPU resource as an example, if the resource name is `nvidia.com/gpu`, and you want to
 limit the total number of GPUs requested in a namespace to 4, you can define a quota as follows:
 
-* `requests.nvidia.com/gpu: 4`
+- `requests.nvidia.com/gpu: 4`
 
 See [Viewing and Setting Quotas](#viewing-and-setting-quotas) for more detail information.
-
 
 ## Storage Resource Quota
 
@@ -117,26 +117,26 @@ You can limit the total sum of [storage resources](/docs/concepts/storage/persis
 
 In addition, you can limit consumption of storage resources based on associated storage-class.
 
-| Resource Name | Description |
-| --------------------- | ----------------------------------------------------------- |
-| `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
-| `persistentvolumeclaims` | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
-| `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | Across all persistent volume claims associated with the `<storage-class-name>`, the sum of storage requests cannot exceed this value. |
+| Resource Name                                                             | Description                                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `requests.storage`                                                        | Across all persistent volume claims, the sum of storage requests cannot exceed this value.                                                                                                                                         |
+| `persistentvolumeclaims`                                                  | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace.                                                                                   |
+| `<storage-class-name>.storageclass.storage.k8s.io/requests.storage`       | Across all persistent volume claims associated with the `<storage-class-name>`, the sum of storage requests cannot exceed this value.                                                                                              |
 | `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the `<storage-class-name>`, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
 define a quota as follows:
 
-* `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
-* `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
+- `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
+- `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
 
 In release 1.8, quota support for local ephemeral storage is added as an alpha feature:
 
-| Resource Name | Description |
-| ------------------------------- |----------------------------------------------------------- |
+| Resource Name                | Description                                                                                             |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `requests.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage requests cannot exceed this value. |
-| `limits.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage limits cannot exceed this value. |
-| `ephemeral-storage` | Same as `requests.ephemeral-storage`. |
+| `limits.ephemeral-storage`   | Across all pods in the namespace, the sum of local ephemeral storage limits cannot exceed this value.   |
+| `ephemeral-storage`          | Same as `requests.ephemeral-storage`.                                                                   |
 
 {{< note >}}
 When using a CRI container runtime, container logs will count against the ephemeral storage quota.
@@ -149,27 +149,27 @@ Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) 
 You can set quota for the total number of certain resources of all standard,
 namespaced resource types using the following syntax:
 
-* `count/<resource>.<group>` for resources from non-core groups
-* `count/<resource>` for resources from the core group
+- `count/<resource>.<group>` for resources from non-core groups
+- `count/<resource>` for resources from the core group
 
 Here is an example set of resources users may want to put under object count quota:
 
-* `count/persistentvolumeclaims`
-* `count/services`
-* `count/secrets`
-* `count/configmaps`
-* `count/replicationcontrollers`
-* `count/deployments.apps`
-* `count/replicasets.apps`
-* `count/statefulsets.apps`
-* `count/jobs.batch`
-* `count/cronjobs.batch`
+- `count/persistentvolumeclaims`
+- `count/services`
+- `count/secrets`
+- `count/configmaps`
+- `count/replicationcontrollers`
+- `count/deployments.apps`
+- `count/replicasets.apps`
+- `count/statefulsets.apps`
+- `count/jobs.batch`
+- `count/cronjobs.batch`
 
 The same syntax can be used for custom resources.
 For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
 
 When using `count/*` resource quota, an object is charged against the quota if it exists in server storage.
-These types of quotas are useful to protect against exhaustion of storage resources.  For example, you may
+These types of quotas are useful to protect against exhaustion of storage resources. For example, you may
 want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
 actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
 a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
@@ -177,17 +177,17 @@ a poorly configured CronJob. CronJobs that create too many Jobs in a namespace c
 It is also possible to do generic object count quota on a limited set of resources.
 The following types are supported:
 
-| Resource Name | Description |
-| ------------------------------- | ------------------------------------------------- |
-| `configmaps` | The total number of ConfigMaps that can exist in the namespace. |
-| `persistentvolumeclaims` | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
-| `pods` | The total number of Pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `.status.phase in (Failed, Succeeded)` is true.  |
-| `replicationcontrollers` | The total number of ReplicationControllers that can exist in the namespace. |
-| `resourcequotas` | The total number of ResourceQuotas that can exist in the namespace. |
-| `services` | The total number of Services that can exist in the namespace. |
-| `services.loadbalancers` | The total number of Services of type `LoadBalancer` that can exist in the namespace. |
-| `services.nodeports` | The total number of Services of type `NodePort` that can exist in the namespace. |
-| `secrets` | The total number of Secrets that can exist in the namespace. |
+| Resource Name            | Description                                                                                                                                                       |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `configmaps`             | The total number of ConfigMaps that can exist in the namespace.                                                                                                   |
+| `persistentvolumeclaims` | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace.                  |
+| `pods`                   | The total number of Pods in a non-terminal state that can exist in the namespace. A pod is in a terminal state if `.status.phase in (Failed, Succeeded)` is true. |
+| `replicationcontrollers` | The total number of ReplicationControllers that can exist in the namespace.                                                                                       |
+| `resourcequotas`         | The total number of ResourceQuotas that can exist in the namespace.                                                                                               |
+| `services`               | The total number of Services that can exist in the namespace.                                                                                                     |
+| `services.loadbalancers` | The total number of Services of type `LoadBalancer` that can exist in the namespace.                                                                              |
+| `services.nodeports`     | The total number of Services of type `NodePort` that can exist in the namespace.                                                                                  |
+| `secrets`                | The total number of Secrets that can exist in the namespace.                                                                                                      |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
 created in a single namespace that are not terminal. You might want to set a `pods`
@@ -202,29 +202,29 @@ the intersection of enumerated scopes.
 When a scope is added to the quota, it limits the number of resources it supports to those that pertain to the scope.
 Resources specified on the quota outside of the allowed set results in a validation error.
 
-| Scope | Description |
-| ----- | ----------- |
-| `Terminating` | Match pods where `.spec.activeDeadlineSeconds >= 0` |
-| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds is nil` |
-| `BestEffort` | Match pods that have best effort quality of service. |
-| `NotBestEffort` | Match pods that do not have best effort quality of service. |
-| `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
-| `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
+| Scope                       | Description                                                                                                            |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `Terminating`               | Match pods where `.spec.activeDeadlineSeconds >= 0`                                                                    |
+| `NotTerminating`            | Match pods where `.spec.activeDeadlineSeconds is nil`                                                                  |
+| `BestEffort`                | Match pods that have best effort quality of service.                                                                   |
+| `NotBestEffort`             | Match pods that do not have best effort quality of service.                                                            |
+| `PriorityClass`             | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
+| `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node).   |
 
 The `BestEffort` scope restricts a quota to tracking the following resource:
 
-* `pods`
+- `pods`
 
 The `Terminating`, `NotTerminating`, `NotBestEffort` and `PriorityClass`
 scopes restrict a quota to tracking the following resources:
 
-* `pods`
-* `cpu`
-* `memory`
-* `requests.cpu`
-* `requests.memory`
-* `limits.cpu`
-* `limits.memory`
+- `pods`
+- `cpu`
+- `memory`
+- `requests.cpu`
+- `requests.memory`
+- `limits.cpu`
+- `limits.memory`
 
 Note that you cannot specify both the `Terminating` and the `NotTerminating`
 scopes in the same quota, and you cannot specify both the `BestEffort` and
@@ -232,32 +232,32 @@ scopes in the same quota, and you cannot specify both the `BestEffort` and
 
 The `scopeSelector` supports the following values in the `operator` field:
 
-* `In`
-* `NotIn`
-* `Exists`
-* `DoesNotExist`
+- `In`
+- `NotIn`
+- `Exists`
+- `DoesNotExist`
 
 When using one of the following values as the `scopeName` when defining the
-`scopeSelector`, the `operator` must be `Exists`. 
+`scopeSelector`, the `operator` must be `Exists`.
 
-* `Terminating`
-* `NotTerminating`
-* `BestEffort`
-* `NotBestEffort`
+- `Terminating`
+- `NotTerminating`
+- `BestEffort`
+- `NotBestEffort`
 
 If the `operator` is `In` or `NotIn`, the `values` field must have at least
 one value. For example:
 
 ```yaml
-  scopeSelector:
-    matchExpressions:
-      - scopeName: PriorityClass
-        operator: In
-        values:
-          - middle
+scopeSelector:
+  matchExpressions:
+    - scopeName: PriorityClass
+      operator: In
+      values:
+        - middle
 ```
 
-If the `operator` is `Exists` or `DoesNotExist`, the `values` field must *NOT* be
+If the `operator` is `Exists` or `DoesNotExist`, the `values` field must _NOT_ be
 specified.
 
 ### Resource Quota Per PriorityClass
@@ -273,16 +273,16 @@ A quota is matched and consumed only if `scopeSelector` in the quota spec select
 When quota is scoped for priority class using `scopeSelector` field, quota object
 is restricted to track only following resources:
 
-* `pods`
-* `cpu`
-* `memory`
-* `ephemeral-storage`
-* `limits.cpu`
-* `limits.memory`
-* `limits.ephemeral-storage`
-* `requests.cpu`
-* `requests.memory`
-* `requests.ephemeral-storage`
+- `pods`
+- `cpu`
+- `memory`
+- `ephemeral-storage`
+- `limits.cpu`
+- `limits.memory`
+- `limits.ephemeral-storage`
+- `requests.cpu`
+- `requests.memory`
+- `requests.ephemeral-storage`
 
 This example creates a quota object and matches it with pods at specific priorities. The example
 works as follows:
@@ -296,48 +296,48 @@ Save the following YAML to a file `quota.yml`.
 apiVersion: v1
 kind: List
 items:
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-high
-  spec:
-    hard:
-      cpu: "1000"
-      memory: 200Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator : In
-        scopeName: PriorityClass
-        values: ["high"]
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-medium
-  spec:
-    hard:
-      cpu: "10"
-      memory: 20Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator : In
-        scopeName: PriorityClass
-        values: ["medium"]
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-low
-  spec:
-    hard:
-      cpu: "5"
-      memory: 10Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator : In
-        scopeName: PriorityClass
-        values: ["low"]
+  - apiVersion: v1
+    kind: ResourceQuota
+    metadata:
+      name: pods-high
+    spec:
+      hard:
+        cpu: "1000"
+        memory: 200Gi
+        pods: "10"
+      scopeSelector:
+        matchExpressions:
+          - operator: In
+            scopeName: PriorityClass
+            values: ["high"]
+  - apiVersion: v1
+    kind: ResourceQuota
+    metadata:
+      name: pods-medium
+    spec:
+      hard:
+        cpu: "10"
+        memory: 20Gi
+        pods: "10"
+      scopeSelector:
+        matchExpressions:
+          - operator: In
+            scopeName: PriorityClass
+            values: ["medium"]
+  - apiVersion: v1
+    kind: ResourceQuota
+    metadata:
+      name: pods-low
+    spec:
+      hard:
+        cpu: "5"
+        memory: 10Gi
+        pods: "10"
+      scopeSelector:
+        matchExpressions:
+          - operator: In
+            scopeName: PriorityClass
+            values: ["low"]
 ```
 
 Apply the YAML using `kubectl create`.
@@ -396,17 +396,17 @@ metadata:
   name: high-priority
 spec:
   containers:
-  - name: high-priority
-    image: ubuntu
-    command: ["/bin/sh"]
-    args: ["-c", "while true; do echo hello; sleep 10;done"]
-    resources:
-      requests:
-        memory: "10Gi"
-        cpu: "500m"
-      limits:
-        memory: "10Gi"
-        cpu: "500m"
+    - name: high-priority
+      image: ubuntu
+      command: ["/bin/sh"]
+      args: ["-c", "while true; do echo hello; sleep 10;done"]
+      resources:
+        requests:
+          memory: "10Gi"
+          cpu: "500m"
+        limits:
+          memory: "10Gi"
+          cpu: "500m"
   priorityClassName: high
 ```
 
@@ -460,10 +460,10 @@ have pods with affinity terms that cross namespaces. Specifically, it controls w
 to set `namespaces` or `namespaceSelector` fields in pod affinity terms.
 
 Preventing users from using cross-namespace affinity terms might be desired since a pod
-with anti-affinity constraints can block pods from all other namespaces 
-from getting scheduled in a failure domain. 
+with anti-affinity constraints can block pods from all other namespaces
+from getting scheduled in a failure domain.
 
-Using this scope operators can prevent certain namespaces (`foo-ns` in the example below) 
+Using this scope operators can prevent certain namespaces (`foo-ns` in the example below)
 from having pods that use cross-namespace pod affinity by creating a resource quota object in
 that namespace with `CrossNamespaceAffinity` scope and hard limit of 0:
 
@@ -478,11 +478,11 @@ spec:
     pods: "0"
   scopeSelector:
     matchExpressions:
-    - scopeName: CrossNamespaceAffinity
+      - scopeName: CrossNamespaceAffinity
 ```
 
-If operators want to disallow using `namespaces` and `namespaceSelector` by default, and 
-only allow it for specific namespaces, they could configure `CrossNamespaceAffinity` 
+If operators want to disallow using `namespaces` and `namespaceSelector` by default, and
+only allow it for specific namespaces, they could configure `CrossNamespaceAffinity`
 as a limited resource by setting the kube-apiserver flag --admission-control-config-file
 to the path of the following configuration file:
 
@@ -490,18 +490,18 @@ to the path of the following configuration file:
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-- name: "ResourceQuota"
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: ResourceQuotaConfiguration
-    limitedResources:
-    - resource: pods
-      matchScopes:
-      - scopeName: CrossNamespaceAffinity
+  - name: "ResourceQuota"
+    configuration:
+      apiVersion: apiserver.config.k8s.io/v1
+      kind: ResourceQuotaConfiguration
+      limitedResources:
+        - resource: pods
+          matchScopes:
+            - scopeName: CrossNamespaceAffinity
 ```
 
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
-if the namespace where they are created have a resource quota object with 
+if the namespace where they are created have a resource quota object with
 `CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
 
 ## Requests compared to Limits {#requests-vs-limits}
@@ -510,7 +510,7 @@ When allocating compute resources, each container may specify a request and a li
 The quota can be configured to quota either value.
 
 If the quota has a value specified for `requests.cpu` or `requests.memory`, then it requires that every incoming
-container makes an explicit request for those resources.  If the quota has a value specified for `limits.cpu` or `limits.memory`,
+container makes an explicit request for those resources. If the quota has a value specified for `limits.cpu` or `limits.memory`,
 then it requires that every incoming container specifies an explicit limit for those resources.
 
 ## Viewing and Setting Quotas
@@ -640,7 +640,7 @@ count/secrets                 1     4
 ## Quota and Cluster Capacity
 
 ResourceQuotas are independent of the cluster capacity. They are
-expressed in absolute units.  So, if you add nodes to your cluster, this does *not*
+expressed in absolute units. So, if you add nodes to your cluster, this does _not_
 automatically give each namespace the ability to consume more resources.
 
 Sometimes more complex policies may be desired, such as:
@@ -659,7 +659,7 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 ## Limit Priority Class consumption by default
 
-It may be desired that pods at a particular priority, eg. "cluster-services", 
+It may be desired that pods at a particular priority, eg. "cluster-services",
 should be allowed in a namespace, if and only if, a matching quota object exists.
 
 With this mechanism, operators are able to restrict usage of certain high
@@ -673,16 +673,16 @@ used to pass path to the following configuration file:
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-- name: "ResourceQuota"
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: ResourceQuotaConfiguration
-    limitedResources:
-    - resource: pods
-      matchScopes:
-      - scopeName: PriorityClass
-        operator: In
-        values: ["cluster-services"]
+  - name: "ResourceQuota"
+    configuration:
+      apiVersion: apiserver.config.k8s.io/v1
+      kind: ResourceQuotaConfiguration
+      limitedResources:
+        - resource: pods
+          matchScopes:
+            - scopeName: PriorityClass
+              operator: In
+              values: ["cluster-services"]
 ```
 
 Then, create a resource quota object in the `kube-system` namespace:
@@ -702,7 +702,7 @@ In this case, a pod creation will be allowed if:
 1.  the Pod's `priorityClassName` is not specified.
 1.  the Pod's `priorityClassName` is specified to a value other than `cluster-services`.
 1.  the Pod's `priorityClassName` is set to `cluster-services`, it is to be created
-   in the `kube-system` namespace, and it has passed the resource quota check.
+    in the `kube-system` namespace, and it has passed the resource quota check.
 
 A Pod creation request is rejected if its `priorityClassName` is set to `cluster-services`
 and it is to be created in a namespace other than `kube-system`.

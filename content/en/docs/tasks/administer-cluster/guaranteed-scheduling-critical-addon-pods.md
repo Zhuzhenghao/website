@@ -1,8 +1,8 @@
 ---
 reviewers:
-- davidopp
-- filipg
-- piosz
+  - davidopp
+  - filipg
+  - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
 content_type: concept
 weight: 220

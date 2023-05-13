@@ -15,22 +15,19 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
-
 `import "k8s.io/apimachinery/pkg/api/resource"`
-
 
 Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.
 
 The serialization format is:
 
-``` \<quantity>        ::= \<signedNumber>\<suffix>
+````<quantity> ::= <signedNumber><suffix>
 
 	(Note that \<suffix> may be empty, from the "" case in \<decimalSI>.)
 
@@ -70,3 +67,4 @@ This format is intended to make it difficult to use these numbers without writin
 
 
 
+````

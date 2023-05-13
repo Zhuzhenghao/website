@@ -1,8 +1,8 @@
 ---
 title: Cluster Administration
 reviewers:
-- davidopp
-- lavalamp
+  - davidopp
+  - lavalamp
 weight: 100
 content_type: concept
 description: >
@@ -20,7 +20,7 @@ It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 ## Planning a cluster
 
 See the guides in [Setup](/docs/setup/) for examples of how to plan, set up, and configure
-Kubernetes clusters. The solutions listed in this article are called *distros*.
+Kubernetes clusters. The solutions listed in this article are called _distros_.
 
 {{< note  >}}
 Not all distros are actively maintained. Choose distros which have been tested with a recent
@@ -45,49 +45,48 @@ Before choosing a guide, here are some considerations:
 
 ## Managing a cluster
 
-* Learn how to [manage nodes](/docs/concepts/architecture/nodes/).
+- Learn how to [manage nodes](/docs/concepts/architecture/nodes/).
 
-* Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
+- Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 
 ## Securing a cluster
 
-* [Generate Certificates](/docs/tasks/administer-cluster/certificates/) describes the steps to
+- [Generate Certificates](/docs/tasks/administer-cluster/certificates/) describes the steps to
   generate certificates using different tool chains.
 
-* [Kubernetes Container Environment](/docs/concepts/containers/container-environment/) describes
+- [Kubernetes Container Environment](/docs/concepts/containers/container-environment/) describes
   the environment for Kubelet managed containers on a Kubernetes node.
 
-* [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access) describes
+- [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access) describes
   how Kubernetes implements access control for its own API.
 
-* [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in
+- [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in
   Kubernetes, including the various authentication options.
 
-* [Authorization](/docs/reference/access-authn-authz/authorization/) is separate from
+- [Authorization](/docs/reference/access-authn-authz/authorization/) is separate from
   authentication, and controls how HTTP calls are handled.
 
-* [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
+- [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
   explains plug-ins which intercepts requests to the Kubernetes API server after authentication
   and authorization.
 
-* [Using Sysctls in a Kubernetes Cluster](/docs/tasks/administer-cluster/sysctl-cluster/)
+- [Using Sysctls in a Kubernetes Cluster](/docs/tasks/administer-cluster/sysctl-cluster/)
   describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters
-.
+  .
 
-* [Auditing](/docs/tasks/debug/debug-cluster/audit/) describes how to interact with Kubernetes'
+- [Auditing](/docs/tasks/debug/debug-cluster/audit/) describes how to interact with Kubernetes'
   audit logs.
 
 ### Securing the kubelet
 
-* [Control Plane-Node communication](/docs/concepts/architecture/control-plane-node-communication/)
-* [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
-* [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/)
+- [Control Plane-Node communication](/docs/concepts/architecture/control-plane-node-communication/)
+- [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+- [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/)
 
 ## Optional Cluster Services
 
-* [DNS Integration](/docs/concepts/services-networking/dns-pod-service/) describes how to resolve
+- [DNS Integration](/docs/concepts/services-networking/dns-pod-service/) describes how to resolve
   a DNS name directly to a Kubernetes service.
 
-* [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/)
+- [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/)
   explains how logging in Kubernetes works and how to implement it.
-

@@ -8,6 +8,7 @@ weight: 20
 ---
 
 <!-- overview -->
+
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 Kubernetes provides a [device plugin framework](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)
@@ -35,9 +36,9 @@ service Registration {
 A device plugin can register itself with the kubelet through this gRPC service.
 During the registration, the device plugin needs to send:
 
-* The name of its Unix socket.
-* The Device Plugin API version against which it was built.
-* The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
+- The name of its Unix socket.
+- The Device Plugin API version against which it was built.
+- The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
   [extended resource naming scheme](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
   as `vendor-domain/resourcetype`.
   (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
@@ -53,8 +54,9 @@ Then, users can request devices as part of a Pod specification
 (see [`container`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)).
 Requesting extended resources is similar to how you manage requests and limits for
 other resources, with the following differences:
-* Extended resources are only supported as integer resources and cannot be overcommitted.
-* Devices cannot be shared between containers.
+
+- Extended resources are only supported as integer resources and cannot be overcommitted.
+- Devices cannot be shared between containers.
 
 ### Example {#example-pod}
 
@@ -185,8 +187,8 @@ version compatibility, read [Device Plugin API versions](/docs/reference/node/de
 
 As a project, Kubernetes recommends that device plugin developers:
 
-* Watch for Device Plugin API changes in the future releases.
-* Support multiple versions of the device plugin API for backward/forward compatibility.
+- Watch for Device Plugin API changes in the future releases.
+- Support multiple versions of the device plugin API for backward/forward compatibility.
 
 To run device plugins on nodes that need to be upgraded to a Kubernetes release with
 a newer device plugin API version, upgrade your device plugins to support both versions
@@ -300,15 +302,17 @@ message CDIDevice {
     string name = 1;
 }
 ```
+
 {{< note >}}
 cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
 to a particular container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
 endpoint needs to be used in conjunction with the `GetAllocatableResources` endpoint as explained
 below:
+
 1. Call `GetAllocatableResources` to get a list of all the allocatable CPUs
 2. Call `GetCpuIds` on all `ContainerResources` in the system
 3. Subtract out all of the CPUs from the `GetCpuIds` calls from the `GetAllocatableResources` call
-{{< /note >}}
+   {{< /note >}}
 
 ### `GetAllocatableResources` gRPC endpoint {#grpc-endpoint-getallocatableresources}
 
@@ -436,24 +440,24 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 Here are some examples of device plugin implementations:
 
-* The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
+- The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+- The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
-* The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
+- The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
   hardware-assisted virtualization
-* The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
-* The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
-* The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
-* The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
-* The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin) for Xilinx FPGA devices
+- The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
+- The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
+- The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
+- The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
+- The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
+- The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin) for Xilinx FPGA devices
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device
+- Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device
   plugins
-* Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/)
+- Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/)
   on a node
-* Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
-* Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
+- Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
+- Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
   with Kubernetes

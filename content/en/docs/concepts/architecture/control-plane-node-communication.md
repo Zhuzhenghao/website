@@ -1,12 +1,12 @@
 ---
 reviewers:
-- dchen1107
-- liggitt
+  - dchen1107
+  - liggitt
 title: Communication between Nodes and the Control Plane
 content_type: concept
 weight: 20
 aliases:
-- master-node-communication
+  - master-node-communication
 ---
 
 <!-- overview -->
@@ -60,9 +60,9 @@ functionality.
 
 The connections from the API server to the kubelet are used for:
 
-* Fetching logs for pods.
-* Attaching (usually through `kubectl`) to running pods.
-* Providing the kubelet's port-forwarding functionality.
+- Fetching logs for pods.
+- Attaching (usually through `kubectl`) to running pods.
+- Providing the kubelet's port-forwarding functionality.
 
 These connections terminate at the kubelet's HTTPS endpoint. By default, the API server does not
 verify the kubelet's serving certificate, which makes the connection subject to man-in-the-middle
@@ -74,7 +74,6 @@ server with a root certificate bundle to use to verify the kubelet's serving cer
 If that is not possible, use [SSH tunneling](#ssh-tunnels) between the API server and kubelet if
 required to avoid connecting over an
 untrusted or public network.
-
 
 Finally, [Kubelet authentication and/or authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/)
 should be enabled to secure the kubelet API.
@@ -120,10 +119,10 @@ up the Konnectivity service in your cluster.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about the [Kubernetes control plane components](/docs/concepts/overview/components/#control-plane-components)
-* Learn more about [Hubs and Spoke model](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
-* Learn how to [Secure a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) 
-* Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* [Set up Konnectivity service](/docs/tasks/extend-kubernetes/setup-konnectivity/)
-* [Use Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* Learn how to [Fetch logs for Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [use kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)
+- Read about the [Kubernetes control plane components](/docs/concepts/overview/components/#control-plane-components)
+- Learn more about [Hubs and Spoke model](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
+- Learn how to [Secure a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
+- Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+- [Set up Konnectivity service](/docs/tasks/extend-kubernetes/setup-konnectivity/)
+- [Use Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+- Learn how to [Fetch logs for Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [use kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)

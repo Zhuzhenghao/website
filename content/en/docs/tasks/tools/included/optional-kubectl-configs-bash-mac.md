@@ -22,7 +22,7 @@ There are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2
 script **doesn't work** correctly with bash-completion v1 and Bash 3.2.
 It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to
 correctly use kubectl completion on macOS, you have to install and use
-Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)).
+Bash 4.1+ ([_instructions_](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)).
 The following instructions assume that you use Bash 4.1+
 (that is, any Bash version of 4.1 or newer).
 {{< /warning >}}
@@ -79,31 +79,31 @@ your shell sessions. There are multiple ways to achieve this:
 
 - Source the completion script in your `~/.bash_profile` file:
 
-    ```bash
-    echo 'source <(kubectl completion bash)' >>~/.bash_profile
-    ```
+  ```bash
+  echo 'source <(kubectl completion bash)' >>~/.bash_profile
+  ```
 
 - Add the completion script to the `/usr/local/etc/bash_completion.d` directory:
 
-    ```bash
-    kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
-    ```
+  ```bash
+  kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+  ```
 
 - If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
-    ```bash
-    echo 'alias k=kubectl' >>~/.bash_profile
-    echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
-    ```
+  ```bash
+  echo 'alias k=kubectl' >>~/.bash_profile
+  echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
+  ```
 
 - If you installed kubectl with Homebrew (as explained
   [here](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)),
   then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`.
   In that case, you don't need to do anything.
 
-   {{< note >}}
-   The Homebrew installation of bash-completion v2 sources all the files in the
-   `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
-   {{< /note >}}
+  {{< note >}}
+  The Homebrew installation of bash-completion v2 sources all the files in the
+  `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
+  {{< /note >}}
 
 In any case, after reloading your shell, kubectl completion should be working.

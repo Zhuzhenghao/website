@@ -1,12 +1,13 @@
 ---
 title: Kubernetes API health endpoints
 reviewers:
-- logicalhan
+  - logicalhan
 content_type: concept
 weight: 50
 ---
 
 <!-- overview -->
+
 The Kubernetes {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} provides API endpoints to indicate the current status of the API server.
 This page describes these API endpoints and explains how you can use them.
 

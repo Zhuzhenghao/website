@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Creating a cluster with kubeadm
 content_type: task
 weight: 30
@@ -27,20 +27,16 @@ of cloud servers, a Raspberry Pi, and more. Whether you're deploying into the
 cloud or on-premises, you can integrate `kubeadm` into provisioning systems such
 as Ansible or Terraform.
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 To follow this guide, you need:
 
 - One or more machines running a deb/rpm-compatible Linux OS; for example: Ubuntu or CentOS.
 - 2 GiB or more of RAM per machine--any less leaves little room for your
-   apps.
+  apps.
 - At least 2 CPUs on the machine that you use as a control-plane node.
 - Full network connectivity among all machines in the cluster. You can use either a
   public or a private network.
-
 
 You also need to use a version of `kubeadm` that can deploy the version
 of Kubernetes that you want to use in your new cluster.
@@ -58,14 +54,12 @@ slightly as the tool evolves, but the overall implementation should be pretty st
 Any commands under `kubeadm alpha` are, by definition, supported on an alpha level.
 {{< /note >}}
 
-
-
 <!-- steps -->
 
 ## Objectives
 
-* Install a single control-plane Kubernetes cluster
-* Install a Pod network on the cluster so that your Pods can
+- Install a single control-plane Kubernetes cluster
+- Install a Pod network on the cluster so that your Pods can
   talk to each other
 
 ## Instructions
@@ -108,21 +102,21 @@ The control-plane node is the machine where the control plane components run, in
 communicates with).
 
 1. (Recommended) If you have plans to upgrade this single control-plane `kubeadm` cluster
-to high availability you should specify the `--control-plane-endpoint` to set the shared endpoint
-for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
+   to high availability you should specify the `--control-plane-endpoint` to set the shared endpoint
+   for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
 1. Choose a Pod network add-on, and verify whether it requires any arguments to
-be passed to `kubeadm init`. Depending on which
-third-party provider you choose, you might need to set the `--pod-network-cidr` to
-a provider-specific value. See [Installing a Pod network add-on](#pod-network).
+   be passed to `kubeadm init`. Depending on which
+   third-party provider you choose, you might need to set the `--pod-network-cidr` to
+   a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 1. (Optional) `kubeadm` tries to detect the container runtime by using a list of well
-known endpoints. To use different container runtime or if there are more than one installed
-on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
-[Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
+   known endpoints. To use different container runtime or if there are more than one installed
+   on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
+   [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
-with the default gateway to set the advertise address for this particular control-plane node's API server.
-To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
+   with the default gateway to set the advertise address for this particular control-plane node's API server.
+   To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
+   to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
+   must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 
 To initialize the control-plane node run:
 
@@ -323,11 +317,11 @@ scheduler will then be able to schedule Pods everywhere.
 
 The nodes are where your workloads (containers and Pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
-* SSH to the machine
-* Become root (e.g. `sudo su -`)
-* [Install a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)
+- SSH to the machine
+- Become root (e.g. `sudo su -`)
+- [Install a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)
   if needed
-* Run the command that was output by `kubeadm init`. For example:
+- Run the command that was output by `kubeadm init`. For example:
 
   ```bash
   kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
@@ -479,6 +473,7 @@ ipvsadm -C
 ```
 
 Now remove the node:
+
 ```bash
 kubectl delete node <node name>
 ```
@@ -495,36 +490,34 @@ See the [`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
 reference documentation for more information about this subcommand and its
 options.
 
-
-
 <!-- discussion -->
 
 ## What's next {#whats-next}
 
-* Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
-* <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
+- <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
-* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
-* See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
+- Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
+- Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
+- See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
   of Pod network add-ons.
-* <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
+- <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
   explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
   control of your Kubernetes cluster.
-* Configure how your cluster handles logs for cluster events and from
+- Configure how your cluster handles logs for cluster events and from
   applications running in Pods.
   See [Logging Architecture](/docs/concepts/cluster-administration/logging/) for
   an overview of what is involved.
 
 ### Feedback {#feedback}
 
-* For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* For support, visit the
+- For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
+- For support, visit the
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack channel
-* General SIG Cluster Lifecycle development Slack channel:
+- General SIG Cluster Lifecycle development Slack channel:
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
-* SIG Cluster Lifecycle mailing list:
+- SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+- SIG Cluster Lifecycle mailing list:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
 ## Version skew policy {#version-skew-policy}
@@ -542,8 +535,9 @@ field when using `--config`. This option will control the versions
 of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 
 Example:
-* kubeadm is at {{< skew currentVersion >}}
-* `kubernetesVersion` must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
+
+- kubeadm is at {{< skew currentVersion >}}
+- `kubernetesVersion` must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 
 ### kubeadm's skew against the kubelet
 
@@ -551,8 +545,9 @@ Similarly to the Kubernetes version, kubeadm can be used with a kubelet version 
 version as kubeadm or one version older.
 
 Example:
-* kubeadm is at {{< skew currentVersion >}}
-* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
+
+- kubeadm is at {{< skew currentVersion >}}
+- kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 
 ### kubeadm's skew against kubeadm
 
@@ -565,17 +560,19 @@ the same node with `kubeadm upgrade`. Similar rules apply to the rest of the kub
 with the exception of `kubeadm upgrade`.
 
 Example for `kubeadm join`:
-* kubeadm version {{< skew currentVersion >}} was used to create a cluster with `kubeadm init`
-* Joining nodes must use a kubeadm binary that is at version {{< skew currentVersion >}}
+
+- kubeadm version {{< skew currentVersion >}} was used to create a cluster with `kubeadm init`
+- Joining nodes must use a kubeadm binary that is at version {{< skew currentVersion >}}
 
 Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
 version or one MINOR version newer than the version of kubeadm used for managing the
 node.
 
 Example for `kubeadm upgrade`:
-* kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
-* The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
-or {{< skew currentVersion >}}
+
+- kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
+- The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
+  or {{< skew currentVersion >}}
 
 To learn more about the version skew between the different Kubernetes component see
 the [Version Skew Policy](/releases/version-skew-policy/).
@@ -590,10 +587,10 @@ data and may need to be recreated from scratch.
 
 Workarounds:
 
-* Regularly [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/). The
+- Regularly [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/). The
   etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
 
-* Use multiple control-plane nodes. You can read
+- Use multiple control-plane nodes. You can read
   [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) to pick a cluster
   topology that provides [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 
@@ -613,4 +610,3 @@ supports your chosen platform.
 
 If you are running into difficulties with kubeadm, please consult our
 [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
-

@@ -5,10 +5,10 @@ weight: 30
 ---
 
 <!-- overview -->
+
 Kubernetes objects can quickly be created, updated, and deleted directly using
 imperative commands built into the `kubectl` command-line tool. This document
 explains how those commands are organized and how to use them to manage live objects.
-
 
 ## {{% heading "prerequisites" %}}
 
@@ -16,17 +16,15 @@ Install [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-
-
 <!-- steps -->
 
 ## Trade-offs
 
 The `kubectl` tool supports three kinds of object management:
 
-* Imperative commands
-* Imperative object configuration
-* Declarative object configuration
+- Imperative commands
+- Imperative object configuration
+- Declarative object configuration
 
 See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
@@ -92,8 +90,8 @@ however they require a better understanding of the Kubernetes object schema.
 
 - `edit`: Directly edit the raw configuration of a live object by opening its configuration in an editor.
 - `patch`: Directly modify specific fields of a live object by using a patch string.
-For more details on patch strings, see the patch section in
-[API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations).
+  For more details on patch strings, see the patch section in
+  [API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations).
 
 ## How to delete objects
 
@@ -123,11 +121,9 @@ You can use `kubectl view` to print specific fields of an object.
 
 {{< /comment >}}
 
-
-
 There are several commands for printing information about an object:
 
-- `get`: Prints basic information about matching objects.  Use `get -h` to see a list of options.
+- `get`: Prints basic information about matching objects. Use `get -h` to see a list of options.
 - `describe`: Prints aggregated detailed information about matching objects.
 - `logs`: Prints the stdout and stderr for a container running in a Pod.
 
@@ -160,14 +156,9 @@ kubectl create --edit -f /tmp/srv.yaml
 1. The `kubectl create service` command creates the configuration for the Service and saves it to `/tmp/srv.yaml`.
 1. The `kubectl create --edit` command opens the configuration file for editing before it creates the object.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
-* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
-
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
+- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

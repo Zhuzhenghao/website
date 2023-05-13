@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Configuring each kubelet in your cluster using kubeadm
 content_type: concept
 weight: 80
@@ -61,7 +61,7 @@ a list of values to a camelCased key, illustrated by the following example:
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 clusterDNS:
-- 10.96.0.10
+  - 10.96.0.10
 ```
 
 For more details on the `KubeletConfiguration` have a look at [this section](#configure-kubelets-using-kubeadm).
@@ -85,7 +85,7 @@ networking, or other host-specific parameters. The following list provides a few
   the health of the kubelet.
 
 - To specify the container runtime you must set its endpoint with the
-`--container-runtime-endpoint=<path>` flag.
+  `--container-runtime-endpoint=<path>` flag.
 
 The recommended way of applying such instance-specific configuration is by using
 [`KubeletConfiguration` patches](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches).
@@ -156,7 +156,7 @@ credential, which is stored in `/etc/kubernetes/kubelet.conf`.
 When the `/etc/kubernetes/kubelet.conf` file is written, the kubelet has finished performing the TLS Bootstrap.
 Kubeadm deletes the `/etc/kubernetes/bootstrap-kubelet.conf` file after completing the TLS Bootstrap.
 
-##  The kubelet drop-in file for systemd
+## The kubelet drop-in file for systemd
 
 `kubeadm` ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
@@ -205,10 +205,10 @@ This file specifies the default locations for all of the files managed by kubead
 
 The DEB and RPM packages shipped with the Kubernetes releases are:
 
-| Package name | Description |
-|--------------|-------------|
-| `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
-| `kubelet`    | Installs the `/usr/bin/kubelet` binary. |
-| `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
-| `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools). |
-| `kubernetes-cni` | Installs the `/opt/cni/bin` binaries from the [plugins git repository](https://github.com/containernetworking/plugins). |
+| Package name     | Description                                                                                                                     |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `kubeadm`        | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
+| `kubelet`        | Installs the `/usr/bin/kubelet` binary.                                                                                         |
+| `kubectl`        | Installs the `/usr/bin/kubectl` binary.                                                                                         |
+| `cri-tools`      | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools).        |
+| `kubernetes-cni` | Installs the `/opt/cni/bin` binaries from the [plugins git repository](https://github.com/containernetworking/plugins).         |

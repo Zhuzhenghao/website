@@ -18,24 +18,23 @@ Each day in a week-long shift as PR Wrangler:
 
 - Triage and tag incoming issues daily. See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
 - Review [open pull requests](https://github.com/kubernetes/website/pulls) for quality and adherence to the [Style](/docs/contribute/style/style-guide/) and [Content](/docs/contribute/style/content-guide/) guides.
-    - Start with the smallest PRs (`size/XS`) first, and end with the largest (`size/XXL`). Review as many PRs as you can.
+  - Start with the smallest PRs (`size/XS`) first, and end with the largest (`size/XXL`). Review as many PRs as you can.
 - Make sure PR contributors sign the [CLA](https://github.com/kubernetes/community/blob/master/CLA.md).
-    - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to remind contributors that haven't signed the CLA to do so.
+  - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to remind contributors that haven't signed the CLA to do so.
 - Provide feedback on changes and ask for technical reviews from members of other SIGs.
-    - Provide inline suggestions on the PR for the proposed content changes.
-    - If you need to verify content, comment on the PR and request more details.
-    - Assign relevant `sig/` label(s).
-    - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
-    - You can also tag a [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md) for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
+  - Provide inline suggestions on the PR for the proposed content changes.
+  - If you need to verify content, comment on the PR and request more details.
+  - Assign relevant `sig/` label(s).
+  - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
+  - You can also tag a [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md) for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
 - Use the `/approve` comment to approve a PR for merging. Merge the PR when ready.
-    - PRs should have a `/lgtm` comment from another member before merging.
-    - Consider accepting technically accurate content that doesn't meet the
-      [style guidelines](/docs/contribute/style/style-guide/). As you approve the change,
-      open a new issue to address the style concern. You can usually write these style fix
-      issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
-    - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
-      to help onboard new contributors.
-
+  - PRs should have a `/lgtm` comment from another member before merging.
+  - Consider accepting technically accurate content that doesn't meet the
+    [style guidelines](/docs/contribute/style/style-guide/). As you approve the change,
+    open a new issue to address the style concern. You can usually write these style fix
+    issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
+  - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
+    to help onboard new contributors.
 
 ### Helpful GitHub queries for wranglers
 
@@ -72,9 +71,10 @@ These queries exclude localization PRs. All queries are against the main branch 
 Reviews and approvals are one tool to keep our PR queue short and current. Another tool is closure.
 
 Close PRs where:
+
 - The author hasn't signed the CLA for two weeks.
 
-    Authors can reopen the PR after signing the CLA. This is a low-risk way to make sure nothing gets merged without a signed CLA.
+  Authors can reopen the PR after signing the CLA. This is a low-risk way to make sure nothing gets merged without a signed CLA.
 
 - The author has not responded to comments or feedback in 2 or more weeks.
 
@@ -84,7 +84,7 @@ To close a pull request, leave a `/close` comment on the PR.
 
 {{< note >}}
 
-The [`k8s-triage-robot`](https://github.com/k8s-triage-robot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
+The [`k8s-triage-robot`](https://github.com/k8s-triage-robot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them. PR wranglers should close issues after 14-30 days of inactivity.
 
 {{< /note >}}
 

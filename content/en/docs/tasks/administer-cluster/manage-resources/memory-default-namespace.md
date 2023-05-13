@@ -22,19 +22,13 @@ memory limit to that container.
 
 Kubernetes assigns a default memory request under certain conditions that are explained later in this topic.
 
-
-
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 You must have access to create namespaces in your cluster.
 
 Each node in your cluster must have at least 2 GiB of memory.
-
-
 
 <!-- steps -->
 
@@ -65,7 +59,6 @@ Now if you create a Pod in the default-mem-example namespace, and any container
 within that Pod does not specify its own values for memory request and memory limit,
 then the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 applies default values: a memory request of 256MiB and a memory limit of 512MiB.
-
 
 Here's an example manifest for a Pod that has one container. The container
 does not specify a memory request and limit.
@@ -113,7 +106,6 @@ specifies a memory limit, but not a request:
 {{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
 
 Create the Pod:
-
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-2.yaml --namespace=default-mem-example
@@ -174,7 +166,6 @@ See [Constraints on resource limits and requests](/docs/concepts/policy/limit-ra
 
 {{< /note >}}
 
-
 ## Motivation for default memory limits and requests
 
 If your namespace has a memory {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
@@ -182,12 +173,12 @@ configured,
 it is helpful to have a default value in place for memory limit.
 Here are three of the restrictions that a resource quota imposes on a namespace:
 
-* For every Pod that runs in the namespace, the Pod and each of its containers must have a memory limit.
+- For every Pod that runs in the namespace, the Pod and each of its containers must have a memory limit.
   (If you specify a memory limit for every container in a Pod, Kubernetes can infer the Pod-level memory
   limit by adding up the limits for its containers).
-* Memory limits apply a resource reservation on the node where the Pod in question is scheduled.
+- Memory limits apply a resource reservation on the node where the Pod in question is scheduled.
   The total amount of memory reserved for all Pods in the namespace must not exceed a specified limit.
-* The total amount of memory actually used by all Pods in the namespace must also not exceed a specified limit.
+- The total amount of memory actually used by all Pods in the namespace must also not exceed a specified limit.
 
 When you add a LimitRange:
 
@@ -203,33 +194,26 @@ Delete your namespace:
 kubectl delete namespace default-mem-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 ### For cluster administrators
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+- [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+- [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+- [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
 ### For app developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+- [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+- [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
+- [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)

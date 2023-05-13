@@ -1,11 +1,11 @@
 ---
 reviewers:
-- saad-ali
-- thockin
-- msau42
-- jingxu97
-- xing-yang
-- yuxiangqian
+  - saad-ali
+  - thockin
+  - msau42
+  - jingxu97
+  - xing-yang
+  - yuxiangqian
 title: Volume Snapshots
 content_type: concept
 weight: 60

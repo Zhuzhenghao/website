@@ -1,8 +1,8 @@
 ---
 reviewers:
-- marosset
-- jsturtevant
-- zshihang
+  - marosset
+  - jsturtevant
+  - zshihang
 title: Projected Volumes
 content_type: concept
 weight: 21 # just after persistent volumes
@@ -20,10 +20,10 @@ A `projected` volume maps several existing volume sources into the same director
 
 Currently, the following types of volume sources can be projected:
 
-* [`secret`](/docs/concepts/storage/volumes/#secret)
-* [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
-* [`configMap`](/docs/concepts/storage/volumes/#configmap)
-* [`serviceAccountToken`](#serviceaccounttoken)
+- [`secret`](/docs/concepts/storage/volumes/#secret)
+- [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
+- [`configMap`](/docs/concepts/storage/volumes/#configmap)
+- [`serviceAccountToken`](#serviceaccounttoken)
 
 All sources are required to be in the same namespace as the Pod. For more details,
 see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
@@ -39,13 +39,14 @@ see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all
 Each projected volume source is listed in the spec under `sources`. The
 parameters are nearly the same with two exceptions:
 
-* For secrets, the `secretName` field has been changed to `name` to be consistent
+- For secrets, the `secretName` field has been changed to `name` to be consistent
   with ConfigMap naming.
-* The `defaultMode` can only be specified at the projected level and not for each
+- The `defaultMode` can only be specified at the projected level and not for each
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
 
 ## serviceAccountToken projected volumes {#serviceaccounttoken}
+
 You can inject the token for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
 
@@ -90,7 +91,7 @@ and the token file has its permission mode set to `0600`.
 
 {{< note >}}
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
-added to a Pod after it is created do *not* change volume permissions that were
+added to a Pod after it is created do _not_ change volume permissions that were
 set when the pod was created.
 
 If a Pod's `serviceAccountToken` volume permissions were set to `0600` because

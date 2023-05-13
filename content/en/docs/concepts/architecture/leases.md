@@ -47,6 +47,7 @@ with the name `kube-apiserver-<sha256-hash>`. Alternatively you can use the labe
 ```shell
 kubectl -n kube-system get lease -l k8s.io/component=kube-apiserver
 ```
+
 ```
 NAME                                        HOLDER                                                                           AGE
 kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a   kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a_9cbf54e5-1136-44bd-8f9a-1dcd15c346b4   5m33s
@@ -62,6 +63,7 @@ hostname used by kube-apisever by checking the value of the `kubernetes.io/hostn
 ```shell
 kubectl -n kube-system get lease kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a -o yaml
 ```
+
 ```yaml
 apiVersion: coordination.k8s.io/v1
 kind: Lease

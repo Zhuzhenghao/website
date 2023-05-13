@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+  - mikedanese
 title: Install and Set Up kubectl on Linux
 content_type: task
 weight: 10
@@ -181,6 +181,7 @@ You can create this directory if you need to, making it world-readable but write
 {{% /tab %}}
 
 {{% tab name="Red Hat-based distributions" %}}
+
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]

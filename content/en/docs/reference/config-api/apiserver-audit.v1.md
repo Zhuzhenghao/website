@@ -5,27 +5,20 @@ package: audit.k8s.io/v1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [Event](#audit-k8s-io-v1-Event)
 - [EventList](#audit-k8s-io-v1-EventList)
 - [Policy](#audit-k8s-io-v1-Policy)
 - [PolicyList](#audit-k8s-io-v1-PolicyList)
-  
-    
 
-## `Event`     {#audit-k8s-io-v1-Event}
-    
+## `Event` {#audit-k8s-io-v1-Event}
 
 **Appears in:**
 
 - [EventList](#audit-k8s-io-v1-EventList)
 
-
 <p>Event captures all the information that can be included in an API audit log.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -173,12 +166,9 @@ should be short. Annotations are included in the Metadata level.</p>
 </tbody>
 </table>
 
-## `EventList`     {#audit-k8s-io-v1-EventList}
-    
-
+## `EventList` {#audit-k8s-io-v1-EventList}
 
 <p>EventList is a list of audit Events.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -203,17 +193,14 @@ should be short. Annotations are included in the Metadata level.</p>
 </tbody>
 </table>
 
-## `Policy`     {#audit-k8s-io-v1-Policy}
-    
+## `Policy` {#audit-k8s-io-v1-Policy}
 
 **Appears in:**
 
 - [PolicyList](#audit-k8s-io-v1-PolicyList)
 
-
 <p>Policy defines the configuration of audit logging, and the rules for how different request
 categories are logged.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -263,12 +250,9 @@ in a rule will override the global default.</p>
 </tbody>
 </table>
 
-## `PolicyList`     {#audit-k8s-io-v1-PolicyList}
-    
-
+## `PolicyList` {#audit-k8s-io-v1-PolicyList}
 
 <p>PolicyList is a list of audit Policies.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -293,16 +277,13 @@ in a rule will override the global default.</p>
 </tbody>
 </table>
 
-## `GroupResources`     {#audit-k8s-io-v1-GroupResources}
-    
+## `GroupResources` {#audit-k8s-io-v1-GroupResources}
 
 **Appears in:**
 
 - [PolicyRule](#audit-k8s-io-v1-PolicyRule)
 
-
 <p>GroupResources represents resource kinds in an API group.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -347,8 +328,8 @@ An empty list implies that every instance of the resource is matched.</p>
 </tbody>
 </table>
 
-## `Level`     {#audit-k8s-io-v1-Level}
-    
+## `Level` {#audit-k8s-io-v1-Level}
+
 (Alias of `string`)
 
 **Appears in:**
@@ -357,22 +338,15 @@ An empty list implies that every instance of the resource is matched.</p>
 
 - [PolicyRule](#audit-k8s-io-v1-PolicyRule)
 
-
 <p>Level defines the amount of information logged during auditing</p>
 
-
-
-
-## `ObjectReference`     {#audit-k8s-io-v1-ObjectReference}
-    
+## `ObjectReference` {#audit-k8s-io-v1-ObjectReference}
 
 **Appears in:**
 
 - [Event](#audit-k8s-io-v1-Event)
 
-
 <p>ObjectReference contains enough information to let you inspect or modify the referred object.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -433,17 +407,14 @@ The empty string represents the core API group.</p>
 </tbody>
 </table>
 
-## `PolicyRule`     {#audit-k8s-io-v1-PolicyRule}
-    
+## `PolicyRule` {#audit-k8s-io-v1-PolicyRule}
 
 **Appears in:**
 
 - [Policy](#audit-k8s-io-v1-Policy)
 
-
 <p>PolicyRule maps requests based off metadata to an audit Level.
 Requests must match the rules of every field (an intersection of rules).</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -539,8 +510,8 @@ Policy.OmitManagedFields will stand.</li>
 </tbody>
 </table>
 
-## `Stage`     {#audit-k8s-io-v1-Stage}
-    
+## `Stage` {#audit-k8s-io-v1-Stage}
+
 (Alias of `string`)
 
 **Appears in:**
@@ -551,9 +522,4 @@ Policy.OmitManagedFields will stand.</li>
 
 - [PolicyRule](#audit-k8s-io-v1-PolicyRule)
 
-
 <p>Stage defines the stages in request handling that audit events may be generated.</p>
-
-
-
-  

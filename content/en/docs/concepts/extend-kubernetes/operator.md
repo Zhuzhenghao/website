@@ -28,7 +28,7 @@ code to automate a task beyond what Kubernetes itself provides.
 
 Kubernetes is designed for automation. Out of the box, you get lots of
 built-in automation from the core of Kubernetes. You can use Kubernetes
-to automate deploying and running workloads, *and* you can automate how
+to automate deploying and running workloads, _and_ you can automate how
 Kubernetes does that.
 
 Kubernetes' {{< glossary_tooltip text="operator pattern" term_id="operator-pattern" >}}
@@ -41,14 +41,14 @@ controllers for a [Custom Resource](/docs/concepts/extend-kubernetes/api-extensi
 
 Some of the things that you can use an operator to automate include:
 
-* deploying an application on demand
-* taking and restoring backups of that application's state
-* handling upgrades of the application code alongside related changes such
+- deploying an application on demand
+- taking and restoring backups of that application's state
+- handling upgrades of the application code alongside related changes such
   as database schemas or extra configuration settings
-* publishing a Service to applications that don't support Kubernetes APIs to
+- publishing a Service to applications that don't support Kubernetes APIs to
   discover them
-* simulating failure in all or part of your cluster to test its resilience
-* choosing a leader for a distributed application without an internal
+- simulating failure in all or part of your cluster to test its resilience
+- choosing a leader for a distributed application without an internal
   member election process
 
 What might an operator look like in more detail? Here's an example:
@@ -61,10 +61,10 @@ What might an operator look like in more detail? Here's an example:
    resources are configured.
 5. The core of the operator is code to tell the API server how to make
    reality match the configured resources.
-   * If you add a new SampleDB, the operator sets up PersistentVolumeClaims
+   - If you add a new SampleDB, the operator sets up PersistentVolumeClaims
      to provide durable database storage, a StatefulSet to run SampleDB and
      a Job to handle initial configuration.
-   * If you delete it, the operator takes a snapshot, then makes sure that
+   - If you delete it, the operator takes a snapshot, then makes sure that
      the StatefulSet and Volumes are also removed.
 6. The operator also manages regular database backups. For each SampleDB
    resource, the operator determines when to create a Pod that can connect
@@ -102,7 +102,7 @@ as well as keeping the existing service in good shape.
 ## Writing your own operator {#writing-operator}
 
 If there isn't an operator in the ecosystem that implements the behavior you
-want, you can code your own. 
+want, you can code your own.
 
 You also implement an operator (that is, a Controller) using any language / runtime
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
@@ -112,29 +112,27 @@ operator.
 
 {{% thirdparty-content %}}
 
-* [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
-* [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
-* [kube-rs](https://kube.rs/) (Rust)
-* [kubebuilder](https://book.kubebuilder.io/)
-* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
-* [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
-* [Mast](https://docs.ansi.services/mast/user_guide/operator/)
-* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
+- [Charmed Operator Framework](https://juju.is/)
+- [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+- [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+- [kube-rs](https://kube.rs/) (Rust)
+- [kubebuilder](https://book.kubebuilder.io/)
+- [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
+- [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
+- [Mast](https://docs.ansi.services/mast/user_guide/operator/)
+- [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
   you implement yourself
-* [Operator Framework](https://operatorframework.io)
-* [shell-operator](https://github.com/flant/shell-operator)
+- [Operator Framework](https://operatorframework.io)
+- [shell-operator](https://github.com/flant/shell-operator)
 
 ## {{% heading "whatsnext" %}}
 
-
-* Read the {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+- Read the {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
   [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md).
-* Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-* Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
-* [Publish](https://operatorhub.io/) your operator for other people to use
-* Read [CoreOS' original article](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)
+- Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+- Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
+- [Publish](https://operatorhub.io/) your operator for other people to use
+- Read [CoreOS' original article](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)
   that introduced the operator pattern (this is an archived version of the original article).
-* Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
+- Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
   from Google Cloud about best practices for building operators
-

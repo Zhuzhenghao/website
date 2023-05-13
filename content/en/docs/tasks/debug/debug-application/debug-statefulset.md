@@ -1,24 +1,25 @@
 ---
 reviewers:
-- bprashanth
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
+  - bprashanth
+  - enisoc
+  - erictune
+  - foxish
+  - janetkuo
+  - kow3ns
+  - smarterclayton
 title: Debug a StatefulSet
 content_type: task
 weight: 30
 ---
 
 <!-- overview -->
+
 This task shows you how to debug a StatefulSet.
 
 ## {{% heading "prerequisites" %}}
 
-* You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster.
-* You should have a StatefulSet running that you want to investigate.
+- You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster.
+- You should have a StatefulSet running that you want to investigate.
 
 <!-- steps -->
 
@@ -40,4 +41,3 @@ You can debug individual Pods in a StatefulSet using the
 ## {{% heading "whatsnext" %}}
 
 Learn more about [debugging an init-container](/docs/tasks/debug/debug-application/debug-init-containers/).
-

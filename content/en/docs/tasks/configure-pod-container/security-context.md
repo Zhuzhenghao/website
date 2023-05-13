@@ -1,8 +1,8 @@
 ---
 reviewers:
-- erictune
-- mikedanese
-- thockin
+  - erictune
+  - mikedanese
+  - thockin
 title: Configure a Security Context for a Pod or Container
 content_type: task
 weight: 110
@@ -13,23 +13,23 @@ weight: 110
 A security context defines privilege and access control settings for
 a Pod or Container. Security context settings include, but are not limited to:
 
-* Discretionary Access Control: Permission to access an object, like a file, is based on
+- Discretionary Access Control: Permission to access an object, like a file, is based on
   [user ID (UID) and group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups).
 
-* [Security Enhanced Linux (SELinux)](https://en.wikipedia.org/wiki/Security-Enhanced_Linux):
+- [Security Enhanced Linux (SELinux)](https://en.wikipedia.org/wiki/Security-Enhanced_Linux):
   Objects are assigned security labels.
 
-* Running as privileged or unprivileged.
+- Running as privileged or unprivileged.
 
-* [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/):
+- [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/):
   Give a process some privileges, but not all the privileges of the root user.
 
-* [AppArmor](/docs/tutorials/security/apparmor/):
+- [AppArmor](/docs/tutorials/security/apparmor/):
   Use program profiles to restrict the capabilities of individual programs.
 
-* [Seccomp](/docs/tutorials/security/seccomp/): Filter a process's system calls.
+- [Seccomp](/docs/tutorials/security/seccomp/): Filter a process's system calls.
 
-* `allowPrivilegeEscalation`: Controls whether a process can gain more privileges than
+- `allowPrivilegeEscalation`: Controls whether a process can gain more privileges than
   its parent process. This bool directly controls whether the
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
   flag gets set on the container process.
@@ -38,7 +38,7 @@ a Pod or Container. Security context settings include, but are not limited to:
   - is run as privileged, or
   - has `CAP_SYS_ADMIN`
 
-* `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
+- `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 
 The above bullets are not a complete set of security context settings -- please see
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
@@ -169,14 +169,14 @@ to control the way that Kubernetes checks and manages ownership and permissions
 for a volume.
 
 **fsGroupChangePolicy** - `fsGroupChangePolicy` defines behavior for changing ownership
-  and permission of the volume before being exposed inside a Pod.
-  This field only applies to volume types that support `fsGroup` controlled ownership and permissions.
-  This field has two possible values:
+and permission of the volume before being exposed inside a Pod.
+This field only applies to volume types that support `fsGroup` controlled ownership and permissions.
+This field has two possible values:
 
-* _OnRootMismatch_: Only change permissions and ownership if the permission and the ownership of
+- _OnRootMismatch_: Only change permissions and ownership if the permission and the ownership of
   root directory does not match with expected permissions of the volume.
   This could help shorten the time it takes to change ownership and permission of a volume.
-* _Always_: Always change permission and ownership of the volume when volume is mounted.
+- _Always_: Always change permission and ownership of the volume when volume is mounted.
 
 For example:
 
@@ -391,18 +391,20 @@ To set the Seccomp profile for a Container, include the `seccompProfile` field
 in the `securityContext` section of your Pod or Container manifest. The
 `seccompProfile` field is a
 [SeccompProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
->}}/#seccompprofile-v1-core) object consisting of `type` and `localhostProfile`.
-Valid options for `type` include `RuntimeDefault`, `Unconfined`, and
-`Localhost`. `localhostProfile` must only be set if `type: Localhost`. It
-indicates the path of the pre-configured profile on the node, relative to the
-kubelet's configured Seccomp profile location (configured with the `--root-dir`
-flag).
+
+> }}/#seccompprofile-v1-core) object consisting of `type` and `localhostProfile`.
+> Valid options for `type` include `RuntimeDefault`, `Unconfined`, and
+> `Localhost`. `localhostProfile` must only be set if `type: Localhost`. It
+> indicates the path of the pre-configured profile on the node, relative to the
+> kubelet's configured Seccomp profile location (configured with the `--root-dir`
+> flag).
 
 Here is an example that sets the Seccomp profile to the node's container runtime
 default profile:
 
 ```yaml
-...
+
+---
 securityContext:
   seccompProfile:
     type: RuntimeDefault
@@ -412,7 +414,8 @@ Here is an example that sets the Seccomp profile to a pre-configured file at
 `<kubelet-root-dir>/seccomp/my-profiles/profile-allow.json`:
 
 ```yaml
-...
+
+---
 securityContext:
   seccompProfile:
     type: Localhost
@@ -428,7 +431,8 @@ the `securityContext` section of your Pod or Container manifest. The
 object. Here's an example that applies an SELinux level:
 
 ```yaml
-...
+
+---
 securityContext:
   seLinuxOptions:
     level: "s0:c123,c456"
@@ -449,24 +453,26 @@ SELinux label of a volume instantly by using a mount option
 
 To benefit from this speedup, all these conditions must be met:
 
-* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
+- The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
   and `SELinuxMountReadWriteOncePod` must be enabled.
-* Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
-* Pod (or all its Containers that use the PersistentVolumeClaim) must
+- Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
+- Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
-* The corresponding PersistentVolume must be either:
-  * A volume that uses the legacy in-tree `iscsi`, `rbd` or `fc` volume type.
-  * Or a volume that uses a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
+- The corresponding PersistentVolume must be either:
+  - A volume that uses the legacy in-tree `iscsi`, `rbd` or `fc` volume type.
+  - Or a volume that uses a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
     The CSI driver must announce that it supports mounting with `-o context` by setting
     `spec.seLinuxMount: true` in its CSIDriver instance.
 
 For any other volume types, SELinux relabelling happens another way: the container
-runtime  recursively changes the SELinux label for all inodes (files and directories)
+runtime recursively changes the SELinux label for all inodes (files and directories)
 in the volume.
 The more files and directories in the volume, the longer that relabelling takes.
 
 {{< note >}}
+
 <!-- remove after Kubernetes v1.30 is released -->
+
 If you are running Kubernetes v1.25, refer to the v1.25 version of this task page:
 [Configure a Security Context for a Pod or Container](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/) (v1.25).  
 There is an important note in that documentation about a situation where the kubelet
@@ -480,12 +486,12 @@ The security context for a Pod applies to the Pod's Containers and also to
 the Pod's Volumes when applicable. Specifically `fsGroup` and `seLinuxOptions` are
 applied to Volumes as follows:
 
-* `fsGroup`: Volumes that support ownership management are modified to be owned
+- `fsGroup`: Volumes that support ownership management are modified to be owned
   and writable by the GID specified in `fsGroup`. See the
   [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
   for more details.
 
-* `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
+- `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
   by the label specified under `seLinuxOptions`. Usually you only
   need to set the `level` section. This sets the
   [Multi-Category Security (MCS)](https://selinuxproject.org/page/NB_MLS)
@@ -509,14 +515,14 @@ kubectl delete pod security-context-demo-4
 
 ## {{% heading "whatsnext" %}}
 
-* [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
-* [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-* [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
-* [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
-* [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
-* [PodSecurity Admission](/docs/concepts/security/pod-security-admission/)
-* [AllowPrivilegeEscalation design
+- [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
+- [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
+- [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+- [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
+- [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
+- [PodSecurity Admission](/docs/concepts/security/pod-security-admission/)
+- [AllowPrivilegeEscalation design
   document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
-* For more information about security mechanisms in Linux, see
+- For more information about security mechanisms in Linux, see
   [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
   (Note: Some information is out of date)

@@ -39,7 +39,7 @@ Installing the above webhooks and associated objects require the steps below:
 
 1. Create the validating and mutating webhook configurations referring to the deployment.
 
-A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run=server``` option to allow you to review the changes that would be made to your cluster.
+A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a `--dry-run=server` option to allow you to review the changes that would be made to your cluster.
 
 The [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) used by the script may also be used to deploy the webhooks and associated objects manually (with appropriate substitutions for the parameters)
 
@@ -69,22 +69,22 @@ The following YAML configuration describes a GMSA credential spec named `gmsa-We
 apiVersion: windows.k8s.io/v1
 kind: GMSACredentialSpec
 metadata:
-  name: gmsa-WebApp1  #This is an arbitrary name but it will be used as a reference
+  name: gmsa-WebApp1 #This is an arbitrary name but it will be used as a reference
 credspec:
   ActiveDirectoryConfig:
     GroupManagedServiceAccounts:
-    - Name: WebApp1   #Username of the GMSA account
-      Scope: CONTOSO  #NETBIOS Domain Name
-    - Name: WebApp1   #Username of the GMSA account
-      Scope: contoso.com #DNS Domain Name
+      - Name: WebApp1 #Username of the GMSA account
+        Scope: CONTOSO #NETBIOS Domain Name
+      - Name: WebApp1 #Username of the GMSA account
+        Scope: contoso.com #DNS Domain Name
   CmsPlugins:
-  - ActiveDirectory
+    - ActiveDirectory
   DomainJoinConfig:
-    DnsName: contoso.com  #DNS Domain Name
+    DnsName: contoso.com #DNS Domain Name
     DnsTreeName: contoso.com #DNS Domain Name Root
-    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  #GUID
+    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a #GUID
     MachineAccountName: WebApp1 #Username of the GMSA account
-    NetBiosName: CONTOSO  #NETBIOS Domain Name
+    NetBiosName: CONTOSO #NETBIOS Domain Name
     Sid: S-1-5-21-2126449477-2524075714-3094792973 #SID of GMSA
 ```
 
@@ -101,10 +101,10 @@ kind: ClusterRole
 metadata:
   name: webapp1-role
 rules:
-- apiGroups: ["windows.k8s.io"]
-  resources: ["gmsacredentialspecs"]
-  verbs: ["use"]
-  resourceNames: ["gmsa-WebApp1"]
+  - apiGroups: ["windows.k8s.io"]
+    resources: ["gmsacredentialspecs"]
+    verbs: ["use"]
+    resourceNames: ["gmsa-WebApp1"]
 ```
 
 ## Assign role to service accounts to use specific GMSA credspecs
@@ -118,9 +118,9 @@ metadata:
   name: allow-default-svc-account-read-on-gmsa-WebApp1
   namespace: default
 subjects:
-- kind: ServiceAccount
-  name: default
-  namespace: default
+  - kind: ServiceAccount
+    name: default
+    namespace: default
 roleRef:
   kind: ClusterRole
   name: webapp1-role
@@ -153,9 +153,9 @@ spec:
         windowsOptions:
           gmsaCredentialSpecName: gmsa-webapp1
       containers:
-      - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
-        imagePullPolicy: Always
-        name: iis
+        - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+          imagePullPolicy: Always
+          name: iis
       nodeSelector:
         kubernetes.io/os: windows
 ```
@@ -181,12 +181,12 @@ spec:
         run: with-creds
     spec:
       containers:
-      - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
-        imagePullPolicy: Always
-        name: iis
-        securityContext:
-          windowsOptions:
-            gmsaCredentialSpecName: gmsa-Webapp1
+        - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+          imagePullPolicy: Always
+          name: iis
+          securityContext:
+            windowsOptions:
+              gmsaCredentialSpecName: gmsa-Webapp1
       nodeSelector:
         kubernetes.io/os: windows
 ```
@@ -208,14 +208,13 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentN
 ```
 
 Running Pods will then need to be recreated to pick up the behavior changes.
-More information on how this registry key is used can be found [here](
-https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
+More information on how this registry key is used can be found [here](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
 
 ## Troubleshooting
 
 If you are having difficulties getting GMSA to work in your environment, there are a few troubleshooting steps you can take.
 
-First, make sure the credspec has been passed to the Pod.  To do this you will need to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.  
+First, make sure the credspec has been passed to the Pod. To do this you will need to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.
 
 In the example below the Pod did not get the credspec correctly:
 
@@ -229,7 +228,7 @@ kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
-If your Pod did get the credspec correctly, then next check communication with the domain.  First, from inside of your Pod, quickly do an nslookup to find the root of your domain.
+If your Pod did get the credspec correctly, then next check communication with the domain. First, from inside of your Pod, quickly do an nslookup to find the root of your domain.
 
 This will tell us 3 things:
 
@@ -237,7 +236,7 @@ This will tell us 3 things:
 1. The DC can reach the Pod
 1. DNS is working correctly.
 
-If the DNS and communication test passes, next you will need to check if the Pod has established secure channel communication with the domain.  To do this, again, `exec` into your Pod and run the `nltest.exe /query` command.
+If the DNS and communication test passes, next you will need to check if the Pod has established secure channel communication with the domain. To do this, again, `exec` into your Pod and run the `nltest.exe /query` command.
 
 ```PowerShell
 nltest.exe /query
@@ -249,7 +248,7 @@ Results in the following output:
 I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
-This tells us that for some reason, the Pod was unable to logon to the domain using the account specified in the credspec.  You can try to repair the secure channel by running the following:
+This tells us that for some reason, the Pod was unable to logon to the domain using the account specified in the credspec. You can try to repair the secure channel by running the following:
 
 ```PowerShell
 nltest /sc_reset:domain.example
@@ -264,15 +263,20 @@ Trusted DC Connection Status Status = 0 0x0 NERR_Success
 The command completed successfully
 ```
 
-If the above corrects the error, you can automate the step by adding the following lifecycle hook to your Pod spec.  If it did not correct the error, you will need to examine your credspec again and confirm that it is correct and complete.
+If the above corrects the error, you can automate the step by adding the following lifecycle hook to your Pod spec. If it did not correct the error, you will need to examine your credspec again and confirm that it is correct and complete.
 
 ```yaml
-        image: registry.domain.example/iis-auth:1809v1
-        lifecycle:
-          postStart:
-            exec:
-              command: ["powershell.exe","-command","do { Restart-Service -Name netlogon } while ( $($Result = (nltest.exe /query); if ($Result -like '*0x0 NERR_Success*') {return $true} else {return $false}) -eq $false)"]
-        imagePullPolicy: IfNotPresent
+image: registry.domain.example/iis-auth:1809v1
+lifecycle:
+  postStart:
+    exec:
+      command:
+        [
+          "powershell.exe",
+          "-command",
+          "do { Restart-Service -Name netlogon } while ( $($Result = (nltest.exe /query); if ($Result -like '*0x0 NERR_Success*') {return $true} else {return $false}) -eq $false)",
+        ]
+imagePullPolicy: IfNotPresent
 ```
 
 If you add the `lifecycle` section show above to your Pod spec, the Pod will execute the commands listed to restart the `netlogon` service until the `nltest.exe /query` command exits without error.

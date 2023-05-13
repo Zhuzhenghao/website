@@ -23,6 +23,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki
    ```
+
 1. Generate a new certificate authority (CA). `--batch` sets automatic mode;
    `--req-cn` specifies the Common Name (CN) for the CA's new root certificate.
 
@@ -218,13 +219,15 @@ Finally, add the same parameters into the API server start parameters.
        "algo": "rsa",
        "size": 2048
      },
-     "names":[{
-       "C": "<country>",
-       "ST": "<state>",
-       "L": "<city>",
-       "O": "<organization>",
-       "OU": "<organization unit>"
-     }]
+     "names": [
+       {
+         "C": "<country>",
+         "ST": "<state>",
+         "L": "<city>",
+         "O": "<organization>",
+         "OU": "<organization unit>"
+       }
+     ]
    }
    ```
 
@@ -258,13 +261,15 @@ Finally, add the same parameters into the API server start parameters.
        "algo": "rsa",
        "size": 2048
      },
-     "names": [{
-       "C": "<country>",
-       "ST": "<state>",
-       "L": "<city>",
-       "O": "<organization>",
-       "OU": "<organization unit>"
-     }]
+     "names": [
+       {
+         "C": "<country>",
+         "ST": "<state>",
+         "L": "<city>",
+         "O": "<organization>",
+         "OU": "<organization unit>"
+       }
+     ]
    }
    ```
 
@@ -304,4 +309,3 @@ You can use the `certificates.k8s.io` API to provision
 x509 certificates to use for authentication as documented
 in the [Managing TLS in a cluster](/docs/tasks/tls/managing-tls-in-a-cluster)
 task page.
-

@@ -1,18 +1,19 @@
 ---
 reviewers:
-- bprashanth
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
+  - bprashanth
+  - enisoc
+  - erictune
+  - foxish
+  - janetkuo
+  - kow3ns
+  - smarterclayton
 title: Running ZooKeeper, A Distributed System Coordinator
 content_type: tutorial
 weight: 40
 ---
 
 <!-- overview -->
+
 This tutorial demonstrates running [Apache Zookeeper](https://zookeeper.apache.org) on
 Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
 [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget),
@@ -416,7 +417,7 @@ volumeClaimTemplates:
       annotations:
         volume.alpha.kubernetes.io/storage-class: anything
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: ["ReadWriteOnce"]
       resources:
         requests:
           storage: 20Gi
@@ -444,8 +445,8 @@ The `volumeMounts` section of the `StatefulSet`'s container `template` mounts th
 
 ```yaml
 volumeMounts:
-- name: datadir
-  mountPath: /var/lib/zookeeper
+  - name: datadir
+    mountPath: /var/lib/zookeeper
 ```
 
 When a Pod in the `zk` `StatefulSet` is (re)scheduled, it will always have the
@@ -746,14 +747,14 @@ that your application's processes are unhealthy and it should restart them.
 The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 
 ```yaml
-  livenessProbe:
-    exec:
-      command:
+livenessProbe:
+  exec:
+    command:
       - sh
       - -c
       - "zookeeper-ready 2181"
-    initialDelaySeconds: 15
-    timeoutSeconds: 5
+  initialDelaySeconds: 15
+  timeoutSeconds: 5
 ```
 
 The probe calls a bash script that uses the ZooKeeper `ruok` four letter
@@ -810,18 +811,18 @@ alive but not ready.
 If you specify a readiness probe, Kubernetes will ensure that your application's
 processes will not receive network traffic until their readiness checks pass.
 
-For a ZooKeeper server, liveness implies readiness.  Therefore, the readiness
+For a ZooKeeper server, liveness implies readiness. Therefore, the readiness
 probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
 
 ```yaml
-  readinessProbe:
-    exec:
-      command:
+readinessProbe:
+  exec:
+    command:
       - sh
       - -c
       - "zookeeper-ready 2181"
-    initialDelaySeconds: 15
-    timeoutSeconds: 5
+  initialDelaySeconds: 15
+  timeoutSeconds: 5
 ```
 
 Even though the liveness and readiness probes are identical, it is important
@@ -990,7 +991,6 @@ WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or
 pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
 ```
-
 
 The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `PodAntiAffinity` rule preventing
 co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.

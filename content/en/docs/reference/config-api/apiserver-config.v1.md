@@ -4,22 +4,16 @@ content_type: tool-reference
 package: apiserver.config.k8s.io/v1
 auto_generated: true
 ---
+
 <p>Package v1 is the v1 version of the API.</p>
 
-
-## Resource Types 
-
+## Resource Types
 
 - [AdmissionConfiguration](#apiserver-config-k8s-io-v1-AdmissionConfiguration)
-  
-    
 
-## `AdmissionConfiguration`     {#apiserver-config-k8s-io-v1-AdmissionConfiguration}
-    
-
+## `AdmissionConfiguration` {#apiserver-config-k8s-io-v1-AdmissionConfiguration}
 
 <p>AdmissionConfiguration provides versioned configuration for admission controllers.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -39,16 +33,13 @@ auto_generated: true
 </tbody>
 </table>
 
-## `AdmissionPluginConfiguration`     {#apiserver-config-k8s-io-v1-AdmissionPluginConfiguration}
-    
+## `AdmissionPluginConfiguration` {#apiserver-config-k8s-io-v1-AdmissionPluginConfiguration}
 
 **Appears in:**
 
 - [AdmissionConfiguration](#apiserver-config-k8s-io-v1-AdmissionConfiguration)
 
-
 <p>AdmissionPluginConfiguration provides the configuration for a single plug-in.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -81,4 +72,3 @@ configuration. If present, it will be used instead of the path to the configurat
 </tr>
 </tbody>
 </table>
-  

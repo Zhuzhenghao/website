@@ -1,12 +1,13 @@
 ---
 reviewers:
-- derekwaynecarr
+  - derekwaynecarr
 title: Manage HugePages
 content_type: task
 description: Configure and manage huge pages as a schedulable resource in a cluster.
 ---
 
 <!-- overview -->
+
 {{< feature-state state="stable" >}}
 
 Kubernetes supports the allocation and consumption of pre-allocated huge pages
@@ -14,15 +15,12 @@ by applications in a Pod. This page describes how users can consume huge pages.
 
 ## {{% heading "prerequisites" %}}
 
-
 1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
    its huge page capacity. A node can pre-allocate huge pages for multiple
    sizes.
 
 The nodes will automatically discover and report all huge page resources as
 schedulable resources.
-
-
 
 <!-- steps -->
 
@@ -39,7 +37,6 @@ memory or CPU resources must be requested as well.
 A pod may consume multiple huge page sizes in a single pod spec. In this case it
 must use `medium: HugePages-<hugepagesize>` notation for all volume mounts.
 
-
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -47,30 +44,30 @@ metadata:
   name: huge-pages-example
 spec:
   containers:
-  - name: example
-    image: fedora:latest
-    command:
-    - sleep
-    - inf
-    volumeMounts:
-    - mountPath: /hugepages-2Mi
-      name: hugepage-2mi
-    - mountPath: /hugepages-1Gi
-      name: hugepage-1gi
-    resources:
-      limits:
-        hugepages-2Mi: 100Mi
-        hugepages-1Gi: 2Gi
-        memory: 100Mi
-      requests:
-        memory: 100Mi
+    - name: example
+      image: fedora:latest
+      command:
+        - sleep
+        - inf
+      volumeMounts:
+        - mountPath: /hugepages-2Mi
+          name: hugepage-2mi
+        - mountPath: /hugepages-1Gi
+          name: hugepage-1gi
+      resources:
+        limits:
+          hugepages-2Mi: 100Mi
+          hugepages-1Gi: 2Gi
+          memory: 100Mi
+        requests:
+          memory: 100Mi
   volumes:
-  - name: hugepage-2mi
-    emptyDir:
-      medium: HugePages-2Mi
-  - name: hugepage-1gi
-    emptyDir:
-      medium: HugePages-1Gi
+    - name: hugepage-2mi
+      emptyDir:
+        medium: HugePages-2Mi
+    - name: hugepage-1gi
+      emptyDir:
+        medium: HugePages-1Gi
 ```
 
 A pod may use `medium: HugePages` only if it requests huge pages of one size.
@@ -82,24 +79,24 @@ metadata:
   name: huge-pages-example
 spec:
   containers:
-  - name: example
-    image: fedora:latest
-    command:
-    - sleep
-    - inf
-    volumeMounts:
-    - mountPath: /hugepages
-      name: hugepage
-    resources:
-      limits:
-        hugepages-2Mi: 100Mi
-        memory: 100Mi
-      requests:
-        memory: 100Mi
+    - name: example
+      image: fedora:latest
+      command:
+        - sleep
+        - inf
+      volumeMounts:
+        - mountPath: /hugepages
+          name: hugepage
+      resources:
+        limits:
+          hugepages-2Mi: 100Mi
+          memory: 100Mi
+        requests:
+          memory: 100Mi
   volumes:
-  - name: hugepage
-    emptyDir:
-      medium: HugePages
+    - name: hugepage
+      emptyDir:
+        medium: HugePages
 ```
 
 - Huge page requests must equal the limits. This is the default if limits are
@@ -113,4 +110,3 @@ spec:
 - Huge page usage in a namespace is controllable via ResourceQuota similar
   to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
   token.
-

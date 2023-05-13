@@ -12,11 +12,12 @@ weight: 110
 This page explains how to upgrade a Windows node created with kubeadm.
 
 ## {{% heading "prerequisites" %}}
- 
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* Familiarize yourself with [the process for upgrading the rest of your kubeadm
-cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
-upgrade the control plane nodes before upgrading your Windows nodes.
+
+- Familiarize yourself with [the process for upgrading the rest of your kubeadm
+  cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
+  upgrade the control plane nodes before upgrading your Windows nodes.
 
 <!-- steps -->
 
@@ -66,7 +67,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     restart-service kubelet
     ```
 
-2. From the Windows node, upgrade and restart the kube-proxy.
+2.  From the Windows node, upgrade and restart the kube-proxy.
 
     ```powershell
     stop-service kube-proxy
@@ -82,12 +83,13 @@ you can upgrade kube-proxy by applying a newer version of your kube-proxy manife
 ### Uncordon the node
 
 1.  From a machine with access to the Kubernetes API,
-bring the node back online by marking it schedulable:
+    bring the node back online by marking it schedulable:
 
-    ```shell
-    # replace <node-to-drain> with the name of your node
-    kubectl uncordon <node-to-drain>
-    ```
- ## {{% heading "whatsnext" %}}
+        ```shell
+        # replace <node-to-drain> with the name of your node
+        kubectl uncordon <node-to-drain>
+        ```
 
-* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).
+## {{% heading "whatsnext" %}}
+
+- See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).

@@ -1,6 +1,6 @@
 ---
 reviewers:
-- cdrage
+  - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
 content_type: task
 weight: 230
@@ -96,7 +96,6 @@ you need is an existing `docker-compose.yml` file.
    version: "2"
 
    services:
-
      redis-master:
        image: registry.k8s.io/redis:e2e
        ports:
@@ -129,11 +128,11 @@ you need is an existing `docker-compose.yml` file.
    The output is similar to:
 
    ```none
-   INFO Kubernetes file "frontend-tcp-service.yaml" created 
-   INFO Kubernetes file "redis-master-service.yaml" created 
-   INFO Kubernetes file "redis-slave-service.yaml" created 
-   INFO Kubernetes file "frontend-deployment.yaml" created 
-   INFO Kubernetes file "redis-master-deployment.yaml" created 
+   INFO Kubernetes file "frontend-tcp-service.yaml" created
+   INFO Kubernetes file "redis-master-service.yaml" created
+   INFO Kubernetes file "redis-slave-service.yaml" created
+   INFO Kubernetes file "frontend-deployment.yaml" created
+   INFO Kubernetes file "redis-master-deployment.yaml" created
    INFO Kubernetes file "redis-slave-deployment.yaml" created
    ```
 
@@ -152,7 +151,7 @@ you need is an existing `docker-compose.yml` file.
    deployment.apps/redis-slave created
    ```
 
-    Your deployments are running in Kubernetes.
+   Your deployments are running in Kubernetes.
 
 3. Access your application.
 
@@ -199,12 +198,12 @@ you need is an existing `docker-compose.yml` file.
    ```sh
    curl http://192.0.2.89
    ```
-   
+
 4. Clean-up.
 
    After you are finished testing out the example application deployment, simply run the following command in your shell to delete the
    resources used.
-   
+
    ```sh
    kubectl delete -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
@@ -265,17 +264,17 @@ kompose -f docker-compose.yml -f docker-guestbook.yml convert
 ```
 
 ```none
-INFO Kubernetes file "frontend-service.yaml" created         
-INFO Kubernetes file "mlbparks-service.yaml" created         
-INFO Kubernetes file "mongodb-service.yaml" created          
-INFO Kubernetes file "redis-master-service.yaml" created     
-INFO Kubernetes file "redis-slave-service.yaml" created      
-INFO Kubernetes file "frontend-deployment.yaml" created      
-INFO Kubernetes file "mlbparks-deployment.yaml" created      
-INFO Kubernetes file "mongodb-deployment.yaml" created       
+INFO Kubernetes file "frontend-service.yaml" created
+INFO Kubernetes file "mlbparks-service.yaml" created
+INFO Kubernetes file "mongodb-service.yaml" created
+INFO Kubernetes file "redis-master-service.yaml" created
+INFO Kubernetes file "redis-slave-service.yaml" created
+INFO Kubernetes file "frontend-deployment.yaml" created
+INFO Kubernetes file "mlbparks-deployment.yaml" created
+INFO Kubernetes file "mongodb-deployment.yaml" created
 INFO Kubernetes file "mongodb-claim0-persistentvolumeclaim.yaml" created
-INFO Kubernetes file "redis-master-deployment.yaml" created  
-INFO Kubernetes file "redis-slave-deployment.yaml" created   
+INFO Kubernetes file "redis-master-deployment.yaml" created
+INFO Kubernetes file "redis-slave-deployment.yaml" created
 ```
 
 ```shell
@@ -283,7 +282,7 @@ ls
 ```
 
 ```none
-mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml  
+mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml
 frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
 frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
 redis-master-deployment.yaml
@@ -299,23 +298,23 @@ kompose --provider openshift --file docker-voting.yml convert
 
 ```none
 WARN [worker] Service cannot be created because of missing port.
-INFO OpenShift file "vote-service.yaml" created             
-INFO OpenShift file "db-service.yaml" created               
-INFO OpenShift file "redis-service.yaml" created            
-INFO OpenShift file "result-service.yaml" created           
-INFO OpenShift file "vote-deploymentconfig.yaml" created    
-INFO OpenShift file "vote-imagestream.yaml" created         
-INFO OpenShift file "worker-deploymentconfig.yaml" created  
-INFO OpenShift file "worker-imagestream.yaml" created       
-INFO OpenShift file "db-deploymentconfig.yaml" created      
-INFO OpenShift file "db-imagestream.yaml" created           
-INFO OpenShift file "redis-deploymentconfig.yaml" created   
-INFO OpenShift file "redis-imagestream.yaml" created        
-INFO OpenShift file "result-deploymentconfig.yaml" created  
-INFO OpenShift file "result-imagestream.yaml" created  
+INFO OpenShift file "vote-service.yaml" created
+INFO OpenShift file "db-service.yaml" created
+INFO OpenShift file "redis-service.yaml" created
+INFO OpenShift file "result-service.yaml" created
+INFO OpenShift file "vote-deploymentconfig.yaml" created
+INFO OpenShift file "vote-imagestream.yaml" created
+INFO OpenShift file "worker-deploymentconfig.yaml" created
+INFO OpenShift file "worker-imagestream.yaml" created
+INFO OpenShift file "db-deploymentconfig.yaml" created
+INFO OpenShift file "db-imagestream.yaml" created
+INFO OpenShift file "redis-deploymentconfig.yaml" created
+INFO OpenShift file "redis-imagestream.yaml" created
+INFO OpenShift file "result-deploymentconfig.yaml" created
+INFO OpenShift file "result-imagestream.yaml" created
 ```
 
-It also supports creating buildconfig for build directive in a service. By default, it uses the remote repo for the current git branch as the source repo, and the current branch as the source branch for the build. You can specify a different source repo and branch using ``--build-repo`` and ``--build-branch`` options respectively.
+It also supports creating buildconfig for build directive in a service. By default, it uses the remote repo for the current git branch as the source repo, and the current branch as the source branch for the build. You can specify a different source repo and branch using `--build-repo` and `--build-branch` options respectively.
 
 ```sh
 kompose --provider openshift --file buildconfig/docker-compose.yml convert
@@ -324,13 +323,13 @@ kompose --provider openshift --file buildconfig/docker-compose.yml convert
 ```none
 WARN [foo] Service cannot be created because of missing port.
 INFO OpenShift Buildconfig using git@github.com:rtnpro/kompose.git::master as source.
-INFO OpenShift file "foo-deploymentconfig.yaml" created     
-INFO OpenShift file "foo-imagestream.yaml" created          
+INFO OpenShift file "foo-deploymentconfig.yaml" created
+INFO OpenShift file "foo-imagestream.yaml" created
 INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
 {{< note >}}
-If you are manually pushing the OpenShift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
+If you are manually pushing the OpenShift artifacts using `oc create -f`, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
 {{< /note >}}
 
 ## Alternative Conversions
@@ -421,6 +420,7 @@ The chart structure is aimed at providing a skeleton for building your Helm char
   ```
 
 - `kompose.service.expose` defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
+
   - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
   - For the OpenShift provider, a route is created.
 
@@ -432,23 +432,23 @@ The chart structure is aimed at providing a skeleton for building your Helm char
     web:
       image: tuna/docker-counter23
       ports:
-      - "5000:5000"
+        - "5000:5000"
       links:
-      - redis
+        - redis
       labels:
         kompose.service.expose: "counter.example.com"
     redis:
       image: redis:3.0
       ports:
-      - "6379"
+        - "6379"
   ```
 
 The currently supported options are:
 
-| Key                  | Value                               |
-|----------------------|-------------------------------------|
-| kompose.service.type | nodeport / clusterip / loadbalancer |
-| kompose.service.expose| true / hostname |
+| Key                    | Value                               |
+| ---------------------- | ----------------------------------- |
+| kompose.service.type   | nodeport / clusterip / loadbalancer |
+| kompose.service.expose | true / hostname                     |
 
 {{< note >}}
 The `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
@@ -459,7 +459,7 @@ The `kompose.service.type` label should be defined with `ports` only, otherwise 
 If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what happens on the `restart` value.
 
 | `docker-compose` `restart` | object created    | Pod `restartPolicy` |
-|----------------------------|-------------------|---------------------|
+| -------------------------- | ----------------- | ------------------- |
 | `""`                       | controller object | `Always`            |
 | `always`                   | controller object | `Always`            |
 | `on-failure`               | Pod               | `OnFailure`         |
@@ -472,12 +472,12 @@ The controller object could be `deployment` or `replicationcontroller`.
 For example, the `pival` service will become pod down here. This container calculated value of `pi`.
 
 ```yaml
-version: '2'
+version: "2"
 
 services:
   pival:
     image: perl
-    command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+    command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
     restart: "on-failure"
 ```
 

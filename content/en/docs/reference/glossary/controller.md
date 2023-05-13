@@ -6,11 +6,12 @@ full_link: /docs/concepts/architecture/controller/
 short_description: >
   A control loop that watches the shared state of the cluster through the apiserver and makes changes attempting to move the current state towards the desired state.
 
-aka: 
+aka:
 tags:
-- architecture
-- fundamental
+  - architecture
+  - fundamental
 ---
+
 In Kubernetes, controllers are control loops that watch the state of your
 {{< glossary_tooltip term_id="cluster" text="cluster">}}, then make or request
 changes where needed.

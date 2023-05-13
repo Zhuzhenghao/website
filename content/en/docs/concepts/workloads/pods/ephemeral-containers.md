@@ -1,7 +1,7 @@
 ---
 reviewers:
-- verb
-- yujuhong
+  - verb
+  - yujuhong
 title: Ephemeral Containers
 content_type: concept
 weight: 80
@@ -35,7 +35,7 @@ arbitrary commands.
 
 Ephemeral containers differ from other containers in that they lack guarantees
 for resources or execution, and they will never be automatically restarted, so
-they are not appropriate for building applications.  Ephemeral containers are
+they are not appropriate for building applications. Ephemeral containers are
 described using the same `ContainerSpec` as regular containers, but many fields
 are incompatible and disallowed for ephemeral containers.
 
@@ -74,5 +74,4 @@ you can view processes in other containers.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
-
+- Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).

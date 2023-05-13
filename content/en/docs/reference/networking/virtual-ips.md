@@ -5,6 +5,7 @@ weight: 50
 ---
 
 <!-- overview -->
+
 Every {{< glossary_tooltip term_id="node" text="node" >}} in a Kubernetes
 {{< glossary_tooltip term_id="cluster" text="cluster" >}} runs a
 [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
@@ -23,19 +24,19 @@ resolution?
 
 There are a few reasons for using proxying for Services:
 
-* There is a long history of DNS implementations not respecting record TTLs,
+- There is a long history of DNS implementations not respecting record TTLs,
   and caching the results of name lookups after they should have expired.
-* Some apps do DNS lookups only once and cache the results indefinitely.
-* Even if apps and libraries did proper re-resolution, the low or zero TTLs
+- Some apps do DNS lookups only once and cache the results indefinitely.
+- Even if apps and libraries did proper re-resolution, the low or zero TTLs
   on the DNS records could impose a high load on DNS that then becomes
   difficult to manage.
 
 Later in this page you can read about how various kube-proxy implementations work.
 Overall, you should note that, when running `kube-proxy`, kernel level rules may be modified
 (for example, iptables rules might get created), which won't get cleaned up, in some
-cases until you reboot.  Thus, running kube-proxy is something that should only be done
+cases until you reboot. Thus, running kube-proxy is something that should only be done
 by an administrator which understands the consequences of having a low level, privileged
-network proxying service on a computer.  Although the `kube-proxy` executable supports a
+network proxying service on a computer. Although the `kube-proxy` executable supports a
 `cleanup` function, this function is not an official feature and thus is only available
 to use as-is.
 
@@ -44,7 +45,7 @@ Some of the details in this reference refer to an example: the backend
 {{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
 image-processing workloads, running with
 three replicas. Those replicas are
-fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
+fungible&mdash;frontends do not care which backend they use. While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
 
@@ -96,7 +97,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 As an example, consider the image processing application described [earlier](#example)
 in the page.
 When the backend Service is created, the Kubernetes control plane assigns a virtual
-IP address, for example 10.0.0.1.  For this example, assume that the
+IP address, for example 10.0.0.1. For this example, assume that the
 Service port is 1234.
 All of the kube-proxy instances in the cluster observe the creation of the new
 Service.
@@ -124,11 +125,11 @@ kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-config.v1a
 (which you specify via `kube-proxy --config <path>`):
 
 ```yaml
-...
+
+---
 iptables:
   minSyncPeriod: 1s
   syncPeriod: 30s
-...
 ```
 
 ##### Performance optimization for `iptables` mode {#minimize-iptables-restore}
@@ -217,12 +218,12 @@ higher throughput of network traffic.
 IPVS provides more options for balancing traffic to backend Pods;
 these are:
 
-* `rr`: round-robin
-* `lc`: least connection (smallest number of open connections)
-* `dh`: destination hashing
-* `sh`: source hashing
-* `sed`: shortest expected delay
-* `nq`: never queue
+- `rr`: round-robin
+- `lc`: least connection (smallest number of open connections)
+- `dh`: destination hashing
+- `sh`: source hashing
+- `sed`: shortest expected delay
+- `nq`: never queue
 
 {{< note >}}
 To run kube-proxy in IPVS mode, you must make IPVS available on
@@ -259,7 +260,7 @@ On Windows, setting the maximum session sticky time for Services is not supporte
 ## IP address assignment to Services
 
 Unlike Pod IP addresses, which actually route to a fixed destination,
-Service IPs are not actually answered by a single host.  Instead, kube-proxy
+Service IPs are not actually answered by a single host. Instead, kube-proxy
 uses packet processing logic (such as Linux iptables) to define _virtual_ IP
 addresses which are transparently redirected as needed.
 
@@ -273,7 +274,7 @@ One of the primary philosophies of Kubernetes is that you should not be
 exposed to situations that could cause your actions to fail through no fault
 of your own. For the design of the Service resource, this means not making
 you choose your own IP address if that choice might collide with
-someone else's choice.  That is an isolation failure.
+someone else's choice. That is an isolation failure.
 
 In order to allow you to choose an IP address for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
@@ -299,7 +300,7 @@ If you enable the `MultiCIDRServiceAllocator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
 [`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
 the control plane replaces the existing etcd allocator with a new one, using IPAddress
-objects instead of an internal global allocation map.  The ClusterIP address
+objects instead of an internal global allocation map. The ClusterIP address
 associated to each Service will have a referenced IPAddress object.
 
 The background controller is also replaced by a new one to handle the new IPAddress
@@ -317,13 +318,16 @@ the built-in Service API.
 ```shell
 kubectl get services
 ```
+
 ```
 NAME         TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   2001:db8:1:2::1   <none>        443/TCP   3d1h
 ```
+
 ```shell
 kubectl get ipaddresses
 ```
+
 ```
 NAME              PARENTREF
 2001:db8:1:2::1   services/default/kubernetes
@@ -405,7 +409,6 @@ read [Connecting Applications with Services](/docs/tutorials/services/connect-ap
 
 You can also:
 
-* Read about [Services](/docs/concepts/services-networking/service/) as a concept
-* Read about [Ingresses](/docs/concepts/services-networking/ingress/) as a concept
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
-
+- Read about [Services](/docs/concepts/services-networking/service/) as a concept
+- Read about [Ingresses](/docs/concepts/services-networking/ingress/) as a concept
+- Read the [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API

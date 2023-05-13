@@ -6,13 +6,14 @@ full_link: /docs/tasks/configure-pod-container/static-pod/
 short_description: >
   A pod managed directly by the kubelet daemon on a specific node.
 
-aka: 
+aka:
 tags:
-- fundamental
+  - fundamental
 ---
 
 A {{< glossary_tooltip text="pod" term_id="pod" >}} managed directly by the kubelet
- daemon on a specific node,
+daemon on a specific node,
+
 <!--more-->
 
 without the API server observing it.

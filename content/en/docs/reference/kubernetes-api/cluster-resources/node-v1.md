@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -25,7 +25,6 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/api/core/v1"`
 
-
 ## Node {#Node}
 
 Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
@@ -34,9 +33,7 @@ Node is a worker node in Kubernetes. Each node will have a unique identifier in 
 
 - **apiVersion**: v1
 
-
 - **kind**: Node
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -50,10 +47,6 @@ Node is a worker node in Kubernetes. Each node will have a unique identifier in 
 
   Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-
-
-
-
 ## NodeSpec {#NodeSpec}
 
 NodeSpec describes the attributes that a node is created with.
@@ -65,14 +58,14 @@ NodeSpec describes the attributes that a node is created with.
   Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
 
   <a name="NodeConfigSource"></a>
-  *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
+  _NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22_
 
   - **configSource.configMap** (ConfigMapNodeConfigSource)
 
     ConfigMap is a reference to a Node's ConfigMap
 
     <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
+    _ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration_
 
     - **configSource.configMap.kubeletConfigKey** (string), required
 
@@ -115,7 +108,7 @@ NodeSpec describes the attributes that a node is created with.
   If specified, the node's taints.
 
   <a name="Taint"></a>
-  *The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.*
+  _The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint._
 
   - **taints.effect** (string), required
 
@@ -130,7 +123,7 @@ NodeSpec describes the attributes that a node is created with.
     TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **taints.value** (string)
 
@@ -140,10 +133,6 @@ NodeSpec describes the attributes that a node is created with.
 
   Unschedulable controls node schedulability of new pods. By default, node is schedulable. More info: https://kubernetes.io/docs/concepts/nodes/node/#manual-node-administration
 
-
-
-
-
 ## NodeStatus {#NodeStatus}
 
 NodeStatus is information about the current status of a node.
@@ -152,12 +141,12 @@ NodeStatus is information about the current status of a node.
 
 - **addresses** ([]NodeAddress)
 
-  *Patch strategy: merge on key `type`*
-  
+  _Patch strategy: merge on key `type`_
+
   List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 
   <a name="NodeAddress"></a>
-  *NodeAddress contains information for the node's address.*
+  _NodeAddress contains information for the node's address._
 
   - **addresses.address** (string), required
 
@@ -177,12 +166,12 @@ NodeStatus is information about the current status of a node.
 
 - **conditions** ([]NodeCondition)
 
-  *Patch strategy: merge on key `type`*
-  
+  _Patch strategy: merge on key `type`_
+
   Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
 
   <a name="NodeCondition"></a>
-  *NodeCondition contains condition information for a node.*
+  _NodeCondition contains condition information for a node._
 
   - **conditions.status** (string), required
 
@@ -197,14 +186,14 @@ NodeStatus is information about the current status of a node.
     Last time we got an update on a given condition.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.lastTransitionTime** (Time)
 
     Last time the condition transit from one status to another.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.message** (string)
 
@@ -219,21 +208,21 @@ NodeStatus is information about the current status of a node.
   Status of the config assigned to the node via the dynamic Kubelet config feature.
 
   <a name="NodeConfigStatus"></a>
-  *NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.*
+  _NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource._
 
   - **config.active** (NodeConfigSource)
 
     Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
+    _NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22_
 
     - **config.active.configMap** (ConfigMapNodeConfigSource)
 
       ConfigMap is a reference to a Node's ConfigMap
 
       <a name="ConfigMapNodeConfigSource"></a>
-      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
+      _ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration_
 
       - **config.active.configMap.kubeletConfigKey** (string), required
 
@@ -260,14 +249,14 @@ NodeStatus is information about the current status of a node.
     Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
+    _NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22_
 
     - **config.assigned.configMap** (ConfigMapNodeConfigSource)
 
       ConfigMap is a reference to a Node's ConfigMap
 
       <a name="ConfigMapNodeConfigSource"></a>
-      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
+      _ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration_
 
       - **config.assigned.configMap.kubeletConfigKey** (string), required
 
@@ -298,14 +287,14 @@ NodeStatus is information about the current status of a node.
     LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
+    _NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22_
 
     - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
 
       ConfigMap is a reference to a Node's ConfigMap
 
       <a name="ConfigMapNodeConfigSource"></a>
-      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
+      _ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration_
 
       - **config.lastKnownGood.configMap.kubeletConfigKey** (string), required
 
@@ -332,14 +321,14 @@ NodeStatus is information about the current status of a node.
   Endpoints of daemons running on the Node.
 
   <a name="NodeDaemonEndpoints"></a>
-  *NodeDaemonEndpoints lists ports opened by daemons running on the Node.*
+  _NodeDaemonEndpoints lists ports opened by daemons running on the Node._
 
   - **daemonEndpoints.kubeletEndpoint** (DaemonEndpoint)
 
     Endpoint on which Kubelet is listening.
 
     <a name="DaemonEndpoint"></a>
-    *DaemonEndpoint contains information about a single Daemon endpoint.*
+    _DaemonEndpoint contains information about a single Daemon endpoint._
 
     - **daemonEndpoints.kubeletEndpoint.Port** (int32), required
 
@@ -350,7 +339,7 @@ NodeStatus is information about the current status of a node.
   List of container images on this node
 
   <a name="ContainerImage"></a>
-  *Describe a container image*
+  _Describe a container image_
 
   - **images.names** ([]string)
 
@@ -365,7 +354,7 @@ NodeStatus is information about the current status of a node.
   Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
 
   <a name="NodeSystemInfo"></a>
-  *NodeSystemInfo is a set of ids/uuids to uniquely identify the node.*
+  _NodeSystemInfo is a set of ids/uuids to uniquely identify the node._
 
   - **nodeInfo.architecture** (string), required
 
@@ -416,7 +405,7 @@ NodeStatus is information about the current status of a node.
   List of volumes that are attached to the node.
 
   <a name="AttachedVolume"></a>
-  *AttachedVolume describes a volume attached to a node*
+  _AttachedVolume describes a volume attached to a node_
 
   - **volumesAttached.devicePath** (string), required
 
@@ -430,10 +419,6 @@ NodeStatus is information about the current status of a node.
 
   List of attachable volumes in use (mounted) by the node.
 
-
-
-
-
 ## NodeList {#NodeList}
 
 NodeList is the whole list of all Nodes which have been registered with master.
@@ -442,9 +427,7 @@ NodeList is the whole list of all Nodes which have been registered with master.
 
 - **apiVersion**: v1
 
-
 - **kind**: NodeList
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -454,20 +437,9 @@ NodeList is the whole list of all Nodes which have been registered with master.
 
   List of nodes
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `get` read the specified Node
 
@@ -477,25 +449,19 @@ GET /api/v1/nodes/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Node
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
 401: Unauthorized
-
 
 ### `get` read status of the specified Node
 
@@ -505,25 +471,19 @@ GET /api/v1/nodes/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Node
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind Node
 
@@ -533,70 +493,55 @@ GET /api/v1/nodes
 
 #### Parameters
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#NodeList" >}}">NodeList</a>): OK
 
 401: Unauthorized
-
 
 ### `create` create a Node
 
@@ -606,35 +551,25 @@ POST /api/v1/nodes
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
@@ -644,7 +579,6 @@ POST /api/v1/nodes
 
 401: Unauthorized
 
-
 ### `update` replace the specified Node
 
 #### HTTP Request
@@ -653,47 +587,35 @@ PUT /api/v1/nodes/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Node
 
-
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
 
 401: Unauthorized
-
 
 ### `update` replace status of the specified Node
 
@@ -703,47 +625,35 @@ PUT /api/v1/nodes/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Node
 
-
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update the specified Node
 
@@ -753,52 +663,39 @@ PATCH /api/v1/nodes/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Node
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update status of the specified Node
 
@@ -808,52 +705,39 @@ PATCH /api/v1/nodes/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Node
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
 201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
 
 401: Unauthorized
-
 
 ### `delete` delete a Node
 
@@ -863,47 +747,35 @@ DELETE /api/v1/nodes/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the Node
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
-
 
 ### `deletecollection` delete collection of Node
 
@@ -913,77 +785,58 @@ DELETE /api/v1/nodes
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

@@ -3,8 +3,8 @@ title: "Monitoring, Logging, and Debugging"
 description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
 weight: 40
 reviewers:
-- brendandburns
-- davidopp
+  - brendandburns
+  - davidopp
 content_type: concept
 no_list: true
 ---
@@ -14,9 +14,9 @@ no_list: true
 Sometimes things go wrong. This guide is aimed at making them right. It has
 two sections:
 
-* [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
+- [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
   for users who are deploying code into Kubernetes and wondering why it is not working.
-* [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - Useful
+- [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - Useful
   for cluster administrators and people whose Kubernetes cluster is unhappy.
 
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
@@ -41,32 +41,32 @@ development scenarios. The [Reference](/docs/reference/) section provides
 detailed documentation on the [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/).
 
-## Help! My question isn't covered!  I need help now!
+## Help! My question isn't covered! I need help now!
 
 ### Stack Exchange, Stack Overflow, or Server Fault {#stack-exchange}
 
-If you have questions related to *software development* for your containerized app,
+If you have questions related to _software development_ for your containerized app,
 you can ask those on [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).
 
-If you have Kubernetes questions related to *cluster management* or *configuration*,
+If you have Kubernetes questions related to _cluster management_ or _configuration_,
 you can ask those on
 [Server Fault](https://serverfault.com/questions/tagged/kubernetes).
 
 There are also several more specific Stack Exchange network sites which might
 be the right place to ask Kubernetes questions in areas such as
-[DevOps](https://devops.stackexchange.com/questions/tagged/kubernetes), 
+[DevOps](https://devops.stackexchange.com/questions/tagged/kubernetes),
 [Software Engineering](https://softwareengineering.stackexchange.com/questions/tagged/kubernetes),
 or [InfoSec](https://security.stackexchange.com/questions/tagged/kubernetes).
 
-Someone else from the community may have already asked a similar question or 
+Someone else from the community may have already asked a similar question or
 may be able to help with your problem.
 
 The Kubernetes team will also monitor
 [posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
-If there aren't any existing questions that help, **please ensure that your question 
+If there aren't any existing questions that help, **please ensure that your question
 is [on-topic on Stack Overflow](https://stackoverflow.com/help/on-topic),
-[Server Fault](https://serverfault.com/help/on-topic), or the Stack Exchange 
-Network site you're asking on**, and read through the guidance on 
+[Server Fault](https://serverfault.com/help/on-topic), or the Stack Exchange
+Network site you're asking on**, and read through the guidance on
 [how to ask a new question](https://stackoverflow.com/help/how-to-ask),
 before asking a new one!
 
@@ -121,8 +121,6 @@ already covered.
 If filing a bug, please include detailed information about how to reproduce the
 problem, such as:
 
-* Kubernetes version: `kubectl version`
-* Cloud provider, OS distro, network configuration, and container runtime version
-* Steps to reproduce the problem
-
-
+- Kubernetes version: `kubectl version`
+- Cloud provider, OS distro, network configuration, and container runtime version
+- Steps to reproduce the problem

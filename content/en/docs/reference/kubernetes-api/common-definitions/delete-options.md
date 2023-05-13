@@ -15,16 +15,13 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
-
 `import "k8s.io/apimachinery/pkg/apis/meta/v1"`
-
 
 DeleteOptions may be provided when deleting an API object.
 
@@ -55,7 +52,7 @@ DeleteOptions may be provided when deleting an API object.
   Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
 
   <a name="Preconditions"></a>
-  *Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.*
+  _Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out._
 
   - **preconditions.resourceVersion** (string)
 
@@ -68,8 +65,3 @@ DeleteOptions may be provided when deleting an API object.
 - **propagationPolicy** (string)
 
   Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-
-
-
-
-

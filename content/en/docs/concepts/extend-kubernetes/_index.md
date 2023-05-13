@@ -3,10 +3,10 @@ title: Extending Kubernetes
 weight: 999 # this section should come last
 description: Different ways to change the behavior of your Kubernetes cluster.
 reviewers:
-- erictune
-- lavalamp
-- cheftako
-- chenopis
+  - erictune
+  - lavalamp
+  - cheftako
+  - chenopis
 feature:
   title: Designed for extensibility
   description: >
@@ -37,14 +37,14 @@ This document is primarily about _extensions_.
 
 ## Configuration
 
-*Configuration files* and *command arguments* are documented in the [Reference](/docs/reference/) section of the online
+_Configuration files_ and _command arguments_ are documented in the [Reference](/docs/reference/) section of the online
 documentation, with a page for each binary:
 
-* [`kube-apiserver`](/docs/reference/command-line-tools-reference/kube-apiserver/)
-* [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-* [`kube-scheduler`](/docs/reference/command-line-tools-reference/kube-scheduler/)
-* [`kubelet`](/docs/reference/command-line-tools-reference/kubelet/)
-* [`kube-proxy`](/docs/reference/command-line-tools-reference/kube-proxy/)
+- [`kube-apiserver`](/docs/reference/command-line-tools-reference/kube-apiserver/)
+- [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+- [`kube-scheduler`](/docs/reference/command-line-tools-reference/kube-scheduler/)
+- [`kubelet`](/docs/reference/command-line-tools-reference/kubelet/)
+- [`kube-proxy`](/docs/reference/command-line-tools-reference/kube-proxy/)
 
 Command arguments and configuration files may not always be changeable in a hosted Kubernetes service or a
 distribution with managed installation. When they are changeable, they are usually only changeable
@@ -52,14 +52,14 @@ by the cluster operator. Also, they are subject to change in future Kubernetes v
 setting them may require restarting processes. For those reasons, they should be used only when
 there are no other options.
 
-Built-in *policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/),
+Built-in _policy APIs_, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/),
 [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control
 ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs that provide declaratively configured policy settings.
 APIs are typically usable even with hosted Kubernetes services and with managed Kubernetes installations.
 The built-in policy APIs follow the same conventions as other Kubernetes resources such as Pods.
 When you use a policy APIs that is [stable](/docs/reference/using-api/#api-versioning), you benefit from a
 [defined support policy](/docs/reference/using-api/deprecation-policy/) like other Kubernetes APIs.
-For these reasons, policy APIs are recommended over *configuration files* and *command arguments* where suitable.
+For these reasons, policy APIs are recommended over _configuration files_ and _command arguments_ where suitable.
 
 ## Extensions
 
@@ -74,7 +74,7 @@ users will not need to install extensions and even fewer users will need to auth
 
 Kubernetes is designed to be automated by writing client programs. Any
 program that reads and/or writes to the Kubernetes API can provide useful
-automation. *Automation* can run on the cluster or off it. By following
+automation. _Automation_ can run on the cluster or off it. By following
 the guidance in this doc you can write highly available and robust automation.
 Automation generally works with any Kubernetes cluster, including hosted
 clusters and managed installations.
@@ -85,8 +85,8 @@ pattern. Controllers typically read an object's `.spec`, possibly do things, and
 update the object's `.status`.
 
 A controller is a client of the Kubernetes API. When Kubernetes is the client and calls
-out to a remote service, Kubernetes calls this a *webhook*. The remote service is called
-a *webhook backend*. As with custom controllers, webhooks do add a point of failure.
+out to a remote service, Kubernetes calls this a _webhook_. The remote service is called
+a _webhook backend_. As with custom controllers, webhooks do add a point of failure.
 
 {{< note >}}
 Outside of Kubernetes, the term “webhook” typically refers to a mechanism for asynchronous
@@ -96,7 +96,7 @@ described as “webhooks”.
 {{< /note >}}
 
 In the webhook model, Kubernetes makes a network request to a remote service.
-With the alternative *binary Plugin* model, Kubernetes executes a binary (program).
+With the alternative _binary Plugin_ model, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (for example, [CSI storage plugins](https://kubernetes-csi.github.io/docs/)
 and [CNI network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)),
 and by kubectl (see [Extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)).
@@ -122,7 +122,7 @@ clients that access it.
    authenticating requests, or blocking them based on their content, editing content, and handling
    deletion. These are described in the [API Access Extensions](#api-access-extensions) section.
 
-1. The API server serves various kinds of *resources*. *Built-in resource kinds*, such as
+1. The API server serves various kinds of _resources_. _Built-in resource kinds_, such as
    `pods`, are defined by the Kubernetes project and can't be changed.
    Read [API extensions](#api-extensions) to learn about extending the Kubernetes API.
 
@@ -148,7 +148,6 @@ clients that access it.
    {{< glossary_tooltip text="volume" term_id="volume" >}} for pods and their containers.
    You can use [Storage Plugins](#storage-plugins) to add support for new kinds
    of storage and other volume types.
-
 
 #### Extension point choice flowchart {#extension-flowchart}
 
@@ -242,9 +241,9 @@ After a request is authorized, if it is a write operation, it also goes through
 [Admission Control](/docs/reference/access-authn-authz/admission-controllers/) steps.
 In addition to the built-in steps, there are several extensions:
 
-* The [Image Policy webhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
+- The [Image Policy webhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
   restricts what images can be run in containers.
-* To make arbitrary admission control decisions, a general
+- To make arbitrary admission control decisions, a general
   [Admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
   can be used. Admission webhooks can reject creations or updates.
   Some admission webhooks modify the incoming request data before it is handled further by Kubernetes.
@@ -312,12 +311,12 @@ not available through the webhook integration.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about infrastructure extensions
-  * [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
-  * [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-  * CSI [storage plugins](https://kubernetes-csi.github.io/docs/)
-* Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
-* Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-* Learn more about [Extension API Servers](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-* Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-* Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
+- Learn more about infrastructure extensions
+  - [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+  - [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+  - CSI [storage plugins](https://kubernetes-csi.github.io/docs/)
+- Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
+- Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+- Learn more about [Extension API Servers](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+- Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)

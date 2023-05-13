@@ -18,14 +18,9 @@ If you find bugs in the generated documentation, you need to
 If you need only to regenerate the reference documentation from the [OpenAPI](https://github.com/OAI/OpenAPI-Specification)
 spec, continue reading this page.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "prerequisites-ref-docs.md" >}}
-
-
 
 <!-- steps -->
 
@@ -60,20 +55,20 @@ Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes:
 git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
 ```
 
-* The base directory of your clone of the
-[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
-`$GOPATH/src/k8s.io/kubernetes.`
-The remaining steps refer to your base directory as `<k8s-base>`.
+- The base directory of your clone of the
+  [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
+  `$GOPATH/src/k8s.io/kubernetes.`
+  The remaining steps refer to your base directory as `<k8s-base>`.
 
-* The base directory of your clone of the
-[kubernetes/website](https://github.com/kubernetes/website) repository is
-`$GOPATH/src/github.com/<your username>/website.`
-The remaining steps refer to your base directory as `<web-base>`.
+- The base directory of your clone of the
+  [kubernetes/website](https://github.com/kubernetes/website) repository is
+  `$GOPATH/src/github.com/<your username>/website.`
+  The remaining steps refer to your base directory as `<web-base>`.
 
-* The base directory of your clone of the
-[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-repository is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
-The remaining steps refer to your base directory as `<rdocs-base>`.
+- The base directory of your clone of the
+  [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
+  repository is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
+  The remaining steps refer to your base directory as `<rdocs-base>`.
 
 ## Generating the API reference docs
 
@@ -82,9 +77,9 @@ This section shows how to generate the
 
 ### Setting build variables
 
-* Set `K8S_ROOT` to `<k8s-base>`.
-* Set `K8S_WEBROOT` to `<web-base>`.
-* Set `K8S_RELEASE` to the version of the docs you want to build.
+- Set `K8S_ROOT` to `<k8s-base>`.
+- Set `K8S_WEBROOT` to `<web-base>`.
+- Set `K8S_RELEASE` to the version of the docs you want to build.
   For example, if you want to build docs for Kubernetes 1.17.0, set `K8S_RELEASE` to 1.17.0.
 
 For example:
@@ -97,7 +92,7 @@ export K8S_RELEASE=1.17.0
 
 ### Creating versioned directory and fetching Open API spec
 
-The `updateapispec` build target creates the versioned  build directory.
+The `updateapispec` build target creates the versioned build directory.
 After the directory is created, the Open API spec is fetched from the
 `<k8s-base>` repository. These steps ensure that the version
 of the configuration files and Kubernetes Open API spec match the release version.
@@ -160,18 +155,18 @@ When generating reference documentation for a new release, update the file,
 `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` with the new
 version number.
 
-* Open `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` for editing,
+- Open `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` for editing,
   and update the API reference version number. For example:
 
-    ```
-    ---
-    title: v1.17
-    ---
+  ```
+  ---
+  title: v1.17
+  ---
 
-    [Kubernetes API v1.17](/docs/reference/generated/kubernetes-api/v1.17/)
-    ```
+  [Kubernetes API v1.17](/docs/reference/generated/kubernetes-api/v1.17/)
+  ```
 
-* Open `<web-base>/content/en/docs/reference/_index.md` for editing, and add a
+- Open `<web-base>/content/en/docs/reference/_index.md` for editing, and add a
   new link for the latest API reference. Remove the oldest API reference version.
   There should be five links to the most recent API references.
 
@@ -196,11 +191,8 @@ Submit your changes as a
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
 
-
 ## {{% heading "whatsnext" %}}
 
-* [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
-* [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
-
-
+- [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
+- [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
+- [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)

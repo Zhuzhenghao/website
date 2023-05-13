@@ -6,16 +6,17 @@ full_link:
 short_description: >
   A whole-number representation of small or large numbers using SI suffixes.
 
-aka: 
+aka:
 tags:
-- core-object
+  - core-object
 ---
- A whole-number representation of small or large numbers using [SI](https://en.wikipedia.org/wiki/International_System_of_Units) suffixes.
+
+A whole-number representation of small or large numbers using [SI](https://en.wikipedia.org/wiki/International_System_of_Units) suffixes.
 
 <!--more-->
 
 Quantities are representations of small or large numbers using a compact,
-whole-number notation with SI suffixes.  Fractional numbers are represented
+whole-number notation with SI suffixes. Fractional numbers are represented
 using milli units, while large numbers can be represented using kilo,
 mega, or giga units.
 
@@ -29,4 +30,3 @@ intentionally lowercase), `M` (mega), `G` (giga), `T` (tera), `P` (peta),
 
 The accepted binary (power-of-2) units are `Ki` (kibi), `Mi` (mebi), `Gi` (gibi),
 `Ti` (tebi), `Pi` (pebi), `Ei` (exbi).
-

@@ -1,6 +1,6 @@
 ---
 reviewers:
-- robscott
+  - robscott
 title: Topology Aware Routing
 content_type: concept
 weight: 100
@@ -9,7 +9,6 @@ description: >-
   where it originated. Preferring same-zone traffic between Pods in your cluster can help
   with reliability, performance (network latency and throughput), or cost.
 ---
-
 
 <!-- overview -->
 
@@ -62,6 +61,7 @@ This feature is not recommended when incoming traffic is expected to originate
 from a single zone.
 
 ### 2. The Service has 3 or more endpoints per zone {#three-or-more-endpoints-per-zone}
+
 In a three zone cluster, this means 9 or more endpoints. If there are fewer than
 3 endpoints per zone, there is a high (≈50%) probability that the EndpointSlice
 controller will not be able to allocate endpoints evenly and instead will fall
@@ -154,37 +154,36 @@ zone.
 
 ## Constraints
 
-* Topology Aware Hints are not used when either `externalTrafficPolicy` or
+- Topology Aware Hints are not used when either `externalTrafficPolicy` or
   `internalTrafficPolicy` is set to `Local` on a Service. It is possible to use
   both features in the same cluster on different Services, just not on the same
   Service.
 
-* This approach will not work well for Services that have a large proportion of
+- This approach will not work well for Services that have a large proportion of
   traffic originating from a subset of zones. Instead this assumes that incoming
   traffic will be roughly proportional to the capacity of the Nodes in each
   zone.
 
-* The EndpointSlice controller ignores unready nodes as it calculates the
+- The EndpointSlice controller ignores unready nodes as it calculates the
   proportions of each zone. This could have unintended consequences if a large
   portion of nodes are unready.
 
-* The EndpointSlice controller ignores nodes with the
+- The EndpointSlice controller ignores nodes with the
   `node-role.kubernetes.io/control-plane` or `node-role.kubernetes.io/master`
   label set. This could be problematic if workloads are also running on those
   nodes.
 
-* The EndpointSlice controller does not take into account {{< glossary_tooltip
+- The EndpointSlice controller does not take into account {{< glossary_tooltip
   text="tolerations" term_id="toleration" >}} when deploying or calculating the
   proportions of each zone. If the Pods backing a Service are limited to a
   subset of Nodes in the cluster, this will not be taken into account.
 
-* This may not work well with autoscaling. For example, if a lot of traffic is
+- This may not work well with autoscaling. For example, if a lot of traffic is
   originating from a single zone, only the endpoints allocated to that zone will
   be handling that traffic. That could result in {{< glossary_tooltip
   text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}
   either not picking up on this event, or newly added pods starting in a
   different zone.
-
 
 ## Custom heuristics
 
@@ -195,7 +194,6 @@ does not work for your use case. The first steps to enable custom heuristics
 were included in the 1.27 release. This is a limited implementation that may not
 yet cover some relevant and plausible situations.
 
-
 ## {{% heading "whatsnext" %}}
 
-* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
+- Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

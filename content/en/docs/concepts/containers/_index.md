@@ -3,8 +3,8 @@ title: Containers
 weight: 40
 description: Technology for packaging an application along with its runtime dependencies.
 reviewers:
-- erictune
-- thockin
+  - erictune
+  - thockin
 content_type: concept
 ---
 
@@ -22,10 +22,10 @@ cluster runs the containers that form the
 [Pods](/docs/concepts/workloads/pods/) assigned to that node.
 Containers in a Pod are co-located and co-scheduled to run on the same node.
 
-
 <!-- body -->
 
 ## Container images
+
 A [container image](/docs/concepts/containers/images/) is a ready-to-run
 software package containing everything needed to run an application:
 the code and any runtime it requires, application and system libraries,

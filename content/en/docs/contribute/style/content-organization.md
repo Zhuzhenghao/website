@@ -4,12 +4,9 @@ content_type: concept
 weight: 90
 ---
 
-
 <!-- overview -->
 
 This site uses Hugo. In Hugo, [content organization](https://gohugo.io/content-management/organization/) is a core concept.
-
-
 
 <!-- body -->
 
@@ -30,12 +27,10 @@ title: My Page
 weight: 10
 ```
 
-
 {{% note %}}
 For page weights, it can be smart not to use 1, 2, 3 ..., but some other interval, say 10, 20, 30... This allows you to insert pages where you want later.
-Additionally, each weight within the same directory (section) should not be overlapped with the other weights. This makes sure that content is always organized correctly, especially in localized content. 
+Additionally, each weight within the same directory (section) should not be overlapped with the other weights. This makes sure that content is always organized correctly, especially in localized content.
 {{% /note %}}
-
 
 ### Documentation Main Menu
 
@@ -45,16 +40,13 @@ The `Documentation` main menu is built from the sections below `docs/` with the 
 main_menu: true
 ```
 
-
 Note that the link title is fetched from the page's `linkTitle`, so if you want it to be something different than the title, change it in the content file:
-
 
 ```yaml
 main_menu: true
 title: Page Title
 linkTitle: Title used in links
 ```
-
 
 {{% note %}}
 The above needs to be done per language. If you don't see your section in the menu, it is probably because it is not identified as a section by Hugo. Create a `_index.md` content file in the section folder.
@@ -88,7 +80,6 @@ toc_hide: true
 
 The site links in the top-right menu -- and also in the footer -- are built by page-lookups. This is to make sure that the page actually exists. So, if the `case-studies` section does not exist in a site (language), it will not be linked to.
 
-
 ## Page Bundles
 
 In addition to standalone content pages (Markdown files), Hugo supports [Page Bundles](https://gohugo.io/content-management/page-bundles/).
@@ -118,22 +109,16 @@ en/includes
 
 Some important notes to the files in the bundles:
 
-* For translated bundles, any missing non-content files will be inherited from languages above. This avoids duplication.
-* All the files in a bundle are what Hugo calls `Resources` and you can provide metadata per language, such as parameters and title, even if it does not supports front matter (YAML files etc.). See [Page Resources Metadata](https://gohugo.io/content-management/page-resources/#page-resources-metadata).
-* The value you get from `.RelPermalink` of a `Resource` is page-relative. See [Permalinks](https://gohugo.io/content-management/urls/#permalinks).
-
+- For translated bundles, any missing non-content files will be inherited from languages above. This avoids duplication.
+- All the files in a bundle are what Hugo calls `Resources` and you can provide metadata per language, such as parameters and title, even if it does not supports front matter (YAML files etc.). See [Page Resources Metadata](https://gohugo.io/content-management/page-resources/#page-resources-metadata).
+- The value you get from `.RelPermalink` of a `Resource` is page-relative. See [Permalinks](https://gohugo.io/content-management/urls/#permalinks).
 
 ## Styles
 
 The [SASS](https://sass-lang.com/) source of the stylesheets for this site is stored in `assets/sass` and is automatically built by Hugo.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* Learn about [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
-* Learn about the [Style guide](/docs/contribute/style/style-guide)
-* Learn about the [Content guide](/docs/contribute/style/content-guide)
-
-
+- Learn about [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
+- Learn about the [Style guide](/docs/contribute/style/style-guide)
+- Learn about the [Content guide](/docs/contribute/style/content-guide)

@@ -8,10 +8,11 @@ short_description: >
 
 aka:
 tags:
-- core-object
-- security
+  - core-object
+  - security
 ---
- Stores sensitive information, such as passwords, OAuth tokens, and SSH keys.
+
+Stores sensitive information, such as passwords, OAuth tokens, and SSH keys.
 
 <!--more-->
 

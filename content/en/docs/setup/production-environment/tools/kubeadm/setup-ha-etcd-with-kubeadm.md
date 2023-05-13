@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Set up a High Availability etcd Cluster with kubeadm
 content_type: task
 weight: 70
@@ -273,24 +273,23 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 
 1. Optional: Check the cluster health.
 
-    If `etcdctl` isn't available, you can run this tool inside a container image.
-    You would do that directly with your container runtime using a tool such as
-    `crictl run` and not through Kubernetes
+   If `etcdctl` isn't available, you can run this tool inside a container image.
+   You would do that directly with your container runtime using a tool such as
+   `crictl run` and not through Kubernetes
 
-    ```sh
-    ETCDCTL_API=3 etcdctl \
-    --cert /etc/kubernetes/pki/etcd/peer.crt \
-    --key /etc/kubernetes/pki/etcd/peer.key \
-    --cacert /etc/kubernetes/pki/etcd/ca.crt \
-    --endpoints https://${HOST0}:2379 endpoint health
-    ...
-    https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
-    https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
-    https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
-    ```
-    
-    - Set `${HOST0}`to the IP address of the host you are testing.
+   ```sh
+   ETCDCTL_API=3 etcdctl \
+   --cert /etc/kubernetes/pki/etcd/peer.crt \
+   --key /etc/kubernetes/pki/etcd/peer.key \
+   --cacert /etc/kubernetes/pki/etcd/ca.crt \
+   --endpoints https://${HOST0}:2379 endpoint health
+   ...
+   https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
+   https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
+   https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
+   ```
 
+   - Set `${HOST0}`to the IP address of the host you are testing.
 
 ## {{% heading "whatsnext" %}}
 

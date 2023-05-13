@@ -5,26 +5,19 @@ package: cloudcontrollermanager.config.k8s.io/v1alpha1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 - [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-  
-    
 
-## `NodeControllerConfiguration`     {#NodeControllerConfiguration}
-    
+## `NodeControllerConfiguration` {#NodeControllerConfiguration}
 
 **Appears in:**
 
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 
-
 <p>NodeControllerConfiguration contains elements describing NodeController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -42,8 +35,7 @@ concurrently synchronizing nodes</p>
 </tbody>
 </table>
 
-## `ServiceControllerConfiguration`     {#ServiceControllerConfiguration}
-    
+## `ServiceControllerConfiguration` {#ServiceControllerConfiguration}
 
 **Appears in:**
 
@@ -51,9 +43,7 @@ concurrently synchronizing nodes</p>
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>ServiceControllerConfiguration contains elements describing ServiceController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -72,14 +62,11 @@ management, but more CPU (and network) load.</p>
 </tbody>
 </table>
   
-    
 
-## `CloudControllerManagerConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration}
-    
 
+## `CloudControllerManagerConfiguration` {#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration}
 
 <p>CloudControllerManagerConfiguration contains elements describing cloud-controller manager.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -137,16 +124,13 @@ related features.</p>
 </tbody>
 </table>
 
-## `CloudProviderConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudProviderConfiguration}
-    
+## `CloudProviderConfiguration` {#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudProviderConfiguration}
 
 **Appears in:**
 
 - [KubeCloudSharedConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-KubeCloudSharedConfiguration)
 
-
 <p>CloudProviderConfiguration contains basically elements about cloud provider.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -170,8 +154,7 @@ related features.</p>
 </tbody>
 </table>
 
-## `KubeCloudSharedConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-KubeCloudSharedConfiguration}
-    
+## `KubeCloudSharedConfiguration` {#cloudcontrollermanager-config-k8s-io-v1alpha1-KubeCloudSharedConfiguration}
 
 **Appears in:**
 
@@ -179,10 +162,8 @@ related features.</p>
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>KubeCloudSharedConfiguration contains elements shared by both kube-controller manager
 and cloud-controller manager, but not genericconfig.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -282,17 +263,14 @@ of new nodes to cluster.</p>
 </tbody>
 </table>
 
-## `WebhookConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-WebhookConfiguration}
-    
+## `WebhookConfiguration` {#cloudcontrollermanager-config-k8s-io-v1alpha1-WebhookConfiguration}
 
 **Appears in:**
 
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 
-
 <p>WebhookConfiguration contains configuration related to
 cloud-controller-manager hosted webhooks</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -314,18 +292,15 @@ first item for a particular name wins</p>
 </table>
   
   
-    
 
-## `LeaderMigrationConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration}
-    
+
+## `LeaderMigrationConfiguration` {#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration}
 
 **Appears in:**
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
-
 <p>LeaderMigrationConfiguration provides versioned configuration for all migrating leader locks.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -361,16 +336,13 @@ Should be &quot;leases&quot; or &quot;endpoints&quot;</p>
 </tbody>
 </table>
 
-## `ControllerLeaderConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration}
-    
+## `ControllerLeaderConfiguration` {#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration}
 
 **Appears in:**
 
 - [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
 
-
 <p>ControllerLeaderConfiguration provides the configuration for a migrating leader lock.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -397,8 +369,7 @@ Or '*' meaning the controller can be run under any component that participates i
 </tbody>
 </table>
 
-## `GenericControllerManagerConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration}
-    
+## `GenericControllerManagerConfiguration` {#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration}
 
 **Appears in:**
 
@@ -406,9 +377,7 @@ Or '*' meaning the controller can be run under any component that participates i
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>GenericControllerManagerConfiguration holds configuration for a generic controller-manager.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -495,14 +464,11 @@ first item for a particular name wins</p>
 </table>
   
   
-    
 
-## `KubeControllerManagerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration}
-    
 
+## `KubeControllerManagerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration}
 
 <p>KubeControllerManagerConfiguration contains elements describing kube-controller manager.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -728,16 +694,13 @@ TTLAfterFinishedController related features.</p>
 </tbody>
 </table>
 
-## `AttachDetachControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-AttachDetachControllerConfiguration}
-    
+## `AttachDetachControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-AttachDetachControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>AttachDetachControllerConfiguration contains elements describing AttachDetachController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -764,16 +727,13 @@ wait between successive executions. Is set to 5 sec by default.</p>
 </tbody>
 </table>
 
-## `CSRSigningConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningConfiguration}
-    
+## `CSRSigningConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningConfiguration}
 
 **Appears in:**
 
 - [CSRSigningControllerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningControllerConfiguration)
 
-
 <p>CSRSigningConfiguration holds information about a particular CSR signer</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -799,16 +759,13 @@ RSA or ECDSA private key used to issue certificates</p>
 </tbody>
 </table>
 
-## `CSRSigningControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningControllerConfiguration}
-    
+## `CSRSigningControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>CSRSigningControllerConfiguration contains elements describing CSRSigningController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -870,16 +827,13 @@ Individual CSRs may request shorter certs by setting spec.expirationSeconds.</p>
 </tbody>
 </table>
 
-## `CronJobControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-CronJobControllerConfiguration}
-    
+## `CronJobControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-CronJobControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>CronJobControllerConfiguration contains elements describing CrongJob2Controller.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -898,16 +852,13 @@ but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `DaemonSetControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DaemonSetControllerConfiguration}
-    
+## `DaemonSetControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-DaemonSetControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>DaemonSetControllerConfiguration contains elements describing DaemonSetController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -926,16 +877,13 @@ but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `DeploymentControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DeploymentControllerConfiguration}
-    
+## `DeploymentControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-DeploymentControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>DeploymentControllerConfiguration contains elements describing DeploymentController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -954,29 +902,21 @@ but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `DeprecatedControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DeprecatedControllerConfiguration}
-    
+## `DeprecatedControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-DeprecatedControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-
 
 <p>DeprecatedControllerConfiguration contains elements be deprecated.</p>
 
-
-
-
-## `EndpointControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointControllerConfiguration}
-    
+## `EndpointControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>EndpointControllerConfiguration contains elements describing EndpointController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1004,17 +944,14 @@ upcoming updates and reduce the overall number of endpoints updates.</p>
 </tbody>
 </table>
 
-## `EndpointSliceControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointSliceControllerConfiguration}
-    
+## `EndpointSliceControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointSliceControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>EndpointSliceControllerConfiguration contains elements describing
 EndpointSliceController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1051,17 +988,14 @@ upcoming updates and reduce the overall number of endpoints updates.</p>
 </tbody>
 </table>
 
-## `EndpointSliceMirroringControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointSliceMirroringControllerConfiguration}
-    
+## `EndpointSliceMirroringControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointSliceMirroringControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>EndpointSliceMirroringControllerConfiguration contains elements describing
 EndpointSliceMirroringController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1100,16 +1034,13 @@ update triggers an EndpointSlice update.</p>
 </tbody>
 </table>
 
-## `EphemeralVolumeControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EphemeralVolumeControllerConfiguration}
-    
+## `EphemeralVolumeControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-EphemeralVolumeControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>EphemeralVolumeControllerConfiguration contains elements describing EphemeralVolumeController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1128,16 +1059,13 @@ but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `GarbageCollectorControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-GarbageCollectorControllerConfiguration}
-    
+## `GarbageCollectorControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-GarbageCollectorControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>GarbageCollectorControllerConfiguration contains elements describing GarbageCollectorController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1171,16 +1099,13 @@ allowed to sync concurrently.</p>
 </tbody>
 </table>
 
-## `GroupResource`     {#kubecontrollermanager-config-k8s-io-v1alpha1-GroupResource}
-    
+## `GroupResource` {#kubecontrollermanager-config-k8s-io-v1alpha1-GroupResource}
 
 **Appears in:**
 
 - [GarbageCollectorControllerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-GarbageCollectorControllerConfiguration)
 
-
 <p>GroupResource describes an group resource.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1204,16 +1129,13 @@ allowed to sync concurrently.</p>
 </tbody>
 </table>
 
-## `HPAControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-HPAControllerConfiguration}
-    
+## `HPAControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-HPAControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>HPAControllerConfiguration contains elements describing HPAController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1287,16 +1209,13 @@ period.</p>
 </tbody>
 </table>
 
-## `JobControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-JobControllerConfiguration}
-    
+## `JobControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-JobControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>JobControllerConfiguration contains elements describing JobController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1315,16 +1234,13 @@ but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `NamespaceControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-NamespaceControllerConfiguration}
-    
+## `NamespaceControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-NamespaceControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>NamespaceControllerConfiguration contains elements describing NamespaceController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1350,16 +1266,13 @@ allowed to sync concurrently.</p>
 </tbody>
 </table>
 
-## `NodeIPAMControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-NodeIPAMControllerConfiguration}
-    
+## `NodeIPAMControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-NodeIPAMControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>NodeIPAMControllerConfiguration contains elements describing NodeIpamController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1404,16 +1317,13 @@ allowed to sync concurrently.</p>
 </tbody>
 </table>
 
-## `NodeLifecycleControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-NodeLifecycleControllerConfiguration}
-    
+## `NodeLifecycleControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-NodeLifecycleControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>NodeLifecycleControllerConfiguration contains elements describing NodeLifecycleController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1477,17 +1387,14 @@ unhealthyZoneThreshold (no less than 3) of Nodes in the zone are NotReady</p>
 </tbody>
 </table>
 
-## `PersistentVolumeBinderControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-PersistentVolumeBinderControllerConfiguration}
-    
+## `PersistentVolumeBinderControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-PersistentVolumeBinderControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>PersistentVolumeBinderControllerConfiguration contains elements describing
 PersistentVolumeBinderController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1528,16 +1435,13 @@ should be allowed from plugins.</p>
 </tbody>
 </table>
 
-## `PersistentVolumeRecyclerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-PersistentVolumeRecyclerConfiguration}
-    
+## `PersistentVolumeRecyclerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-PersistentVolumeRecyclerConfiguration}
 
 **Appears in:**
 
 - [VolumeConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-VolumeConfiguration)
 
-
 <p>PersistentVolumeRecyclerConfiguration contains elements describing persistent volume plugins.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1606,16 +1510,13 @@ in a multi-node cluster.</p>
 </tbody>
 </table>
 
-## `PodGCControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-PodGCControllerConfiguration}
-    
+## `PodGCControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-PodGCControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>PodGCControllerConfiguration contains elements describing PodGCController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1634,16 +1535,13 @@ If &lt;= 0, the terminated pod garbage collector is disabled.</p>
 </tbody>
 </table>
 
-## `ReplicaSetControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ReplicaSetControllerConfiguration}
-    
+## `ReplicaSetControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-ReplicaSetControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>ReplicaSetControllerConfiguration contains elements describing ReplicaSetController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1662,16 +1560,13 @@ CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `ReplicationControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ReplicationControllerConfiguration}
-    
+## `ReplicationControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-ReplicationControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>ReplicationControllerConfiguration contains elements describing ReplicationController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1690,16 +1585,13 @@ management, but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `ResourceQuotaControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ResourceQuotaControllerConfiguration}
-    
+## `ResourceQuotaControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-ResourceQuotaControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>ResourceQuotaControllerConfiguration contains elements describing ResourceQuotaController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1726,16 +1618,13 @@ management, but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `SAControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-SAControllerConfiguration}
-    
+## `SAControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-SAControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>SAControllerConfiguration contains elements describing ServiceAccountController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1769,16 +1658,13 @@ account's token secret. This must be a valid PEM-encoded CA bundle.</p>
 </tbody>
 </table>
 
-## `StatefulSetControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-StatefulSetControllerConfiguration}
-    
+## `StatefulSetControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-StatefulSetControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>StatefulSetControllerConfiguration contains elements describing StatefulSetController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1797,16 +1683,13 @@ but more CPU (and network) load.</p>
 </tbody>
 </table>
 
-## `TTLAfterFinishedControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-TTLAfterFinishedControllerConfiguration}
-    
+## `TTLAfterFinishedControllerConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-TTLAfterFinishedControllerConfiguration}
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>TTLAfterFinishedControllerConfiguration contains elements describing TTLAfterFinishedController.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1824,20 +1707,17 @@ allowed to sync concurrently.</p>
 </tbody>
 </table>
 
-## `VolumeConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-VolumeConfiguration}
-    
+## `VolumeConfiguration` {#kubecontrollermanager-config-k8s-io-v1alpha1-VolumeConfiguration}
 
 **Appears in:**
 
 - [PersistentVolumeBinderControllerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-PersistentVolumeBinderControllerConfiguration)
-
 
 <p>VolumeConfiguration contains <em>all</em> enumerated flags meant to configure all volume
 plugins. From this config, the controller-manager binary will create many instances of
 volume.VolumeConfig, each containing only the configuration needed for that plugin which
 are then passed to the appropriate plugin. The ControllerManager binary is the only part
 of the code which knows what plugins are supported and which flags correspond to each plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1879,4 +1759,3 @@ volume plugin should search for additional third party volume plugins</p>
 </tr>
 </tbody>
 </table>
-  

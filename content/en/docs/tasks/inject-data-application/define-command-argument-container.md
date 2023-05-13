@@ -9,16 +9,9 @@ weight: 10
 This page shows how to define commands and arguments when you run a container
 in a {{< glossary_tooltip term_id="pod" >}}.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
 
 <!-- steps -->
 
@@ -60,7 +53,7 @@ file for the Pod defines a command and two arguments:
    completed.
 
 1. To see the output of the command that ran in the container, view the logs
-from the Pod:
+   from the Pod:
 
    ```shell
    kubectl logs command-demo
@@ -82,8 +75,8 @@ you can define arguments by using environment variables:
 
 ```yaml
 env:
-- name: MESSAGE
-  value: "hello world"
+  - name: MESSAGE
+    value: "hello world"
 command: ["/bin/echo"]
 args: ["$(MESSAGE)"]
 ```
@@ -112,7 +105,6 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 ## {{% heading "whatsnext" %}}
 
-
-* Learn more about [configuring pods and containers](/docs/tasks/).
-* Learn more about [running commands in a container](/docs/tasks/debug/debug-application/get-shell-running-container/).
-* See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
+- Learn more about [configuring pods and containers](/docs/tasks/).
+- Learn more about [running commands in a container](/docs/tasks/debug/debug-application/get-shell-running-container/).
+- See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).

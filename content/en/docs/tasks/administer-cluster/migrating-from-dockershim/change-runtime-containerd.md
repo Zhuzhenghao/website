@@ -1,7 +1,7 @@
 ---
 title: "Changing the Container Runtime on a Node from Docker Engine to containerd"
 weight: 10
-content_type: task 
+content_type: task
 ---
 
 This task outlines the steps needed to update your container runtime to containerd from Docker. It
@@ -18,7 +18,7 @@ Install containerd. For more information see
 and for specific prerequisite follow
 [the containerd guide](/docs/setup/production-environment/container-runtimes/#containerd).
 
-## Drain the node 
+## Drain the node
 
 ```shell
 kubectl drain <node-to-drain> --ignore-daemonsets
@@ -41,9 +41,9 @@ for detailed steps to install containerd.
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
-1. Install the `containerd.io` package from the official Docker repositories. 
+1. Install the `containerd.io` package from the official Docker repositories.
    Instructions for setting up the Docker repository for your respective Linux distribution and
-   installing the `containerd.io` package can be found at 
+   installing the `containerd.io` package can be found at
    [Getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).
 
 1. Configure containerd:
@@ -52,13 +52,15 @@ for detailed steps to install containerd.
    sudo mkdir -p /etc/containerd
    containerd config default | sudo tee /etc/containerd/config.toml
    ```
+
 1. Restart containerd:
 
    ```shell
    sudo systemctl restart containerd
    ```
-{{% /tab %}}
-{{% tab name="Windows (PowerShell)" %}}
+
+   {{% /tab %}}
+   {{% tab name="Windows (PowerShell)" %}}
 
 Start a Powershell session, set `$Version` to the desired version (ex: `$Version="1.4.3"`), and
 then run the following commands:
@@ -115,7 +117,7 @@ To choose a text editor you can set the `KUBE_EDITOR` environment variable.
 
 - Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/run/dockershim.sock`
   to the CRI socket path of your choice (for example `unix:///run/containerd/containerd.sock`).
-   
+
   Note that new CRI socket paths must be prefixed with `unix://` ideally.
 
 - Save the changes in the text editor, which will update the Node object.
@@ -142,24 +144,28 @@ Finally if everything goes well, remove Docker.
 ```shell
 sudo yum remove docker-ce docker-ce-cli
 ```
+
 {{% /tab %}}
 {{% tab name="Debian" %}}
 
 ```shell
 sudo apt-get purge docker-ce docker-ce-cli
 ```
+
 {{% /tab %}}
 {{% tab name="Fedora" %}}
 
 ```shell
 sudo dnf remove docker-ce docker-ce-cli
 ```
+
 {{% /tab %}}
 {{% tab name="Ubuntu" %}}
 
 ```shell
 sudo apt-get purge docker-ce docker-ce-cli
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 

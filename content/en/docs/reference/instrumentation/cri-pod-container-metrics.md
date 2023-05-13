@@ -6,7 +6,6 @@ description: >-
   Collection of Pod & Container metrics via the CRI.
 ---
 
-
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
@@ -35,4 +34,3 @@ collection with cAdvisor include:
 - It further decouples the kubelet and the container runtime allowing collection of metrics for
   container runtimes that don't run processes directly on the host with kubelet where they are
   observable by cAdvisor (for example: container runtimes that use virtualization).
-  

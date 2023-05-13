@@ -12,6 +12,7 @@ This page lists some common failure scenarios and have provided steps that can h
 If your problem is not listed below, please follow the following steps:
 
 - If you think your problem is a bug with kubeadm:
+
   - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
   - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
 
@@ -344,6 +345,7 @@ to pick up the node's IP address properly and has knock-on effects to the proxy 
 load balancers.
 
 The following error can be seen in kube-proxy Pods:
+
 ```
 server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
@@ -352,6 +354,7 @@ proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on control-plane
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
+
 ```
 kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
@@ -422,6 +425,7 @@ can be used insecurely by passing the `--kubelet-insecure-tls` to it. This is no
 If you want to use TLS between the metrics-server and the kubelet there is a problem,
 since kubeadm deploys a self-signed serving certificate for the kubelet. This can cause the following errors
 on the side of the metrics-server:
+
 ```
 x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar

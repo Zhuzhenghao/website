@@ -8,11 +8,12 @@ short_description: >
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
+
 A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
 
-<!--more--> 
+<!--more-->
 
 We are often concerned with insulating different flows of requests
 from each other, so that a high-intensity flow does not crowd out low-intensity flows.
@@ -42,4 +43,3 @@ given high-intensity flow. With a large hand size it is expensive to examine
 the dealt queues and more difficult for the low-intensity flows to dodge the
 collective effects of a set of high-intensity flows. Thus, the hand size
 should be chosen judiciously.
-

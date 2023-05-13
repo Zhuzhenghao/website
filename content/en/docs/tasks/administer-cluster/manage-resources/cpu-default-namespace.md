@@ -25,7 +25,6 @@ but only under certain conditions that are explained later in this page.
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
 
 You must have access to create namespaces in your cluster.
@@ -104,7 +103,6 @@ specifies a CPU limit, but not a request:
 
 Create the Pod:
 
-
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
 ```
@@ -166,8 +164,8 @@ configured,
 it is helpful to have a default value in place for CPU limit.
 Here are two of the restrictions that a CPU resource quota imposes on a namespace:
 
-* For every Pod that runs in the namespace, each of its containers must have a CPU limit.
-* CPU limits apply a resource reservation on the node where the Pod in question is scheduled.
+- For every Pod that runs in the namespace, each of its containers must have a CPU limit.
+- CPU limits apply a resource reservation on the node where the Pod in question is scheduled.
   The total amount of CPU that is reserved for use by all Pods in the namespace must not
   exceed a specified limit.
 
@@ -177,7 +175,6 @@ If any Pod in that namespace that includes a container does not specify its own 
 the control plane applies the default CPU limit to that container, and the Pod can be
 allowed to run in a namespace that is restricted by a CPU ResourceQuota.
 
-
 ## Clean up
 
 Delete your namespace:
@@ -186,33 +183,26 @@ Delete your namespace:
 kubectl delete namespace default-cpu-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+- [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+- [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+- [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
 ### For app developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+- [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+- [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
+- [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)

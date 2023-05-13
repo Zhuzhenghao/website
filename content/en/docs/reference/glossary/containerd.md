@@ -8,9 +8,10 @@ short_description: >
 
 aka:
 tags:
-- tool
+  - tool
 ---
- A container runtime with an emphasis on simplicity, robustness and portability
+
+A container runtime with an emphasis on simplicity, robustness and portability
 
 <!--more-->
 

@@ -1,8 +1,8 @@
 ---
 title: Enforce Pod Security Standards by Configuring the Built-in Admission Controller
 reviewers:
-- tallclair
-- liggitt
+  - tallclair
+  - liggitt
 content_type: task
 weight: 240
 ---
@@ -36,37 +36,36 @@ For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-
 apiVersion: apiserver.config.k8s.io/v1 # see compatibility note
 kind: AdmissionConfiguration
 plugins:
-- name: PodSecurity
-  configuration:
-    apiVersion: pod-security.admission.config.k8s.io/v1
-    kind: PodSecurityConfiguration
-    # Defaults applied when a mode label is not set.
-    #
-    # Level label values must be one of:
-    # - "privileged" (default)
-    # - "baseline"
-    # - "restricted"
-    #
-    # Version label values must be one of:
-    # - "latest" (default) 
-    # - specific version like "v{{< skew currentVersion >}}"
-    defaults:
-      enforce: "privileged"
-      enforce-version: "latest"
-      audit: "privileged"
-      audit-version: "latest"
-      warn: "privileged"
-      warn-version: "latest"
-    exemptions:
-      # Array of authenticated usernames to exempt.
-      usernames: []
-      # Array of runtime class names to exempt.
-      runtimeClasses: []
-      # Array of namespaces to exempt.
-      namespaces: []
+  - name: PodSecurity
+    configuration:
+      apiVersion: pod-security.admission.config.k8s.io/v1
+      kind: PodSecurityConfiguration
+      # Defaults applied when a mode label is not set.
+      #
+      # Level label values must be one of:
+      # - "privileged" (default)
+      # - "baseline"
+      # - "restricted"
+      #
+      # Version label values must be one of:
+      # - "latest" (default)
+      # - specific version like "v{{< skew currentVersion >}}"
+      defaults:
+        enforce: "privileged"
+        enforce-version: "latest"
+        audit: "privileged"
+        audit-version: "latest"
+        warn: "privileged"
+        warn-version: "latest"
+      exemptions:
+        # Array of authenticated usernames to exempt.
+        usernames: []
+        # Array of runtime class names to exempt.
+        runtimeClasses: []
+        # Array of namespaces to exempt.
+        namespaces: []
 ```
 
 {{< note >}}
 The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.
 {{< /note >}}
-

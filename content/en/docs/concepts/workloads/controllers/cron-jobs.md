@@ -1,8 +1,8 @@
 ---
 reviewers:
-- erictune
-- soltysh
-- janetkuo
+  - erictune
+  - soltysh
+  - janetkuo
 title: CronJob
 content_type: concept
 weight: 80
@@ -23,17 +23,18 @@ CronJobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single CronJob can create multiple concurrent Jobs. See the [limitations](#cron-job-limitations) below.
 
 When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
-of the CronJob is part of the basis for naming those Pods.  The name of a CronJob must be a valid
+of the CronJob is part of the basis for naming those Pods. The name of a CronJob must be a valid
 [DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
-value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+value, but this can produce unexpected results for the Pod hostnames. For best compatibility,
 the name should follow the more restrictive rules for a
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 Even when the name is a DNS subdomain, the name must be no longer than 52
-characters.  This is because the CronJob controller will automatically append
+characters. This is because the CronJob controller will automatically append
 11 characters to the name you provide and there is a constraint that the
 length of a Job name is no more than 63 characters.
 
 <!-- body -->
+
 ## Example
 
 This example CronJob manifest prints the current time and a hello message every minute:
@@ -44,7 +45,9 @@ This example CronJob manifest prints the current time and a hello message every 
 takes you through this example in more detail).
 
 ## Writing a CronJob spec
+
 ### Schedule syntax
+
 The `.spec.schedule` field is required. The value of that field follows the [Cron](https://en.wikipedia.org/wiki/Cron) syntax:
 
 ```
@@ -78,13 +81,13 @@ it stands for any of available value for a given field.
 
 Other than the standard syntax, some macros like `@monthly` can also be used:
 
-| Entry 										| Description																									| Equivalent to |
-| ------------- 						| ------------- 																							|-------------  |
-| @yearly (or @annually)		| Run once a year at midnight of 1 January										| 0 0 1 1 * 		|
-| @monthly 									| Run once a month at midnight of the first day of the month	| 0 0 1 * * 		|
-| @weekly 									| Run once a week at midnight on Sunday morning								| 0 0 * * 0 		|
-| @daily (or @midnight)			| Run once a day at midnight																	| 0 0 * * * 		|
-| @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
+| Entry                  | Description                                                | Equivalent to |
+| ---------------------- | ---------------------------------------------------------- | ------------- |
+| @yearly (or @annually) | Run once a year at midnight of 1 January                   | 0 0 1 1 \*    |
+| @monthly               | Run once a month at midnight of the first day of the month | 0 0 1 \* \*   |
+| @weekly                | Run once a week at midnight on Sunday morning              | 0 0 \* \* 0   |
+| @daily (or @midnight)  | Run once a day at midnight                                 | 0 0 \* \* \*  |
+| @hourly                | Run once an hour at the beginning of the hour              | 0 \* \* \* \* |
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
@@ -125,10 +128,10 @@ The `.spec.concurrencyPolicy` field is also optional.
 It specifies how to treat concurrent executions of a job that is created by this CronJob.
 The spec may specify only one of the following concurrency policies:
 
-* `Allow` (default): The CronJob allows concurrently running jobs
-* `Forbid`: The CronJob does not allow concurrent runs; if it is time for a new job run and the
+- `Allow` (default): The CronJob allows concurrently running jobs
+- `Forbid`: The CronJob does not allow concurrent runs; if it is time for a new job run and the
   previous job run hasn't finished yet, the CronJob skips the new job run
-* `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the
+- `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the
   CronJob replaces the currently running job run with a new job run
 
 Note that concurrency policy only applies to the jobs created by the same cron job.
@@ -155,7 +158,7 @@ When `.spec.suspend` changes from `true` to `false` on an existing CronJob witho
 
 The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
 These fields specify how many completed and failed jobs should be kept.
-By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
+By default, they are set to 3 and 1 respectively. Setting a limit to `0` corresponds to keeping
 none of the corresponding kind of jobs after they finish.
 
 For another way to clean up jobs automatically, see [Clean up finished jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
@@ -212,7 +215,6 @@ at least once.
 If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled. This is because the CronJob controller checks things every 10 seconds.
 {{< /caution >}}
 
-
 For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error.
 
 ```
@@ -236,14 +238,14 @@ the Job in turn is responsible for the management of the Pods it represents.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods/) and
+- Learn about [Pods](/docs/concepts/workloads/pods/) and
   [Jobs](/docs/concepts/workloads/controllers/job/), two concepts
   that CronJobs rely upon.
-* Read about the detailed [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
+- Read about the detailed [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
   of CronJob `.spec.schedule` fields.
-* For instructions on creating and working with CronJobs, and for an example
+- For instructions on creating and working with CronJobs, and for an example
   of a CronJob manifest,
   see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
-* `CronJob` is part of the Kubernetes REST API.
+- `CronJob` is part of the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
   API reference for more details.

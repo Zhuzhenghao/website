@@ -14,7 +14,7 @@ Each role requires more time and commitment. The roles are:
 - Anyone: regular contributors to the Kubernetes documentation
 - Members: can assign and triage issues and provide non-binding review on pull requests
 - Reviewers: can lead reviews on documentation pull requests and can vouch for a change's quality
-- Approvers: can lead reviews on documentation and  merge changes
+- Approvers: can lead reviews on documentation and merge changes
 
 <!-- body -->
 
@@ -83,6 +83,7 @@ After submitting at least 5 substantial pull requests and meeting the other
    **Organization Membership Request** issue template.
 
 1. Let your sponsors know about the GitHub issue. You can either:
+
    - Mention their GitHub username in an issue (`@<GitHub-username>`)
    - Send them the issue link using Slack or email.
 
@@ -179,7 +180,6 @@ If the PR already has a `/lgtm`, or if the approver also comments with
 `/lgtm`, the PR merges automatically. A SIG Docs approver should only leave a
 `/lgtm` on a change that doesn't need additional technical review.
 
-
 ### Approving pull requests
 
 Approvers and SIG Docs leads are the only ones who can merge pull requests
@@ -222,9 +222,9 @@ To apply:
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    file in the `kubernetes/website` repository.
 
-    {{< note >}}
-    If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
-    {{< /note >}}
+   {{< note >}}
+   If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
+   {{< /note >}}
 
 2. Assign the PR to one or more current SIG Docs approvers.
 

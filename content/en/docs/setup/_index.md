@@ -1,8 +1,8 @@
 ---
 reviewers:
-- brendandburns
-- erictune
-- mikedanese
+  - brendandburns
+  - erictune
+  - mikedanese
 title: Getting started
 main_menu: true
 weight: 20
@@ -12,10 +12,10 @@ card:
   name: setup
   weight: 20
   anchors:
-  - anchor: "#learning-environment"
-    title: Learning environment
-  - anchor: "#production-environment"
-    title: Production environment  
+    - anchor: "#learning-environment"
+      title: Learning environment
+    - anchor: "#production-environment"
+      title: Production environment
 ---
 
 <!-- overview -->

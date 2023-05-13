@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -25,7 +25,6 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/api/authentication/v1"`
 
-
 ## TokenReview {#TokenReview}
 
 TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
@@ -34,9 +33,7 @@ TokenReview attempts to authenticate a token to a known user. Note: TokenReview 
 
 - **apiVersion**: authentication.k8s.io/v1
 
-
 - **kind**: TokenReview
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -49,10 +46,6 @@ TokenReview attempts to authenticate a token to a known user. Note: TokenReview 
 - **status** (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReviewStatus" >}}">TokenReviewStatus</a>)
 
   Status is filled in by the server and indicates whether the request can be authenticated.
-
-
-
-
 
 ## TokenReviewSpec {#TokenReviewSpec}
 
@@ -67,10 +60,6 @@ TokenReviewSpec is a description of the token authentication request.
 - **token** (string)
 
   Token is the opaque bearer token.
-
-
-
-
 
 ## TokenReviewStatus {#TokenReviewStatus}
 
@@ -95,7 +84,7 @@ TokenReviewStatus is the result of the token authentication request.
   User is the UserInfo associated with the provided token.
 
   <a name="UserInfo"></a>
-  *UserInfo holds the information about the user needed to implement the user.Info interface.*
+  _UserInfo holds the information about the user needed to implement the user.Info interface._
 
   - **user.extra** (map[string][]string)
 
@@ -113,20 +102,9 @@ TokenReviewStatus is the result of the token authentication request.
 
     The name that uniquely identifies this user among all active users.
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `create` create a TokenReview
 
@@ -136,35 +114,25 @@ POST /apis/authentication.k8s.io/v1/tokenreviews
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../authentication-resources/token-review-v1#TokenReview" >}}">TokenReview</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReview" >}}">TokenReview</a>): OK
 
@@ -173,4 +141,3 @@ POST /apis/authentication.k8s.io/v1/tokenreviews
 202 (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReview" >}}">TokenReview</a>): Accepted
 
 401: Unauthorized
-

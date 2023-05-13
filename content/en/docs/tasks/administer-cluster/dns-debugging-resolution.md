@@ -1,14 +1,15 @@
 ---
 reviewers:
-- bowei
-- zihongz
-title:  Debugging DNS Resolution
+  - bowei
+  - zihongz
+title: Debugging DNS Resolution
 content_type: task
 min-kubernetes-server-version: v1.6
 weight: 170
 ---
 
 <!-- overview -->
+
 This page provides hints on diagnosing DNS problems.
 
 ## {{% heading "prerequisites" %}}
@@ -16,7 +17,7 @@ This page provides hints on diagnosing DNS problems.
 {{< include "task-tutorial-prereqs.md" >}}  
 Your cluster must be configured to use the CoreDNS
 {{< glossary_tooltip text="addon" term_id="addons" >}} or its precursor,
-kube-dns.  
+kube-dns.
 
 {{% version-check %}}
 
@@ -27,9 +28,9 @@ kube-dns.
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
 
 {{< note >}}
-This example creates a pod in the `default` namespace. DNS name resolution for 
+This example creates a pod in the `default` namespace. DNS name resolution for
 services depends on the namespace of the pod. For more information, review
-[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
 {{< /note >}}
 
 Use that manifest to create a Pod:
@@ -37,13 +38,17 @@ Use that manifest to create a Pod:
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
 ```
+
 ```
 pod/dnsutils created
 ```
+
 …and verify its status:
+
 ```shell
 kubectl get pods dnsutils
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 dnsutils   1/1       Running   0          <some-time>
@@ -55,6 +60,7 @@ If you see something like the following, DNS is working correctly.
 ```shell
 kubectl exec -i -t dnsutils -- nslookup kubernetes.default
 ```
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10
@@ -90,6 +96,7 @@ add-on or with associated Services:
 ```shell
 kubectl exec -i -t dnsutils -- nslookup kubernetes.default
 ```
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10
@@ -102,6 +109,7 @@ or
 ```shell
 kubectl exec -i -t dnsutils -- nslookup kubernetes.default
 ```
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -116,6 +124,7 @@ Use the `kubectl get pods` command to verify that the DNS pod is running.
 ```shell
 kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 ```
+
 ```
 NAME                       READY     STATUS    RESTARTS   AGE
 ...
@@ -128,7 +137,6 @@ coredns-7b96bf9f76-mvmmt   1/1       Running   0           1h
 The value for label `k8s-app` is `kube-dns` for both CoreDNS and kube-dns deployments.
 {{< /note >}}
 
-
 If you see that no CoreDNS Pod is running or that the Pod has failed/completed,
 the DNS add-on may not be deployed by default in your current environment and you
 will have to deploy it manually.
@@ -138,6 +146,7 @@ will have to deploy it manually.
 Use the `kubectl logs` command to see logs for the DNS containers.
 
 For CoreDNS:
+
 ```shell
 kubectl logs --namespace=kube-system -l k8s-app=kube-dns
 ```
@@ -162,6 +171,7 @@ Verify that the DNS service is up by using the `kubectl get service` command.
 ```shell
 kubectl get svc --namespace=kube-system
 ```
+
 ```
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
 ...
@@ -172,8 +182,6 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 {{< note >}}
 The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 {{< /note >}}
-
-
 
 If you have created the Service or in the case it should be created by default
 but it does not appear, see
@@ -188,6 +196,7 @@ command.
 ```shell
 kubectl get endpoints kube-dns --namespace=kube-system
 ```
+
 ```
 NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h
@@ -253,6 +262,7 @@ linux/amd64, go1.10.3, 2e322f6
 2018/09/07 15:29:04 [INFO] Reloading complete
 172.17.0.18:41675 - [07/Sep/2018:15:29:11 +0000] 59925 "A IN kubernetes.default.svc.cluster.local. udp 54 false 512" NOERROR qr,aa,rd,ra 106 0.000066649s
 ```
+
 ### Does CoreDNS have sufficient permissions?
 
 CoreDNS must be able to list {{< glossary_tooltip text="service"
@@ -260,6 +270,7 @@ term_id="service" >}} and {{< glossary_tooltip text="endpoint"
 term_id="endpoint" >}} related resources to properly resolve service names.
 
 Sample error message:
+
 ```
 2022-03-18T07:12:15.699431183Z [INFO] 10.96.144.227:52299 - 3686 "A IN serverproxy.contoso.net.cluster.local. udp 52 false 512" SERVFAIL qr,aa,rd 145 0.000091221s
 ```
@@ -271,6 +282,7 @@ kubectl describe clusterrole system:coredns -n kube-system
 ```
 
 Expected output:
+
 ```
 PolicyRule:
   Resources                        Non-Resource URLs  Resource Names  Verbs
@@ -289,6 +301,7 @@ kubectl edit clusterrole system:coredns -n kube-system
 ```
 
 Example insertion of EndpointSlices permissions:
+
 ```
 ...
 - apiGroups:
@@ -303,24 +316,26 @@ Example insertion of EndpointSlices permissions:
 
 ### Are you in the right namespace for the service?
 
-DNS queries that don't specify a namespace are limited to the pod's 
-namespace. 
+DNS queries that don't specify a namespace are limited to the pod's
+namespace.
 
-If the namespace of the pod and service differ, the DNS query must include 
+If the namespace of the pod and service differ, the DNS query must include
 the namespace of the service.
 
 This query is limited to the pod's namespace:
+
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>
 ```
 
 This query specifies the namespace:
+
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
 ```
 
-To learn more about name resolution, see 
-[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+To learn more about name resolution, see
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
 
 ## Known issues
 
@@ -350,4 +365,3 @@ details more information on this.
 
 - See [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 - Read [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
-

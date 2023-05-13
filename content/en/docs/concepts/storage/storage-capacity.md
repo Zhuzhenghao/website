@@ -1,10 +1,10 @@
 ---
 reviewers:
-- jsafrane
-- saad-ali
-- msau42
-- xing-yang
-- pohly
+  - jsafrane
+  - saad-ali
+  - msau42
+  - xing-yang
+  - pohly
 title: Storage Capacity
 content_type: concept
 weight: 80
@@ -39,6 +39,7 @@ documentation for that version of Kubernetes.
 ## API
 
 There are two API extensions for this feature:
+
 - [CSIStorageCapacity](/docs/reference/kubernetes-api/config-and-storage-resources/csi-storage-capacity-v1/) objects:
   these get produced by a CSI driver in the namespace
   where the driver is installed. Each object contains capacity
@@ -51,6 +52,7 @@ There are two API extensions for this feature:
 ## Scheduling
 
 Storage capacity information is used by the Kubernetes scheduler if:
+
 - a Pod uses a volume that has not been created yet,
 - that volume uses a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} which references a CSI driver and
   uses `WaitForFirstConsumer` [volume binding
@@ -105,5 +107,5 @@ already created.
 
 ## {{% heading "whatsnext" %}}
 
- - For more information on the design, see the
-[Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md).
+- For more information on the design, see the
+  [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md).

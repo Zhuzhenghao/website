@@ -5,6 +5,7 @@ weight: 100
 ---
 
 <!-- overview -->
+
 You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
@@ -12,8 +13,8 @@ objects in a common manner that all tools can understand.
 In addition to supporting tooling, the recommended labels describe applications
 in a way that can be queried.
 
-
 <!-- body -->
+
 The metadata is organized around the concept of an _application_. Kubernetes is not
 a platform as a service (PaaS) and doesn't have or enforce a formal notion of an application.
 Instead, applications are informal and described with metadata. The definition of
@@ -33,14 +34,14 @@ do not interfere with custom user labels.
 In order to take full advantage of using these labels, they should be applied
 on every resource object.
 
-| Key                                 | Description           | Example  | Type |
-| ----------------------------------- | --------------------- | -------- | ---- |
-| `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
-| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxzy` | string |
-| `app.kubernetes.io/version`         | The current version of the application (e.g., a [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash, etc.) | `5.7.21` | string |
-| `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
-| `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
-| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
+| Key                            | Description                                                                                                             | Example        | Type   |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- | -------------- | ------ |
+| `app.kubernetes.io/name`       | The name of the application                                                                                             | `mysql`        | string |
+| `app.kubernetes.io/instance`   | A unique name identifying the instance of an application                                                                | `mysql-abcxzy` | string |
+| `app.kubernetes.io/version`    | The current version of the application (e.g., a [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash, etc.) | `5.7.21`       | string |
+| `app.kubernetes.io/component`  | The component within the architecture                                                                                   | `database`     | string |
+| `app.kubernetes.io/part-of`    | The name of a higher level application this one is part of                                                              | `wordpress`    | string |
+| `app.kubernetes.io/managed-by` | The tool being used to manage the operation of an application                                                           | `helm`         | string |
 
 To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
 
@@ -79,6 +80,7 @@ To illustrate different ways to use these labels the following examples have var
 Consider the case for a simple stateless service deployed using `Deployment` and `Service` objects. The following two snippets represent how the labels could be used in their simplest form.
 
 The `Deployment` is used to oversee the pods running the application itself.
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -86,10 +88,10 @@ metadata:
   labels:
     app.kubernetes.io/name: myservice
     app.kubernetes.io/instance: myservice-abcxzy
-...
 ```
 
 The `Service` is used to expose the application.
+
 ```yaml
 apiVersion: v1
 kind: Service
@@ -97,7 +99,6 @@ metadata:
   labels:
     app.kubernetes.io/name: myservice
     app.kubernetes.io/instance: myservice-abcxzy
-...
 ```
 
 ### Web Application With A Database
@@ -119,7 +120,6 @@ metadata:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: server
     app.kubernetes.io/part-of: wordpress
-...
 ```
 
 The `Service` is used to expose WordPress:
@@ -135,7 +135,6 @@ metadata:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: server
     app.kubernetes.io/part-of: wordpress
-...
 ```
 
 MySQL is exposed as a `StatefulSet` with metadata for both it and the larger application it belongs to:
@@ -151,7 +150,6 @@ metadata:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-...
 ```
 
 The `Service` is used to expose MySQL as part of WordPress:
@@ -167,7 +165,6 @@ metadata:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-...
 ```
 
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and WordPress, the broader application, are included.

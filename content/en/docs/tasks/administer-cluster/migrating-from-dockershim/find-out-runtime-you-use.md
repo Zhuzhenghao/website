@@ -2,7 +2,7 @@
 title: Find Out What Container Runtime is Used on a Node
 content_type: task
 reviewers:
-- SergeyKanzhelev
+  - SergeyKanzhelev
 weight: 30
 ---
 
@@ -40,10 +40,11 @@ node-1       Ready    v1.16.15   docker://19.3.1
 node-2       Ready    v1.16.15   docker://19.3.1
 node-3       Ready    v1.16.15   docker://19.3.1
 ```
+
 If your runtime shows as Docker Engine, you still might not be affected by the
 removal of dockershim in Kubernetes v1.24. [Check the runtime
 endpoint](#which-endpoint) to see if you use dockershim. If you don't use
-dockershim, you aren't affected. 
+dockershim, you aren't affected.
 
 For containerd, the output is similar to this:
 
@@ -80,20 +81,21 @@ nodes.
     ```
     tr \\0 ' ' < /proc/"$(pgrep kubelet)"/cmdline
     ```
+
     If you don't have `tr` or `pgrep`, check the command line for the kubelet
     process manually.
 
 1.  In the output, look for the `--container-runtime` flag and the
     `--container-runtime-endpoint` flag.
 
-    *   If your nodes use Kubernetes v1.23 and earlier and these flags aren't
-        present or if the `--container-runtime` flag is not `remote`,
-        you use the dockershim socket with Docker Engine.
-    *   If the `--container-runtime-endpoint` flag is present, check the socket
-        name to find out which runtime you use. For example,
-        `unix:///run/containerd/containerd.sock` is the containerd endpoint.
+    - If your nodes use Kubernetes v1.23 and earlier and these flags aren't
+      present or if the `--container-runtime` flag is not `remote`,
+      you use the dockershim socket with Docker Engine.
+    - If the `--container-runtime-endpoint` flag is present, check the socket
+      name to find out which runtime you use. For example,
+      `unix:///run/containerd/containerd.sock` is the containerd endpoint.
 
 If you want to change the Container Runtime on a Node from Docker Engine to containerd,
-you can find out more information on [migrating from Docker Engine to  containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
+you can find out more information on [migrating from Docker Engine to containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
 or, if you want to continue using Docker Engine in Kubernetes v1.24 and later, migrate to a
 CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).

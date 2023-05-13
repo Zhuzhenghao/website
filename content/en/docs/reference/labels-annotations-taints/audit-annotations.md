@@ -29,7 +29,6 @@ Value **must** be one of `user`, `namespace`, or `runtimeClass` which correspond
 dimensions. This annotation indicates on which dimension was based the exemption
 from the PodSecurity enforcement.
 
-
 ## pod-security.kubernetes.io/enforce-policy
 
 Example: `pod-security.kubernetes.io/enforce-policy: restricted:latest`
@@ -46,7 +45,7 @@ for more information.
 
 ## pod-security.kubernetes.io/audit-violations
 
-Example:  `pod-security.kubernetes.io/audit-violations: would violate
+Example: `pod-security.kubernetes.io/audit-violations: would violate
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 "example" must set securityContext.allowPrivilegeEscalation=false), ...`
 

@@ -8,6 +8,7 @@ card:
 ---
 
 <!-- overview -->
+
 Many applications rely on configuration which is used during either application initialization or runtime.
 Most times, there is a requirement to adjust values assigned to configuration parameters.
 ConfigMaps are a Kubernetes mechanism that let you inject configuration data into application
@@ -15,7 +16,7 @@ ConfigMaps are a Kubernetes mechanism that let you inject configuration data int
 
 The ConfigMap concept allow you to decouple configuration artifacts from image content to
 keep containerized applications portable. For example, you can download and run the same
-{{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for 
+{{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for
 the purposes of local development, system test, or running a live end-user workload.
 
 This page provides a series of usage examples demonstrating how to create ConfigMaps and
@@ -68,7 +69,7 @@ symlinks, devices, pipes, and more).
 
 {{< note >}}
 Each filename being used for ConfigMap creation must consist of only acceptable characters,
-which are: letters (`A` to `Z` and `a` to `z`), digits (`0` to `9`), '-', '_', or '.'.
+which are: letters (`A` to `Z` and `a` to `z`), digits (`0` to `9`), '-', '\_', or '.'.
 If you use `kubectl create configmap` with a directory where any of the file names contains
 an unacceptable character, the `kubectl` command may fail.
 
@@ -101,6 +102,7 @@ kubectl describe configmaps game-config
 ```
 
 The output is similar to this:
+
 ```
 Name:         game-config
 Namespace:    default
@@ -132,6 +134,7 @@ directory are represented in the `data` section of the ConfigMap.
 ```shell
 kubectl get configmaps game-config -o yaml
 ```
+
 The output is similar to this:
 
 ```yaml
@@ -272,6 +275,7 @@ kubectl get configmap game-config-env-file -o yaml
 ```
 
 the output is similar to:
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -303,6 +307,7 @@ kubectl get configmap config-multi-env-files -o yaml
 ```
 
 where the output is similar to this:
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -340,11 +345,13 @@ kubectl create configmap game-config-3 --from-file=game-special-key=configure-po
 ```
 
 would produce the following ConfigMap:
+
 ```
 kubectl get configmaps game-config-3 -o yaml
 ```
 
 where the output is similar to this:
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -382,6 +389,7 @@ kubectl get configmaps special-config -o yaml
 ```
 
 The output is similar to this:
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -424,6 +432,7 @@ Apply the kustomization directory to create the ConfigMap object:
 ```shell
 kubectl apply -k .
 ```
+
 ```
 configmap/game-config-4-m9dm2f92bt created
 ```
@@ -433,6 +442,7 @@ You can check that the ConfigMap was created like this:
 ```shell
 kubectl get configmap
 ```
+
 ```
 NAME                       DATA   AGE
 game-config-4-m9dm2f92bt   1      37s
@@ -443,6 +453,7 @@ and also:
 ```shell
 kubectl describe configmaps/game-config-4-m9dm2f92bt
 ```
+
 ```
 Name:         game-config-4-m9dm2f92bt
 Namespace:    default
@@ -487,9 +498,11 @@ EOF
 ```
 
 Apply the kustomization directory to create the ConfigMap object.
+
 ```shell
 kubectl apply -k .
 ```
+
 ```
 configmap/game-config-5-m67dt67794 created
 ```
@@ -505,16 +518,18 @@ this, you can specify the `ConfigMap` generator. Create (or replace)
 ---
 # kustomization.yaml contents for creating a ConfigMap from literals
 configMapGenerator:
-- name: special-config-2
-  literals:
-  - special.how=very
-  - special.type=charm
+  - name: special-config-2
+    literals:
+      - special.how=very
+      - special.type=charm
 ```
 
 Apply the kustomization directory to create the ConfigMap object:
+
 ```shell
 kubectl apply -k .
 ```
+
 ```
 configmap/special-config-2-c92b5mmcf2 created
 ```
@@ -564,13 +579,13 @@ Here is the manifest you will use:
 
 {{< codenew file="configmap/configmaps.yaml" >}}
 
-* Create the ConfigMap:
+- Create the ConfigMap:
 
   ```shell
   kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
   ```
 
-* Define the environment variables in the Pod specification.
+- Define the environment variables in the Pod specification.
 
   {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
 
@@ -583,13 +598,14 @@ Here is the manifest you will use:
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`.
 
   Once you're happy to move on, delete that Pod:
+
   ```shell
   kubectl delete pod dapi-test-pod --now
   ```
 
 ## Configure all key-value pairs in a ConfigMap as container environment variables
 
-* Create a ConfigMap containing multiple key-value pairs.
+- Create a ConfigMap containing multiple key-value pairs.
 
   {{< codenew file="configmap/configmap-multikeys.yaml" >}}
 
@@ -599,7 +615,7 @@ Here is the manifest you will use:
   kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
   ```
 
-* Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
+- Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
   key from the ConfigMap becomes the environment variable name in the Pod.
 
   {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
@@ -609,10 +625,12 @@ Here is the manifest you will use:
   ```shell
   kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
   ```
+
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and
   `SPECIAL_TYPE=charm`.
 
   Once you're happy to move on, delete that Pod:
+
   ```shell
   kubectl delete pod dapi-test-pod --now
   ```
@@ -639,6 +657,7 @@ very charm
 ```
 
 Once you're happy to move on, delete that Pod:
+
 ```shell
 kubectl delete pod dapi-test-pod --now
 ```
@@ -691,6 +710,7 @@ mount will make those files from the image inaccessible.
 {{< /note >}}
 
 Once you're happy to move on, delete that Pod:
+
 ```shell
 kubectl delete pod dapi-test-pod --now
 ```
@@ -719,6 +739,7 @@ Like before, all previous files in the `/etc/config/` directory will be deleted.
 {{< /caution >}}
 
 Delete that Pod:
+
 ```shell
 kubectl delete pod dapi-test-pod --now
 ```
@@ -853,8 +874,8 @@ spec:
       image: gcr.io/google_containers/busybox
       command: ["/bin/sh", "-c", "ls /etc/config"]
       volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
+        - name: config-volume
+          mountPath: /etc/config
   volumes:
     - name: config-volume
       configMap:
@@ -862,8 +883,6 @@ spec:
         optional: true # mark the source ConfigMap as optional
   restartPolicy: Never
 ```
-
-
 
 ## Restrictions
 
@@ -884,6 +903,7 @@ spec:
   ```
 
   The output is similar to this:
+
   ```
   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
@@ -915,5 +935,5 @@ or move it into the trash can / deleted files location.
 
 ## {{% heading "whatsnext" %}}
 
-* Follow a real world example of
+- Follow a real world example of
   [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).

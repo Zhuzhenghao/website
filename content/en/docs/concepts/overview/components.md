@@ -1,18 +1,19 @@
 ---
 reviewers:
-- lavalamp
+  - lavalamp
 title: Kubernetes Components
 content_type: concept
 description: >
   A Kubernetes cluster consists of the components that are a part of the control
   plane and a set of machines called nodes.
 weight: 30
-card: 
+card:
   name: concepts
   weight: 20
 ---
 
 <!-- overview -->
+
 When you deploy Kubernetes, you get a cluster.
 {{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
@@ -22,6 +23,7 @@ a complete and working Kubernetes cluster.
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 
 <!-- body -->
+
 ## Control Plane Components
 
 The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
@@ -50,11 +52,11 @@ for an example control plane setup that runs across multiple machines.
 
 Some types of these controllers are:
 
-  * Node controller: Responsible for noticing and responding when nodes go down.
-  * Job controller: Watches for Job objects that represent one-off tasks, then creates
-    Pods to run those tasks to completion.
-  * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
-  * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
+- Node controller: Responsible for noticing and responding when nodes go down.
+- Job controller: Watches for Job objects that represent one-off tasks, then creates
+  Pods to run those tasks to completion.
+- EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
+- ServiceAccount controller: Create default ServiceAccounts for new namespaces.
 
 ### cloud-controller-manager
 
@@ -70,9 +72,9 @@ scale horizontally (run more than one copy) to improve performance or to help to
 
 The following controllers can have cloud provider dependencies:
 
-  * Node controller: For checking the cloud provider to determine if a node has been deleted in the cloud after it stops responding
-  * Route controller: For setting up routes in the underlying cloud infrastructure
-  * Service controller: For creating, updating and deleting cloud provider load balancers
+- Node controller: For checking the cloud provider to determine if a node has been deleted in the cloud after it stops responding
+- Route controller: For setting up routes in the underlying cloud infrastructure
+- Service controller: For creating, updating and deleting cloud provider load balancers
 
 ## Node Components
 
@@ -122,14 +124,14 @@ about containers in a central database, and provides a UI for browsing that data
 A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
-
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
-   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/) with the control plane.
-   * Kubernetes [controllers](/docs/concepts/architecture/controller/).
-   * [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
-   * Etcd's official [documentation](https://etcd.io/docs/).
-   * Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
-   * Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
-   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.
+
+- [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/) with the control plane.
+- Kubernetes [controllers](/docs/concepts/architecture/controller/).
+- [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
+- Etcd's official [documentation](https://etcd.io/docs/).
+- Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
+- Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
+- [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.

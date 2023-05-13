@@ -5,11 +5,13 @@ weight: 60
 ---
 
 <!-- overview -->
+
 You can use Kubernetes annotations to attach arbitrary non-identifying metadata
 to {{< glossary_tooltip text="objects" term_id="object" >}}.
 Clients such as tools and libraries can retrieve this metadata.
 
 <!-- body -->
+
 ## Attaching metadata to objects
 
 You can use either labels or annotations to attach metadata to Kubernetes
@@ -37,28 +39,28 @@ numeric, boolean, list or other types for either the keys or the values.
 
 Here are some examples of information that could be recorded in annotations:
 
-* Fields managed by a declarative configuration layer. Attaching these fields
+- Fields managed by a declarative configuration layer. Attaching these fields
   as annotations distinguishes them from default values set by clients or
   servers, and from auto-generated fields and fields set by
   auto-sizing or auto-scaling systems.
 
-* Build, release, or image information like timestamps, release IDs, git branch,
+- Build, release, or image information like timestamps, release IDs, git branch,
   PR numbers, image hashes, and registry address.
 
-* Pointers to logging, monitoring, analytics, or audit repositories.
+- Pointers to logging, monitoring, analytics, or audit repositories.
 
-* Client library or tool information that can be used for debugging purposes:
+- Client library or tool information that can be used for debugging purposes:
   for example, name, version, and build information.
 
-* User or tool/system provenance information, such as URLs of related objects
+- User or tool/system provenance information, such as URLs of related objects
   from other ecosystem components.
 
-* Lightweight rollout tool metadata: for example, config or checkpoints.
+- Lightweight rollout tool metadata: for example, config or checkpoints.
 
-* Phone or pager numbers of persons responsible, or directory entries that
+- Phone or pager numbers of persons responsible, or directory entries that
   specify where that information can be found, such as a team web site.
 
-* Directives from the end-user to the implementations to modify behavior or
+- Directives from the end-user to the implementations to modify behavior or
   engage non-standard features.
 
 Instead of using annotations, you could store this type of information in an
@@ -85,10 +87,10 @@ metadata:
     imageregistry: "https://hub.docker.com/"
 spec:
   containers:
-  - name: nginx
-    image: nginx:1.14.2
-    ports:
-    - containerPort: 80
+    - name: nginx
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
 ```
 
 ## {{% heading "whatsnext" %}}

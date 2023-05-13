@@ -21,8 +21,8 @@ For Kubernetes {{< param "version" >}}, the following
 container images are signed using [cosign](https://github.com/sigstore/cosign)
 signatures:
 
-| Container Image                                                           | Supported Architectures                                                                  |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Container Image                                                           | Supported Architectures           |
+| ------------------------------------------------------------------------- | --------------------------------- |
 | registry.k8s.io/kube-apiserver:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-controller-manager:v{{< skew currentPatchVersion >}} | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}}              | amd64, arm, arm64, ppc64le, s390x |
@@ -43,14 +43,13 @@ You can fetch that list using:
 ```shell
 curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/'
 ```
+
 For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
 you can verify integrity for is a container image, using the experimental
 signing support.
 
 To manually verify signed container images of Kubernetes core components, refer to
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-artifacts).
-
-
 
 ## Binaries
 

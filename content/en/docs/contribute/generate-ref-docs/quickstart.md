@@ -46,9 +46,9 @@ directory.
 
 The script builds the following references:
 
-* Component and tool reference pages
-* The `kubectl` command reference
-* The Kubernetes API reference
+- Component and tool reference pages
+- The `kubectl` command reference
+- The Kubernetes API reference
 
 The `update-imported-docs.py` script generates the Kubernetes reference documentation
 from the Kubernetes source code. The script creates a temporary directory
@@ -57,14 +57,14 @@ under `/tmp` on your machine and clones the required repositories: `kubernetes/k
 The script sets your `GOPATH` to this temporary directory.
 Three additional environment variables are set:
 
-* `K8S_RELEASE`
-* `K8S_ROOT`
-* `K8S_WEBROOT`
+- `K8S_RELEASE`
+- `K8S_ROOT`
+- `K8S_WEBROOT`
 
 The script requires two arguments to run successfully:
 
-* A YAML configuration file (`reference.yml`)
-* A release version, for example:`1.17`
+- A YAML configuration file (`reference.yml`)
+- A release version, for example:`1.17`
 
 The configuration file contains a `generate-command` field.
 The `generate-command` field defines a series of build instructions
@@ -96,14 +96,14 @@ The following is an example of the YAML configuration file:
 
 ```yaml
 repos:
-- name: community
-  remote: https://github.com/kubernetes/community.git
-  branch: master
-  files:
-  - src: contributors/devel/README.md
-    dst: docs/imported/community/devel.md
-  - src: contributors/guide/README.md
-    dst: docs/imported/community/guide.md
+  - name: community
+    remote: https://github.com/kubernetes/community.git
+    branch: master
+    files:
+      - src: contributors/devel/README.md
+        dst: docs/imported/community/devel.md
+      - src: contributors/guide/README.md
+        dst: docs/imported/community/guide.md
 ```
 
 Single page Markdown documents, imported by the tool, must adhere to
@@ -147,7 +147,7 @@ to the same destination directory, you can use wildcards in the value given to
 For example:
 
 ```yaml
-  files:
+files:
   - src: gen-compdocs/build/kubeadm*.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/
 ```
@@ -168,6 +168,7 @@ For example:
 ```
 
 <!-- Revisit: is the release configuration used -->
+
 ## Fixing Links
 
 The `release.yml` configuration file contains instructions to fix relative links.
@@ -244,15 +245,11 @@ A few minutes after your pull request is merged, your updated reference
 topics will be visible in the
 [published documentation](/docs/home/).
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 To generate the individual reference documentation by manually setting up the required build repositories and
 running the build targets, see the following guides:
 
-* [Generating Reference Documentation for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
-* [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
-
+- [Generating Reference Documentation for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
+- [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
+- [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)

@@ -76,20 +76,29 @@ root@nginx:~# curl localhost
 The output shows that nginx is serving the web page that was written by the init container:
 
 ```html
-<html><head></head><body><header>
-<title>http://info.cern.ch</title>
-</header>
+<html>
+  <head></head>
+  <body>
+    <header>
+      <title>http://info.cern.ch</title>
+    </header>
 
-<h1>http://info.cern.ch - home of the first website</h1>
-  ...
-  <li><a href="http://info.cern.ch/hypertext/WWW/TheProject.html">Browse the first website</a></li>
-  ...
+    <h1>http://info.cern.ch - home of the first website</h1>
+    ...
+    <li>
+      <a href="http://info.cern.ch/hypertext/WWW/TheProject.html"
+        >Browse the first website</a
+      >
+    </li>
+    ...
+  </body>
+</html>
 ```
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about
+- Learn more about
   [communicating between Containers running in the same Pod](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
-* Learn more about [Init Containers](/docs/concepts/workloads/pods/init-containers/).
-* Learn more about [Volumes](/docs/concepts/storage/volumes/).
-* Learn more about [Debugging Init Containers](/docs/tasks/debug/debug-application/debug-init-containers/)
+- Learn more about [Init Containers](/docs/concepts/workloads/pods/init-containers/).
+- Learn more about [Volumes](/docs/concepts/storage/volumes/).
+- Learn more about [Debugging Init Containers](/docs/tasks/debug/debug-application/debug-init-containers/)

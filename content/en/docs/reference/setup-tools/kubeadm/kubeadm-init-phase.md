@@ -72,7 +72,6 @@ Using this phase you can create all required static Pod files for the control pl
 {{< tab name="scheduler" include="generated/kubeadm_init_phase_control-plane_scheduler.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm init phase etcd {#cmd-phase-etcd}
 
 Use the following phase to create a local etcd instance based on a static Pod file.
@@ -148,7 +147,7 @@ For more details on each field in the `v1beta3` configuration you can navigate t
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
+- [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
+- [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
+- [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+- [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality

@@ -1,11 +1,12 @@
 ---
 reviewers:
-- vincepri
-- bart0sh
+  - vincepri
+  - bart0sh
 title: Container Runtimes
 content_type: concept
 weight: 20
 ---
+
 <!-- overview -->
 
 {{% dockershim-removal %}}
@@ -44,11 +45,11 @@ If you are running a version of Kubernetes other than v{{< skew currentVersion >
 check the documentation for that version.
 {{< /note >}}
 
-
 <!-- body -->
+
 ## Install and configure prerequisites
 
-The following steps apply common settings for Kubernetes nodes on Linux. 
+The following steps apply common settings for Kubernetes nodes on Linux.
 
 You can skip a particular setting if you're certain you don't need it.
 
@@ -78,14 +79,15 @@ EOF
 sudo sysctl --system
 ```
 
-Verify that the `br_netfilter`, `overlay` modules are loaded by running below instructions:   
+Verify that the `br_netfilter`, `overlay` modules are loaded by running below instructions:
 
 ```bash
 lsmod | grep br_netfilter
 lsmod | grep overlay
 ```
 
-Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward` system variables are set to 1 in your `sysctl` config by running below instruction:   
+Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward` system variables are set to 1 in your `sysctl` config by running below instruction:
+
 ```bash
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ```
@@ -99,14 +101,14 @@ Both {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
 underlying container runtime need to interface with control groups to enforce
 [resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/) and set
 resources such as cpu/memory requests and limits. To interface with control
-groups, the kubelet and the container runtime need to use a *cgroup driver*.
+groups, the kubelet and the container runtime need to use a _cgroup driver_.
 It's critical that the kubelet and the container runtime uses the same cgroup
 driver and are configured the same.
 
 There are two cgroup drivers available:
 
-* [`cgroupfs`](#cgroupfs-cgroup-driver)
-* [`systemd`](#systemd-cgroup-driver)
+- [`cgroupfs`](#cgroupfs-cgroup-driver)
+- [`systemd`](#systemd-cgroup-driver)
 
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
@@ -146,7 +148,7 @@ option of `cgroupDriver` and set it to `systemd`. For example:
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-...
+---
 cgroupDriver: systemd
 ```
 
@@ -154,8 +156,8 @@ If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
 
-*  [containerd](#containerd-systemd)
-*  [CRI-O](#cri-o)
+- [containerd](#containerd-systemd)
+- [CRI-O](#cri-o)
 
 {{< caution >}}
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
@@ -166,7 +168,6 @@ for such existing Pods. Restarting the kubelet may not solve such errors.
 If you have automation that makes it feasible, replace the node with another using the updated
 configuration, or reinstall it using automation.
 {{< /caution >}}
-
 
 ### Migrating to the `systemd` driver in kubeadm managed clusters
 
@@ -190,7 +191,7 @@ using the (deprecated) v1alpha2 API instead.
 
 This section outlines the necessary steps to use containerd as CRI runtime.
 
-To install containerd on your system, follow the instructions on [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).Return to this step once you've created a valid `config.toml` configuration file. 
+To install containerd on your system, follow the instructions on [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).Return to this step once you've created a valid `config.toml` configuration file.
 
 {{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}
@@ -307,7 +308,7 @@ Docker Engine with Kubernetes.
 {{< /note >}}
 
 1. On each of your nodes, install Docker for your Linux distribution as per
-  [Install Docker Engine](https://docs.docker.com/engine/install/#server).
+   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
 2. Install [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd), following
    the instructions in that source code repository.

@@ -16,7 +16,7 @@ When accessing the Kubernetes API for the first time, we suggest using the
 Kubernetes CLI, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
-to access it.  Typically, this is automatically set-up when you work through
+to access it. Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
 or someone else set up the cluster and provided you with credentials and a location.
 
@@ -36,20 +36,20 @@ Kubectl handles locating and authenticating to the apiserver.
 If you want to directly access the REST API with an http client like
 curl or wget, or a browser, there are several ways to locate and authenticate:
 
-  - Run kubectl in proxy mode.
-    - Recommended approach.
-    - Uses stored apiserver location.
-    - Verifies identity of apiserver using self-signed cert.  No MITM possible.
-    - Authenticates to apiserver.
-    - In future, may do intelligent client-side load-balancing and failover.
-  - Provide the location and credentials directly to the http client.
-    - Alternate approach.
-    - Works with some types of client code that are confused by using a proxy.
-    - Need to import a root cert into your browser to protect against MITM.
+- Run kubectl in proxy mode.
+  - Recommended approach.
+  - Uses stored apiserver location.
+  - Verifies identity of apiserver using self-signed cert. No MITM possible.
+  - Authenticates to apiserver.
+  - In future, may do intelligent client-side load-balancing and failover.
+- Provide the location and credentials directly to the http client.
+  - Alternate approach.
+  - Works with some types of client code that are confused by using a proxy.
+  - Need to import a root cert into your browser to protect against MITM.
 
 ### Using kubectl proxy
 
-The following command runs kubectl in a mode where it acts as a reverse proxy.  It handles
+The following command runs kubectl in a mode where it acts as a reverse proxy. It handles
 locating the apiserver and authenticating.
 Run it like this:
 
@@ -71,9 +71,7 @@ The output is similar to this:
 ```json
 {
   "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
+  "versions": ["v1"],
   "serverAddressByClientCIDRs": [
     {
       "clientCIDR": "0.0.0.0/0",
@@ -82,7 +80,6 @@ The output is similar to this:
   ]
 }
 ```
-
 
 ### Without kubectl proxy
 
@@ -125,9 +122,7 @@ The output is similar to this:
 ```json
 {
   "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
+  "versions": ["v1"],
   "serverAddressByClientCIDRs": [
     {
       "clientCIDR": "0.0.0.0/0",
@@ -151,9 +146,7 @@ The output is similar to this:
 ```json
 {
   "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
+  "versions": ["v1"],
   "serverAddressByClientCIDRs": [
     {
       "clientCIDR": "0.0.0.0/0",
@@ -163,16 +156,16 @@ The output is similar to this:
 }
 ```
 
-The above examples use the `--insecure` flag.  This leaves it subject to MITM
-attacks.  When kubectl accesses the cluster it uses a stored root certificate
-and client certificates to access the server.  (These are installed in the
-`~/.kube` directory).  Since cluster certificates are typically self-signed, it
+The above examples use the `--insecure` flag. This leaves it subject to MITM
+attacks. When kubectl accesses the cluster it uses a stored root certificate
+and client certificates to access the server. (These are installed in the
+`~/.kube` directory). Since cluster certificates are typically self-signed, it
 may take special configuration to get your http client to use root
 certificate.
 
 On some clusters, the apiserver does not require authentication; it may serve
-on localhost, or be protected by a firewall.  There is not a standard
-for this.  [Controlling Access to the API](/docs/concepts/security/controlling-access)
+on localhost, or be protected by a firewall. There is not a standard
+for this. [Controlling Access to the API](/docs/concepts/security/controlling-access)
 describes how a cluster admin can configure this.
 
 ## Programmatic access to the API
@@ -182,8 +175,8 @@ client libraries.
 
 ### Go client
 
-* To get the library, run the following command: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`, see [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user) for detailed installation instructions. See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix) to see which versions are supported.
-* Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/kubernetes"` is correct.
+- To get the library, run the following command: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`, see [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user) for detailed installation instructions. See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix) to see which versions are supported.
+- Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/kubernetes"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go).
@@ -218,7 +211,7 @@ For information about connecting to other services running on a Kubernetes clust
 
 ## Requesting redirects
 
-The redirect capabilities have been deprecated and removed.  Please use a proxy (see below) instead.
+The redirect capabilities have been deprecated and removed. Please use a proxy (see below) instead.
 
 ## So Many Proxies
 
@@ -264,6 +257,5 @@ There are several different proxies you may encounter when using Kubernetes:
     - use UDP/TCP only
     - implementation varies by cloud provider.
 
-Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
+Kubernetes users will typically not need to worry about anything other than the first two types. The cluster admin
 will typically ensure that the latter types are set up correctly.
-

@@ -1,6 +1,6 @@
 ---
 reviewers:
-- davidopp
+  - davidopp
 title: "Troubleshooting Clusters"
 description: Debugging common cluster issues.
 weight: 20
@@ -157,10 +157,10 @@ metadata:
 spec: {}
 status:
   addresses:
-  - address: 192.168.0.113
-    type: InternalIP
-  - address: kube-worker-1
-    type: Hostname
+    - address: 192.168.0.113
+      type: InternalIP
+    - address: kube-worker-1
+      type: Hostname
   allocatable:
     cpu: "2"
     ephemeral-storage: "14167048988"
@@ -174,36 +174,36 @@ status:
     memory: 2025188Ki
     pods: "110"
   conditions:
-  - lastHeartbeatTime: "2022-02-17T22:20:32Z"
-    lastTransitionTime: "2022-02-17T22:20:32Z"
-    message: Weave pod has set this
-    reason: WeaveIsUp
-    status: "False"
-    type: NetworkUnavailable
-  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
-    lastTransitionTime: "2022-02-17T22:13:25Z"
-    message: kubelet has sufficient memory available
-    reason: KubeletHasSufficientMemory
-    status: "False"
-    type: MemoryPressure
-  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
-    lastTransitionTime: "2022-02-17T22:13:25Z"
-    message: kubelet has no disk pressure
-    reason: KubeletHasNoDiskPressure
-    status: "False"
-    type: DiskPressure
-  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
-    lastTransitionTime: "2022-02-17T22:13:25Z"
-    message: kubelet has sufficient PID available
-    reason: KubeletHasSufficientPID
-    status: "False"
-    type: PIDPressure
-  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
-    lastTransitionTime: "2022-02-17T22:15:15Z"
-    message: kubelet is posting ready status. AppArmor enabled
-    reason: KubeletReady
-    status: "True"
-    type: Ready
+    - lastHeartbeatTime: "2022-02-17T22:20:32Z"
+      lastTransitionTime: "2022-02-17T22:20:32Z"
+      message: Weave pod has set this
+      reason: WeaveIsUp
+      status: "False"
+      type: NetworkUnavailable
+    - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+      lastTransitionTime: "2022-02-17T22:13:25Z"
+      message: kubelet has sufficient memory available
+      reason: KubeletHasSufficientMemory
+      status: "False"
+      type: MemoryPressure
+    - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+      lastTransitionTime: "2022-02-17T22:13:25Z"
+      message: kubelet has no disk pressure
+      reason: KubeletHasNoDiskPressure
+      status: "False"
+      type: DiskPressure
+    - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+      lastTransitionTime: "2022-02-17T22:13:25Z"
+      message: kubelet has sufficient PID available
+      reason: KubeletHasSufficientPID
+      status: "False"
+      type: PIDPressure
+    - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+      lastTransitionTime: "2022-02-17T22:15:15Z"
+      message: kubelet is posting ready status. AppArmor enabled
+      reason: KubeletReady
+      status: "True"
+      type: Ready
   daemonEndpoints:
     kubeletEndpoint:
       Port: 10250
@@ -220,24 +220,23 @@ status:
     systemUUID: aa829ca9-73d7-064d-9019-df07404ad448
 ```
 
-
 ## Looking at logs
 
-For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
-of the relevant log files.  On systemd-based systems, you may need to use `journalctl` instead of examining log files.
+For now, digging deeper into the cluster requires logging into the relevant machines. Here are the locations
+of the relevant log files. On systemd-based systems, you may need to use `journalctl` instead of examining log files.
 
 ### Control Plane nodes
 
-* `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
-* `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
-* `/var/log/kube-controller-manager.log` - a component that runs most Kubernetes built-in
+- `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
+- `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
+- `/var/log/kube-controller-manager.log` - a component that runs most Kubernetes built-in
   {{<glossary_tooltip text="controllers" term_id="controller">}}, with the notable exception of scheduling
   (the kube-scheduler handles scheduling).
 
 ### Worker Nodes
 
-* `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
-* `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
+- `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
+- `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
 
 ## Cluster failure modes
 
@@ -289,24 +288,29 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 ### Mitigations
 
 - Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
+
   - Mitigates: Apiserver VM shutdown or apiserver crashing
   - Mitigates: Supporting services VM shutdown or crashes
 
 - Action: Use IaaS providers reliable storage (e.g. GCE PD or AWS EBS volume) for VMs with apiserver+etcd
+
   - Mitigates: Apiserver backing storage lost
 
 - Action: Use [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) configuration
+
   - Mitigates: Control plane node shutdown or control plane components (scheduler, API server, controller-manager) crashing
     - Will tolerate one or more simultaneous node or component failures
   - Mitigates: API server backing storage (i.e., etcd's data directory) lost
     - Assumes HA (highly-available) etcd configuration
 
 - Action: Snapshot apiserver PDs/EBS-volumes periodically
+
   - Mitigates: Apiserver backing storage lost
   - Mitigates: Some cases of operator error
   - Mitigates: Some cases of Kubernetes software fault
 
 - Action: use replication controller and services in front of pods
+
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
@@ -314,17 +318,15 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
-
 ## {{% heading "whatsnext" %}}
 
-* Learn about the metrics available in the
+- Learn about the metrics available in the
   [Resource Metrics Pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
-* Discover additional tools for
+- Discover additional tools for
   [monitoring resource usage](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
-* Use Node Problem Detector to
+- Use Node Problem Detector to
   [monitor node health](/docs/tasks/debug/debug-cluster/monitor-node-health/)
-* Use `kubectl debug node` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/kubectl-node-debug) 
-* Use `crictl` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/crictl/)
-* Get more information about [Kubernetes auditing](/docs/tasks/debug/debug-cluster/audit/)
-* Use `telepresence` to [develop and debug services locally](/docs/tasks/debug/debug-cluster/local-debugging/)
-
+- Use `kubectl debug node` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/kubectl-node-debug)
+- Use `crictl` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/crictl/)
+- Get more information about [Kubernetes auditing](/docs/tasks/debug/debug-cluster/audit/)
+- Use `telepresence` to [develop and debug services locally](/docs/tasks/debug/debug-cluster/local-debugging/)

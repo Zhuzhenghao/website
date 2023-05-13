@@ -1,8 +1,8 @@
 ---
 reviewers:
-- davidopp
-- kevin-wangzefeng
-- alculquicondor
+  - davidopp
+  - kevin-wangzefeng
+  - alculquicondor
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 20
@@ -86,7 +86,7 @@ define. Some of the benefits of affinity and anti-affinity include:
 - The affinity/anti-affinity language is more expressive. `nodeSelector` only
   selects nodes with all the specified labels. Affinity/anti-affinity gives you
   more control over the selection logic.
-- You can indicate that a rule is *soft* or *preferred*, so that the scheduler
+- You can indicate that a rule is _soft_ or _preferred_, so that the scheduler
   still schedules the Pod even if it can't find a matching node.
 - You can constrain a Pod using labels on other Pods running on the node (or other topological domain),
   instead of just node labels, which allows you to define rules for which Pods
@@ -94,9 +94,9 @@ define. Some of the benefits of affinity and anti-affinity include:
 
 The affinity feature consists of two types of affinity:
 
-- *Node affinity* functions like the `nodeSelector` field but is more expressive and
-  allows you to specify soft rules. 
-- *Inter-pod affinity/anti-affinity* allows you to constrain Pods against labels
+- _Node affinity_ functions like the `nodeSelector` field but is more expressive and
+  allows you to specify soft rules.
+- _Inter-pod affinity/anti-affinity_ allows you to constrain Pods against labels
   on other Pods.
 
 ### Node affinity
@@ -126,9 +126,9 @@ For example, consider the following Pod spec:
 
 In this example, the following rules apply:
 
-- The node *must* have a label with the key `topology.kubernetes.io/zone` and
-  the value of that label *must* be either `antarctica-east1` or `antarctica-west1`.
-- The node *preferably* has a label with the key `another-node-label-key` and
+- The node _must_ have a label with the key `topology.kubernetes.io/zone` and
+  the value of that label _must_ be either `antarctica-east1` or `antarctica-west1`.
+- The node _preferably_ has a label with the key `another-node-label-key` and
   the value `another-node-label-value`.
 
 You can use the `operator` field to specify a logical operator for Kubernetes to use when
@@ -140,7 +140,7 @@ Alternatively, you can use [node taints](/docs/concepts/scheduling-eviction/tain
 to repel Pods from specific nodes.
 
 {{<note>}}
-If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied
+If you specify both `nodeSelector` and `nodeAffinity`, _both_ must be satisfied
 for the Pod to be scheduled onto a node.
 
 If you specify multiple terms in `nodeSelectorTerms` associated with `nodeAffinity`
@@ -204,11 +204,11 @@ profiles:
           addedAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
-              - matchExpressions:
-                - key: scheduler-profile
-                  operator: In
-                  values:
-                  - foo
+                - matchExpressions:
+                    - key: scheduler-profile
+                      operator: In
+                      values:
+                        - foo
 ```
 
 The `addedAffinity` is applied to all Pods that set `.spec.schedulerName` to `foo-scheduler`, in addition to the
@@ -371,16 +371,16 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - store
-            topologyKey: "kubernetes.io/hostname"
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - store
+              topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: redis-server
-        image: redis:3.2-alpine
+        - name: redis-server
+          image: redis:3.2-alpine
 ```
 
 The following example Deployment for the web servers creates replicas with the label `app=web-store`.
@@ -406,25 +406,25 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - web-store
-            topologyKey: "kubernetes.io/hostname"
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - web-store
+              topologyKey: "kubernetes.io/hostname"
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - store
-            topologyKey: "kubernetes.io/hostname"
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - store
+              topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: web-app
-        image: nginx:1.16-alpine
+        - name: web-app
+          image: nginx:1.16-alpine
 ```
 
 Creating the two preceding Deployments results in the following cluster layout,
@@ -432,8 +432,8 @@ where each web server is co-located with a cache, on three separate nodes.
 
 |    node-1     |    node-2     |    node-3     |
 | :-----------: | :-----------: | :-----------: |
-| *webserver-1* | *webserver-2* | *webserver-3* |
-|   *cache-1*   |   *cache-2*   |   *cache-3*   |
+| _webserver-1_ | _webserver-2_ | _webserver-3_ |
+|   _cache-1_   |   _cache-2_   |   _cache-3_   |
 
 The overall effect is that each cache instance is likely to be accessed by a single client, that
 is running on the same node. This approach aims to minimize both skew (imbalanced load) and latency.
@@ -475,8 +475,8 @@ metadata:
   name: nginx
 spec:
   containers:
-  - name: nginx
-    image: nginx
+    - name: nginx
+      image: nginx
   nodeName: kube-01
 ```
 

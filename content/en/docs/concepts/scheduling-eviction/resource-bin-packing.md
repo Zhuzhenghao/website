@@ -1,8 +1,8 @@
 ---
 reviewers:
-- bsalamat
-- k82cn
-- ahg-g
+  - bsalamat
+  - k82cn
+  - ahg-g
 title: Resource Bin Packing
 content_type: concept
 weight: 80
@@ -16,6 +16,7 @@ scoring strategies that support the bin packing of resources: `MostAllocated` an
 <!-- body -->
 
 ## Enabling bin packing using MostAllocated strategy
+
 The `MostAllocated` strategy scores the nodes based on the utilization of resources, favoring the ones with higher allocation.
 For each resource type, you can set a weight to modify its influence in the node score.
 
@@ -26,20 +27,20 @@ To set the `MostAllocated` strategy for the `NodeResourcesFit` plugin, use a
 apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
-- pluginConfig:
-  - args:
-      scoringStrategy:
-        resources:
-        - name: cpu
-          weight: 1
-        - name: memory
-          weight: 1
-        - name: intel.com/foo
-          weight: 3
-        - name: intel.com/bar
-          weight: 3
-        type: MostAllocated
-    name: NodeResourcesFit
+  - pluginConfig:
+      - args:
+          scoringStrategy:
+            resources:
+              - name: cpu
+                weight: 1
+              - name: memory
+                weight: 1
+              - name: intel.com/foo
+                weight: 3
+              - name: intel.com/bar
+                weight: 3
+            type: MostAllocated
+        name: NodeResourcesFit
 ```
 
 To learn more about other parameters and their default configuration, see the API documentation for
@@ -69,22 +70,22 @@ using the `requestedToCapacityRatio` field.
 apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
-- pluginConfig:
-  - args:
-      scoringStrategy:
-        resources:
-        - name: intel.com/foo
-          weight: 3
-        - name: intel.com/bar
-          weight: 3
-        requestedToCapacityRatio:
-          shape:
-          - utilization: 0
-            score: 0
-          - utilization: 100
-            score: 10
-        type: RequestedToCapacityRatio
-    name: NodeResourcesFit
+  - pluginConfig:
+      - args:
+          scoringStrategy:
+            resources:
+              - name: intel.com/foo
+                weight: 3
+              - name: intel.com/bar
+                weight: 3
+            requestedToCapacityRatio:
+              shape:
+                - utilization: 0
+                  score: 0
+                - utilization: 100
+                  score: 10
+            type: RequestedToCapacityRatio
+        name: NodeResourcesFit
 ```
 
 Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler

@@ -5,22 +5,15 @@ package: kubelet.config.k8s.io/v1alpha1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
-  
-    
 
-## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig}
-    
-
+## `CredentialProviderConfig` {#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig}
 
 <p>CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
 each provider as specified by the CredentialProvider type.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -44,17 +37,14 @@ auth keys, the value from the provider earlier in this list is used.</p>
 </tbody>
 </table>
 
-## `CredentialProvider`     {#kubelet-config-k8s-io-v1alpha1-CredentialProvider}
-    
+## `CredentialProvider` {#kubelet-config-k8s-io-v1alpha1-CredentialProvider}
 
 **Appears in:**
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
 
-
 <p>CredentialProvider represents an exec plugin to be invoked by the kubelet. The plugin is only
 invoked when an image being pulled matches the images handled by the plugin (see matchImages).</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -138,17 +128,14 @@ to pass argument to the plugin.</p>
 </tbody>
 </table>
 
-## `ExecEnvVar`     {#kubelet-config-k8s-io-v1alpha1-ExecEnvVar}
-    
+## `ExecEnvVar` {#kubelet-config-k8s-io-v1alpha1-ExecEnvVar}
 
 **Appears in:**
 
 - [CredentialProvider](#kubelet-config-k8s-io-v1alpha1-CredentialProvider)
 
-
 <p>ExecEnvVar is used for setting environment variables when executing an exec-based
 credential plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -169,4 +156,3 @@ credential plugin.</p>
 </tr>
 </tbody>
 </table>
-  

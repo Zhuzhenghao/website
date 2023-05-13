@@ -2,16 +2,17 @@
 title: kubectl for Docker Users
 content_type: concept
 reviewers:
-- brendandburns
-- thockin
+  - brendandburns
+  - thockin
 weight: 50
 ---
 
 <!-- overview -->
+
 You can use the Kubernetes command line tool `kubectl` to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the Docker commands and the kubectl commands. The following sections show a Docker sub-command and describe the equivalent `kubectl` command.
 
-
 <!-- body -->
+
 ## docker run
 
 To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
@@ -20,6 +21,7 @@ docker:
 ```shell
 docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
 ```
+
 ```
 55c103fa129692154a7652490236fee9be47d70a8dd562281ae7d2f9a339a6db
 ```
@@ -27,6 +29,7 @@ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
 ```shell
 docker ps
 ```
+
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 55c103fa1296        nginx               "nginx -g 'daemon of…"   9 seconds ago       Up 9 seconds        0.0.0.0:80->80/tcp   nginx-app
@@ -38,6 +41,7 @@ kubectl:
 # start the pod running nginx
 kubectl create deployment --image=nginx nginx-app
 ```
+
 ```
 deployment.apps/nginx-app created
 ```
@@ -46,6 +50,7 @@ deployment.apps/nginx-app created
 # add env to nginx-app
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
+
 ```
 deployment.apps/nginx-app env updated
 ```
@@ -58,6 +63,7 @@ deployment.apps/nginx-app env updated
 # expose a port through with a service
 kubectl expose deployment nginx-app --port=80 --name=nginx-http
 ```
+
 ```
 service "nginx-http" exposed
 ```
@@ -65,6 +71,7 @@ service "nginx-http" exposed
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
+
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
 ```
@@ -81,6 +88,7 @@ docker:
 ```shell
 docker ps -a
 ```
+
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                     PORTS                NAMES
 14636241935f        ubuntu:16.04        "echo test"              5 seconds ago        Exited (0) 5 seconds ago                        cocky_fermi
@@ -92,6 +100,7 @@ kubectl:
 ```shell
 kubectl get po
 ```
+
 ```
 NAME                        READY     STATUS      RESTARTS   AGE
 nginx-app-8df569cb7-4gd89   1/1       Running     0          3m
@@ -107,6 +116,7 @@ docker:
 ```shell
 docker ps
 ```
+
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 55c103fa1296        nginx               "nginx -g 'daemon of…"   5 minutes ago       Up 5 minutes        0.0.0.0:80->80/tcp   nginx-app
@@ -122,6 +132,7 @@ kubectl:
 ```shell
 kubectl get pods
 ```
+
 ```
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
@@ -143,13 +154,16 @@ docker:
 ```shell
 docker ps
 ```
+
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 55c103fa1296        nginx               "nginx -g 'daemon of…"   6 minutes ago       Up 6 minutes        0.0.0.0:80->80/tcp   nginx-app
 ```
+
 ```shell
 docker exec 55c103fa1296 cat /etc/hostname
 ```
+
 ```
 55c103fa1296
 ```
@@ -159,6 +173,7 @@ kubectl:
 ```shell
 kubectl get po
 ```
+
 ```
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
@@ -167,12 +182,12 @@ nginx-app-5jyvm   1/1       Running   0          10m
 ```shell
 kubectl exec nginx-app-5jyvm -- cat /etc/hostname
 ```
+
 ```
 nginx-app-5jyvm
 ```
 
 To use interactive commands.
-
 
 docker:
 
@@ -194,12 +209,12 @@ For more information, see [Get a Shell to a Running Container](/docs/tasks/debug
 
 To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs).
 
-
 docker:
 
 ```shell
 docker logs -f a9e
 ```
+
 ```
 192.168.9.1 - - [14/Jul/2015:01:04:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.35.0" "-"
 192.168.9.1 - - [14/Jul/2015:01:04:03 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.35.0" "-"
@@ -210,6 +225,7 @@ kubectl:
 ```shell
 kubectl logs -f nginx-app-zibvs
 ```
+
 ```
 10.240.63.110 - - [14/Jul/2015:01:09:01 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
@@ -220,6 +236,7 @@ There is a slight difference between pods and containers; by default pods do not
 ```shell
 kubectl logs --previous nginx-app-zibvs
 ```
+
 ```
 10.240.63.110 - - [14/Jul/2015:01:09:01 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
@@ -236,6 +253,7 @@ docker:
 ```shell
 docker ps
 ```
+
 ```
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of"  22 hours ago        Up 22 hours         0.0.0.0:80->80/tcp, 443/tcp   nginx-app
@@ -244,6 +262,7 @@ a9ec34d98787        nginx               "nginx -g 'daemon of"  22 hours ago     
 ```shell
 docker stop a9ec34d98787
 ```
+
 ```
 a9ec34d98787
 ```
@@ -251,6 +270,7 @@ a9ec34d98787
 ```shell
 docker rm a9ec34d98787
 ```
+
 ```
 a9ec34d98787
 ```
@@ -260,6 +280,7 @@ kubectl:
 ```shell
 kubectl get deployment nginx-app
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-app    1/1     1            1           2m
@@ -268,13 +289,16 @@ nginx-app    1/1     1            1           2m
 ```shell
 kubectl get po -l app=nginx-app
 ```
+
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
 nginx-app-2883164633-aklf7   1/1       Running   0          2m
 ```
+
 ```shell
 kubectl delete deployment nginx-app
 ```
+
 ```
 deployment "nginx-app" deleted
 ```
@@ -301,6 +325,7 @@ docker:
 ```shell
 docker version
 ```
+
 ```
 Client version: 1.7.0
 Client API version: 1.19
@@ -319,6 +344,7 @@ kubectl:
 ```shell
 kubectl version
 ```
+
 ```
 Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
@@ -333,6 +359,7 @@ docker:
 ```shell
 docker info
 ```
+
 ```
 Containers: 40
 Images: 168
@@ -357,6 +384,7 @@ kubectl:
 ```shell
 kubectl cluster-info
 ```
+
 ```
 Kubernetes master is running at https://203.0.113.141
 KubeDNS is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
@@ -365,4 +393,3 @@ Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-

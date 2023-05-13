@@ -1,9 +1,9 @@
 ---
 reviewers:
-- fgrzadkowski
-- jszczepkowski
-- justinsb
-- directxman12
+  - fgrzadkowski
+  - jszczepkowski
+  - justinsb
+  - directxman12
 title: HorizontalPodAutoscaler Walkthrough
 content_type: task
 weight: 100
@@ -90,7 +90,6 @@ Since each pod requests 200 milli-cores by `kubectl run`, this means an average 
 See [Algorithm details](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details
 on the algorithm.
 
-
 Create the HorizontalPodAutoscaler:
 
 ```shell
@@ -109,6 +108,7 @@ kubectl get hpa
 ```
 
 The output is similar to:
+
 ```
 NAME         REFERENCE                     TARGET    MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1          18s
@@ -118,7 +118,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 and isn't usually a problem).
 
 Please note that the current CPU consumption is 0% as there are no clients sending requests to the server
-(the ``TARGET`` column shows the average across all the Pods controlled by the corresponding deployment).
+(the `TARGET` column shows the average across all the Pods controlled by the corresponding deployment).
 
 ## Increase the load {#increase-load}
 
@@ -133,6 +133,7 @@ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never --
 ```
 
 Now run:
+
 ```shell
 # type Ctrl+C to end the watch when you're ready
 kubectl get hpa php-apache --watch
@@ -146,6 +147,7 @@ php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1    
 ```
 
 and then, more replicas. For example:
+
 ```
 NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   305% / 50%  1         10        7          3m
@@ -159,6 +161,7 @@ kubectl get deployment php-apache
 ```
 
 You should see the replica count matching the figure from the HorizontalPodAutoscaler
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7/7      7           7           19m
@@ -234,43 +237,43 @@ spec:
   minReplicas: 1
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 50
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
 status:
   observedGeneration: 1
   lastScaleTime: <some-time>
   currentReplicas: 1
   desiredReplicas: 1
   currentMetrics:
-  - type: Resource
-    resource:
-      name: cpu
-      current:
-        averageUtilization: 0
-        averageValue: 0
+    - type: Resource
+      resource:
+        name: cpu
+        current:
+          averageUtilization: 0
+          averageValue: 0
 ```
 
 Notice that the `targetCPUUtilizationPercentage` field has been replaced with an array called `metrics`.
-The CPU utilization metric is a *resource metric*, since it is represented as a percentage of a resource
-specified on pod containers.  Notice that you can specify other resource metrics besides CPU.  By default,
-the only other supported resource metric is memory.  These resources do not change names from cluster
+The CPU utilization metric is a _resource metric_, since it is represented as a percentage of a resource
+specified on pod containers. Notice that you can specify other resource metrics besides CPU. By default,
+the only other supported resource metric is memory. These resources do not change names from cluster
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
 requested value, by using a `target.type` of `AverageValue` instead of `Utilization`, and
 setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
 
-There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
-object metrics.  These metrics may have names which are cluster specific, and require a more
+There are two other types of metrics, both of which are considered _custom metrics_: pod metrics and
+object metrics. These metrics may have names which are cluster specific, and require a more
 advanced cluster monitoring setup.
 
-The first of these alternative metric types is *pod metrics*.  These metrics describe Pods, and
+The first of these alternative metric types is _pod metrics_. These metrics describe Pods, and
 are averaged together across Pods and compared with a target value to determine the replica count.
-They work much like resource metrics, except that they *only* support a `target` type of `AverageValue`.
+They work much like resource metrics, except that they _only_ support a `target` type of `AverageValue`.
 
 Pod metrics are specified using a metric block like this:
 
@@ -284,10 +287,10 @@ pods:
     averageValue: 1k
 ```
 
-The second alternative metric type is *object metrics*. These metrics describe a different
+The second alternative metric type is _object metrics_. These metrics describe a different
 object in the same namespace, instead of describing Pods. The metrics are not necessarily
 fetched from the object; they only describe it. Object metrics support `target` types of
-both `Value` and `AverageValue`.  With `Value`, the target is compared directly to the returned
+both `Value` and `AverageValue`. With `Value`, the target is compared directly to the returned
 metric from the API. With `AverageValue`, the value returned from the custom metrics API is divided
 by the number of Pods before being compared to the target. The following example is the YAML
 representation of the `requests-per-second` metric.
@@ -326,52 +329,52 @@ spec:
   minReplicas: 1
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 50
-  - type: Pods
-    pods:
-      metric:
-        name: packets-per-second
-      target:
-        type: AverageValue
-        averageValue: 1k
-  - type: Object
-    object:
-      metric:
-        name: requests-per-second
-      describedObject:
-        apiVersion: networking.k8s.io/v1
-        kind: Ingress
-        name: main-route
-      target:
-        type: Value
-        value: 10k
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+    - type: Pods
+      pods:
+        metric:
+          name: packets-per-second
+        target:
+          type: AverageValue
+          averageValue: 1k
+    - type: Object
+      object:
+        metric:
+          name: requests-per-second
+        describedObject:
+          apiVersion: networking.k8s.io/v1
+          kind: Ingress
+          name: main-route
+        target:
+          type: Value
+          value: 10k
 status:
   observedGeneration: 1
   lastScaleTime: <some-time>
   currentReplicas: 1
   desiredReplicas: 1
   currentMetrics:
-  - type: Resource
-    resource:
-      name: cpu
-    current:
-      averageUtilization: 0
-      averageValue: 0
-  - type: Object
-    object:
-      metric:
-        name: requests-per-second
-      describedObject:
-        apiVersion: networking.k8s.io/v1
-        kind: Ingress
-        name: main-route
+    - type: Resource
+      resource:
+        name: cpu
       current:
-        value: 10k
+        averageUtilization: 0
+        averageValue: 0
+    - type: Object
+      object:
+        metric:
+          name: requests-per-second
+        describedObject:
+          apiVersion: networking.k8s.io/v1
+          kind: Ingress
+          name: main-route
+        current:
+          value: 10k
 ```
 
 Then, your HorizontalPodAutoscaler would attempt to ensure that each pod was consuming roughly
@@ -391,7 +394,7 @@ type: Object
 object:
   metric:
     name: http_requests
-    selector: {matchLabels: {verb: GET}}
+    selector: { matchLabels: { verb: GET } }
 ```
 
 This selector uses the same syntax as the full Kubernetes label selectors. The monitoring pipeline
@@ -405,7 +408,7 @@ type, and the described object in the case of the `Object` type).
 Applications running on Kubernetes may need to autoscale based on metrics that don't have an obvious
 relationship to any object in the Kubernetes cluster, such as metrics describing a hosted service with
 no direct correlation to Kubernetes namespaces. In Kubernetes 1.10 and later, you can address this use case
-with *external metrics*.
+with _external metrics_.
 
 Using external metrics requires knowledge of your monitoring system; the setup is
 similar to that required when using custom metrics. External metrics allow you to autoscale your cluster
@@ -433,17 +436,17 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
 ```
 
 When possible, it's preferable to use the custom metric target types instead of external metrics, since it's
-easier for cluster administrators to secure the custom metrics API.  The external metrics API potentially allows
+easier for cluster administrators to secure the custom metrics API. The external metrics API potentially allows
 access to any metric, so cluster administrators should take care when exposing it.
 
 ## Appendix: Horizontal Pod Autoscaler Status Conditions
 
 When using the `autoscaling/v2` form of the HorizontalPodAutoscaler, you will be able to see
-*status conditions* set by Kubernetes on the HorizontalPodAutoscaler.  These status conditions indicate
+_status conditions_ set by Kubernetes on the HorizontalPodAutoscaler. These status conditions indicate
 whether or not the HorizontalPodAutoscaler is able to scale, and whether or not it is currently restricted
 in any way.
 
-The conditions appear in the `status.conditions` field.  To see the conditions affecting a HorizontalPodAutoscaler,
+The conditions appear in the `status.conditions` field. To see the conditions affecting a HorizontalPodAutoscaler,
 we can use `kubectl describe hpa`:
 
 ```shell
@@ -471,13 +474,13 @@ Conditions:
 Events:
 ```
 
-For this HorizontalPodAutoscaler, you can see several conditions in a healthy state.  The first,
+For this HorizontalPodAutoscaler, you can see several conditions in a healthy state. The first,
 `AbleToScale`, indicates whether or not the HPA is able to fetch and update scales, as well as
-whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
+whether or not any backoff-related conditions would prevent scaling. The second, `ScalingActive`,
 indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
 is able to calculate desired scales. When it is `False`, it generally indicates problems with
-fetching metrics.  Finally, the last condition, `ScalingLimited`, indicates that the desired scale
-was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
+fetching metrics. Finally, the last condition, `ScalingLimited`, indicates that the desired scale
+was capped by the maximum or minimum of the HorizontalPodAutoscaler. This is an indication that
 you may wish to raise or lower the minimum or maximum replica count constraints on your
 HorizontalPodAutoscaler.
 
@@ -485,10 +488,10 @@ HorizontalPodAutoscaler.
 
 All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
 a special whole-number notation known in Kubernetes as a
-{{< glossary_tooltip term_id="quantity" text="quantity">}}.  For example,
-the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
+{{< glossary_tooltip term_id="quantity" text="quantity">}}. For example,
+the quantity `10500m` would be written as `10.5` in decimal notation. The metrics APIs
 will return whole numbers without a suffix when possible, and will generally return
-quantities in milli-units otherwise.  This means you might see your metric value fluctuate
+quantities in milli-units otherwise. This means you might see your metric value fluctuate
 between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 
 ## Other possible scenarios

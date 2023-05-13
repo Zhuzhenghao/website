@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+  - mikedanese
 title: Labels and Selectors
 content_type: concept
 weight: 40
@@ -45,11 +45,11 @@ hierarchies determined by the infrastructure rather than by users.
 
 Example labels:
 
-* `"release" : "stable"`, `"release" : "canary"`
-* `"environment" : "dev"`, `"environment" : "qa"`, `"environment" : "production"`
-* `"tier" : "frontend"`, `"tier" : "backend"`, `"tier" : "cache"`
-* `"partition" : "customerA"`, `"partition" : "customerB"`
-* `"track" : "daily"`, `"track" : "weekly"`
+- `"release" : "stable"`, `"release" : "canary"`
+- `"environment" : "dev"`, `"environment" : "qa"`, `"environment" : "production"`
+- `"tier" : "frontend"`, `"tier" : "backend"`, `"tier" : "cache"`
+- `"partition" : "customerA"`, `"partition" : "customerB"`
+- `"track" : "daily"`, `"track" : "weekly"`
 
 These are examples of
 [commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/);
@@ -76,9 +76,9 @@ The `kubernetes.io/` and `k8s.io/` prefixes are
 
 Valid label value:
 
-* must be 63 characters or less (can be empty),
-* unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
-* could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
+- must be 63 characters or less (can be empty),
+- unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
+- could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
 For example, here's a manifest for a Pod that has two labels
 `environment: production` and `app: nginx`:
@@ -93,10 +93,10 @@ metadata:
     app: nginx
 spec:
   containers:
-  - name: nginx
-    image: nginx:1.14.2
-    ports:
-    - containerPort: 80
+    - name: nginx
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
 ```
 
 ## Label selectors
@@ -205,8 +205,8 @@ LIST and WATCH operations may specify label selectors to filter the sets of obje
 returned using a query parameter. Both requirements are permitted
 (presented here as they would appear in a URL query string):
 
-* _equality-based_ requirements: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
-* _set-based_ requirements: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
+- _equality-based_ requirements: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
+- _set-based_ requirements: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 
 Both label selector styles can be used to list or watch resources via a REST client.
 For example, targeting `apiserver` with `kubectl` and using _equality-based_ one may write:

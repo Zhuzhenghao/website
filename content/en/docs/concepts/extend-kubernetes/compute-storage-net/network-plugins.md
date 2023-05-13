@@ -1,13 +1,12 @@
 ---
 reviewers:
-- dcbw
-- freehan
-- thockin
+  - dcbw
+  - freehan
+  - thockin
 title: Network Plugins
 content_type: concept
 weight: 10
 ---
-
 
 <!-- overview -->
 
@@ -17,9 +16,9 @@ cluster and that suits your needs. Different plugins are available (both open- a
 in the wider Kubernetes ecosystem.
 
 A CNI plugin is required to implement the
-[Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). 
+[Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model).
 
-You must use a CNI plugin that is compatible with the 
+You must use a CNI plugin that is compatible with the
 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later
 releases of the CNI specification. The Kubernetes project recommends using a plugin that is
 compatible with the [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)
@@ -109,7 +108,7 @@ If you want to enable `hostPort` support, you must specify `portMappings capabil
     },
     {
       "type": "portmap",
-      "capabilities": {"portMappings": true},
+      "capabilities": { "portMappings": true },
       "externalSetMarkChain": "KUBE-MARK-MASQ"
     }
   ]
@@ -151,7 +150,7 @@ bin dir (default `/opt/cni/bin`).
     },
     {
       "type": "bandwidth",
-      "capabilities": {"bandwidth": true}
+      "capabilities": { "bandwidth": true }
     }
   ]
 }
@@ -167,8 +166,6 @@ metadata:
   annotations:
     kubernetes.io/ingress-bandwidth: 1M
     kubernetes.io/egress-bandwidth: 1M
-...
 ```
 
 ## {{% heading "whatsnext" %}}
-

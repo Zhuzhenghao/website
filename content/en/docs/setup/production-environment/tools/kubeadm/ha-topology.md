@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Options for Highly Available Topology
 content_type: concept
 weight: 50
@@ -21,8 +21,6 @@ You should carefully consider the advantages and disadvantages of each topology 
 kubeadm bootstraps the etcd cluster statically. Read the etcd [Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
 for more details.
 {{< /note >}}
-
-
 
 <!-- body -->
 
@@ -67,11 +65,6 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
-
-

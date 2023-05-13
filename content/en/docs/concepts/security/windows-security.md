@@ -1,10 +1,10 @@
 ---
 reviewers:
-- jayunit100
-- jsturtevant
-- marosset
-- perithompson
-title:    Security For Windows Nodes
+  - jayunit100
+  - jsturtevant
+  - marosset
+  - perithompson
+title: Security For Windows Nodes
 content_type: concept
 weight: 40
 ---
@@ -41,9 +41,9 @@ Local users can be added to container images during the container build process.
 
 {{< note >}}
 
-* [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver) based images run as
+- [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver) based images run as
   `ContainerUser` by default
-* [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) based images run as
+- [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) based images run as
   `ContainerAdministrator` by default
 
 {{< /note >}}

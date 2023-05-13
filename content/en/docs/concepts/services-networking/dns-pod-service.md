@@ -1,8 +1,8 @@
 ---
 reviewers:
-- jbelamaric
-- bowei
-- thockin
+  - jbelamaric
+  - bowei
+  - thockin
 title: DNS for Services and Pods
 content_type: concept
 weight: 80
@@ -10,40 +10,41 @@ description: >-
   Your workload can discover Services within your cluster using DNS;
   this page explains how that works.
 ---
+
 <!-- overview -->
 
 Kubernetes creates DNS records for Services and Pods. You can contact
-Services with consistent DNS names instead of IP addresses. 
+Services with consistent DNS names instead of IP addresses.
 
 <!-- body -->
 
 Kubernetes publishes information about Pods and Services which is used
-to program DNS.  Kubelet configures Pods' DNS so that running containers
+to program DNS. Kubelet configures Pods' DNS so that running containers
 can lookup Services by name rather than IP.
 
 Services defined in the cluster are assigned DNS names. By default, a
 client Pod's DNS search list includes the Pod's own namespace and the
-cluster's default domain. 
+cluster's default domain.
 
-### Namespaces of Services 
+### Namespaces of Services
 
-A DNS query may return different results based on the namespace of the Pod making 
-it. DNS queries that don't specify a namespace are limited to the Pod's 
-namespace. Access Services in other namespaces by specifying it in the DNS query. 
+A DNS query may return different results based on the namespace of the Pod making
+it. DNS queries that don't specify a namespace are limited to the Pod's
+namespace. Access Services in other namespaces by specifying it in the DNS query.
 
-For example, consider a Pod in a `test` namespace. A `data` Service is in 
-the `prod` namespace. 
+For example, consider a Pod in a `test` namespace. A `data` Service is in
+the `prod` namespace.
 
-A query for `data` returns no results, because it uses the Pod's `test` namespace. 
+A query for `data` returns no results, because it uses the Pod's `test` namespace.
 
-A query for `data.prod` returns the intended result, because it specifies the 
-namespace. 
+A query for `data.prod` returns the intended result, because it specifies the
+namespace.
 
-DNS queries may be expanded using the Pod's `/etc/resolv.conf`. Kubelet 
-configures this file for each Pod. For example, a query for just `data` may be 
-expanded to `data.test.svc.cluster.local`. The values of the `search` option 
-are used to expand queries. To learn more about DNS queries, see 
-[the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
+DNS queries may be expanded using the Pod's `/etc/resolv.conf`. Kubelet
+configures this file for each Pod. For example, a query for just `data` may be
+expanded to `data.test.svc.cluster.local`. The values of the `search` option
+are used to expand queries. To learn more about DNS queries, see
+[the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)
 
 ```
 nameserver 10.32.0.10
@@ -51,7 +52,7 @@ search <namespace>.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
 
-In summary, a Pod in the _test_ namespace can successfully resolve either 
+In summary, a Pod in the _test_ namespace can successfully resolve either
 `data.prod` or `data.prod.svc.cluster.local`.
 
 ### DNS Records
@@ -62,7 +63,7 @@ What objects get DNS records?
 2. Pods
 
 The following sections detail the supported DNS record types and layout that is
-supported.  Any other layout or names or queries that happen to work are
+supported. Any other layout or names or queries that happen to work are
 considered implementation details and are subject to change without warning.
 For more up-to-date specification, see
 [Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
@@ -73,12 +74,12 @@ For more up-to-date specification, see
 
 "Normal" (not headless) Services are assigned DNS A and/or AAAA records,
 depending on the IP family or families of the Service, with a name of the form
-`my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
+`my-svc.my-namespace.svc.cluster-domain.example`. This resolves to the cluster IP
 of the Service.
 
-[Headless Services](/docs/concepts/services-networking/service/#headless-services) 
+[Headless Services](/docs/concepts/services-networking/service/#headless-services)
 (without a cluster IP) Services are also assigned DNS A and/or AAAA records,
-with a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
+with a name of the form `my-svc.my-namespace.svc.cluster-domain.example`. Unlike normal
 Services, this resolves to the set of IPs of all of the Pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
@@ -86,7 +87,7 @@ selection from the set.
 ### SRV records
 
 SRV Records are created for named ports that are part of normal or headless
-services.  For each named port, the SRV record has the form
+services. For each named port, the SRV record has the form
 `_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
 For a regular Service, this resolves to the port number and the domain name:
 `my-svc.my-namespace.svc.cluster-domain.example`.
@@ -145,8 +146,8 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-  - name: foo # name is not required for single-port Services
-    port: 1234
+    - name: foo # name is not required for single-port Services
+      port: 1234
 ---
 apiVersion: v1
 kind: Pod
@@ -158,11 +159,11 @@ spec:
   hostname: busybox-1
   subdomain: busybox-subdomain
   containers:
-  - image: busybox:1.28
-    command:
-      - sleep
-      - "3600"
-    name: busybox
+    - image: busybox:1.28
+      command:
+        - sleep
+        - "3600"
+      name: busybox
 ---
 apiVersion: v1
 kind: Pod
@@ -174,11 +175,11 @@ spec:
   hostname: busybox-2
   subdomain: busybox-subdomain
   containers:
-  - image: busybox:1.28
-    command:
-      - sleep
-      - "3600"
-    name: busybox
+    - image: busybox:1.28
+      command:
+        - sleep
+        - "3600"
+      name: busybox
 ```
 
 Given the above Service `"busybox-subdomain"` and the Pods which set `spec.subdomain`
@@ -204,8 +205,8 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 
 When a Pod is configured to have fully qualified domain name (FQDN), its
 hostname is the short hostname. For example, if you have a Pod with the fully
-qualified domain name `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`, 
-then by default the `hostname` command inside that Pod returns `busybox-1` and  the
+qualified domain name `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`,
+then by default the `hostname` command inside that Pod returns `busybox-1` and the
 `hostname --fqdn` command returns the FQDN.
 
 When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the Pod's FQDN into the hostname for that Pod's namespace. In this case, both `hostname` and `hostname --fqdn` return the Pod's FQDN.
@@ -247,7 +248,6 @@ following Pod-specific DNS policies. These policies are specified in the
 explicitly specified, then "ClusterFirst" is used.
 {{< /note >}}
 
-
 The example below shows a Pod with its DNS policy set to
 "`ClusterFirstWithHostNet`" because it has `hostNetwork` set to `true`.
 
@@ -259,12 +259,12 @@ metadata:
   namespace: default
 spec:
   containers:
-  - image: busybox:1.28
-    command:
-      - sleep
-      - "3600"
-    imagePullPolicy: IfNotPresent
-    name: busybox
+    - image: busybox:1.28
+      command:
+        - sleep
+        - "3600"
+      imagePullPolicy: IfNotPresent
+      name: busybox
   restartPolicy: Always
   hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet
@@ -316,7 +316,9 @@ For IPv6 setup, search path and name server should be set up like this:
 ```shell
 kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
+
 The output is similar to this:
+
 ```
 nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example

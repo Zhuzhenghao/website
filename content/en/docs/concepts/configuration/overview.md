@@ -1,12 +1,13 @@
 ---
 reviewers:
-- mikedanese
+  - mikedanese
 title: Configuration Best Practices
 content_type: concept
 weight: 10
 ---
 
 <!-- overview -->
+
 This document highlights and consolidates configuration best practices that are introduced
 throughout the user guide, Getting Started documentation, and examples.
 
@@ -14,6 +15,7 @@ This is a living document. If you think of something that is not on this list bu
 to others, please don't hesitate to file an issue or submit a PR.
 
 <!-- body -->
+
 ## General Configuration Tips
 
 - When defining configurations, specify the latest stable API version.
@@ -63,7 +65,7 @@ to others, please don't hesitate to file an issue or submit a PR.
   FOO_SERVICE_PORT=<the port the Service is running on>
   ```
 
-  *This does imply an ordering requirement* - any `Service` that a `Pod` wants to access must be
+  _This does imply an ordering requirement_ - any `Service` that a `Pod` wants to access must be
   created before the `Pod` itself, or else the environment variables will not be populated.
   DNS does not have this restriction.
 
@@ -95,8 +97,8 @@ to others, please don't hesitate to file an issue or submit a PR.
 ## Using Labels
 
 - Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify
-  __semantic attributes__ of your application or Deployment, such as `{ app.kubernetes.io/name:
-  MyApp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the
+  **semantic attributes** of your application or Deployment, such as `{ app.kubernetes.io/name:
+MyApp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the
   appropriate Pods for other resources; for example, a Service that selects all `tier: frontend`
   Pods, or all `phase: test` components of `app.kubernetes.io/name: MyApp`.
   See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app
@@ -135,4 +137,3 @@ to others, please don't hesitate to file an issue or submit a PR.
   Deployments and Services.
   See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
   for an example.
-

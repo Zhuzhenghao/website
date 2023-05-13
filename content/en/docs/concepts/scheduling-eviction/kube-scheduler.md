@@ -83,15 +83,14 @@ of the scheduler:
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-* Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Read the [kube-scheduler config (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
-* Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
-* Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
-* Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
-* Learn about scheduling of Pods that use volumes in:
-  * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
-  * [Storage Capacity Tracking](/docs/concepts/storage/storage-capacity/)
-  * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)
-
+- Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+- Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+- Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
+- Read the [kube-scheduler config (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
+- Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
+- Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
+- Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+- Learn about scheduling of Pods that use volumes in:
+  - [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
+  - [Storage Capacity Tracking](/docs/concepts/storage/storage-capacity/)
+  - [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)

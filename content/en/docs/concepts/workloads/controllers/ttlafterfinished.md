@@ -1,6 +1,6 @@
 ---
 reviewers:
-- janetkuo
+  - janetkuo
 title: Automatic Cleanup for Finished Jobs
 content_type: concept
 weight: 70
@@ -42,21 +42,21 @@ Kubernetes honors object lifecycle guarantees on the Job, such as waiting for
 You can set the TTL seconds at any time. Here are some examples for setting the
 `.spec.ttlSecondsAfterFinished` field of a Job:
 
-* Specify this field in the Job manifest, so that a Job can be cleaned up
+- Specify this field in the Job manifest, so that a Job can be cleaned up
   automatically some time after it finishes.
-* Manually set this field of existing, already finished Jobs, so that they become eligible
+- Manually set this field of existing, already finished Jobs, so that they become eligible
   for cleanup.
-* Use a
+- Use a
   [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   to set this field dynamically at Job creation time. Cluster administrators can
   use this to enforce a TTL policy for finished jobs.
-* Use a
+- Use a
   [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   to set this field dynamically after the Job has finished, and choose
   different TTL values based on job status, labels. For this case, the webhook needs
   to detect changes to the `.status` of the Job and only set a TTL when the Job
   is being marked as completed.
-* Write your own controller to manage the cleanup TTL for Jobs that match a particular
+- Write your own controller to manage the cleanup TTL for Jobs that match a particular
   {{< glossary_tooltip term_id="selector" text="selector-selector" >}}.
 
 ## Caveats
@@ -81,7 +81,7 @@ very small. Please be aware of this risk when setting a non-zero TTL.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
+- Read [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 
-* Refer to the [Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
+- Refer to the [Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
   (KEP) for adding this mechanism.

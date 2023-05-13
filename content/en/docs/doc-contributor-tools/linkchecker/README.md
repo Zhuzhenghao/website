@@ -34,8 +34,9 @@ The link checker does not scan the following:
 ## Prerequisites and installation
 
 You must install
-* [Docker](https://docs.docker.com/get-docker/)
-* [make](https://www.gnu.org/software/make/)
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [make](https://www.gnu.org/software/make/)
 
 ## Running the link checker
 
@@ -45,9 +46,9 @@ To run the link checker:
 
 2. Run the following command:
 
-  ```
-  make container-internal-linkcheck
-  ```
+```
+make container-internal-linkcheck
+```
 
 ## Understanding the output
 

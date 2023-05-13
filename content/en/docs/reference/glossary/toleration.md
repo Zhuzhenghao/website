@@ -8,10 +8,11 @@ short_description: >
 
 aka:
 tags:
-- core-object
-- fundamental
+  - core-object
+  - fundamental
 ---
- A core object consisting of three required properties: key, value, and effect. Tolerations enable the scheduling of pods on nodes or node groups that have matching {{< glossary_tooltip text="taints" term_id="taint" >}}.
+
+A core object consisting of three required properties: key, value, and effect. Tolerations enable the scheduling of pods on nodes or node groups that have matching {{< glossary_tooltip text="taints" term_id="taint" >}}.
 
 <!--more-->
 

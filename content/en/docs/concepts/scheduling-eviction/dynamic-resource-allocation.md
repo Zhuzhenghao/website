@@ -1,7 +1,7 @@
 ---
 reviewers:
-- klueska
-- pohly
+  - klueska
+  - pohly
 title: Dynamic Resource Allocation
 content_type: concept
 weight: 65
@@ -22,9 +22,9 @@ initialization.
 
 Kubernetes v{{< skew currentVersion >}} includes cluster-level API support for
 dynamic resource allocation, but it [needs to be
-enabled](#enabling-dynamic-resource-allocation) explicitly.  You also must
+enabled](#enabling-dynamic-resource-allocation) explicitly. You also must
 install a resource driver for specific resources that are meant to be managed
-using this API.  If you are not running Kubernetes v{{< skew currentVersion>}},
+using this API. If you are not running Kubernetes v{{< skew currentVersion>}},
 check the documentation for that version of Kubernetes.
 
 <!-- body -->
@@ -36,25 +36,25 @@ term_id="api-group" >}} provides four new types:
 
 ResourceClass
 : Defines which resource driver handles a certain kind of
-  resource and provides common parameters for it. ResourceClasses
-  are created by a cluster administrator when installing a resource
-  driver.
+resource and provides common parameters for it. ResourceClasses
+are created by a cluster administrator when installing a resource
+driver.
 
 ResourceClaim
 : Defines a particular resource instances that is required by a
-  workload. Created by a user (lifecycle managed manually, can be shared
-  between different Pods) or for individual Pods by the control plane based on
-  a ResourceClaimTemplate (automatic lifecycle, typically used by just one
-  Pod).
+workload. Created by a user (lifecycle managed manually, can be shared
+between different Pods) or for individual Pods by the control plane based on
+a ResourceClaimTemplate (automatic lifecycle, typically used by just one
+Pod).
 
 ResourceClaimTemplate
 : Defines the spec and some meta data for creating
-  ResourceClaims. Created by a user when deploying a workload.
+ResourceClaims. Created by a user when deploying a workload.
 
 PodSchedulingContext
 : Used internally by the control plane and resource drivers
-  to coordinate pod scheduling when ResourceClaims need to be allocated
-  for a Pod.
+to coordinate pod scheduling when ResourceClaims need to be allocated
+for a Pod.
 
 Parameters for ResourceClass and ResourceClaim are stored in separate objects,
 typically using the type defined by a {{< glossary_tooltip
@@ -179,7 +179,7 @@ future.
 
 ## Enabling dynamic resource allocation
 
-Dynamic resource allocation is an *alpha feature* and only enabled when the
+Dynamic resource allocation is an _alpha feature_ and only enabled when the
 `DynamicResourceAllocation` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
 `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
@@ -218,5 +218,5 @@ be installed. Please refer to the driver's documentation for details.
 
 ## {{% heading "whatsnext" %}}
 
- - For more information on the design, see the
-[Dynamic Resource Allocation KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md).
+- For more information on the design, see the
+  [Dynamic Resource Allocation KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md).

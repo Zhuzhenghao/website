@@ -1,6 +1,6 @@
 ---
 reviewers:
-- bsalamat
+  - bsalamat
 title: Scheduler Performance Tuning
 content_type: concept
 weight: 70
@@ -94,8 +94,7 @@ kind: KubeSchedulerConfiguration
 algorithmSource:
   provider: DefaultProvider
 
-...
-
+---
 percentageOfNodesToScore: 50
 ```
 
@@ -161,5 +160,4 @@ After going over all the Nodes, it goes back to Node 1.
 
 ## {{% heading "whatsnext" %}}
 
-* Check the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-
+- Check the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)

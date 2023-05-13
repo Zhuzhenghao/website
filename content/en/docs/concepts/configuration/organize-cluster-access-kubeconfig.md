@@ -13,7 +13,7 @@ of a cluster.
 
 {{< note >}}
 A file that is used to configure access to clusters is called
-a *kubeconfig file*. This is a generic way of referring to configuration files.
+a _kubeconfig file_. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
@@ -29,9 +29,6 @@ variable or by setting the
 
 For step-by-step instructions on creating and specifying kubeconfig files, see
 [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
-
-
-
 
 <!-- body -->
 
@@ -50,12 +47,13 @@ clusters and namespaces.
 
 ## Context
 
-A *context* element in a kubeconfig file is used to group access parameters
+A _context_ element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster.
+the _current context_ to communicate with the cluster.
 
 To choose the current context:
+
 ```
 kubectl config use-context
 ```
@@ -93,10 +91,10 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    Merge the files listed in the `KUBECONFIG` environment variable
    according to these rules:
 
-   * Ignore empty filenames.
-   * Produce errors for files with content that cannot be deserialized.
-   * The first file to set a particular value or map key wins.
-   * Never change the value or map key.
+   - Ignore empty filenames.
+   - Produce errors for files with content that cannot be deserialized.
+   - The first file to set a particular value or map key wins.
+   - Never change the value or map key.
      Example: Preserve the context of the first file to set `current-context`.
      Example: If two files specify a `red-user`, use only values from the first file's `red-user`.
      Even if the second file has non-conflicting entries under `red-user`, discard them.
@@ -108,8 +106,8 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 
 1. Determine the context to use based on the first hit in this chain:
 
-    1. Use the `--context` command-line flag if it exists.
-    1. Use the `current-context` from the merged kubeconfig files.
+   1. Use the `--context` command-line flag if it exists.
+   1. Use the `current-context` from the merged kubeconfig files.
 
    An empty context is allowed at this point.
 
@@ -157,25 +155,20 @@ apiVersion: v1
 kind: Config
 
 clusters:
-- cluster:
-    proxy-url: http://proxy.example.org:3128
-    server: https://k8s.example.org/k8s/clusters/c-xxyyzz
-  name: development
+  - cluster:
+      proxy-url: http://proxy.example.org:3128
+      server: https://k8s.example.org/k8s/clusters/c-xxyyzz
+    name: development
 
 users:
-- name: developer
+  - name: developer
 
 contexts:
-- context:
-  name: development
+  - context:
+    name: development
 ```
-
 
 ## {{% heading "whatsnext" %}}
 
-
-* [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-* [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
-
-
-
+- [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+- [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)

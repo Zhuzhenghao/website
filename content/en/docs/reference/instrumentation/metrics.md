@@ -10,12 +10,13 @@ description: >-
 
 <!-- (auto-generated 2023 Mar 16) -->
 <!-- (auto-generated v1.27) -->
-This page details the metrics that different Kubernetes components export. You can query the metrics endpoint for these 
+
+This page details the metrics that different Kubernetes components export. You can query the metrics endpoint for these
 components using an HTTP scrape, and fetch the current metrics data in Prometheus format.
 
 ### List of Stable Kubernetes Metrics
 
-Stable metrics observe strict API contracts and no labels can be added or removed from stable metrics during their lifetime. 
+Stable metrics observe strict API contracts and no labels can be added or removed from stable metrics during their lifetime.
 
 <table class="table metrics" caption="This is the list of STABLE metrics emitted from core Kubernetes components">
 <thead>
@@ -225,8 +226,7 @@ Stable metrics observe strict API contracts and no labels can be added or remove
 
 ### List of Beta Kubernetes Metrics
 
-Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage. This offers the assurance that beta metrics will honor existing dashboards and alerts, while allowing for amendments in the future. 
-
+Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage. This offers the assurance that beta metrics will honor existing dashboards and alerts, while allowing for amendments in the future.
 
 <table class="table metrics" caption="This is the list of BETA metrics emitted from core Kubernetes components">
 <thead>
@@ -247,7 +247,7 @@ Beta metrics observe a looser API contract than its stable counterparts. No labe
 
 ### List of Alpha Kubernetes Metrics
 
-Alpha metrics do not have any API guarantees. These metrics must be used at your own risk, subsequent versions of Kubernetes may remove these metrics altogether, or mutate the API in such a way that breaks existing dashboards and alerts. 
+Alpha metrics do not have any API guarantees. These metrics must be used at your own risk, subsequent versions of Kubernetes may remove these metrics altogether, or mutate the API in such a way that breaks existing dashboards and alerts.
 
 <table class="table metrics" caption="This is the list of ALPHA metrics emitted from core Kubernetes components">
 <thead>

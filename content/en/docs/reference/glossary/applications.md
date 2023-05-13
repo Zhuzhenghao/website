@@ -7,6 +7,7 @@ short_description: >
   The layer where various containerized applications run.
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
- The layer where various containerized applications run.
+
+The layer where various containerized applications run.

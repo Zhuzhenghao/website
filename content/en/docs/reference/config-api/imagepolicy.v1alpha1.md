@@ -5,20 +5,13 @@ package: imagepolicy.k8s.io/v1alpha1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [ImageReview](#imagepolicy-k8s-io-v1alpha1-ImageReview)
-  
-    
 
-## `ImageReview`     {#imagepolicy-k8s-io-v1alpha1-ImageReview}
-    
-
+## `ImageReview` {#imagepolicy-k8s-io-v1alpha1-ImageReview}
 
 <p>ImageReview checks if the set of images in a pod are allowed.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -53,16 +46,13 @@ Refer to the Kubernetes API documentation for the fields of the <code>metadata</
 </tbody>
 </table>
 
-## `ImageReviewContainerSpec`     {#imagepolicy-k8s-io-v1alpha1-ImageReviewContainerSpec}
-    
+## `ImageReviewContainerSpec` {#imagepolicy-k8s-io-v1alpha1-ImageReviewContainerSpec}
 
 **Appears in:**
 
 - [ImageReviewSpec](#imagepolicy-k8s-io-v1alpha1-ImageReviewSpec)
 
-
 <p>ImageReviewContainerSpec is a description of a container within the pod creation request.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -79,16 +69,13 @@ Refer to the Kubernetes API documentation for the fields of the <code>metadata</
 </tbody>
 </table>
 
-## `ImageReviewSpec`     {#imagepolicy-k8s-io-v1alpha1-ImageReviewSpec}
-    
+## `ImageReviewSpec` {#imagepolicy-k8s-io-v1alpha1-ImageReviewSpec}
 
 **Appears in:**
 
 - [ImageReview](#imagepolicy-k8s-io-v1alpha1-ImageReview)
 
-
 <p>ImageReviewSpec is a description of the pod creation request.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -121,16 +108,13 @@ It is up to each webhook backend to determine how to interpret these annotations
 </tbody>
 </table>
 
-## `ImageReviewStatus`     {#imagepolicy-k8s-io-v1alpha1-ImageReviewStatus}
-    
+## `ImageReviewStatus` {#imagepolicy-k8s-io-v1alpha1-ImageReviewStatus}
 
 **Appears in:**
 
 - [ImageReview](#imagepolicy-k8s-io-v1alpha1-ImageReview)
 
-
 <p>ImageReviewStatus is the result of the review for the pod creation request.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -165,4 +149,3 @@ appropriate prefix).</p>
 </tr>
 </tbody>
 </table>
-  

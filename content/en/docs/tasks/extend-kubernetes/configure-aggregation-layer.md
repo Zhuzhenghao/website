@@ -1,9 +1,9 @@
 ---
 title: Configure the Aggregation Layer
 reviewers:
-- lavalamp
-- cheftako
-- chenopis
+  - lavalamp
+  - cheftako
+  - chenopis
 content_type: task
 weight: 10
 ---
@@ -125,10 +125,10 @@ In order to provide for these two, you must configure the Kubernetes apiserver u
 
 The Kubernetes apiserver connects to the extension apiserver over TLS, authenticating itself using a client certificate. You must provide the following to the Kubernetes apiserver upon startup, using the provided flags:
 
-* private key file via `--proxy-client-key-file`
-* signed client certificate file via `--proxy-client-cert-file`
-* certificate of the CA that signed the client certificate file via `--requestheader-client-ca-file`
-* valid Common Name values (CNs) in the signed client certificate via `--requestheader-allowed-names`
+- private key file via `--proxy-client-key-file`
+- signed client certificate file via `--proxy-client-cert-file`
+- certificate of the CA that signed the client certificate file via `--requestheader-client-ca-file`
+- valid Common Name values (CNs) in the signed client certificate via `--requestheader-allowed-names`
 
 The Kubernetes apiserver will use the files indicated by `--proxy-client-*-file` to authenticate to the extension apiserver. In order for the request to be considered valid by a compliant extension apiserver, the following conditions must be met:
 
@@ -143,15 +143,15 @@ When started with these options, the Kubernetes apiserver will:
 1. Use them to authenticate to the extension apiserver.
 2. Create a configmap in the `kube-system` namespace called `extension-apiserver-authentication`, in which it will place the CA certificate and the allowed CNs. These in turn can be retrieved by extension apiservers to validate requests.
 
-Note that the same client certificate is used by the Kubernetes apiserver to authenticate against _all_ extension apiservers. It does not create a client certificate per extension apiserver, but rather a single one to authenticate as the Kubernetes apiserver. This same one is reused for all extension apiserver requests. 
+Note that the same client certificate is used by the Kubernetes apiserver to authenticate against _all_ extension apiservers. It does not create a client certificate per extension apiserver, but rather a single one to authenticate as the Kubernetes apiserver. This same one is reused for all extension apiserver requests.
 
 #### Original Request Username and Group
 
 When the Kubernetes apiserver proxies the request to the extension apiserver, it informs the extension apiserver of the username and group with which the original request successfully authenticated. It provides these in http headers of its proxied request. You must inform the Kubernetes apiserver of the names of the headers to be used.
 
-* the header in which to store the username via `--requestheader-username-headers`
-* the header in which to store the group via `--requestheader-group-headers`
-* the prefix to append to all extra headers via `--requestheader-extra-headers-prefix`
+- the header in which to store the username via `--requestheader-username-headers`
+- the header in which to store the group via `--requestheader-group-headers`
+- the prefix to append to all extra headers via `--requestheader-extra-headers-prefix`
 
 These header names are also placed in the `extension-apiserver-authentication` configmap, so they can be retrieved and used by extension apiservers.
 
@@ -160,13 +160,13 @@ These header names are also placed in the `extension-apiserver-authentication` c
 The extension apiserver, upon receiving a proxied request from the Kubernetes apiserver, must validate that the request actually did come from a valid authenticating proxy, which role the Kubernetes apiserver is fulfilling. The extension apiserver validates it via:
 
 1. Retrieve the following from the configmap in `kube-system`, as described above:
-    * Client CA certificate
-    * List of allowed names (CNs)
-    * Header names for username, group and extra info
+   - Client CA certificate
+   - List of allowed names (CNs)
+   - Header names for username, group and extra info
 2. Check that the TLS connection was authenticated using a client certificate which:
-    * Was signed by the CA whose certificate matches the retrieved CA certificate.
-    * Has a CN in the list of allowed CNs, unless the list is blank, in which case all CNs are allowed.
-    * Extract the username and group from the appropriate headers
+   - Was signed by the CA whose certificate matches the retrieved CA certificate.
+   - Has a CN in the list of allowed CNs, unless the list is blank, in which case all CNs are allowed.
+   - Extract the username and group from the appropriate headers
 
 If the above passes, then the request is a valid proxied request from a legitimate authenticating proxy, in this case the Kubernetes apiserver.
 
@@ -176,14 +176,13 @@ In order to have permission to retrieve the configmap, an extension apiserver re
 
 ### Extension Apiserver Authorizes the Request
 
-The extension apiserver now can validate that the user/group retrieved from the headers are authorized to execute the given request. It does so by sending a standard [SubjectAccessReview](/docs/reference/access-authn-authz/authorization/) request to the Kubernetes apiserver. 
+The extension apiserver now can validate that the user/group retrieved from the headers are authorized to execute the given request. It does so by sending a standard [SubjectAccessReview](/docs/reference/access-authn-authz/authorization/) request to the Kubernetes apiserver.
 
 In order for the extension apiserver to be authorized itself to submit the `SubjectAccessReview` request to the Kubernetes apiserver, it needs the correct permissions. Kubernetes includes a default `ClusterRole` named `system:auth-delegator` that has the appropriate permissions. It can be granted to the extension apiserver's service account.
 
 ### Extension Apiserver Executes
 
 If the `SubjectAccessReview` passes, the extension apiserver executes the request.
-
 
 ## Enable Kubernetes Apiserver flags
 
@@ -201,13 +200,13 @@ Enable the aggregation layer via the following `kube-apiserver` flags. They may 
 
 The Kubernetes apiserver has two client CA options:
 
-* `--client-ca-file`
-* `--requestheader-client-ca-file`
+- `--client-ca-file`
+- `--requestheader-client-ca-file`
 
 Each of these functions independently and can conflict with each other, if not used correctly.
 
-* `--client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file referenced by `--client-ca-file`, then the request is treated as a legitimate request, and the user is the value of the common name `CN=`, while the group is the organization `O=`. See the [documentation on TLS authentication](/docs/reference/access-authn-authz/authentication/#x509-client-certs).
-* `--requestheader-client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file reference by `--requestheader-client-ca-file`, then the request is treated as a potentially legitimate request. The Kubernetes apiserver then checks if the common name `CN=` is one of the names in the list provided by `--requestheader-allowed-names`. If the name is allowed, the request is approved; if it is not, the request is not.
+- `--client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file referenced by `--client-ca-file`, then the request is treated as a legitimate request, and the user is the value of the common name `CN=`, while the group is the organization `O=`. See the [documentation on TLS authentication](/docs/reference/access-authn-authz/authentication/#x509-client-certs).
+- `--requestheader-client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file reference by `--requestheader-client-ca-file`, then the request is treated as a potentially legitimate request. The Kubernetes apiserver then checks if the common name `CN=` is one of the names in the list provided by `--requestheader-allowed-names`. If the name is allowed, the request is approved; if it is not, the request is not.
 
 If _both_ `--client-ca-file` and `--requestheader-client-ca-file` are provided, then the request first checks the `--requestheader-client-ca-file` CA and then the `--client-ca-file`. Normally, different CAs, either root CAs or intermediate CAs, are used for each of these options; regular client requests match against `--client-ca-file`, while aggregation requests match against `--requestheader-client-ca-file`. However, if both use the _same_ CA, then client requests that normally would pass via `--client-ca-file` will fail, because the CA will match the CA in `--requestheader-client-ca-file`, but the common name `CN=` will **not** match one of the acceptable common names in `--requestheader-allowed-names`. This can cause your kubelets and other control plane components, as well as end-users, to be unable to authenticate to the Kubernetes apiserver.
 
@@ -221,15 +220,12 @@ If you are not running kube-proxy on a host running the API server, then you mus
 
     --enable-aggregator-routing=true
 
-
-
 ### Register APIService objects
 
 You can dynamically configure what client requests are proxied to extension
 apiserver. The following is an example registration:
 
 ```yaml
-
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
@@ -276,6 +272,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [Set up an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
-* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
-* Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
+- [Set up an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
+- For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+- Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).

@@ -7,7 +7,7 @@ Kubernetes Community culture contributes substantially to the project's success.
 
 ## Distribution is better than centralization
 
-The scale of the Kubernetes project is only viable through high-trust and high-visibility distribution of work, which includes delegation of authority, decision making, technical design, code ownership, and documentation.  Distributed asynchronous ownership, collaboration, communication and decision making are the cornerstones of our world-wide community.
+The scale of the Kubernetes project is only viable through high-trust and high-visibility distribution of work, which includes delegation of authority, decision making, technical design, code ownership, and documentation. Distributed asynchronous ownership, collaboration, communication and decision making are the cornerstones of our world-wide community.
 
 ## Community over product or company
 
@@ -25,4 +25,4 @@ Broadly successful and useful technologies require different perspectives and sk
 
 Openness to new ideas and studied technological evolution make Kubernetes a stronger project. Continual improvement, servant leadership, mentorship, and respect are the foundations of Kubernetes culture. Kubernetes community leaders have a duty to find, sponsor, and promote new community members. Leaders should expect to step aside. Community members should expect to step up.
 
-**"Culture eats strategy for breakfast."   --Peter Drucker**
+**"Culture eats strategy for breakfast." --Peter Drucker**

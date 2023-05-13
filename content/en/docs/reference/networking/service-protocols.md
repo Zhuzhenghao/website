@@ -5,6 +5,7 @@ weight: 10
 ---
 
 <!-- overview -->
+
 If you configure a {{< glossary_tooltip text="Service" term_id="service" >}},
 you can select from any network protocol that Kubernetes supports.
 
@@ -26,6 +27,7 @@ as a transport protocol:
 - [TLS](#protocol-tls-special) termination at the load balancer
 
 <!-- body -->
+
 ## Supported protocols {#protocol-support}
 
 There are 3 valid values for the `protocol` of a port for a Service:
@@ -54,7 +56,6 @@ You can use TCP for any kind of Service, and it's the default network protocol.
 
 You can use UDP for most Services. For `type: LoadBalancer` Services,
 UDP support depends on the cloud provider offering this facility.
-
 
 ## Special cases
 

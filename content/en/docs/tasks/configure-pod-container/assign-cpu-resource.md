@@ -6,16 +6,12 @@ weight: 20
 
 <!-- overview -->
 
-This page shows how to assign a CPU *request* and a CPU *limit* to
+This page shows how to assign a CPU _request_ and a CPU _limit_ to
 a container. Containers cannot use more CPU than the configured limit.
 Provided the system has CPU time free, a container is guaranteed to be
 allocated as much CPU as it requests.
 
-
-
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -43,14 +39,10 @@ kubectl get apiservices
 If the resource metrics API is available, the output will include a
 reference to `metrics.k8s.io`.
 
-
 ```
 NAME
 v1beta1.metrics.k8s.io
 ```
-
-
-
 
 <!-- steps -->
 
@@ -128,12 +120,12 @@ enough CPU resources available. Recall that the prerequisites for this exercise 
 
 ## CPU units
 
-The CPU resource is measured in *CPU* units. One CPU, in Kubernetes, is equivalent to:
+The CPU resource is measured in _CPU_ units. One CPU, in Kubernetes, is equivalent to:
 
-* 1 AWS vCPU
-* 1 GCP Core
-* 1 Azure vCore
-* 1 Hyperthread on a bare-metal Intel processor with Hyperthreading
+- 1 AWS vCPU
+- 1 GCP Core
+- 1 Azure vCore
+- 1 Hyperthread on a bare-metal Intel processor with Hyperthreading
 
 Fractional values are allowed. A Container that requests 0.5 CPU is guaranteed half as much
 CPU as a Container that requests 1 CPU. You can use the suffix m to mean milli. For example
@@ -180,7 +172,6 @@ kubectl get pod cpu-demo-2 --namespace=cpu-example
 The output shows that the Pod status is Pending. That is, the Pod has not been
 scheduled to run on any Node, and it will remain in the Pending state indefinitely:
 
-
 ```
 NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m
@@ -188,14 +179,12 @@ cpu-demo-2   0/1       Pending   0          7m
 
 View detailed information about the Pod, including events:
 
-
 ```shell
 kubectl describe pod cpu-demo-2 --namespace=cpu-example
 ```
 
 The output shows that the Container cannot be scheduled because of insufficient
 CPU resources on the Nodes:
-
 
 ```
 Events:
@@ -214,13 +203,13 @@ kubectl delete pod cpu-demo-2 --namespace=cpu-example
 
 If you do not specify a CPU limit for a Container, then one of these situations applies:
 
-* The Container has no upper bound on the CPU resources it can use. The Container
-could use all of the CPU resources available on the Node where it is running.
+- The Container has no upper bound on the CPU resources it can use. The Container
+  could use all of the CPU resources available on the Node where it is running.
 
-* The Container is running in a namespace that has a default CPU limit, and the
-Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
-to specify a default value for the CPU limit.
+- The Container is running in a namespace that has a default CPU limit, and the
+  Container is automatically assigned the default limit. Cluster administrators can use a
+  [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
+  to specify a default value for the CPU limit.
 
 ## If you specify a CPU limit but do not specify a CPU request
 
@@ -236,8 +225,8 @@ cluster, you can make efficient use of the CPU resources available on your clust
 Nodes. By keeping a Pod CPU request low, you give the Pod a good chance of being
 scheduled. By having a CPU limit that is greater than the CPU request, you accomplish two things:
 
-* The Pod can have bursts of activity where it makes use of CPU resources that happen to be available.
-* The amount of CPU resources a Pod can use during a burst is limited to some reasonable amount.
+- The Pod can have bursts of activity where it makes use of CPU resources that happen to be available.
+- The amount of CPU resources a Pod can use during a burst is limited to some reasonable amount.
 
 ## Clean up
 
@@ -247,32 +236,28 @@ Delete your namespace:
 kubectl delete namespace cpu-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
-
 
 ### For app developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+- [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
+- [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+- [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+- [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+- [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-* [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
+- [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)

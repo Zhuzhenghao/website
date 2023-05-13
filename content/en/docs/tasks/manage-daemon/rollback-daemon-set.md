@@ -1,6 +1,6 @@
 ---
 reviewers:
-- janetkuo
+  - janetkuo
 title: Perform a Rollback on a DaemonSet
 content_type: task
 weight: 20
@@ -11,13 +11,12 @@ min-kubernetes-server-version: 1.7
 
 This page shows how to perform a rollback on a {{< glossary_tooltip term_id="daemonset" >}}.
 
-
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 You should already know how to [perform a rolling update on a
- DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
+DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 
 <!-- steps -->
 
@@ -43,7 +42,7 @@ REVISION        CHANGE-CAUSE
 ...
 ```
 
-* Change cause is copied from DaemonSet annotation `kubernetes.io/change-cause`
+- Change cause is copied from DaemonSet annotation `kubernetes.io/change-cause`
   to its revisions upon creation. You may specify `--record=true` in `kubectl`
   to record the command executed in the change cause annotation.
 
@@ -103,7 +102,6 @@ When the rollback is complete, the output is similar to:
 daemonset "<daemonset-name>" successfully rolled out
 ```
 
-
 <!-- discussion -->
 
 ## Understanding DaemonSet revisions
@@ -145,5 +143,5 @@ have revision 1 and 2 in the system, and roll back from revision 2 to revision
 
 ## Troubleshooting
 
-* See [troubleshooting DaemonSet rolling
+- See [troubleshooting DaemonSet rolling
   update](/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting).

@@ -36,6 +36,7 @@ kubectl create secret generic db-user-pass \
     --from-literal=username=admin \
     --from-literal=password='S!B\*d$zDsb='
 ```
+
 You must use single quotes `''` to escape special characters such as `$`, `\`,
 `*`, `=`, and `!` in your strings. If you don't, your shell will interpret these
 characters.
@@ -119,7 +120,7 @@ The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
 accidentally, or from being stored in a terminal log.
 
-### Decode the Secret  {#decoding-secret}
+### Decode the Secret {#decoding-secret}
 
 1. View the contents of the Secret you created:
 

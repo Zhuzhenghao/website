@@ -4,24 +4,18 @@ content_type: tool-reference
 package: apiserver.k8s.io/v1alpha1
 auto_generated: true
 ---
+
 <p>Package v1alpha1 is the v1alpha1 version of the API.</p>
 
-
-## Resource Types 
-
+## Resource Types
 
 - [AdmissionConfiguration](#apiserver-k8s-io-v1alpha1-AdmissionConfiguration)
 - [EgressSelectorConfiguration](#apiserver-k8s-io-v1alpha1-EgressSelectorConfiguration)
 - [TracingConfiguration](#apiserver-k8s-io-v1alpha1-TracingConfiguration)
-  
-    
 
-## `AdmissionConfiguration`     {#apiserver-k8s-io-v1alpha1-AdmissionConfiguration}
-    
-
+## `AdmissionConfiguration` {#apiserver-k8s-io-v1alpha1-AdmissionConfiguration}
 
 <p>AdmissionConfiguration provides versioned configuration for admission controllers.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -41,12 +35,9 @@ auto_generated: true
 </tbody>
 </table>
 
-## `EgressSelectorConfiguration`     {#apiserver-k8s-io-v1alpha1-EgressSelectorConfiguration}
-    
-
+## `EgressSelectorConfiguration` {#apiserver-k8s-io-v1alpha1-EgressSelectorConfiguration}
 
 <p>EgressSelectorConfiguration provides versioned configuration for egress selector clients.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -66,12 +57,9 @@ auto_generated: true
 </tbody>
 </table>
 
-## `TracingConfiguration`     {#apiserver-k8s-io-v1alpha1-TracingConfiguration}
-    
-
+## `TracingConfiguration` {#apiserver-k8s-io-v1alpha1-TracingConfiguration}
 
 <p>TracingConfiguration provides versioned configuration for tracing clients.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -91,16 +79,13 @@ auto_generated: true
 </tbody>
 </table>
 
-## `AdmissionPluginConfiguration`     {#apiserver-k8s-io-v1alpha1-AdmissionPluginConfiguration}
-    
+## `AdmissionPluginConfiguration` {#apiserver-k8s-io-v1alpha1-AdmissionPluginConfiguration}
 
 **Appears in:**
 
 - [AdmissionConfiguration](#apiserver-k8s-io-v1alpha1-AdmissionConfiguration)
 
-
 <p>AdmissionPluginConfiguration provides the configuration for a single plug-in.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -134,16 +119,13 @@ configuration. If present, it will be used instead of the path to the configurat
 </tbody>
 </table>
 
-## `Connection`     {#apiserver-k8s-io-v1alpha1-Connection}
-    
+## `Connection` {#apiserver-k8s-io-v1alpha1-Connection}
 
 **Appears in:**
 
 - [EgressSelection](#apiserver-k8s-io-v1alpha1-EgressSelection)
 
-
 <p>Connection provides the configuration for a single egress selection client.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -168,16 +150,13 @@ This is required if ProxyProtocol is HTTPConnect or GRPC.</p>
 </tbody>
 </table>
 
-## `EgressSelection`     {#apiserver-k8s-io-v1alpha1-EgressSelection}
-    
+## `EgressSelection` {#apiserver-k8s-io-v1alpha1-EgressSelection}
 
 **Appears in:**
 
 - [EgressSelectorConfiguration](#apiserver-k8s-io-v1alpha1-EgressSelectorConfiguration)
 
-
 <p>EgressSelection provides the configuration for a single egress selection client.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -203,30 +182,23 @@ The &quot;master&quot; egress selector is deprecated in favor of &quot;controlpl
 </tbody>
 </table>
 
-## `ProtocolType`     {#apiserver-k8s-io-v1alpha1-ProtocolType}
-    
+## `ProtocolType` {#apiserver-k8s-io-v1alpha1-ProtocolType}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [Connection](#apiserver-k8s-io-v1alpha1-Connection)
 
-
 <p>ProtocolType is a set of valid values for Connection.ProtocolType</p>
 
-
-
-
-## `TCPTransport`     {#apiserver-k8s-io-v1alpha1-TCPTransport}
-    
+## `TCPTransport` {#apiserver-k8s-io-v1alpha1-TCPTransport}
 
 **Appears in:**
 
 - [Transport](#apiserver-k8s-io-v1alpha1-Transport)
 
-
 <p>TCPTransport provides the information to connect to konnectivity server via TCP</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -251,17 +223,14 @@ As an example it might be &quot;https://127.0.0.1:8131&quot;</p>
 </tbody>
 </table>
 
-## `TLSConfig`     {#apiserver-k8s-io-v1alpha1-TLSConfig}
-    
+## `TLSConfig` {#apiserver-k8s-io-v1alpha1-TLSConfig}
 
 **Appears in:**
 
 - [TCPTransport](#apiserver-k8s-io-v1alpha1-TCPTransport)
 
-
 <p>TLSConfig provides the authentication information to connect to konnectivity server
 Only used with TCPTransport</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -298,16 +267,13 @@ Must be configured if TCPTransport.URL is prefixed with https://</p>
 </tbody>
 </table>
 
-## `Transport`     {#apiserver-k8s-io-v1alpha1-Transport}
-    
+## `Transport` {#apiserver-k8s-io-v1alpha1-Transport}
 
 **Appears in:**
 
 - [Connection](#apiserver-k8s-io-v1alpha1-Connection)
 
-
 <p>Transport defines the transport configurations we use to dial to the konnectivity server</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -334,16 +300,13 @@ Requires at least one of TCP or UDS to be set</p>
 </tbody>
 </table>
 
-## `UDSTransport`     {#apiserver-k8s-io-v1alpha1-UDSTransport}
-    
+## `UDSTransport` {#apiserver-k8s-io-v1alpha1-UDSTransport}
 
 **Appears in:**
 
 - [Transport](#apiserver-k8s-io-v1alpha1-Transport)
 
-
 <p>UDSTransport provides the information to connect to konnectivity server via UDS</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -362,10 +325,9 @@ This does not use a unix:// prefix. (Eg: /etc/srv/kubernetes/konnectivity-server
 </table>
   
   
-    
 
-## `TracingConfiguration`     {#TracingConfiguration}
-    
+
+## `TracingConfiguration` {#TracingConfiguration}
 
 **Appears in:**
 
@@ -373,9 +335,7 @@ This does not use a unix:// prefix. (Eg: /etc/srv/kubernetes/konnectivity-server
 
 - [TracingConfiguration](#apiserver-k8s-io-v1alpha1-TracingConfiguration)
 
-
 <p>TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>

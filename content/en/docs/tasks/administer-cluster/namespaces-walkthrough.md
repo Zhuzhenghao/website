@@ -1,13 +1,14 @@
 ---
 reviewers:
-- derekwaynecarr
-- janetkuo
+  - derekwaynecarr
+  - janetkuo
 title: Namespaces Walkthrough
 content_type: task
 weight: 260
 ---
 
 <!-- overview -->
+
 Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
 help different projects, teams, or customers to share a Kubernetes cluster.
 
@@ -20,15 +21,9 @@ Use of multiple namespaces is optional.
 
 This example demonstrates how to use Kubernetes namespaces to subdivide your cluster.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -49,6 +44,7 @@ Assuming you have a fresh cluster, you can inspect the available namespaces by d
 ```shell
 kubectl get namespaces
 ```
+
 ```
 NAME      STATUS    AGE
 default   Active    13m
@@ -61,7 +57,7 @@ For this exercise, we will create two additional Kubernetes namespaces to hold o
 Let's imagine a scenario where an organization is using a shared Kubernetes cluster for development and production use cases.
 
 The development team would like to maintain a space in the cluster where they can get a view on the list of Pods, Services, and Deployments
-they use to build and run their application.  In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
+they use to build and run their application. In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
 are relaxed to enable agile development.
 
 The operations team would like to maintain a space in the cluster where they can enforce strict procedures on who can or cannot manipulate the set of
@@ -96,6 +92,7 @@ To be sure things are right, let's list all of the namespaces in our cluster.
 ```shell
 kubectl get namespaces --show-labels
 ```
+
 ```
 NAME          STATUS    AGE       LABELS
 default       Active    32m       <none>
@@ -116,35 +113,38 @@ We first check what is the current context:
 ```shell
 kubectl config view
 ```
+
 ```yaml
 apiVersion: v1
 clusters:
-- cluster:
-    certificate-authority-data: REDACTED
-    server: https://130.211.122.180
-  name: lithe-cocoa-92103_kubernetes
+  - cluster:
+      certificate-authority-data: REDACTED
+      server: https://130.211.122.180
+    name: lithe-cocoa-92103_kubernetes
 contexts:
-- context:
-    cluster: lithe-cocoa-92103_kubernetes
-    user: lithe-cocoa-92103_kubernetes
-  name: lithe-cocoa-92103_kubernetes
+  - context:
+      cluster: lithe-cocoa-92103_kubernetes
+      user: lithe-cocoa-92103_kubernetes
+    name: lithe-cocoa-92103_kubernetes
 current-context: lithe-cocoa-92103_kubernetes
 kind: Config
 preferences: {}
 users:
-- name: lithe-cocoa-92103_kubernetes
-  user:
-    client-certificate-data: REDACTED
-    client-key-data: REDACTED
-    token: 65rZW78y8HbwXXtSXuUw9DbP4FLjHi4b
-- name: lithe-cocoa-92103_kubernetes-basic-auth
-  user:
-    password: h5M0FtUUIflBSdI7
-    username: admin
+  - name: lithe-cocoa-92103_kubernetes
+    user:
+      client-certificate-data: REDACTED
+      client-key-data: REDACTED
+      token: 65rZW78y8HbwXXtSXuUw9DbP4FLjHi4b
+  - name: lithe-cocoa-92103_kubernetes-basic-auth
+    user:
+      password: h5M0FtUUIflBSdI7
+      username: admin
 ```
+
 ```shell
 kubectl config current-context
 ```
+
 ```
 lithe-cocoa-92103_kubernetes
 ```
@@ -170,41 +170,42 @@ To view the new contexts:
 ```shell
 kubectl config view
 ```
+
 ```yaml
 apiVersion: v1
 clusters:
-- cluster:
-    certificate-authority-data: REDACTED
-    server: https://130.211.122.180
-  name: lithe-cocoa-92103_kubernetes
+  - cluster:
+      certificate-authority-data: REDACTED
+      server: https://130.211.122.180
+    name: lithe-cocoa-92103_kubernetes
 contexts:
-- context:
-    cluster: lithe-cocoa-92103_kubernetes
-    user: lithe-cocoa-92103_kubernetes
-  name: lithe-cocoa-92103_kubernetes
-- context:
-    cluster: lithe-cocoa-92103_kubernetes
-    namespace: development
-    user: lithe-cocoa-92103_kubernetes
-  name: dev
-- context:
-    cluster: lithe-cocoa-92103_kubernetes
-    namespace: production
-    user: lithe-cocoa-92103_kubernetes
-  name: prod
+  - context:
+      cluster: lithe-cocoa-92103_kubernetes
+      user: lithe-cocoa-92103_kubernetes
+    name: lithe-cocoa-92103_kubernetes
+  - context:
+      cluster: lithe-cocoa-92103_kubernetes
+      namespace: development
+      user: lithe-cocoa-92103_kubernetes
+    name: dev
+  - context:
+      cluster: lithe-cocoa-92103_kubernetes
+      namespace: production
+      user: lithe-cocoa-92103_kubernetes
+    name: prod
 current-context: lithe-cocoa-92103_kubernetes
 kind: Config
 preferences: {}
 users:
-- name: lithe-cocoa-92103_kubernetes
-  user:
-    client-certificate-data: REDACTED
-    client-key-data: REDACTED
-    token: 65rZW78y8HbwXXtSXuUw9DbP4FLjHi4b
-- name: lithe-cocoa-92103_kubernetes-basic-auth
-  user:
-    password: h5M0FtUUIflBSdI7
-    username: admin
+  - name: lithe-cocoa-92103_kubernetes
+    user:
+      client-certificate-data: REDACTED
+      client-key-data: REDACTED
+      token: 65rZW78y8HbwXXtSXuUw9DbP4FLjHi4b
+  - name: lithe-cocoa-92103_kubernetes-basic-auth
+    user:
+      password: h5M0FtUUIflBSdI7
+      username: admin
 ```
 
 Let's switch to operate in the `development` namespace.
@@ -218,6 +219,7 @@ You can verify your current context by doing the following:
 ```shell
 kubectl config current-context
 ```
+
 ```
 dev
 ```
@@ -228,16 +230,18 @@ Let's create some contents.
 
 {{< codenew file="admin/snowflake-deployment.yaml" >}}
 
-Apply the manifest to create a Deployment 
+Apply the manifest to create a Deployment
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml
 ```
+
 We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 
 ```shell
 kubectl get deployment
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 snowflake    2/2     2            2           2m
@@ -246,6 +250,7 @@ snowflake    2/2     2            2           2m
 ```shell
 kubectl get pods -l app=snowflake
 ```
+
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
 snowflake-3968820950-9dgr8   1/1       Running   0          2m
@@ -274,6 +279,7 @@ kubectl create deployment cattle --image=registry.k8s.io/serve_hostname --replic
 
 kubectl get deployment
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 cattle       5/5     5            5           10s
@@ -282,6 +288,7 @@ cattle       5/5     5            5           10s
 ```shell
 kubectl get pods -l app=cattle
 ```
+
 ```
 NAME                      READY     STATUS    RESTARTS   AGE
 cattle-2263376956-41xy6   1/1       Running   0          34s
@@ -295,5 +302,3 @@ At this point, it should be clear that the resources users create in one namespa
 
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace.
-
-

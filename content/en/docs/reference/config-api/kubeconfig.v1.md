@@ -5,23 +5,17 @@ package: v1
 auto_generated: true
 ---
 
-## Resource Types 
-
+## Resource Types
 
 - [Config](#Config)
-  
-    
 
-## `AuthInfo`     {#AuthInfo}
-    
+## `AuthInfo` {#AuthInfo}
 
 **Appears in:**
 
 - [NamedAuthInfo](#NamedAuthInfo)
 
-
 <p>AuthInfo contains information that describes identity information.  This is use to tell the kubernetes cluster who you are.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -136,16 +130,13 @@ auto_generated: true
 </tbody>
 </table>
 
-## `AuthProviderConfig`     {#AuthProviderConfig}
-    
+## `AuthProviderConfig` {#AuthProviderConfig}
 
 **Appears in:**
 
 - [AuthInfo](#AuthInfo)
 
-
 <p>AuthProviderConfig holds the configuration for a specified auth provider.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -167,16 +158,13 @@ auto_generated: true
 </tbody>
 </table>
 
-## `Cluster`     {#Cluster}
-    
+## `Cluster` {#Cluster}
 
 **Appears in:**
 
 - [NamedCluster](#NamedCluster)
 
-
 <p>Cluster contains information about how to communicate with a kubernetes cluster</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -251,16 +239,13 @@ compression (server-side) and decompression (client-side): https://github.com/ku
 </tbody>
 </table>
 
-## `Context`     {#Context}
-    
+## `Context` {#Context}
 
 **Appears in:**
 
 - [NamedContext](#NamedContext)
 
-
 <p>Context is a tuple of references to a cluster (how do I communicate with a kubernetes cluster), a user (how do I identify myself), and a namespace (what subset of resources do I want to work with)</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -298,19 +283,16 @@ compression (server-side) and decompression (client-side): https://github.com/ku
 </tbody>
 </table>
 
-## `ExecConfig`     {#ExecConfig}
-    
+## `ExecConfig` {#ExecConfig}
 
 **Appears in:**
 
 - [AuthInfo](#AuthInfo)
 
-
 <p>ExecConfig specifies a command to provide client credentials. The command is exec'd
 and outputs structured stdout holding credentials.</p>
 <p>See the client.authentication.k8s.io API group for specifications of the exact input
 and output format</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -385,17 +367,14 @@ to &quot;IfAvailable&quot; when unset. Otherwise, this field is required.</p>
 </tbody>
 </table>
 
-## `ExecEnvVar`     {#ExecEnvVar}
-    
+## `ExecEnvVar` {#ExecEnvVar}
 
 **Appears in:**
 
 - [ExecConfig](#ExecConfig)
 
-
 <p>ExecEnvVar is used for setting environment variables when executing an exec-based
 credential plugin.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -417,30 +396,23 @@ credential plugin.</p>
 </tbody>
 </table>
 
-## `ExecInteractiveMode`     {#ExecInteractiveMode}
-    
+## `ExecInteractiveMode` {#ExecInteractiveMode}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [ExecConfig](#ExecConfig)
 
-
 <p>ExecInteractiveMode is a string that describes an exec plugin's relationship with standard input.</p>
 
-
-
-
-## `NamedAuthInfo`     {#NamedAuthInfo}
-    
+## `NamedAuthInfo` {#NamedAuthInfo}
 
 **Appears in:**
 
 - [Config](#Config)
 
-
 <p>NamedAuthInfo relates nicknames to auth information</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -464,16 +436,13 @@ credential plugin.</p>
 </tbody>
 </table>
 
-## `NamedCluster`     {#NamedCluster}
-    
+## `NamedCluster` {#NamedCluster}
 
 **Appears in:**
 
 - [Config](#Config)
 
-
 <p>NamedCluster relates nicknames to cluster information</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -497,16 +466,13 @@ credential plugin.</p>
 </tbody>
 </table>
 
-## `NamedContext`     {#NamedContext}
-    
+## `NamedContext` {#NamedContext}
 
 **Appears in:**
 
 - [Config](#Config)
 
-
 <p>NamedContext relates nicknames to context information</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -530,8 +496,7 @@ credential plugin.</p>
 </tbody>
 </table>
 
-## `NamedExtension`     {#NamedExtension}
-    
+## `NamedExtension` {#NamedExtension}
 
 **Appears in:**
 
@@ -545,9 +510,7 @@ credential plugin.</p>
 
 - [Preferences](#Preferences)
 
-
 <p>NamedExtension relates nicknames to extension information</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -571,14 +534,11 @@ credential plugin.</p>
 </tbody>
 </table>
 
-## `Preferences`     {#Preferences}
-    
+## `Preferences` {#Preferences}
 
 **Appears in:**
 
 - [Config](#Config)
-
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>

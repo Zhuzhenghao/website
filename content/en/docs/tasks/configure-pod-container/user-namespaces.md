@@ -7,6 +7,7 @@ min-kubernetes-server-version: v1.25
 ---
 
 <!-- overview -->
+
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
 This page shows how to configure a user namespace for stateless pods. This
@@ -36,12 +37,13 @@ this is true when user namespaces are used.
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{% thirdparty-content single="true" %}}
+
 <!-- if adding another runtime in the future, omit the single setting -->
 
-* The node OS needs to be Linux
-* You need to exec commands in the host
-* You need to be able to exec into pods
-* Feature gate `UserNamespacesStatelessPodsSupport` need to be enabled.
+- The node OS needs to be Linux
+- You need to exec commands in the host
+- You need to be able to exec into pods
+- Feature gate `UserNamespacesStatelessPodsSupport` need to be enabled.
 
 The cluster that you're using **must** include at least one node that meets the
 [requirements](/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)

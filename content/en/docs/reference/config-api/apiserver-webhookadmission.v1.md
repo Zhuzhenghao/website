@@ -4,22 +4,16 @@ content_type: tool-reference
 package: apiserver.config.k8s.io/v1
 auto_generated: true
 ---
+
 <p>Package v1 is the v1 version of the API.</p>
 
-
-## Resource Types 
-
+## Resource Types
 
 - [WebhookAdmission](#apiserver-config-k8s-io-v1-WebhookAdmission)
-  
-    
 
-## `WebhookAdmission`     {#apiserver-config-k8s-io-v1-WebhookAdmission}
-    
-
+## `WebhookAdmission` {#apiserver-config-k8s-io-v1-WebhookAdmission}
 
 <p>WebhookAdmission provides configuration for the webhook admission controller.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -38,4 +32,3 @@ auto_generated: true
 </tr>
 </tbody>
 </table>
-  

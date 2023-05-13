@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Certificate Management with kubeadm
 content_type: task
 weight: 10
@@ -15,7 +15,6 @@ This page explains how to manage certificate renewals with kubeadm. It also cove
 to kubeadm certificate management.
 
 ## {{% heading "prerequisites" %}}
-
 
 You should be familiar with [PKI certificates and requirements in Kubernetes](/docs/setup/best-practices/certificates/).
 
@@ -108,6 +107,7 @@ point to the rotated kubelet client certificates, by replacing `client-certifica
 client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
 client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
 ```
+
 {{< /warning >}}
 
 ## Automatic certificate renewal
@@ -232,9 +232,9 @@ A CSR contains a certificate's name, domains, and IPs, but it does not specify u
 It is the responsibility of the CA to specify [the correct cert usages](/docs/setup/best-practices/certificates/#all-certificates)
 when issuing a certificate.
 
-* In `openssl` this is done with the
+- In `openssl` this is done with the
   [`openssl ca` command](https://superuser.com/questions/738612/openssl-ca-keyusage-extension).
-* In `cfssl` you specify
+- In `cfssl` you specify
   [usages in the config file](https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170).
 
 After a certificate is signed using your preferred method, the certificate and the private key
@@ -266,12 +266,13 @@ serverTLSBootstrap: true
 ```
 
 If you have already created the cluster you must adapt it by doing the following:
- - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
-In that ConfigMap, the `kubelet` key has a
-[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
+
+- Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
+  In that ConfigMap, the `kubelet` key has a
+  [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+  document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
 - On each node, add the `serverTLSBootstrap: true` field in `/var/lib/kubelet/config.yaml`
-and restart the kubelet with `systemctl restart kubelet`
+  and restart the kubelet with `systemctl restart kubelet`
 
 The field `serverTLSBootstrap: true` will enable the bootstrap of kubelet serving
 certificates by requesting them from the `certificates.k8s.io` API. One known limitation
@@ -290,6 +291,7 @@ csr-lz97v   1m58s   kubernetes.io/kubelet-serving     system:node:control-plane-
 ```
 
 To approve them you can do the following:
+
 ```shell
 kubectl certificate approve <CSR-name>
 ```
@@ -307,6 +309,7 @@ the node identity with an out of band mechanism.
 {{% thirdparty-content %}}
 
 Third party custom controllers can be used:
+
 - [kubelet-csr-approver](https://github.com/postfinance/kubelet-csr-approver)
 
 Such a controller is not a secure mechanism unless it not only verifies the CommonName

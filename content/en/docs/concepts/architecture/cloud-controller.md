@@ -28,7 +28,6 @@ The cloud controller manager runs in the control plane as a replicated set of pr
 multiple {{< glossary_tooltip text="controllers" term_id="controller" >}} in a single
 process.
 
-
 {{< note >}}
 You can also run the cloud controller manager as a Kubernetes
 {{< glossary_tooltip text="addon" term_id="addons" >}} rather than as part
@@ -147,72 +146,71 @@ kind: ClusterRole
 metadata:
   name: cloud-controller-manager
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - patch
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  verbs:
-  - '*'
-- apiGroups:
-  - ""
-  resources:
-  - nodes/status
-  verbs:
-  - patch
-- apiGroups:
-  - ""
-  resources:
-  - services
-  verbs:
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - serviceaccounts
-  verbs:
-  - create
-- apiGroups:
-  - ""
-  resources:
-  - persistentvolumes
-  verbs:
-  - get
-  - list
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-  - update
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/status
+    verbs:
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    verbs:
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - serviceaccounts
+    verbs:
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes
+    verbs:
+      - get
+      - list
+      - update
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
 ```
-
 
 ## {{% heading "whatsnext" %}}
 
-* [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+- [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
   has instructions on running and managing the cloud controller manager.
 
-* To upgrade a HA control plane to use the cloud controller manager, see 
+- To upgrade a HA control plane to use the cloud controller manager, see
   [Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
 
-* Want to know how to implement your own cloud controller manager, or extend an existing project?
+- Want to know how to implement your own cloud controller manager, or extend an existing project?
 
   - The cloud controller manager uses Go interfaces, specifically, `CloudProvider` interface defined in
     [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)

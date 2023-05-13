@@ -7,9 +7,10 @@ short_description: >
   An event that leads to Pod(s) going out of service
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
- Disruptions are events that lead to one or more
+
+Disruptions are events that lead to one or more
 {{< glossary_tooltip term_id="pod" text="Pods" >}} going out of service.
 A disruption has consequences for workload resources, such as
 {{< glossary_tooltip term_id="deployment" >}}, that rely on the affected

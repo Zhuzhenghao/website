@@ -1,8 +1,8 @@
 ---
 reviewers:
-- liggitt
-- jpbetz
-- cici37
+  - liggitt
+  - jpbetz
+  - cici37
 title: Validating Admission Policy
 content_type: concept
 ---
@@ -13,7 +13,6 @@ content_type: concept
 
 This page provides an overview of Validating Admission Policy.
 
-
 <!-- body -->
 
 ## What is Validating Admission Policy?
@@ -21,7 +20,7 @@ This page provides an overview of Validating Admission Policy.
 Validating admission policies offer a declarative, in-process alternative to validating admission webhooks.
 
 Validating admission policies use the Common Expression Language (CEL) to declare the validation
-rules of a policy. 
+rules of a policy.
 Validation admission policies are highly configurable, enabling policy authors to define policies
 that can be parameterized and scoped to resources as needed by cluster administrators.
 
@@ -41,11 +40,11 @@ A policy is generally made up of three resources:
   A native type such as ConfigMap or a CRD defines the schema of a parameter resource.
   `ValidatingAdmissionPolicy` objects specify what Kind they are expecting for their parameter resource.
 
-At least a `ValidatingAdmissionPolicy` and a corresponding  `ValidatingAdmissionPolicyBinding`
+At least a `ValidatingAdmissionPolicy` and a corresponding `ValidatingAdmissionPolicyBinding`
 must be defined for a policy to have an effect.
 
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
-`spec.paramKind` in  `ValidatingAdmissionPolicy` unset.
+`spec.paramKind` in `ValidatingAdmissionPolicy` unset.
 
 ## {{% heading "prerequisites" %}}
 
@@ -70,10 +69,10 @@ spec:
   failurePolicy: Fail
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
+      - apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["deployments"]
   validations:
     - expression: "object.spec.replicas <= 5"
 ```
@@ -141,8 +140,8 @@ for more details about the validation failure audit annotation.
 
 #### Parameter resources
 
-Parameter resources allow a policy configuration to be separate from its definition. 
-A policy can define paramKind, which outlines GVK of the parameter resource, 
+Parameter resources allow a policy configuration to be separate from its definition.
+A policy can define paramKind, which outlines GVK of the parameter resource,
 and then a policy binding ties a policy by name (via policyName) to a particular parameter resource via paramRef.
 
 If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy
@@ -160,17 +159,17 @@ spec:
     kind: ReplicaLimit
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
+      - apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["deployments"]
   validations:
     - expression: "object.spec.replicas <= params.maxReplicas"
       reason: Invalid
 ```
 
 The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
-to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources. 
+to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources.
 Note in this example how the CEL expression references the parameters via the CEL params variable,
 e.g. `params.maxReplicas`. `spec.matchConstraints` specifies what resources this policy is
 designed to validate. Note that the native types such like `ConfigMap` could also be used as
@@ -227,10 +226,10 @@ spec:
   matchResources:
     namespaceSelector:
       matchExpressions:
-      - key: environment
-        operator: NotIn
-        values:
-        - test
+        - key: environment
+          operator: NotIn
+          values:
+            - test
 ```
 
 And have a parameter resource like:
@@ -258,8 +257,8 @@ spec:
   matchResources:
     namespaceSelector:
       matchExpressions:
-      - key: environment
-        operator: Exists
+        - key: environment
+          operator: Exists
 ```
 
 The params object representing a parameter resource will not be set if a parameter resource has
@@ -277,16 +276,16 @@ For the use cases require parameter configuration, we recommend to add a param c
 It can be convenient to be able to have optional parameters as part of a parameter resource, and
 only validate them if present. CEL provides `has()`, which checks if the key passed to it exists.
 CEL also implements Boolean short-circuiting. If the first half of a logical OR evaluates to true,
-it won’t evaluate the other half (since the result of the entire OR will be true regardless). 
+it won’t evaluate the other half (since the result of the entire OR will be true regardless).
 
 Combining the two, we can provide a way to validate optional parameters:
 
 `!has(params.optionalNumber) || (params.optionalNumber >= 5 && params.optionalNumber <= 10)`
 
-Here, we first check that the optional parameter is present with `!has(params.optionalNumber)`. 
+Here, we first check that the optional parameter is present with `!has(params.optionalNumber)`.
 
 - If `optionalNumber` hasn’t been defined, then the expression short-circuits since
-  `!has(params.optionalNumber)` will evaluate to true. 
+  `!has(params.optionalNumber)` will evaluate to true.
 - If `optionalNumber` has been defined, then the latter half of the CEL expression will be
   evaluated, and optionalNumber will be checked to ensure that it contains a value between 5 and
   10 inclusive.
@@ -316,10 +315,10 @@ Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
 spec:
-...
+---
 failurePolicy: Ignore # The default is "Fail"
 validations:
-- expression: "object.spec.xyz == params.x"  
+  - expression: "object.spec.xyz == params.x"
 ```
 
 ### Validation Expression
@@ -340,21 +339,20 @@ variables as well as some other useful variables:
   documentation for more details.
 - `authorizer.requestResource` - A shortcut for an authorization check configured with the request
   resource (group, resource, (subresource), namespace, name).
-	
+
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
-	
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 Accessible property names are escaped according to the following rules when accessed in the
 expression:
 
-| escape sequence         | property name equivalent  |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-|`__dash__`               | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
+| escape sequence   | property name equivalent                                                                     |
+| ----------------- | -------------------------------------------------------------------------------------------- |
+| `__underscores__` | `__`                                                                                         |
+| `__dot__`         | `.`                                                                                          |
+| `__dash__`        | `-`                                                                                          |
+| `__slash__`       | `/`                                                                                          |
+| `__{keyword}__`   | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
 
 {{< note >}}
 A **CEL reserved** keyword only needs to be escaped if the token is an exact match
@@ -364,38 +362,36 @@ For example, `int` in the word “sprint” would not be escaped.
 
 Examples on escaping:
 
-|property name    | rule with escaped property name   |
-| ----------------|-----------------------------------|
-| namespace       | `object.__namespace__ > 0`        |
-| x-prop          | `object.x__dash__prop > 0`          |
-| redact__d       | `object.redact__underscores__d > 0` |
-| string          | `object.startsWith('kube')`         |
-	
+| property name | rule with escaped property name     |
+| ------------- | ----------------------------------- |
+| namespace     | `object.__namespace__ > 0`          |
+| x-prop        | `object.x__dash__prop > 0`          |
+| redact\_\_d   | `object.redact__underscores__d > 0` |
+| string        | `object.startsWith('kube')`         |
+
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
-Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-    - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-      non-intersecting elements in `Y` are appended, retaining their partial order.
-    - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-      are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-      non-intersecting keys are appended, retaining their partial order.
+Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type: - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+non-intersecting elements in `Y` are appended, retaining their partial order. - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+non-intersecting keys are appended, retaining their partial order.
 
 #### Validation expression examples
 
-| Expression                                                                                   | Purpose                                                                           |
-|----------------------------------------------------------------------------------------------| ------------                                                                      |
-| `object.minReplicas <= object.replicas && object.replicas <= object.maxReplicas`             | Validate that the three fields defining replicas are ordered appropriately        |
-| `'Available' in object.stateCounts`                                                          | Validate that an entry with the 'Available' key exists in a map                   |
-| `(size(object.list1) == 0) != (size(object.list2) == 0)`                                     | Validate that one of two lists is non-empty, but not both                         |
-| <code>!('MY_KEY' in object.map1) &#124;&#124; object['MY_KEY'].matches('^[a-zA-Z]*$')</code> | Validate the value of a map for a specific key, if it is in the map               |
-| `object.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`          | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
-| `has(object.expired) && object.created + object.ttl < object.expired`                        | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
-| `object.health.startsWith('ok')`                                                             | Validate a 'health' string field has the prefix 'ok'                              |
-| `object.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                       | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(object) == string ? object == '100%' : object == 1000`                                 | Validate an int-or-string field for both the int and string cases             |
-| `object.metadata.name.startsWith(object.prefix)`                                             | Validate that an object's name has the prefix of another field value              |
-| `object.set1.all(e, !(e in object.set2))`                                                    | Validate that two listSets are disjoint                                           |
-| `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
-| `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
+| Expression                                                                                    | Purpose                                                                                        |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `object.minReplicas <= object.replicas && object.replicas <= object.maxReplicas`              | Validate that the three fields defining replicas are ordered appropriately                     |
+| `'Available' in object.stateCounts`                                                           | Validate that an entry with the 'Available' key exists in a map                                |
+| `(size(object.list1) == 0) != (size(object.list2) == 0)`                                      | Validate that one of two lists is non-empty, but not both                                      |
+| <code>!('MY_KEY' in object.map1) &#124;&#124; object['MY_KEY'].matches('^[a-zA-Z]\*$')</code> | Validate the value of a map for a specific key, if it is in the map                            |
+| `object.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`           | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'               |
+| `has(object.expired) && object.created + object.ttl < object.expired`                         | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration                    |
+| `object.health.startsWith('ok')`                                                              | Validate a 'health' string field has the prefix 'ok'                                           |
+| `object.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                        | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10              |
+| `type(object) == string ? object == '100%' : object == 1000`                                  | Validate an int-or-string field for both the int and string cases                              |
+| `object.metadata.name.startsWith(object.prefix)`                                              | Validate that an object's name has the prefix of another field value                           |
+| `object.set1.all(e, !(e in object.set2))`                                                     | Validate that two listSets are disjoint                                                        |
+| `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`      | Validate the 'details' map is keyed by the items in the 'names' listSet                        |
+| `size(object.clusters.filter(c, c.name == object.primary)) == 1`                              | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap |
 
 Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 for more information about CEL rules.
@@ -425,8 +421,9 @@ the request is determined as follows:
 
 1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the policy.
 2. Otherwise:
-  - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
-  - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
+
+- for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
+- for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
 
 ### Audit annotations
 
@@ -457,7 +454,7 @@ In this example the annotation will only be included if the `spec.replicas` of t
 50, otherwise the CEL expression evalutes to null and the annotation will not be included.
 
 Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
-another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 
+another admission controller, such as an admission webhook, uses the exact same audit annotation key, the
 value of the first admission controller to include the audit annotation will be included in the audit
 event and all other values will be ignored.
 
@@ -492,7 +489,7 @@ Note that static message is validated against multi-line strings.
 ### Type checking
 
 When a policy definition is created or updated, the validation process parses the expressions it contains
-and reports any syntax errors, rejecting the definition if any errors are found. 
+and reports any syntax errors, rejecting the definition if any errors are found.
 Afterward, the referred variables are checked for type errors, including missing fields and type confusion,
 against the matched types of `spec.matchConstraints`.
 The result of type checking can be retrieved from `status.typeChecking`.
@@ -509,14 +506,14 @@ metadata:
 spec:
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
+      - apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["deployments"]
   validations:
-  - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
-    message: "must be replicated"
-    reason: Invalid
+    - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
+      message: "must be replicated"
+      reason: Invalid
 ```
 
 The status will yield the following information:
@@ -525,15 +522,15 @@ The status will yield the following information:
 status:
   typeChecking:
     expressionWarnings:
-    - fieldRef: spec.validations[0].expression
-      warning: |-
-        apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
-         | object.replicas > 1
-         | ......^
+      - fieldRef: spec.validations[0].expression
+        warning: |-
+          apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
+           | object.replicas > 1
+           | ......^
 ```
 
 If multiple resources are matched in `spec.matchConstraints`, all of matched resources will be checked against.
-For example, the following policy definition 
+For example, the following policy definition
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
@@ -543,14 +540,14 @@ metadata:
 spec:
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments","replicasets"]
+      - apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["deployments", "replicasets"]
   validations:
-  - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
-    message: "must be replicated"
-    reason: Invalid
+    - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
+      message: "must be replicated"
+      reason: Invalid
 ```
 
 will have multiple types and type checking result of each type in the warning message.
@@ -559,14 +556,14 @@ will have multiple types and type checking result of each type in the warning me
 status:
   typeChecking:
     expressionWarnings:
-    - fieldRef: spec.validations[0].expression
-      warning: |-
-        apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
-         | object.replicas > 1
-         | ......^
-        apps/v1, Kind=ReplicaSet: ERROR: <input>:1:7: undefined field 'replicas'
-         | object.replicas > 1
-         | ......^
+      - fieldRef: spec.validations[0].expression
+        warning: |-
+          apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
+           | object.replicas > 1
+           | ......^
+          apps/v1, Kind=ReplicaSet: ERROR: <input>:1:7: undefined field 'replicas'
+           | object.replicas > 1
+           | ......^
 ```
 
 Type Checking has the following limitation:

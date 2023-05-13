@@ -1,8 +1,8 @@
 ---
 title: Migrating telemetry and security agents from dockershim
-content_type: task 
+content_type: task
 reviewers:
-- SergeyKanzhelev
+  - SergeyKanzhelev
 weight: 60
 ---
 
@@ -21,7 +21,7 @@ alternative runtimes.
 ## Telemetry and security agents
 
 Within a Kubernetes cluster there are a few different ways to run telemetry or
-security agents.  Some agents have a direct dependency on Docker Engine when
+security agents. Some agents have a direct dependency on Docker Engine when
 they run as DaemonSets or directly on nodes.
 
 ### Why do some telemetry agents communicate with Docker Engine?
@@ -32,7 +32,7 @@ launching and running containers (within Pods) on a node. Some information that
 is relevant to telemetry, such as a pod name, is only available from Kubernetes
 components. Other data, such as container metrics, is not the responsibility of
 the container runtime. Early telemetry agents needed to query the container
-runtime *and* Kubernetes to report an accurate picture. Over time, Kubernetes
+runtime _and_ Kubernetes to report an accurate picture. Over time, Kubernetes
 gained the ability to support multiple runtimes, and now supports any runtime
 that is compatible with the [container runtime interface](/docs/concepts/architecture/cri/).
 
@@ -117,7 +117,8 @@ environments](https://www.dynatrace.com/news/blog/get-automated-full-stack-visib
 
 CRI-O support announcement: [Get automated full-stack visibility into your CRI-O Kubernetes containers (Beta)](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
 
-The pod accessing Docker may have name containing: 
+The pod accessing Docker may have name containing:
+
 - `dynatrace-oneagent`
 
 ### [Falco](https://falco.org)
@@ -126,7 +127,8 @@ How to migrate:
 
 [Migrate Falco from dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)
 Falco supports any CRI-compatible runtime (containerd is used in the default configuration); the documentation explains all details.
-The pod accessing Docker may have name containing: 
+The pod accessing Docker may have name containing:
+
 - `falco`
 
 ### [Prisma Cloud Compute](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html)
@@ -134,6 +136,7 @@ The pod accessing Docker may have name containing:
 Check [documentation for Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_kubernetes.html),
 under the "Install Prisma Cloud on a CRI (non-Docker) cluster" section.
 The pod accessing Docker may be named like:
+
 - `twistlock-defender-ds`
 
 ### [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
@@ -144,13 +147,12 @@ The `kubelet-stats` monitor was previously deprecated by the vendor, in favor of
 The `docker-container-stats` monitor is the one affected by dockershim removal.
 Do not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
-
 How to migrate from dockershim-dependent agent:
+
 1. Remove `docker-container-stats` from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md).
    Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics
    being reported when docker is installed on node and no metrics when docker is not installed.
 2. [Enable and configure `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) monitor.
-
 
 {{< note >}}
 The set of collected metrics will change. Review your alerting rules and dashboards.

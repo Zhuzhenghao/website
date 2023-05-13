@@ -1,7 +1,7 @@
 ---
 reviewers:
-- davidopp
-- lavalamp
+  - davidopp
+  - lavalamp
 title: Considerations for large clusters
 weight: 10
 ---
@@ -10,12 +10,12 @@ A cluster is a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (phys
 or virtual machines) running Kubernetes agents, managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
-Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
+Kubernetes is designed to accommodate configurations that meet _all_ of the following criteria:
 
-* No more than 110 pods per node
-* No more than 5,000 nodes
-* No more than 150,000 total pods
-* No more than 300,000 total containers
+- No more than 110 pods per node
+- No more than 5,000 nodes
+- No more than 150,000 total pods
+- No more than 300,000 total containers
 
 You can scale your cluster by adding or removing nodes. The way you do this depends
 on how your cluster is deployed.
@@ -24,16 +24,17 @@ on how your cluster is deployed.
 
 To avoid running into cloud provider quota issues, when creating a cluster with many nodes,
 consider:
-* Requesting a quota increase for cloud resources such as:
-    * Computer instances
-    * CPUs
-    * Storage volumes
-    * In-use IP addresses
-    * Packet filtering rule sets
-    * Number of load balancers
-    * Network subnets
-    * Log streams
-* Gating the cluster scaling actions to bring up new nodes in batches, with a pause
+
+- Requesting a quota increase for cloud resources such as:
+  - Computer instances
+  - CPUs
+  - Storage volumes
+  - In-use IP addresses
+  - Packet filtering rule sets
+  - Number of load balancers
+  - Network subnets
+  - Log streams
+- Gating the cluster scaling actions to bring up new nodes in batches, with a pause
   between batches, because some cloud providers rate limit the creation of new instances.
 
 ## Control plane components
@@ -63,8 +64,8 @@ dedicated etcd instance.
 
 When creating a cluster, you can (using custom tooling):
 
-* start and configure additional etcd instance
-* configure the {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} to use it for storing events
+- start and configure additional etcd instance
+- configure the {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} to use it for storing events
 
 See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) and
 [Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
@@ -101,29 +102,29 @@ slice restrictions.
 To avoid running into cluster addon resource issues, when creating a cluster with
 many nodes, consider the following:
 
-* Some addons scale vertically - there is one replica of the addon for the cluster
+- Some addons scale vertically - there is one replica of the addon for the cluster
   or serving a whole failure zone. For these addons, increase requests and limits
   as you scale out your cluster.
-* Many addons scale horizontally - you add capacity by running more pods - but with
+- Many addons scale horizontally - you add capacity by running more pods - but with
   a very large cluster you may also need to raise CPU or memory limits slightly.
   The VerticalPodAutoscaler can run in _recommender_ mode to provide suggested
   figures for requests and limits.
-* Some addons run as one copy per node, controlled by a {{< glossary_tooltip text="DaemonSet"
+- Some addons run as one copy per node, controlled by a {{< glossary_tooltip text="DaemonSet"
   term_id="daemonset" >}}: for example, a node-level log aggregator. Similar to
   the case with horizontally-scaled addons, you may also need to raise CPU or memory
   limits slightly.
 
 ## {{% heading "whatsnext" %}}
 
-* `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
-to help you manage resource requests and limits for pods.  
-Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) 
-and how you can use it to scale cluster
-components, including cluster-critical addons.
+- `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
+  to help you manage resource requests and limits for pods.  
+  Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
+  and how you can use it to scale cluster
+  components, including cluster-critical addons.
 
-* The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-integrates with a number of cloud providers to help you run the right number of
-nodes for the level of resource demand in your cluster.
+- The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
+  integrates with a number of cloud providers to help you run the right number of
+  nodes for the level of resource demand in your cluster.
 
-* The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
-helps you in resizing the addons automatically as your cluster's scale changes.
+- The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+  helps you in resizing the addons automatically as your cluster's scale changes.

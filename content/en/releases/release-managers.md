@@ -23,11 +23,11 @@ The responsibilities of each role are described below.
 
 ## Contact
 
-| Mailing List | Slack | Visibility | Usage | Membership |
-| --- | --- | --- | --- | --- |
-| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | Public | Public discussion for Release Managers | All Release Managers (including Associates, Build Admins, and SIG Chairs) |
-| [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A | Private | Private discussion for privileged Release Managers | Release Managers, SIG Release leadership |
-| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | Private | Security release coordination with the Security Response Committee | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
+| Mailing List                                                                            | Slack                                                                                                                   | Visibility | Usage                                                              | Membership                                                                                                                                                                       |
+| --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io)                 | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group)       | Public     | Public discussion for Release Managers                             | All Release Managers (including Associates, Build Admins, and SIG Chairs)                                                                                                        |
+| [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A                                                                                                                     | Private    | Private discussion for privileged Release Managers                 | Release Managers, SIG Release leadership                                                                                                                                         |
+| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io)       | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | Private    | Security release coordination with the Security Response Committee | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 
 ### Security Embargo Policy
 
@@ -63,7 +63,7 @@ Release Managers are responsible for:
   - Minor releases (`x.y.z`, where `z` = 0)
   - Pre-releases (alpha, beta, and release candidates)
   - Working with the [Release Team][release-team] through each
-  release cycle
+    release cycle
   - Setting the [schedule and cadence for patch releases][patches]
 - Maintaining the release branches:
   - Reviewing cherry picks
@@ -163,7 +163,7 @@ Kubernetes project. They are responsible for:
 
 - Building, signing, and publishing the deb/rpm packages
 - Being the interlock with Release Managers (and Associates) on the final steps
-of each minor (1.Y) and patch (1.Y.Z) release
+  of each minor (1.Y) and patch (1.Y.Z) release
 
 GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 

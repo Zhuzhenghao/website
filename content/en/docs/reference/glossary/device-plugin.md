@@ -7,10 +7,11 @@ short_description: >
   Software extensions to let Pods access devices that need vendor-specific initialization or setup
 aka:
 tags:
-- fundamental
-- extension
+  - fundamental
+  - extension
 ---
- Device plugins run on worker
+
+Device plugins run on worker
 {{< glossary_tooltip term_id="node" text="Nodes">}} and provide
 {{< glossary_tooltip term_id="pod" text="Pods ">}} with access to resources,
 such as local hardware, that require vendor-specific initialization or setup

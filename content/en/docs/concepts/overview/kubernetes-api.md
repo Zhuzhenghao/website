@@ -1,6 +1,6 @@
 ---
 reviewers:
-- chenopis
+  - chenopis
 title: The Kubernetes API
 content_type: concept
 weight: 40
@@ -92,18 +92,22 @@ group/versions are provided in the following format:
 
 ```yaml
 {
-    "paths": {
-        ...,
-        "api/v1": {
-            "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
+  "paths":
+    {
+      ...,
+      "api/v1":
+        {
+          "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF",
         },
-        "apis/admissionregistration.k8s.io/v1": {
-            "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
+      "apis/admissionregistration.k8s.io/v1":
+        {
+          "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597",
         },
-        ....
-    }
+      ....,
+    },
 }
 ```
+
 <!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 The relative URLs are pointing to immutable OpenAPI descriptions, in
@@ -237,8 +241,6 @@ ways that require deleting all existing alpha objects prior to upgrade.
 
 Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
 for more details on the API version level definitions.
-
-
 
 ## API Extension
 

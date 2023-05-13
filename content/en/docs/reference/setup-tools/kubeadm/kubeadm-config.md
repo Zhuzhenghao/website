@@ -1,13 +1,14 @@
 ---
 reviewers:
-- luxas
-- jbeda
+  - luxas
+  - jbeda
 title: kubeadm config
 content_type: concept
 weight: 50
 ---
 
 <!-- overview -->
+
 During `kubeadm init`, kubeadm uploads the `ClusterConfiguration` object to your cluster
 in a ConfigMap called `kubeadm-config` in the `kube-system` namespace. This configuration is then read during
 `kubeadm join`, `kubeadm reset` and `kubeadm upgrade`.
@@ -35,6 +36,7 @@ API version to a newer, supported API version.
 that kubeadm requires.
 
 <!-- body -->
+
 ## kubeadm config print {#cmd-config-print}
 
 {{< include "generated/kubeadm_config_print.md" >}}
@@ -61,4 +63,4 @@ that kubeadm requires.
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
+- [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version

@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -25,7 +25,6 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/api/autoscaling/v2"`
 
-
 ## HorizontalPodAutoscaler {#HorizontalPodAutoscaler}
 
 HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
@@ -34,9 +33,7 @@ HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, wh
 
 - **apiVersion**: autoscaling/v2
 
-
 - **kind**: HorizontalPodAutoscaler
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -49,10 +46,6 @@ HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, wh
 - **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
 
   status is the current information about the autoscaler.
-
-
-
-
 
 ## HorizontalPodAutoscalerSpec {#HorizontalPodAutoscalerSpec}
 
@@ -69,7 +62,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
   scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
 
   <a name="CrossVersionObjectReference"></a>
-  *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
+  _CrossVersionObjectReference contains enough information to let you identify the referred resource._
 
   - **scaleTargetRef.kind** (string), required
 
@@ -85,30 +78,30 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
 - **minReplicas** (int32)
 
-  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is active as long as at least one metric value is available.
 
 - **behavior** (HorizontalPodAutoscalerBehavior)
 
   behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
 
   <a name="HorizontalPodAutoscalerBehavior"></a>
-  *HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).*
+  _HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively)._
 
   - **behavior.scaleDown** (HPAScalingRules)
 
     scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
 
     <a name="HPAScalingRules"></a>
-    *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
+    _HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen._
 
     - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
 
-      *Atomic: will be replaced during a merge*
-      
+      _Atomic: will be replaced during a merge_
+
       policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
 
       <a name="HPAScalingPolicy"></a>
-      *HPAScalingPolicy is a single policy which must hold true for a specified past interval.*
+      _HPAScalingPolicy is a single policy which must hold true for a specified past interval._
 
       - **behavior.scaleDown.policies.type** (string), required
 
@@ -133,21 +126,22 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
   - **behavior.scaleUp** (HPAScalingRules)
 
     scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
-      * increase no more than 4 pods per 60 seconds
-      * double the number of pods per 60 seconds
-    No stabilization is used.
+
+    - increase no more than 4 pods per 60 seconds
+    - double the number of pods per 60 seconds
+      No stabilization is used.
 
     <a name="HPAScalingRules"></a>
-    *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
+    _HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen._
 
     - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
 
-      *Atomic: will be replaced during a merge*
-      
+      _Atomic: will be replaced during a merge_
+
       policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
 
       <a name="HPAScalingPolicy"></a>
-      *HPAScalingPolicy is a single policy which must hold true for a specified past interval.*
+      _HPAScalingPolicy is a single policy which must hold true for a specified past interval._
 
       - **behavior.scaleUp.policies.type** (string), required
 
@@ -171,23 +165,23 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
 - **metrics** ([]MetricSpec)
 
-  *Atomic: will be replaced during a merge*
-  
-  metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
+  _Atomic: will be replaced during a merge_
+
+  metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used). The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods. Ergo, metrics used must decrease as the pod count is increased, and vice-versa. See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
 
   <a name="MetricSpec"></a>
-  *MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).*
+  _MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once)._
 
   - **metrics.type** (string), required
 
-    type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+    type is the type of metric source. It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 
   - **metrics.containerResource** (ContainerResourceMetricSource)
 
     containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
 
     <a name="ContainerResourceMetricSource"></a>
-    *ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.*
+    _ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory). The values will be averaged together before being compared to the target. Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. Only one "target" type should be set._
 
     - **metrics.containerResource.container** (string), required
 
@@ -202,7 +196,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
       target specifies the target value for the given metric
 
       <a name="MetricTarget"></a>
-      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      _MetricTarget defines the target value, average value, or average utilization of a specific metric_
 
       - **metrics.containerResource.target.type** (string), required
 
@@ -225,14 +219,14 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 
     <a name="ExternalMetricSource"></a>
-    *ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).*
+    _ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster)._
 
     - **metrics.external.metric** (MetricIdentifier), required
 
       metric identifies the target metric by name and selector
 
       <a name="MetricIdentifier"></a>
-      *MetricIdentifier defines the name and optionally selector for a metric*
+      _MetricIdentifier defines the name and optionally selector for a metric_
 
       - **metrics.external.metric.name** (string), required
 
@@ -247,7 +241,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
       target specifies the target value for the given metric
 
       <a name="MetricTarget"></a>
-      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      _MetricTarget defines the target value, average value, or average utilization of a specific metric_
 
       - **metrics.external.target.type** (string), required
 
@@ -270,14 +264,14 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
 
     <a name="ObjectMetricSource"></a>
-    *ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).*
+    _ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object)._
 
     - **metrics.object.describedObject** (CrossVersionObjectReference), required
 
       describedObject specifies the descriptions of a object,such as kind,name apiVersion
 
       <a name="CrossVersionObjectReference"></a>
-      *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
+      _CrossVersionObjectReference contains enough information to let you identify the referred resource._
 
       - **metrics.object.describedObject.kind** (string), required
 
@@ -296,7 +290,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
       metric identifies the target metric by name and selector
 
       <a name="MetricIdentifier"></a>
-      *MetricIdentifier defines the name and optionally selector for a metric*
+      _MetricIdentifier defines the name and optionally selector for a metric_
 
       - **metrics.object.metric.name** (string), required
 
@@ -311,7 +305,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
       target specifies the target value for the given metric
 
       <a name="MetricTarget"></a>
-      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      _MetricTarget defines the target value, average value, or average utilization of a specific metric_
 
       - **metrics.object.target.type** (string), required
 
@@ -331,17 +325,17 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
   - **metrics.pods** (PodsMetricSource)
 
-    pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
+    pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
 
     <a name="PodsMetricSource"></a>
-    *PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.*
+    _PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value._
 
     - **metrics.pods.metric** (MetricIdentifier), required
 
       metric identifies the target metric by name and selector
 
       <a name="MetricIdentifier"></a>
-      *MetricIdentifier defines the name and optionally selector for a metric*
+      _MetricIdentifier defines the name and optionally selector for a metric_
 
       - **metrics.pods.metric.name** (string), required
 
@@ -356,7 +350,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
       target specifies the target value for the given metric
 
       <a name="MetricTarget"></a>
-      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      _MetricTarget defines the target value, average value, or average utilization of a specific metric_
 
       - **metrics.pods.target.type** (string), required
 
@@ -379,7 +373,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 
     <a name="ResourceMetricSource"></a>
-    *ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.*
+    _ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory). The values will be averaged together before being compared to the target. Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. Only one "target" type should be set._
 
     - **metrics.resource.name** (string), required
 
@@ -390,7 +384,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
       target specifies the target value for the given metric
 
       <a name="MetricTarget"></a>
-      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      _MetricTarget defines the target value, average value, or average utilization of a specific metric_
 
       - **metrics.resource.target.type** (string), required
 
@@ -408,10 +402,6 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
         value is the target value of the metric (as a quantity).
 
-
-
-
-
 ## HorizontalPodAutoscalerStatus {#HorizontalPodAutoscalerStatus}
 
 HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
@@ -424,14 +414,14 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
 - **conditions** ([]HorizontalPodAutoscalerCondition)
 
-  *Patch strategy: merge on key `type`*
-  
-  *Map: unique values on key type will be kept during a merge*
-  
+  _Patch strategy: merge on key `type`_
+
+  _Map: unique values on key type will be kept during a merge_
+
   conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
 
   <a name="HorizontalPodAutoscalerCondition"></a>
-  *HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.*
+  _HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point._
 
   - **conditions.status** (string), required
 
@@ -446,7 +436,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     lastTransitionTime is the last time the condition transitioned from one status to another
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.message** (string)
 
@@ -458,23 +448,23 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
 - **currentMetrics** ([]MetricStatus)
 
-  *Atomic: will be replaced during a merge*
-  
+  _Atomic: will be replaced during a merge_
+
   currentMetrics is the last read state of the metrics used by this autoscaler.
 
   <a name="MetricStatus"></a>
-  *MetricStatus describes the last-read state of a single metric.*
+  _MetricStatus describes the last-read state of a single metric._
 
   - **currentMetrics.type** (string), required
 
-    type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+    type is the type of metric source. It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 
   - **currentMetrics.containerResource** (ContainerResourceMetricStatus)
 
     container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 
     <a name="ContainerResourceMetricStatus"></a>
-    *ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.*
+    _ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source._
 
     - **currentMetrics.containerResource.container** (string), required
 
@@ -485,7 +475,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
       current contains the current value for the given metric
 
       <a name="MetricValueStatus"></a>
-      *MetricValueStatus holds the current value for a metric*
+      _MetricValueStatus holds the current value for a metric_
 
       - **currentMetrics.containerResource.current.averageUtilization** (int32)
 
@@ -508,14 +498,14 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 
     <a name="ExternalMetricStatus"></a>
-    *ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.*
+    _ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object._
 
     - **currentMetrics.external.current** (MetricValueStatus), required
 
       current contains the current value for the given metric
 
       <a name="MetricValueStatus"></a>
-      *MetricValueStatus holds the current value for a metric*
+      _MetricValueStatus holds the current value for a metric_
 
       - **currentMetrics.external.current.averageUtilization** (int32)
 
@@ -534,7 +524,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
       metric identifies the target metric by name and selector
 
       <a name="MetricIdentifier"></a>
-      *MetricIdentifier defines the name and optionally selector for a metric*
+      _MetricIdentifier defines the name and optionally selector for a metric_
 
       - **currentMetrics.external.metric.name** (string), required
 
@@ -549,14 +539,14 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
 
     <a name="ObjectMetricStatus"></a>
-    *ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).*
+    _ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object)._
 
     - **currentMetrics.object.current** (MetricValueStatus), required
 
       current contains the current value for the given metric
 
       <a name="MetricValueStatus"></a>
-      *MetricValueStatus holds the current value for a metric*
+      _MetricValueStatus holds the current value for a metric_
 
       - **currentMetrics.object.current.averageUtilization** (int32)
 
@@ -575,7 +565,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
       DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
 
       <a name="CrossVersionObjectReference"></a>
-      *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
+      _CrossVersionObjectReference contains enough information to let you identify the referred resource._
 
       - **currentMetrics.object.describedObject.kind** (string), required
 
@@ -594,7 +584,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
       metric identifies the target metric by name and selector
 
       <a name="MetricIdentifier"></a>
-      *MetricIdentifier defines the name and optionally selector for a metric*
+      _MetricIdentifier defines the name and optionally selector for a metric_
 
       - **currentMetrics.object.metric.name** (string), required
 
@@ -606,17 +596,17 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
   - **currentMetrics.pods** (PodsMetricStatus)
 
-    pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
+    pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
 
     <a name="PodsMetricStatus"></a>
-    *PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).*
+    _PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second)._
 
     - **currentMetrics.pods.current** (MetricValueStatus), required
 
       current contains the current value for the given metric
 
       <a name="MetricValueStatus"></a>
-      *MetricValueStatus holds the current value for a metric*
+      _MetricValueStatus holds the current value for a metric_
 
       - **currentMetrics.pods.current.averageUtilization** (int32)
 
@@ -635,7 +625,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
       metric identifies the target metric by name and selector
 
       <a name="MetricIdentifier"></a>
-      *MetricIdentifier defines the name and optionally selector for a metric*
+      _MetricIdentifier defines the name and optionally selector for a metric_
 
       - **currentMetrics.pods.metric.name** (string), required
 
@@ -650,14 +640,14 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 
     <a name="ResourceMetricStatus"></a>
-    *ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.*
+    _ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source._
 
     - **currentMetrics.resource.current** (MetricValueStatus), required
 
       current contains the current value for the given metric
 
       <a name="MetricValueStatus"></a>
-      *MetricValueStatus holds the current value for a metric*
+      _MetricValueStatus holds the current value for a metric_
 
       - **currentMetrics.resource.current.averageUtilization** (int32)
 
@@ -684,15 +674,11 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
   lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
 
   <a name="Time"></a>
-  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+  _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
 - **observedGeneration** (int64)
 
   observedGeneration is the most recent generation observed by this autoscaler.
-
-
-
-
 
 ## HorizontalPodAutoscalerList {#HorizontalPodAutoscalerList}
 
@@ -702,9 +688,7 @@ HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
 
 - **apiVersion**: autoscaling/v2
 
-
 - **kind**: HorizontalPodAutoscalerList
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -714,20 +698,9 @@ HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
 
   items is the list of horizontal pod autoscaler objects.
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `get` read the specified HorizontalPodAutoscaler
 
@@ -737,30 +710,23 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the HorizontalPodAutoscaler
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
-
 
 ### `get` read status of the specified HorizontalPodAutoscaler
 
@@ -770,30 +736,23 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the HorizontalPodAutoscaler
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind HorizontalPodAutoscaler
 
@@ -803,75 +762,59 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind HorizontalPodAutoscaler
 
@@ -881,70 +824,55 @@ GET /apis/autoscaling/v2/horizontalpodautoscalers
 
 #### Parameters
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
-
 
 ### `create` create a HorizontalPodAutoscaler
 
@@ -954,40 +882,29 @@ POST /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
@@ -997,7 +914,6 @@ POST /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 401: Unauthorized
 
-
 ### `update` replace the specified HorizontalPodAutoscaler
 
 #### HTTP Request
@@ -1006,52 +922,39 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the HorizontalPodAutoscaler
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
-
 
 ### `update` replace status of the specified HorizontalPodAutoscaler
 
@@ -1061,52 +964,39 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the HorizontalPodAutoscaler
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update the specified HorizontalPodAutoscaler
 
@@ -1116,57 +1006,43 @@ PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the HorizontalPodAutoscaler
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update status of the specified HorizontalPodAutoscaler
 
@@ -1176,57 +1052,43 @@ PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the HorizontalPodAutoscaler
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
-
 
 ### `delete` delete a HorizontalPodAutoscaler
 
@@ -1236,52 +1098,39 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{nam
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the HorizontalPodAutoscaler
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
-
 
 ### `deletecollection` delete collection of HorizontalPodAutoscaler
 
@@ -1291,82 +1140,62 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### Parameters
 
-
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

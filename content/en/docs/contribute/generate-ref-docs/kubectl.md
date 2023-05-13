@@ -66,23 +66,23 @@ rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/github.com/spf13
 
 The kubernetes/kubernetes repository provides the `kubectl` and `kustomize` source code.
 
-* Determine the base directory of your clone of the
-[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/k8s.io/kubernetes.`
-The remaining steps refer to your base directory as `<k8s-base>`.
+- Determine the base directory of your clone of the
+  [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
+  For example, if you followed the preceding step to get the repository, your
+  base directory is `$GOPATH/src/k8s.io/kubernetes.`
+  The remaining steps refer to your base directory as `<k8s-base>`.
 
-* Determine the base directory of your clone of the
-[kubernetes/website](https://github.com/kubernetes/website) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/<your-username>/website.`
-The remaining steps refer to your base directory as `<web-base>`.
+- Determine the base directory of your clone of the
+  [kubernetes/website](https://github.com/kubernetes/website) repository.
+  For example, if you followed the preceding step to get the repository, your
+  base directory is `$GOPATH/src/github.com/<your-username>/website.`
+  The remaining steps refer to your base directory as `<web-base>`.
 
-* Determine the base directory of your clone of the
-[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
-The remaining steps refer to your base directory as `<rdocs-base>`.
+- Determine the base directory of your clone of the
+  [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
+  For example, if you followed the preceding step to get the repository, your
+  base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
+  The remaining steps refer to your base directory as `<rdocs-base>`.
 
 In your local k8s.io/kubernetes repository, check out the branch of interest,
 and make sure it is up to date. For example, if you want to generate docs for
@@ -136,9 +136,9 @@ need to work with someone who can set the label and milestone for you.
 
 Go to `<rdocs-base>`. On you command line, set the following environment variables.
 
-* Set `K8S_ROOT` to `<k8s-base>`.
-* Set `K8S_WEBROOT` to `<web-base>`.
-* Set `K8S_RELEASE` to the version of the docs you want to build.
+- Set `K8S_ROOT` to `<k8s-base>`.
+- Set `K8S_WEBROOT` to `<web-base>`.
+- Set `K8S_RELEASE` to the version of the docs you want to build.
   For example, if you want to build docs for Kubernetes {{< skew prevMinorVersion >}}, set `K8S_RELEASE` to {{< skew prevMinorVersion >}}.
 
 For example:
@@ -252,13 +252,8 @@ A few minutes after your pull request is merged, your updated reference
 topics will be visible in the
 [published documentation](/docs/home).
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
-* [Generating Reference Documentation for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
-
-
+- [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
+- [Generating Reference Documentation for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
+- [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)

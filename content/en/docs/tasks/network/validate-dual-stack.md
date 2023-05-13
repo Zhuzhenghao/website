@@ -1,30 +1,28 @@
 ---
 reviewers:
-- lachie83
-- khenidak
-- bridgetkromhout
+  - lachie83
+  - khenidak
+  - bridgetkromhout
 min-kubernetes-server-version: v1.23
 title: Validate IPv4/IPv6 dual-stack
 content_type: task
 ---
 
 <!-- overview -->
-This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clusters.
 
+This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clusters.
 
 ## {{% heading "prerequisites" %}}
 
-
-* Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
-* [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
+- Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
+- A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
+- [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 
 {{< version-check >}}
 
 {{< note >}}
 While you can validate with an earlier version, the feature is only GA and officially supported since v1.23.
 {{< /note >}}
-
 
 <!-- steps -->
 
@@ -37,10 +35,12 @@ Each dual-stack Node should have a single IPv4 block and a single IPv6 block all
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .spec.podCIDRs}}{{printf "%s\n" .}}{{end}}'
 ```
+
 ```
 10.244.1.0/24
 2001:db8::/64
 ```
+
 There should be one IPv4 block and one IPv6 block allocated.
 
 Validate that the node has an IPv4 and IPv6 interface detected. Replace node name with a valid node from the cluster. In this example the node name is `k8s-linuxpool1-34450317-0`:
@@ -48,6 +48,7 @@ Validate that the node has an IPv4 and IPv6 interface detected. Replace node nam
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s\n" .type .address}}{{end}}'
 ```
+
 ```
 Hostname: k8s-linuxpool1-34450317-0
 InternalIP: 10.0.0.5
@@ -61,6 +62,7 @@ Validate that a Pod has an IPv4 and IPv6 address assigned. Replace the Pod name 
 ```shell
 kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s\n" .ip}}{{end}}'
 ```
+
 ```
 10.244.1.4
 2001:db8::4
@@ -81,6 +83,7 @@ The following command prints the value of the `MY_POD_IPS` environment variable 
 ```shell
 kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
+
 ```
 MY_POD_IPS=10.244.1.4,2001:db8::4
 ```
@@ -90,6 +93,7 @@ The Pod's IP addresses will also be written to `/etc/hosts` within a container. 
 ```shell
 kubectl exec -it pod01 -- cat /etc/hosts
 ```
+
 ```
 # Kubernetes-managed hosts file.
 127.0.0.1    localhost
@@ -125,14 +129,14 @@ metadata:
 spec:
   clusterIP: 10.0.217.164
   clusterIPs:
-  - 10.0.217.164
+    - 10.0.217.164
   ipFamilies:
-  - IPv4
+    - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 9376
+    - port: 80
+      protocol: TCP
+      targetPort: 9376
   selector:
     app.kubernetes.io/name: MyApp
   sessionAffinity: None
@@ -163,14 +167,14 @@ metadata:
 spec:
   clusterIP: 2001:db8:fd00::5118
   clusterIPs:
-  - 2001:db8:fd00::5118
+    - 2001:db8:fd00::5118
   ipFamilies:
-  - IPv6
+    - IPv6
   ipFamilyPolicy: SingleStack
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
+    - port: 80
+      protocol: TCP
+      targetPort: 80
   selector:
     app.kubernetes.io/name: MyApp
   sessionAffinity: None
@@ -192,6 +196,7 @@ kubectl get svc -l app.kubernetes.io/name=MyApp
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
 ```
+
 {{< /note >}}
 
 Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks using `kubectl describe`. You may then validate access to the service via the IPs and ports.
@@ -236,5 +241,3 @@ Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address 
 NAME         TYPE           CLUSTER-IP            EXTERNAL-IP        PORT(S)        AGE
 my-service   LoadBalancer   2001:db8:fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
 ```
-
-

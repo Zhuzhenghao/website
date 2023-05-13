@@ -1,8 +1,8 @@
 ---
 reviewers:
-- derekwaynecarr
-- mikedanese
-- thockin
+  - derekwaynecarr
+  - mikedanese
+  - thockin
 title: Namespaces
 content_type: concept
 weight: 45
@@ -17,12 +17,12 @@ In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resourc
 ## When to Use Multiple Namespaces
 
 Namespaces are intended for use in environments with many users spread across multiple
-teams, or projects.  For clusters with a few to tens of users, you should not
-need to create or think about namespaces at all.  Start using namespaces when you
+teams, or projects. For clusters with a few to tens of users, you should not
+need to create or think about namespaces at all. Start using namespaces when you
 need the features they provide.
 
-Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces cannot be nested inside one another and each Kubernetes 
+Namespaces provide a scope for names. Names of resources need to be unique within a namespace,
+but not across namespaces. Namespaces cannot be nested inside one another and each Kubernetes
 resource can only be in one namespace.
 
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
@@ -47,7 +47,7 @@ Kubernetes starts with four initial namespaces:
 : This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
 
 `kube-public`
-: This namespace is readable by *all* clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
+: This namespace is readable by _all_ clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
 
 `kube-system`
 : The namespace for objects created by the Kubernetes system.
@@ -58,7 +58,7 @@ Creation and deletion of namespaces are described in the
 [Admin Guide documentation for namespaces](/docs/tasks/administer-cluster/namespaces).
 
 {{< note >}}
-    Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
 {{< /note >}}
 
 ### Viewing namespaces
@@ -68,6 +68,7 @@ You can list the current namespaces in a cluster using:
 ```shell
 kubectl get namespace
 ```
+
 ```
 NAME              STATUS   AGE
 default           Active   1d
@@ -75,7 +76,6 @@ kube-node-lease   Active   1d
 kube-public       Active   1d
 kube-system       Active   1d
 ```
-
 
 ### Setting the namespace for a request
 
@@ -105,8 +105,8 @@ When you create a [Service](/docs/concepts/services-networking/service/),
 it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container only uses `<service-name>`, it will resolve to the service which
-is local to a namespace.  This is useful for using the same configuration across
-multiple namespaces such as Development, Staging and Production.  If you want to reach
+is local to a namespace. This is useful for using the same configuration across
+multiple namespaces such as Development, Staging and Production. If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
 
 As a result, all namespace names must be valid
@@ -130,7 +130,7 @@ TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 ## Not all objects are in a namespace
 
 Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
-in some namespaces.  However namespace resources are not themselves in a namespace.
+in some namespaces. However namespace resources are not themselves in a namespace.
 And low-level resources, such as
 [nodes](/docs/concepts/architecture/nodes/) and
 [persistentVolumes](/docs/concepts/storage/persistent-volumes/), are not in any namespace.
@@ -154,9 +154,7 @@ The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label"
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 The value of the label is the namespace name.
 
-
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
-* Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
-
+- Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
+- Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).

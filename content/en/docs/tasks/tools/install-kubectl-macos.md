@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+  - mikedanese
 title: Install and Set Up kubectl on macOS
 content_type: task
 weight: 10
@@ -74,7 +74,7 @@ The following methods exist for installing kubectl on macOS:
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
    {{< /tab >}}
    {{< /tabs >}}
-  
+
    Validate the kubectl binary against the checksum file:
 
    ```bash
@@ -120,7 +120,7 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
-   
+
    {{< note >}}
    The above command will generate a warning:
 
@@ -130,9 +130,9 @@ The following methods exist for installing kubectl on macOS:
 
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
-   
+
    {{< /note >}}
-   
+
    Or use this for detailed view of version:
 
    ```cmd

@@ -1,9 +1,9 @@
 ---
 title: Share Process Namespace between Containers in a Pod
 reviewers:
-- verb
-- yujuhong
-- dchen1107
+  - verb
+  - yujuhong
+  - dchen1107
 content_type: task
 weight: 200
 ---
@@ -125,4 +125,3 @@ so it's important to understand the differences:
 1. **Container filesystems are visible to other containers in the pod through the
    `/proc/$pid/root` link.** This makes debugging easier, but it also means
    that filesystem secrets are protected only by filesystem permissions.
-

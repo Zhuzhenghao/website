@@ -8,8 +8,9 @@ short_description: >
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
+
 Docker (specifically, Docker Engine) is a software technology providing operating-system-level virtualization also known as {{< glossary_tooltip text="containers" term_id="container" >}}.
 
 <!--more-->

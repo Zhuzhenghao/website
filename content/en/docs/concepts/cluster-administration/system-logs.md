@@ -1,7 +1,7 @@
 ---
 reviewers:
-- dims
-- 44past4
+  - dims
+  - 44past4
 title: System Logs
 content_type: concept
 weight: 80
@@ -56,7 +56,7 @@ node release archives.
 This table shows how `kube-log-runner` invocations correspond to shell redirection:
 
 | Usage                                    | POSIX shell (such as bash) | `kube-log-runner <options> <cmd>`                           |
-| -----------------------------------------|----------------------------|-------------------------------------------------------------|
+| ---------------------------------------- | -------------------------- | ----------------------------------------------------------- |
 | Merge stderr and stdout, write to stdout | `2>&1`                     | `kube-log-runner` (default behavior)                        |
 | Redirect both into log file              | `1>>/tmp/log 2>&1`         | `kube-log-runner -log-file=/tmp/log`                        |
 | Copy into log file and to stdout         | `2>&1 \| tee -a /tmp/log`  | `kube-log-runner -log-file=/tmp/log -also-stdout`           |
@@ -183,35 +183,35 @@ Example of JSON log format (pretty printed):
 
 ```json
 {
-   "ts": 1580306777.04728,
-   "v": 4,
-   "msg": "Pod status updated",
-   "pod":{
-      "name": "nginx-1",
-      "namespace": "default"
-   },
-   "status": "ready"
+  "ts": 1580306777.04728,
+  "v": 4,
+  "msg": "Pod status updated",
+  "pod": {
+    "name": "nginx-1",
+    "namespace": "default"
+  },
+  "status": "ready"
 }
 ```
 
 Keys with special meaning:
 
-* `ts` - timestamp as Unix time (required, float)
-* `v` - verbosity (only for info and not for error messages, int)
-* `err` - error string (optional, string)
-* `msg` - message (required, string)
+- `ts` - timestamp as Unix time (required, float)
+- `v` - verbosity (only for info and not for error messages, int)
+- `err` - error string (optional, string)
+- `msg` - message (required, string)
 
 List of components currently supporting JSON format:
 
-* {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
-* {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
-* {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
-* {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
+- {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+- {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
+- {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
+- {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
 ### Log verbosity level
 
 The `-v` flag controls log verbosity. Increasing the value increases the number of logged events.
-Decreasing the value decreases the number of logged events.  Increasing verbosity settings logs
+Decreasing the value decreases the number of logged events. Increasing verbosity settings logs
 increasingly less severe events. A verbosity setting of 0 logs only critical events.
 
 ### Log location
@@ -219,8 +219,8 @@ increasingly less severe events. A verbosity setting of 0 logs only critical eve
 There are two types of system components: those that run in a container and those
 that do not run in a container. For example:
 
-* The Kubernetes scheduler and kube-proxy run in a container.
-* The kubelet and {{<glossary_tooltip term_id="container-runtime" text="container runtime">}}
+- The Kubernetes scheduler and kube-proxy run in a container.
+- The kubelet and {{<glossary_tooltip term_id="container-runtime" text="container runtime">}}
   do not run in containers.
 
 On machines with systemd, the kubelet and container runtime write to journald.
@@ -245,6 +245,7 @@ in the application log provider. On both operating systems, logs are also availa
 
 Provided you are authorized to interact with node objects, you can try out this alpha feature on all your nodes or
 just a subset. Here is an example to retrieve the kubelet service logs from a node:
+
 ```shell
 # Fetch kubelet logs from a node named node-1.example
 kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
@@ -252,6 +253,7 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
 
 You can also fetch files, provided that the files are in a directory that the kubelet allows for log
 fetches. For example, you can fetch a log from `/var/log` on a Linux node:
+
 ```shell
 kubectl get --raw "/api/v1/nodes/<insert-node-name-here>/proxy/logs/?query=/<insert-log-file-name-here>"
 ```
@@ -263,16 +265,17 @@ first checks the native logger and if that is not available attempts to retrieve
 
 The complete list of options that can be used are:
 
-Option | Description
------- | -----------
-`boot` | boot show messages from a specific system boot
-`pattern` | pattern filters log entries by the provided PERL-compatible regular expression
-`query` | query specifies services(s) or files from which to return logs (required)
-`sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)
-`untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive)
-`tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log
+| Option      | Description                                                                                         |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| `boot`      | boot show messages from a specific system boot                                                      |
+| `pattern`   | pattern filters log entries by the provided PERL-compatible regular expression                      |
+| `query`     | query specifies services(s) or files from which to return logs (required)                           |
+| `sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)  |
+| `untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive) |
+| `tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log   |
 
 Example of a more complex query:
+
 ```shell
 # Fetch kubelet logs from a node named node-1.example that have the word "error"
 kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"
@@ -280,9 +283,8 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&patter
 
 ## {{% heading "whatsnext" %}}
 
-* Read about the [Kubernetes Logging Architecture](/docs/concepts/cluster-administration/logging/)
-* Read about [Structured Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
-* Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
-* Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-* Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
-
+- Read about the [Kubernetes Logging Architecture](/docs/concepts/cluster-administration/logging/)
+- Read about [Structured Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
+- Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
+- Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
+- Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)

@@ -1,8 +1,8 @@
 ---
 reviewers:
-- thockin
-- caseydavenport
-- danwinship
+  - thockin
+  - caseydavenport
+  - danwinship
 title: Network Policies
 content_type: concept
 weight: 70
@@ -11,7 +11,6 @@ description: >-
   NetworkPolicies allow you to specify rules for traffic flow within your cluster, and
   also between Pods and the outside world.
   Your cluster must use a network plugin that supports NetworkPolicy enforcement.
-
 ---
 
 <!-- overview -->
@@ -40,6 +39,7 @@ and from the Pod(s) that match the selector.
 Meanwhile, when IP based NetworkPolicies are created, we define policies based on IP blocks (CIDR ranges).
 
 <!-- body -->
+
 ## Prerequisites
 
 Network policies are implemented by the [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
@@ -51,7 +51,7 @@ Creating a NetworkPolicy resource without a controller that implements it will h
 There are two sorts of isolation for a pod: isolation for egress, and isolation for ingress.
 They concern what connections may be established. "Isolation" here is not absolute, rather it
 means "some restrictions apply". The alternative, "non-isolated for $direction", means that no
-restrictions apply in the stated direction.  The two sorts of isolation (or not) are declared
+restrictions apply in the stated direction. The two sorts of isolation (or not) are declared
 independently, and are both relevant for a connection from one pod to another.
 
 By default, a pod is non-isolated for egress; all outbound connections are allowed.
@@ -90,8 +90,8 @@ POSTing this to the API server for your cluster will have no effect unless your 
 solution supports network policy.
 {{< /note >}}
 
-__Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy needs `apiVersion`,
-`kind`, and `metadata` fields.  For general information about working with config files, see
+**Mandatory Fields**: As with all other Kubernetes config, a NetworkPolicy needs `apiVersion`,
+`kind`, and `metadata` fields. For general information about working with config files, see
 [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
 
@@ -124,9 +124,9 @@ So, the example NetworkPolicy:
 1. (Ingress rules) allows connections to all pods in the `default` namespace with the label
    `role=db` on TCP port 6379 from:
 
-   * any pod in the `default` namespace with the label `role=frontend`
-   * any pod in a namespace with the label `project=myproject`
-   * IP addresses in the ranges `172.17.0.0`–`172.17.0.255` and `172.17.2.0`–`172.17.255.255`
+   - any pod in the `default` namespace with the label `role=frontend`
+   - any pod in a namespace with the label `project=myproject`
+   - IP addresses in the ranges `172.17.0.0`–`172.17.0.255` and `172.17.2.0`–`172.17.255.255`
      (ie, all of `172.17.0.0/16` except `172.17.1.0/24`)
 
 1. (Egress rules) allows connections from any pod in the `default` namespace with the label
@@ -146,7 +146,7 @@ should be allowed as ingress sources or egress destinations.
 **namespaceSelector**: This selects particular namespaces for which all Pods should be allowed as
 ingress sources or egress destinations.
 
-**namespaceSelector** *and* **podSelector**: A single `to`/`from` entry that specifies both
+**namespaceSelector** _and_ **podSelector**: A single `to`/`from` entry that specifies both
 `namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be
 careful to use correct YAML syntax. For example:
 
@@ -180,7 +180,7 @@ This policy contains a single `from` element allowing connections from Pods with
 ```
 
 It contains two elements in the `from` array, and allows connections from Pods in the local
-Namespace with the label `role=client`, *or* from any Pod in any namespace with the label
+Namespace with the label `role=client`, _or_ from any Pod in any namespace with the label
 `user=alice`.
 
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
@@ -225,7 +225,7 @@ that explicitly allows that.
 {{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
 
 With this policy in place, no additional policy or policies can cause any incoming connection to
-those pods to be denied.  This policy has no effect on isolation for egress from any pod.
+those pods to be denied. This policy has no effect on isolation for egress from any pod.
 
 ### Default deny all egress traffic
 
@@ -245,7 +245,7 @@ explicitly allows all outgoing connections from pods in that namespace.
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
 With this policy in place, no additional policy or policies can cause any outgoing connection from
-those pods to be denied.  This policy has no effect on isolation for ingress to any pod.
+those pods to be denied. This policy has no effect on isolation for ingress to any pod.
 
 ### Default deny all ingress and all egress traffic
 
@@ -282,20 +282,20 @@ This is achievable with the usage of the `endPort` field, as the following examp
 
 {{< codenew file="service/networking/networkpolicy-multiport-egress.yaml" >}}
 
-The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
-with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
+The above rule allows any Pod with label `role=db` on the namespace `default` to communicate
+with any IP within the range `10.0.0.0/24` over TCP, provided that the target
 port is between the range 32000 and 32768.
 
 The following restrictions apply when using this field:
 
-* The `endPort` field must be equal to or greater than the `port` field.
-* `endPort` can only be defined if `port` is also defined.
-* Both ports must be numeric.
+- The `endPort` field must be equal to or greater than the `port` field.
+- `endPort` can only be defined if `port` is also defined.
+- Both ports must be numeric.
 
 {{< note >}}
 Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
 supports the `endPort` field in NetworkPolicy specifications.
-If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) 
+If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 does not support the `endPort` field and you specify a NetworkPolicy with that,
 the policy will be applied only for the single `port` field.
 {{< /note >}}
@@ -317,7 +317,7 @@ standardized label to target a specific namespace.
 As of Kubernetes {{< skew currentVersion >}}, the following functionality does not exist in the
 NetworkPolicy API, but you might be able to implement workarounds using Operating System
 components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress
-controllers, Service Mesh implementations) or admission controllers.  In case you are new to
+controllers, Service Mesh implementations) or admission controllers. In case you are new to
 network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be
 implemented using the NetworkPolicy API.
 
@@ -344,4 +344,3 @@ implemented using the NetworkPolicy API.
   walkthrough for further examples.
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common
   scenarios enabled by the NetworkPolicy resource.
-

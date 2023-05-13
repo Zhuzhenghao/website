@@ -7,9 +7,9 @@ weight: 70
 _Field selectors_ let you select Kubernetes {{< glossary_tooltip text="objects" term_id="object" >}} based on the
 value of one or more resource fields. Here are some examples of field selector queries:
 
-* `metadata.name=my-service`
-* `metadata.namespace!=default`
-* `status.phase=Pending`
+- `metadata.name=my-service`
+- `metadata.namespace!=default`
+- `status.phase=Pending`
 
 This `kubectl` command selects all Pods for which the value of the [`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 
@@ -18,7 +18,7 @@ kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
-Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the `kubectl` queries `kubectl get pods` and `kubectl get pods --field-selector ""` equivalent.
+Field selectors are essentially resource _filters_. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the `kubectl` queries `kubectl get pods` and `kubectl get pods --field-selector ""` equivalent.
 {{< /note >}}
 
 ## Supported fields
@@ -28,6 +28,7 @@ Supported field selectors vary by Kubernetes resource type. All resource types s
 ```shell
 kubectl get ingress --field-selector foo.bar=baz
 ```
+
 ```
 Error from server (BadRequest): Unable to find "ingresses" that match label selector "", field selector "foo.bar=baz": "foo.bar" is not a known field selector: only "metadata.name", "metadata.namespace"
 ```

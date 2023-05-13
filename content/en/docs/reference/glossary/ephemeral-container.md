@@ -8,8 +8,9 @@ short_description: >
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
+
 A {{< glossary_tooltip term_id="container" >}} type that you can temporarily run inside a {{< glossary_tooltip term_id="pod" >}}.
 
 <!--more-->

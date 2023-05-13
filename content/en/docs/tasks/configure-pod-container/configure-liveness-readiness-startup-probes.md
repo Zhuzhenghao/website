@@ -44,10 +44,7 @@ Understand the difference between readiness and liveness probes and when to appl
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
-
-
 
 <!-- steps -->
 
@@ -301,9 +298,9 @@ For example:
 
 ```yaml
 ports:
-- name: liveness-port
-  containerPort: 8080
-  hostPort: 8080
+  - name: liveness-port
+    containerPort: 8080
+    hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -325,9 +322,9 @@ So, the previous example would become:
 
 ```yaml
 ports:
-- name: liveness-port
-  containerPort: 8080
-  hostPort: 8080
+  - name: liveness-port
+    containerPort: 8080
+    hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -345,7 +342,7 @@ startupProbe:
 ```
 
 Thanks to the startup probe, the application will have a maximum of 5 minutes
-(30 * 10 = 300s) to finish its startup.
+(30 \* 10 = 300s) to finish its startup.
 Once the startup probe has succeeded once, the liveness probe takes over to
 provide a fast response to container deadlocks.
 If the startup probe never succeeds, the container is killed after 300s and
@@ -367,7 +364,7 @@ Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
 
 {{< caution >}}
-Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
+Liveness probes _do not_ wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 {{< /caution >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
@@ -377,8 +374,8 @@ is that you use the `readinessProbe` field instead of the `livenessProbe` field.
 readinessProbe:
   exec:
     command:
-    - cat
-    - /tmp/healthy
+      - cat
+      - /tmp/healthy
   initialDelaySeconds: 5
   periodSeconds: 5
 ```
@@ -400,16 +397,16 @@ Eventually, some of this section could be moved to a concept topic.
 you can use to more precisely control the behavior of startup, liveness and readiness
 checks:
 
-* `initialDelaySeconds`: Number of seconds after the container has started
-before startup, liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
-* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
-seconds. Minimum value is 1.
-* `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
-to 1 second. Minimum value is 1.
-* `successThreshold`: Minimum consecutive successes for the probe to be
-considered successful after having failed. Defaults to 1. Must be 1 for liveness
-and startup Probes. Minimum value is 1.
-* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
+- `initialDelaySeconds`: Number of seconds after the container has started
+  before startup, liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+- `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
+  seconds. Minimum value is 1.
+- `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
+  to 1 second. Minimum value is 1.
+- `successThreshold`: Minimum consecutive successes for the probe to be
+  considered successful after having failed. Defaults to 1. Must be 1 for liveness
+  and startup Probes. Minimum value is 1.
+- `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
   considers that the overall check has failed: the container is _not_ ready / healthy /
   live.
   For the case of a startup or liveness probe, if at least `failureThreshold` probes have
@@ -420,7 +417,7 @@ and startup Probes. Minimum value is 1.
   checks, and also continues to run more probes; because the check failed, the kubelet
   sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
   on the Pod to `false`.
-* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
+- `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
   between triggering a shut down of the failed container, and then forcing the
   container runtime to stop that container.
   The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
@@ -436,7 +433,7 @@ until a result was returned.
 This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
 even without realizing it, as the default timeout is 1 second.
 As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ExecProbeTimeout` (set it to `false`)
-on each kubelet to restore the  behavior from older versions, then remove that override
+on each kubelet to restore the behavior from older versions, then remove that override
 once all the exec probes in the cluster have a `timeoutSeconds` value set.
 If you have pods that are impacted from the default 1 second timeout,
 you should update their probe timeout so that you're ready for the
@@ -455,13 +452,13 @@ of processes in the container, and resource starvation if this is left unchecked
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
 have additional fields that can be set on `httpGet`:
 
-* `host`: Host name to connect to, defaults to the pod IP. You probably want to
-set "Host" in httpHeaders instead.
-* `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
-* `path`: Path to access on the HTTP server. Defaults to /.
-* `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
-* `port`: Name or number of the port to access on the container. Number must be
-in the range 1 to 65535.
+- `host`: Host name to connect to, defaults to the pod IP. You probably want to
+  set "Host" in httpHeaders instead.
+- `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
+- `path`: Path to access on the HTTP server. Defaults to /.
+- `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
+- `port`: Name or number of the port to access on the container. Number must be
+  in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
 port to perform the check. The kubelet sends the probe to the pod's IP address,
@@ -526,49 +523,49 @@ unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
 was set.
 
 In 1.25 and beyond, users can specify a probe-level `terminationGracePeriodSeconds`
-as part of the probe specification. When both a pod- and probe-level 
+as part of the probe specification. When both a pod- and probe-level
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 
 {{< note >}}
 Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabled
 by default. For users choosing to disable this feature, please note the following:
 
-* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
-The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
-it is present on a Pod.
+- The `ProbeTerminationGracePeriod` feature gate is only available on the API Server.
+  The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if
+  it is present on a Pod.
 
-* If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
-you no longer wish to use per-probe termination grace periods, you must delete
-those existing Pods.
+- If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
+  you no longer wish to use per-probe termination grace periods, you must delete
+  those existing Pods.
 
-* When you (or the control plane, or some other component) create replacement
-Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
-a Pod or pod template specifies it.
-{{< /note >}}
+- When you (or the control plane, or some other component) create replacement
+  Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
+  API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
+  a Pod or pod template specifies it.
+  {{< /note >}}
 
 For example,
 
 ```yaml
 spec:
-  terminationGracePeriodSeconds: 3600  # pod-level
+  terminationGracePeriodSeconds: 3600 # pod-level
   containers:
-  - name: test
-    image: ...
+    - name: test
+      image: ...
 
-    ports:
-    - name: liveness-port
-      containerPort: 8080
-      hostPort: 8080
+      ports:
+        - name: liveness-port
+          containerPort: 8080
+          hostPort: 8080
 
-    livenessProbe:
-      httpGet:
-        path: /healthz
-        port: liveness-port
-      failureThreshold: 1
-      periodSeconds: 60
-      # Override pod-level terminationGracePeriodSeconds #
-      terminationGracePeriodSeconds: 60
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: liveness-port
+        failureThreshold: 1
+        periodSeconds: 60
+        # Override pod-level terminationGracePeriodSeconds #
+        terminationGracePeriodSeconds: 60
 ```
 
 Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
@@ -576,11 +573,11 @@ It will be rejected by the API server.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about
-[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+- Learn more about
+  [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 You can also read the API references for:
 
-* [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
-  * [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  * [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
+- [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
+  - [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  - [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)

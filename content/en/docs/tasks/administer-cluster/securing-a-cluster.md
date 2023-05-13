@@ -1,8 +1,8 @@
 ---
 reviewers:
-- smarterclayton
-- liggitt
-- enj
+  - smarterclayton
+  - liggitt
+  - enj
 title: Securing a Cluster
 content_type: task
 weight: 320
@@ -15,7 +15,7 @@ and provides recommendations on overall security.
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+- {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!-- steps -->
 
@@ -97,7 +97,6 @@ volumes exist in each namespace.
 resources above, to prevent users from requesting unreasonably high or low values for commonly
 reserved resources like memory, or to provide default limits when none are specified.
 
-
 ### Controlling what privileges containers run with
 
 A pod definition contains a [security context](/docs/tasks/configure-pod-container/security-context/)
@@ -115,7 +114,6 @@ considering the privileges associated with the root user, you should write appli
 containers to run as a non-root user. Similarly, administrators who wish to prevent
 client applications from escaping their containers should apply the **Baseline**
 or **Restricted** Pod Security Standard.
-
 
 ### Preventing containers from loading unwanted kernel modules
 
@@ -146,7 +144,6 @@ kernel from loading modules for containers under any circumstances. (Pods would 
 able to use modules that had been loaded manually, or modules that were loaded by the
 kernel on behalf of some more-privileged process.)
 
-
 ### Restricting network access
 
 The [network policies](/docs/tasks/administer-cluster/declare-network-policy/) for a namespace
@@ -175,7 +172,7 @@ to the metadata API, and avoid using provisioning data to deliver secrets.
 
 ### Controlling which nodes pods may access
 
-By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a
+By default, there are no restrictions on which nodes may run a pod. Kubernetes offers a
 [rich set of policies for controlling placement of pods onto nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
 and the [taint-based pod placement and eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 that are available to end users. For many clusters use of these policies to separate workloads
@@ -184,7 +181,6 @@ can be a convention that authors adopt or enforce via tooling.
 As an administrator, a beta admission plugin `PodNodeSelector` can be used to force pods
 within a namespace to default or require a specific node selector, and if end users cannot
 alter namespaces, this can strongly limit the placement of all of the pods in a specific workload.
-
 
 ## Protecting cluster components from compromise
 
@@ -224,7 +220,7 @@ The shorter the lifetime of a secret or credential the harder it is for an attac
 use of that credential. Set short lifetimes on certificates and automate their rotation. Use
 an authentication provider that can control how long issued tokens are available and use short
 lifetimes where possible. If you use service-account tokens in external integrations, plan to
-rotate those tokens frequently. For example, once the bootstrap phase is complete, a bootstrap 
+rotate those tokens frequently. For example, once the bootstrap phase is complete, a bootstrap
 token used for setting up nodes should be revoked or its authorization removed.
 
 ### Review third party integrations before enabling them
@@ -255,7 +251,7 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes supports optional [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/) for information in the Kubernetes API. 
+Kubernetes supports optional [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/) for information in the Kubernetes API.
 This lets you ensure that when Kubernetes stores data for objects (for example, `Secret` or
 `ConfigMap` objects), the API server writes an encrypted representation of the object.
 That encryption means that even someone who has access to etcd backup data is unable
@@ -270,5 +266,3 @@ Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernete
 group for emails about security announcements. See the
 [security reporting](/docs/reference/issues-security/security/)
 page for more on how to report vulnerabilities.
-
-

@@ -3,6 +3,7 @@ title: Turnkey Cloud Solutions
 content_type: concept
 weight: 40
 ---
+
 <!-- overview -->
 
 This page provides a list of Kubernetes certified solution providers. From each

@@ -7,12 +7,13 @@ short_description: >
   Control plane component that serves the Kubernetes API.
 
 aka:
-- kube-apiserver
+  - kube-apiserver
 tags:
-- architecture
-- fundamental
+  - architecture
+  - fundamental
 ---
- The API server is a component of the Kubernetes
+
+The API server is a component of the Kubernetes
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} that exposes the Kubernetes API.
 The API server is the front end for the Kubernetes control plane.
 

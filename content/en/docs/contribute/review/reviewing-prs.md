@@ -11,11 +11,11 @@ Anyone can review a documentation pull request. Visit the [pull requests](https:
 section in the Kubernetes website repository to see open pull requests.
 
 Reviewing documentation pull requests is a great way to introduce yourself to the Kubernetes
-community.  It helps you learn the code base and build trust with other contributors.
+community. It helps you learn the code base and build trust with other contributors.
 
 Before reviewing, it's a good idea to:
 
-- Read the  [content guide](/docs/contribute/style/content-guide/) and
+- Read the [content guide](/docs/contribute/style/content-guide/) and
   [style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
 - Understand the different
   [roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/)
@@ -45,21 +45,20 @@ the review process. The details for each step follow.
 
 {{< mermaid >}}
 flowchart LR
-    subgraph fourth[Start review]
-    direction TB
-    S[ ] -.-
-    M[add comments] --> N[review changes]
-    N --> O[new contributors should<br>choose Comment]
-    end
-    subgraph third[Select PR]
-    direction TB
-    T[ ] -.-
-    J[read description<br>and comments]--> K[preview changes in<br>Netlify preview build]
-    end
- 
-  A[Review open PR list]--> B[Filter open PRs<br>by label]
-  B --> third --> fourth
-     
+subgraph fourth[Start review]
+direction TB
+S[ ] -.-
+M[add comments] --> N[review changes]
+N --> O[new contributors should<br>choose Comment]
+end
+subgraph third[Select PR]
+direction TB
+T[ ] -.-
+J[read description<br>and comments]--> K[preview changes in<br>Netlify preview build]
+end
+
+A[Review open PR list]--> B[Filter open PRs<br>by label]
+B --> third --> fourth
 
 classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
 classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
@@ -70,7 +69,6 @@ class third,fourth white
 {{</ mermaid >}}
 
 Figure 1. Review process steps.
-
 
 1. Go to [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
    You see a list of every open pull request against the Kubernetes website and docs.
@@ -84,7 +82,7 @@ Figure 1. Review process steps.
    - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
 
    Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in
-   progress` label are not ready for review yet.
+progress` label are not ready for review yet.
 
 3. Once you've selected a PR to review, understand the change by:
 
@@ -96,26 +94,26 @@ Figure 1. Review process steps.
      Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
      on a tablet or smartphone device, the GitHub web UI is slightly different):
      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
-     To open the preview, click on the  **Details** link of the **deploy/netlify** line in the
+     To open the preview, click on the **Details** link of the **deploy/netlify** line in the
      list of checks.
 
 4. Go to the **Files changed** tab to start your review.
 
-   1. Click on the `+` symbol  beside the line you want to comment on.
+   1. Click on the `+` symbol beside the line you want to comment on.
    1. Fill in any comments you have about the line and click either **Add single comment**
       (if you have only one comment to make) or **Start a review** (if you have multiple comments to make).
    1. When finished, click **Review changes** at the top of the page. Here, you can add
       a summary of your review (and leave some positive comments for the contributor!).
       Please always use the "Comment"
 
-     - Avoid clicking the "Request changes" button when finishing your review.
-       If you want to block a PR from being merged before some further changes are made,
-       you can leave a "/hold" comment.
-       Mention why you are setting a hold, and optionally specify the conditions under
-       which the hold can be removed by you or other reviewers.
+   - Avoid clicking the "Request changes" button when finishing your review.
+     If you want to block a PR from being merged before some further changes are made,
+     you can leave a "/hold" comment.
+     Mention why you are setting a hold, and optionally specify the conditions under
+     which the hold can be removed by you or other reviewers.
 
-     - Avoid clicking the "Approve" button when finishing your review.
-       Leaving a "/approve" comment is recommended most of the time.
+   - Avoid clicking the "Approve" button when finishing your review.
+     Leaving a "/approve" comment is recommended most of the time.
 
 ## Reviewing checklist
 
@@ -125,8 +123,8 @@ When reviewing, use the following as a starting point.
 
 - Are there any obvious errors in language or grammar? Is there a better way to phrase something?
   - Focus on the language and grammar of the parts of the page that the author is changing.
-     Unless the author is clearly aiming to update the entire page, they have no obligation to
-     fix every issue on the page.
+    Unless the author is clearly aiming to update the entire page, they have no obligation to
+    fix every issue on the page.
   - When a PR updates an existing page, you should focus on reviewing the parts of
     the page that are being updated. That changed content should be reviewed for technical
     and editorial correctness.

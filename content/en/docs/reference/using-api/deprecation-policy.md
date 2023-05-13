@@ -1,19 +1,20 @@
 ---
 reviewers:
-- bgrant0607
-- lavalamp
-- thockin
+  - bgrant0607
+  - lavalamp
+  - thockin
 title: Kubernetes Deprecation Policy
 content_type: concept
 weight: 40
 ---
 
 <!-- overview -->
+
 This document details the deprecation policy for various facets of the system.
 
-
 <!-- body -->
-Kubernetes is a large system with many components and many contributors.  As
+
+Kubernetes is a large system with many components and many contributors. As
 with any such software, the feature set naturally evolves over time, and
 sometimes a feature may need to be removed. This could include an API, a flag,
 or even an entire feature. To avoid breaking existing users, Kubernetes follows
@@ -24,11 +25,11 @@ a deprecation policy for aspects of the system that are slated to be removed.
 Since Kubernetes is an API-driven system, the API has evolved over time to
 reflect the evolving understanding of the problem space. The Kubernetes API is
 actually a set of APIs, called "API groups", and each API group is
-independently versioned.  [API versions](/docs/reference/using-api/#api-versioning) fall
+independently versioned. [API versions](/docs/reference/using-api/#api-versioning) fall
 into 3 main tracks, each of which has different policies for deprecation:
 
 | Example  | Track                            |
-|----------|----------------------------------|
+| -------- | -------------------------------- |
 | v1       | GA (generally available, stable) |
 | v1beta1  | Beta (pre-release)               |
 | v1alpha1 | Alpha (experimental)             |
@@ -36,15 +37,15 @@ into 3 main tracks, each of which has different policies for deprecation:
 A given release of Kubernetes can support any number of API groups and any
 number of versions of each.
 
-The following rules govern the deprecation of elements of the API.  This
+The following rules govern the deprecation of elements of the API. This
 includes:
 
-   * REST resources (aka API objects)
-   * Fields of REST resources
-   * Annotations on REST resources, including "beta" annotations but not
-     including "alpha" annotations.
-   * Enumerated or constant values
-   * Component config structures
+- REST resources (aka API objects)
+- Fields of REST resources
+- Annotations on REST resources, including "beta" annotations but not
+  including "alpha" annotations.
+- Enumerated or constant values
+- Component config structures
 
 These rules are enforced between official releases, not between
 arbitrary commits to master or release branches.
@@ -58,7 +59,7 @@ changed, regardless of track.
 
 {{< note >}}
 For historical reasons, there are 2 "monolithic" API groups - "core" (no
-group name) and "extensions".  Resources will incrementally be moved from these
+group name) and "extensions". Resources will incrementally be moved from these
 legacy API groups into more domain-specific API groups.
 {{< /note >}}
 
@@ -68,23 +69,23 @@ that do not exist in some versions.**
 
 For example, an object can be written as v1 and then read back as v2 and
 converted to v1, and the resulting v1 resource will be identical to the
-original.  The representation in v2 might be different from v1, but the system
-knows how to convert between them in both directions.  Additionally, any new
+original. The representation in v2 might be different from v1, but the system
+knows how to convert between them in both directions. Additionally, any new
 field added in v2 must be able to round-trip to v1 and back, which means v1
 might have to add an equivalent field or represent it as an annotation.
 
 **Rule #3: An API version in a given track may not be deprecated in favor of a less stable API version.**
 
-  * GA API versions can replace beta and alpha API versions.
-  * Beta API versions can replace earlier beta and alpha API versions, but *may not* replace GA API versions.
-  * Alpha API versions can replace earlier alpha API versions, but *may not* replace GA or beta API versions.
+- GA API versions can replace beta and alpha API versions.
+- Beta API versions can replace earlier beta and alpha API versions, but _may not_ replace GA API versions.
+- Alpha API versions can replace earlier alpha API versions, but _may not_ replace GA or beta API versions.
 
 **Rule #4a: API lifetime is determined by the API stability level**
 
-   * GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes
-   * Beta API versions are deprecated no more than 9 months or 3 minor releases after introduction (whichever is longer),
-     and are no longer served 9 months or 3 minor releases after deprecation (whichever is longer)
-   * Alpha API versions may be removed in any release without prior deprecation notice
+- GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes
+- Beta API versions are deprecated no more than 9 months or 3 minor releases after introduction (whichever is longer),
+  and are no longer served 9 months or 3 minor releases after deprecation (whichever is longer)
+- Alpha API versions may be removed in any release without prior deprecation notice
 
 This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/),
 and that APIs don't stagnate on unstable beta versions, accumulating production usage that will be disrupted when support for the beta API ends.
@@ -108,12 +109,12 @@ new version and the previous version**
 Users must be able to upgrade to a new release of Kubernetes and then roll back
 to a previous release, without converting anything to the new API version or
 suffering breakages (unless they explicitly used features only available in the
-newer version).  This is particularly evident in the stored representation of
+newer version). This is particularly evident in the stored representation of
 objects.
 
-All of this is best illustrated by examples.  Imagine a Kubernetes release,
-version X, which introduces a new API group.  A new Kubernetes release is made
-every approximately 4 months (3 per year).  The following table describes which
+All of this is best illustrated by examples. Imagine a Kubernetes release,
+version X, which introduces a new API group. A new Kubernetes release is made
+every approximately 4 months (3 per year). The following table describes which
 API versions are supported in a series of subsequent releases.
 
 <table>
@@ -277,11 +278,11 @@ API versions are supported in a series of subsequent releases.
 ### REST resources (aka API objects)
 
 Consider a hypothetical REST resource named Widget, which was present in API v1
-in the above timeline, and which needs to be deprecated.  We document and
+in the above timeline, and which needs to be deprecated. We document and
 [announce](https://groups.google.com/forum/#!forum/kubernetes-announce) the
-deprecation in sync with release X+1.  The Widget resource still exists in API
-version v1 (deprecated) but not in v2alpha1.  The Widget resource continues to
-exist and function in releases up to and including X+8.  Only in release X+9,
+deprecation in sync with release X+1. The Widget resource still exists in API
+version v1 (deprecated) but not in v2alpha1. The Widget resource continues to
+exist and function in releases up to and including X+8. Only in release X+9,
 when API v1 has aged out, does the Widget resource cease to exist, and the
 behavior get removed.
 
@@ -302,10 +303,10 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 ### Fields of REST resources
 
 As with whole REST resources, an individual field which was present in API v1
-must exist and function until API v1 is removed.  Unlike whole resources, the
+must exist and function until API v1 is removed. Unlike whole resources, the
 v2 APIs may choose a different representation for the field, as long as it can
-be round-tripped.  For example a v1 field named "magnitude" which was
-deprecated might be named "deprecatedMagnitude" in API v2.  When v1 is
+be round-tripped. For example a v1 field named "magnitude" which was
+deprecated might be named "deprecatedMagnitude" in API v2. When v1 is
 eventually removed, the deprecated field can be removed from v2.
 
 ### Enumerated or constant values
@@ -326,9 +327,9 @@ point these rules will be adjusted as needed.
 
 The Kubernetes system is comprised of several different programs cooperating.
 Sometimes, a Kubernetes release might remove flags or CLI commands
-(collectively "CLI elements") in these programs.  The individual programs
+(collectively "CLI elements") in these programs. The individual programs
 naturally sort into two main groups - user-facing and admin-facing programs,
-which vary slightly in their deprecation policies.  Unless a flag is explicitly
+which vary slightly in their deprecation policies. Unless a flag is explicitly
 prefixed or documented as "alpha" or "beta", it is considered GA.
 
 CLI elements are effectively part of the API to the system, but since they are
@@ -338,16 +339,16 @@ follows:
 **Rule #5a: CLI elements of user-facing components (e.g. kubectl) must function
 after their announced deprecation for no less than:**
 
-   * **GA: 12 months or 2 releases (whichever is longer)**
-   * **Beta: 3 months or 1 release (whichever is longer)**
-   * **Alpha: 0 releases**
+- **GA: 12 months or 2 releases (whichever is longer)**
+- **Beta: 3 months or 1 release (whichever is longer)**
+- **Alpha: 0 releases**
 
 **Rule #5b: CLI elements of admin-facing components (e.g. kubelet) must function
 after their announced deprecation for no less than:**
 
-   * **GA: 6 months or 1 release (whichever is longer)**
-   * **Beta: 3 months or 1 release (whichever is longer)**
-   * **Alpha: 0 releases**
+- **GA: 6 months or 1 release (whichever is longer)**
+- **Beta: 3 months or 1 release (whichever is longer)**
+- **Alpha: 0 releases**
 
 **Rule #6: Deprecated CLI elements must emit warnings (optionally disable)
 when used.**
@@ -355,7 +356,7 @@ when used.**
 ## Deprecating a feature or behavior
 
 Occasionally a Kubernetes release needs to deprecate some feature or behavior
-of the system that is not controlled by the API or CLI.  In this case, the
+of the system that is not controlled by the API or CLI. In this case, the
 rules for deprecation are as follows:
 
 **Rule #7: Deprecated behaviors must function for no less than 1 year after their
@@ -376,11 +377,11 @@ and removed after a feature becomes GA or is dropped.
 As a feature moves through the stages, the associated feature gate evolves.
 The feature life cycle matched to its corresponding feature gate is:
 
-  * Alpha: the feature gate is disabled by default and can be enabled by the user.
-  * Beta: the feature gate is enabled by default and can be disabled by the user.
-  * GA: the feature gate is deprecated (see ["Deprecation"](#deprecation)) and becomes
+- Alpha: the feature gate is disabled by default and can be enabled by the user.
+- Beta: the feature gate is enabled by default and can be disabled by the user.
+- GA: the feature gate is deprecated (see ["Deprecation"](#deprecation)) and becomes
   non-operational.
-  * GA, deprecation window complete: the feature gate is removed and calls to it are
+- GA, deprecation window complete: the feature gate is removed and calls to it are
   no longer accepted.
 
 ### Deprecation
@@ -408,9 +409,9 @@ therefore the rules for deprecation are as follows:
 **Rule #8: Feature gates must be deprecated when the corresponding feature they control
 transitions a lifecycle stage as follows. Feature gates must function for no less than:**
 
-   * **Beta feature to GA: 6 months or 2 releases (whichever is longer)**
-   * **Beta feature to EOL: 3 months or 1 release (whichever is longer)**
-   * **Alpha feature to EOL: 0 releases**
+- **Beta feature to GA: 6 months or 2 releases (whichever is longer)**
+- **Beta feature to EOL: 3 months or 1 release (whichever is longer)**
+- **Alpha feature to EOL: 0 releases**
 
 **Rule #9: Deprecated feature gates must respond with a warning when used. When a feature gate
 is deprecated it must be documented in both in the release notes and the corresponding CLI help.
@@ -432,15 +433,15 @@ deprecating and removing a metric are as follows:
 
 **Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
 
-   * **STABLE: 4 releases or 12 months (whichever is longer)**
-   * **BETA: 2 releases or 8 months (whichever is longer)**
-   * **ALPHA: 0 releases**
+- **STABLE: 4 releases or 12 months (whichever is longer)**
+- **BETA: 2 releases or 8 months (whichever is longer)**
+- **ALPHA: 0 releases**
 
 **Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
 
-   * **STABLE: 3 releases or 9 months (whichever is longer)**
-   * **BETA: 1 releases or 4 months (whichever is longer)**
-   * **ALPHA: 0 releases**
+- **STABLE: 3 releases or 9 months (whichever is longer)**
+- **BETA: 1 releases or 4 months (whichever is longer)**
+- **ALPHA: 0 releases**
 
 Deprecated metrics will have their description text prefixed with a deprecation notice
 string '(Deprecated from x.y)' and a warning log will be emitted during metric
@@ -457,13 +458,12 @@ escape hatch to properly migrate off of a deprecated metric, if they were not
 able to react to the earlier deprecation warnings. Hidden metrics should be
 deleted after one release.
 
-
 ## Exceptions
 
-No policy can cover every possible situation.  This policy is a living
-document, and will evolve over time.  In practice, there will be situations
+No policy can cover every possible situation. This policy is a living
+document, and will evolve over time. In practice, there will be situations
 that do not fit neatly into this policy, or for which this policy becomes a
-serious impediment.  Such situations should be discussed with SIGs and project
+serious impediment. Such situations should be discussed with SIGs and project
 leaders to find the best solutions for those specific cases, always bearing in
 mind that Kubernetes is committed to being a stable system that, as much as
 possible, never breaks users. Exceptions will always be announced in all

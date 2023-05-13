@@ -7,7 +7,6 @@ description: >-
   in that namespace falls within the range you configure.
 ---
 
-
 <!-- overview -->
 
 This page shows how to set minimum and maximum values for the CPU resources used by containers
@@ -17,11 +16,7 @@ and maximum CPU values in a
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 
-
-
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -30,7 +25,6 @@ You must have access to create namespaces in your cluster.
 Each node in your cluster must have at least 1.0 CPU available for Pods.
 See [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
 to learn what Kubernetes means by “1 CPU”.
-
 
 <!-- steps -->
 
@@ -67,26 +61,26 @@ file for the LimitRange, they were created automatically.
 
 ```yaml
 limits:
-- default:
-    cpu: 800m
-  defaultRequest:
-    cpu: 800m
-  max:
-    cpu: 800m
-  min:
-    cpu: 200m
-  type: Container
+  - default:
+      cpu: 800m
+    defaultRequest:
+      cpu: 800m
+    max:
+      cpu: 800m
+    min:
+      cpu: 200m
+    type: Container
 ```
 
 Now whenever you create a Pod in the constraints-cpu-example namespace (or some other client
 of the Kubernetes API creates an equivalent Pod), Kubernetes performs these steps:
 
-* If any container in that Pod does not specify its own CPU request and limit, the control plane
+- If any container in that Pod does not specify its own CPU request and limit, the control plane
   assigns the default CPU request and limit to that container.
 
-* Verify that every container in that Pod specifies a CPU request that is greater than or equal to 200 millicpu.
+- Verify that every container in that Pod specifies a CPU request that is greater than or equal to 200 millicpu.
 
-* Verify that every container in that Pod specifies a CPU limit that is less than or equal to 800 millicpu.
+- Verify that every container in that Pod specifies a CPU limit that is less than or equal to 800 millicpu.
 
 {{< note >}}
 When creating a `LimitRange` object, you can specify limits on huge-pages
@@ -216,7 +210,7 @@ from the LimitRange for this namespace.
 
 At this point, your Pod may or may not be running. Recall that a prerequisite for
 this task is that your Nodes must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU,
-then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. 
+then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu.
 If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
 
 Delete your Pod:
@@ -236,13 +230,13 @@ Pods that were created previously.
 As a cluster administrator, you might want to impose restrictions on the CPU resources that Pods can use.
 For example:
 
-* Each Node in a cluster has 2 CPU. You do not want to accept any Pod that requests
-more than 2 CPU, because no Node in the cluster can support the request.
+- Each Node in a cluster has 2 CPU. You do not want to accept any Pod that requests
+  more than 2 CPU, because no Node in the cluster can support the request.
 
-* A cluster is shared by your production and development departments.
-You want to allow production workloads to consume up to 3 CPU, but you want development workloads to be limited
-to 1 CPU. You create separate namespaces for production and development, and you apply CPU constraints to
-each namespace.
+- A cluster is shared by your production and development departments.
+  You want to allow production workloads to consume up to 3 CPU, but you want development workloads to be limited
+  to 1 CPU. You create separate namespaces for production and development, and you apply CPU constraints to
+  each namespace.
 
 ## Clean up
 
@@ -252,37 +246,26 @@ Delete your namespace:
 kubectl delete namespace constraints-cpu-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+- [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+- [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+- [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
 ### For app developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+- [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+- [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
-
-
-
-
+- [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)

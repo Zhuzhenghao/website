@@ -1,30 +1,31 @@
 ---
 reviewers:
-- caseydavenport
-- danwinship
+  - caseydavenport
+  - danwinship
 title: Declare Network Policy
 min-kubernetes-server-version: v1.8
 content_type: task
 weight: 180
 ---
+
 <!-- overview -->
+
 This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
 
 {{% thirdparty-content %}}
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 Make sure you've configured a network provider with network policy support. There are a number of network providers that support NetworkPolicy, including:
 
-* [Antrea](/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
-* [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
-* [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
-* [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
-* [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
-* [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
+- [Antrea](/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
+- [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
+- [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
+- [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
+- [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
+- [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 
 <!-- steps -->
 
@@ -35,6 +36,7 @@ To see how Kubernetes network policy works, start off by creating an `nginx` Dep
 ```console
 kubectl create deployment nginx --image=nginx
 ```
+
 ```none
 deployment.apps/nginx created
 ```
@@ -109,6 +111,7 @@ networkpolicy.networking.k8s.io/access-nginx created
 ```
 
 ## Test access to the service when access label is not defined
+
 When you attempt to access the `nginx` Service from a Pod without the correct labels, the request times out:
 
 ```console
@@ -144,5 +147,3 @@ wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 remote file exists
 ```
-
-

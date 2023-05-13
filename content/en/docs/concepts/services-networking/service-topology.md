@@ -1,12 +1,11 @@
 ---
 reviewers:
-- johnbelamaric
-- imroc
+  - johnbelamaric
+  - imroc
 title: Topology-aware traffic routing with topology keys
 content_type: concept
 weight: 150
 ---
-
 
 <!-- overview -->
 
@@ -24,7 +23,6 @@ _Service Topology_ enables a service to route traffic based upon the Node
 topology of the cluster. For example, a service can specify that traffic be
 preferentially routed to endpoints that are on the same Node as the client, or
 in the same availability zone.
-
 
 <!-- body -->
 
@@ -73,34 +71,31 @@ Consider a cluster with Nodes that are labeled with their hostname, zone name,
 and region name. Then you can set the `topologyKeys` values of a service to direct
 traffic as follows.
 
-* Only to endpoints on the same node, failing if no endpoint exists on the node:
+- Only to endpoints on the same node, failing if no endpoint exists on the node:
   `["kubernetes.io/hostname"]`.
-* Preferentially to endpoints on the same node, falling back to endpoints in the
+- Preferentially to endpoints on the same node, falling back to endpoints in the
   same zone, followed by the same region, and failing otherwise: `["kubernetes.io/hostname",
-  "topology.kubernetes.io/zone", "topology.kubernetes.io/region"]`.
+"topology.kubernetes.io/zone", "topology.kubernetes.io/region"]`.
   This may be useful, for example, in cases where data locality is critical.
-* Preferentially to the same zone, but fallback on any available endpoint if
+- Preferentially to the same zone, but fallback on any available endpoint if
   none are available within this zone:
   `["topology.kubernetes.io/zone", "*"]`.
 
-
-
 ## Constraints
 
-* Service topology is not compatible with `externalTrafficPolicy=Local`, and
+- Service topology is not compatible with `externalTrafficPolicy=Local`, and
   therefore a Service cannot use both of these features. It is possible to use
   both features in the same cluster on different Services, only not on the same
   Service.
 
-* Valid topology keys are currently limited to `kubernetes.io/hostname`,
+- Valid topology keys are currently limited to `kubernetes.io/hostname`,
   `topology.kubernetes.io/zone`, and `topology.kubernetes.io/region`, but will
   be generalized to other node labels in the future.
 
-* Topology keys must be valid label keys and at most 16 keys may be specified.
+- Topology keys must be valid label keys and at most 16 keys may be specified.
 
-* The catch-all value, `"*"`, must be the last value in the topology keys, if
+- The catch-all value, `"*"`, must be the last value in the topology keys, if
   it is used.
-
 
 ## Examples
 
@@ -147,11 +142,9 @@ spec:
     - "*"
 ```
 
-
 ### Only Zonal or Regional Endpoints
 
 A Service that prefers zonal then regional endpoints. If no endpoints exist in either, traffic is dropped.
-
 
 ```yaml
 apiVersion: v1
@@ -195,5 +188,5 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/)
-* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
+- Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/)
+- Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)

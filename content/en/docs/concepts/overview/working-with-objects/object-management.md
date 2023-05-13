@@ -5,6 +5,7 @@ weight: 20
 ---
 
 <!-- overview -->
+
 The `kubectl` command-line tool supports several different ways to create and manage
 Kubernetes {{< glossary_tooltip text="objects" term_id="object" >}}. This document provides an overview of the different
 approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
@@ -19,11 +20,11 @@ A Kubernetes object should be managed using only one technique. Mixing
 and matching techniques for the same object results in undefined behavior.
 {{< /warning >}}
 
-| Management technique             | Operates on          |Recommended environment | Supported writers  | Learning curve |
-|----------------------------------|----------------------|------------------------|--------------------|----------------|
-| Imperative commands              | Live objects         | Development projects   | 1+                 | Lowest         |
-| Imperative object configuration  | Individual files     | Production projects    | 1                  | Moderate       |
-| Declarative object configuration | Directories of files | Production projects    | 1+                 | Highest        |
+| Management technique             | Operates on          | Recommended environment | Supported writers | Learning curve |
+| -------------------------------- | -------------------- | ----------------------- | ----------------- | -------------- |
+| Imperative commands              | Live objects         | Development projects    | 1+                | Lowest         |
+| Imperative object configuration  | Individual files     | Production projects     | 1                 | Moderate       |
+| Declarative object configuration | Directories of files | Production projects     | 1+                | Highest        |
 
 ## Imperative commands
 
@@ -70,7 +71,7 @@ for more details on object definitions.
 {{< warning >}}
 The imperative `replace` command replaces the existing
 spec with the newly provided one, dropping all changes to the object missing from
-the configuration file.  This approach should not be used with resource
+the configuration file. This approach should not be used with resource
 types whose specs are updated independently of the configuration file.
 Services of type `LoadBalancer`, for example, have their `externalIPs` field updated
 independently from the configuration by the cluster.
@@ -175,4 +176,3 @@ Disadvantages compared to imperative object configuration:
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-

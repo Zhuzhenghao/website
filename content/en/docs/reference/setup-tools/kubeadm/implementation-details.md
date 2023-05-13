@@ -1,7 +1,7 @@
 ---
 reviewers:
-- luxas
-- jbeda
+  - luxas
+  - jbeda
 title: Implementation details
 content_type: concept
 weight: 100
@@ -147,7 +147,7 @@ Kubeadm generates certificate and private key pairs for different purposes:
 
   - The Kubernetes service's internal clusterIP (the first address in the services CIDR, e.g.
     `10.96.0.1` if service subnet is `10.96.0.0/12`)
-  - Kubernetes DNS names, e.g.  `kubernetes.default.svc.cluster.local` if `--service-dns-domain`
+  - Kubernetes DNS names, e.g. `kubernetes.default.svc.cluster.local` if `--service-dns-domain`
     flag value is `cluster.local`, plus default DNS names `kubernetes.default.svc`,
     `kubernetes.default`, `kubernetes`
   - The node-name
@@ -210,8 +210,8 @@ Kubeadm generates kubeconfig files with identities for control plane components:
   [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
 
 Additionally, a kubeconfig file for kubeadm itself and the admin is generated and saved into the
-`/etc/kubernetes/admin.conf` file.  The "admin" here is defined as the actual person(s) that is
-administering the cluster and wants to have full control (**root**) over the cluster.  The
+`/etc/kubernetes/admin.conf` file. The "admin" here is defined as the actual person(s) that is
+administering the cluster and wants to have full control (**root**) over the cluster. The
 embedded client certificate for admin should be in the `system:masters` organization, as defined
 by default [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
 It should also include a CN. Kubeadm uses the `kubernetes-admin` CN.
@@ -241,8 +241,8 @@ Static Pod manifest share a set of common properties:
 - `hostNetwork: true` is set on all static Pods to allow control plane startup before a network is
   configured; as a consequence:
 
-  * The `address` that the controller-manager and the scheduler use to refer the API server is `127.0.0.1`
-  * If using a local etcd server, `etcd-servers` address will be set to `127.0.0.1:2379`
+  - The `address` that the controller-manager and the scheduler use to refer the API server is `127.0.0.1`
+  - If using a local etcd server, `etcd-servers` address will be set to `127.0.0.1:2379`
 
 - Leader election is enabled for both the controller-manager and the scheduler
 - Controller-manager and the scheduler will reference kubeconfig files with their respective, unique identities
@@ -271,7 +271,7 @@ The static Pod manifest for the API server is affected by following parameters p
   (`etcd-cafile`, `etcd-certfile`, `etcd-keyfile`);
   if an external etcd server is not be provided, a local etcd will be used (via host network)
 - If a cloud provider is specified, the corresponding `--cloud-provider` is configured, together
-  with the  `--cloud-config` path if such file exists (this is experimental, alpha and will be
+  with the `--cloud-config` path if such file exists (this is experimental, alpha and will be
   removed in a future version)
 
 Other API server flags that are set unconditionally are:
@@ -302,7 +302,7 @@ Other API server flags that are set unconditionally are:
     to limit what a kubelet can modify (e.g. only pods on this node)
 
 - `--kubelet-preferred-address-types` to `InternalIP,ExternalIP,Hostname;` this makes `kubectl
-  logs` and other API server-kubelet communication work in environments where the hostnames of the
+logs` and other API server-kubelet communication work in environments where the hostnames of the
   nodes aren't resolvable
 
 - Flags for using certificates generated in previous steps:
@@ -338,13 +338,13 @@ the users:
   - `--cluster-cidr` and `--node-cidr-mask-size` flags according to the given CIDR
 
 - If a cloud provider is specified, the corresponding `--cloud-provider` is specified, together
-  with the  `--cloud-config` path if such configuration file exists (this is experimental, alpha
+  with the `--cloud-config` path if such configuration file exists (this is experimental, alpha
   and will be removed in a future version)
 
 Other flags that are set unconditionally are:
 
 - `--controllers` enabling all the default controllers plus `BootstrapSigner` and `TokenCleaner`
-  controllers for TLS bootstrap.  See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+  controllers for TLS bootstrap. See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
   for more details
 
 - `--use-service-account-credentials` to `true`
@@ -423,7 +423,6 @@ Please note that:
 1. Mark control-plane phase phase can be invoked individually with the command
    [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
 
-
 ### Configure TLS-Bootstrapping for node joining
 
 Kubeadm uses [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
@@ -451,14 +450,14 @@ Please note that:
 
 1. The default token created by `kubeadm init` will be used to validate temporary user during TLS
    bootstrap process; those users will be member of
-  `system:bootstrappers:kubeadm:default-node-token` group
+   `system:bootstrappers:kubeadm:default-node-token` group
 2. The token has a limited validity, default 24 hours (the interval may be changed with the `—token-ttl` flag)
 3. Additional tokens can be created with the [`kubeadm token`](/docs/reference/setup-tools/kubeadm/kubeadm-token/)
    command, that provide as well other useful functions for token management.
 
 #### Allow joining nodes to call CSR API
 
-Kubeadm ensures that users in  `system:bootstrappers:kubeadm:default-node-token` group are able to
+Kubeadm ensures that users in `system:bootstrappers:kubeadm:default-node-token` group are able to
 access the certificate signing API.
 
 This is implemented by creating a ClusterRoleBinding named `kubeadm:kubelet-bootstrap` between the
@@ -470,7 +469,7 @@ Kubeadm ensures that the Bootstrap Token will get its CSR request automatically 
 csrapprover controller.
 
 This is implemented by creating ClusterRoleBinding named `kubeadm:node-autoapprove-bootstrap`
-between the  `system:bootstrappers:kubeadm:default-node-token` group and the default role
+between the `system:bootstrappers:kubeadm:default-node-token` group and the default role
 `system:certificates.k8s.io:certificatesigningrequests:nodeclient`.
 
 The role `system:certificates.k8s.io:certificatesigningrequests:nodeclient` should be created as
@@ -483,7 +482,7 @@ Kubeadm ensures that certificate rotation is enabled for nodes, and that new cer
 for nodes will get its CSR request automatically approved by the csrapprover controller.
 
 This is implemented by creating ClusterRoleBinding named
-`kubeadm:node-autoapprove-certificate-rotation` between the  `system:nodes` group and the default
+`kubeadm:node-autoapprove-certificate-rotation` between the `system:nodes` group and the default
 role `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`.
 
 #### Create the public cluster-info ConfigMap
@@ -565,13 +564,13 @@ The second is to provide a file (that is a subset of the standard kubeconfig fil
 #### Shared token discovery
 
 If `kubeadm join` is invoked with `--discovery-token`, token discovery is used; in this case the
-node basically retrieves the cluster CA certificates from the  `cluster-info` ConfigMap in the
+node basically retrieves the cluster CA certificates from the `cluster-info` ConfigMap in the
 `kube-public` namespace.
 
 In order to prevent "man in the middle" attacks, several steps are taken:
 
 - First, the CA certificate is retrieved via insecure connection (this is possible because
-  `kubeadm init` granted access to  `cluster-info` users for `system:unauthenticated` )
+  `kubeadm init` granted access to `cluster-info` users for `system:unauthenticated` )
 
 - Then the CA certificate goes trough following validation steps:
 
@@ -621,4 +620,3 @@ Please note that:
   during the `kubeadm init` process
 - The automatic CSR approval is managed by the csrapprover controller, according with
   configuration done the `kubeadm init` process
-

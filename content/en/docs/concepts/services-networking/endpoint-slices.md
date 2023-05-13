@@ -1,6 +1,6 @@
 ---
 reviewers:
-- freehan
+  - freehan
 title: EndpointSlices
 content_type: concept
 weight: 60
@@ -9,7 +9,6 @@ description: >-
   scale to handle large numbers of backends, and allows the cluster to update its
   list of healthy backends efficiently.
 ---
-
 
 <!-- overview -->
 
@@ -72,9 +71,9 @@ how to route internal traffic.
 
 EndpointSlices support three address types:
 
-* IPv4
-* IPv6
-* FQDN (Fully Qualified Domain Name)
+- IPv4
+- IPv6
+- FQDN (Fully Qualified Domain Name)
 
 Each `EndpointSlice` object represents a specific IP address type. If you have
 a Service that is available via IPv4 and IPv6, there will be at least two
@@ -127,8 +126,8 @@ The topology information includes the location of the endpoint and information
 about the corresponding Node and zone. These are available in the following
 per endpoint fields on EndpointSlices:
 
-* `nodeName` - The name of the Node this endpoint is on.
-* `zone` - The zone this endpoint is in.
+- `nodeName` - The name of the Node this endpoint is on.
+- `zone` - The zone this endpoint is in.
 
 {{< note >}}
 In the v1 API, the per endpoint `topology` was effectively removed in favor of
@@ -175,12 +174,12 @@ resources to corresponding EndpointSlices.
 
 The control plane mirrors Endpoints resources unless:
 
-* the Endpoints resource has a `endpointslice.kubernetes.io/skip-mirror` label
+- the Endpoints resource has a `endpointslice.kubernetes.io/skip-mirror` label
   set to `true`.
-* the Endpoints resource has a `control-plane.alpha.kubernetes.io/leader`
+- the Endpoints resource has a `control-plane.alpha.kubernetes.io/leader`
   annotation.
-* the corresponding Service resource does not exist.
-* the corresponding Service resource has a non-nil selector.
+- the corresponding Service resource does not exist.
+- the corresponding Service resource has a non-nil selector.
 
 Individual Endpoints resources may translate into multiple EndpointSlices. This
 will occur if an Endpoints resource has multiple subsets or includes endpoints
@@ -257,7 +256,7 @@ stable (the same set of endpoints over a long period of time) the impact was
 less noticeable; even then, some use cases of Kubernetes weren't well served.
 
 When a Service had a lot of backend endpoints and the workload was either
- scaling frequently, or rolling out new changes frequently, each update to
+scaling frequently, or rolling out new changes frequently, each update to
 the single Endpoints object for that Service meant a lot of traffic between
 Kubernetes cluster components (within the control plane, and also between
 nodes and the API server). This extra traffic also had a cost in terms of
@@ -272,6 +271,6 @@ networking and topology-aware routing.
 
 ## {{% heading "whatsnext" %}}
 
-* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
+- Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
+- Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+- Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API

@@ -1,8 +1,8 @@
 ---
 reviewers:
-- fgrzadkowski
-- jszczepkowski
-- directxman12
+  - fgrzadkowski
+  - jszczepkowski
+  - directxman12
 title: Horizontal Pod Autoscaling
 feature:
   title: Horizontal scaling
@@ -53,7 +53,7 @@ graph BT
 hpa[Horizontal Pod Autoscaler] --> scale[Scale]
 
 subgraph rc[RC / Deployment]
-    scale
+scale
 end
 
 scale -.-> pod1[Pod 1]
@@ -260,6 +260,7 @@ resource:
     type: Utilization
     averageUtilization: 60
 ```
+
 With this metric the HPA controller will keep the average utilization of the pods in the scaling
 target at 60%. Utilization is the ratio between the current usage of resource to the requested
 resources of the pod. See [Algorithm](#algorithm-details) for more details about how the utilization
@@ -391,12 +392,12 @@ while scaling down:
 behavior:
   scaleDown:
     policies:
-    - type: Pods
-      value: 4
-      periodSeconds: 60
-    - type: Percent
-      value: 10
-      periodSeconds: 60
+      - type: Pods
+        value: 4
+        periodSeconds: 60
+      - type: Percent
+        value: 10
+        periodSeconds: 60
 ```
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
@@ -450,20 +451,21 @@ behavior:
   scaleDown:
     stabilizationWindowSeconds: 300
     policies:
-    - type: Percent
-      value: 100
-      periodSeconds: 15
+      - type: Percent
+        value: 100
+        periodSeconds: 15
   scaleUp:
     stabilizationWindowSeconds: 0
     policies:
-    - type: Percent
-      value: 100
-      periodSeconds: 15
-    - type: Pods
-      value: 4
-      periodSeconds: 15
+      - type: Percent
+        value: 100
+        periodSeconds: 15
+      - type: Pods
+        value: 4
+        periodSeconds: 15
     selectPolicy: Max
 ```
+
 For scaling down the stabilization window is _300_ seconds (or the value of the
 `--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
 for scaling down which allows a 100% of the currently running replicas to be removed which
@@ -492,9 +494,9 @@ following behavior would be added to the HPA:
 behavior:
   scaleDown:
     policies:
-    - type: Percent
-      value: 10
-      periodSeconds: 60
+      - type: Percent
+        value: 10
+        periodSeconds: 60
 ```
 
 To ensure that no more than 5 Pods are removed per minute, you can add a second scale-down
@@ -505,12 +507,12 @@ that the autoscaler chooses the policy that affects the smallest number of Pods:
 behavior:
   scaleDown:
     policies:
-    - type: Percent
-      value: 10
-      periodSeconds: 60
-    - type: Pods
-      value: 5
-      periodSeconds: 60
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+      - type: Pods
+        value: 5
+        periodSeconds: 60
     selectPolicy: Min
 ```
 

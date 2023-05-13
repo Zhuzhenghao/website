@@ -4,7 +4,6 @@ title: Kubelet Checkpoint API
 weight: 10
 ---
 
-
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
 Checkpointing a container is the functionality to create a stateful copy of a
@@ -40,7 +39,7 @@ The kubelet will request a checkpoint from the underlying
 request the kubelet will specify the name of the checkpoint archive as
 `checkpoint-<podFullName>-<containerName>-<timestamp>.tar` and also request to
 store the checkpoint archive in the `checkpoints` directory below its root
-directory (as defined by `--root-dir`).  This defaults to
+directory (as defined by `--root-dir`). This defaults to
 `/var/lib/kubelet/checkpoints`.
 
 The checkpoint archive is in _tar_ format, and could be listed using an implementation of
@@ -53,19 +52,19 @@ POST /checkpoint/{namespace}/{pod}/{container}
 
 #### Parameters {#post-checkpoint-params}
 
-- **namespace** (*in path*): string, required
+- **namespace** (_in path_): string, required
 
   {{< glossary_tooltip term_id="namespace" >}}
 
-- **pod** (*in path*): string, required
+- **pod** (_in path_): string, required
 
   {{< glossary_tooltip term_id="pod" >}}
 
-- **container** (*in path*): string, required
+- **container** (_in path_): string, required
 
   {{< glossary_tooltip term_id="container" >}}
 
-- **timeout** (*in query*): integer
+- **timeout** (_in query_): integer
 
   Timeout in seconds to wait until the checkpoint creation is finished.
   If zero or no timeout is specfied the default {{<glossary_tooltip
@@ -90,7 +89,7 @@ POST /checkpoint/{namespace}/{pod}/{container}
 
 {{< comment >}}
 TODO: Add more information about return codes once CRI implementation have checkpoint/restore.
-      This TODO cannot be fixed before the release, because the CRI implementation need
-      the Kubernetes changes to be merged to implement the new ContainerCheckpoint CRI API
-      call. We need to wait after the 1.25 release to fix this.
+This TODO cannot be fixed before the release, because the CRI implementation need
+the Kubernetes changes to be merged to implement the new ContainerCheckpoint CRI API
+call. We need to wait after the 1.25 release to fix this.
 {{< /comment >}}

@@ -4,7 +4,6 @@ content_type: concept
 weight: 40
 ---
 
-
 <!-- overview -->
 
 You can use _topology spread constraints_ to control how
@@ -112,13 +111,14 @@ your cluster. Those fields are:
   - If you do not specify `minDomains`, the constraint behaves as if `minDomains` is 1.
 
 - **topologyKey** is the key of [node labels](#node-labels). Nodes that have a label with this key
-	and identical values are considered to be in the same topology.
+  and identical values are considered to be in the same topology.
   We call each instance of a topology (in other words, a <key, value> pair) a domain. The scheduler
   will try to put a balanced number of pods into each domain.
-	Also, we define an eligible domain as a domain whose nodes meet the requirements of
-	nodeAffinityPolicy and nodeTaintsPolicy.
+  Also, we define an eligible domain as a domain whose nodes meet the requirements of
+  nodeAffinityPolicy and nodeTaintsPolicy.
 
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
+
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
   - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
 
@@ -145,15 +145,15 @@ your cluster. Those fields are:
   in a single Deployment.
 
   ```yaml
-      topologySpreadConstraints:
-          - maxSkew: 1
-            topologyKey: kubernetes.io/hostname
-            whenUnsatisfiable: DoNotSchedule
-            labelSelector:
-              matchLabels:
-                app: foo
-            matchLabelKeys:
-              - pod-template-hash
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app: foo
+      matchLabelKeys:
+        - pod-template-hash
   ```
 
   {{< note >}}
@@ -163,6 +163,7 @@ your cluster. Those fields are:
 
 - **nodeAffinityPolicy** indicates how we will treat Pod's nodeAffinity/nodeSelector
   when calculating pod topology spread skew. Options are:
+
   - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations.
   - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 
@@ -175,6 +176,7 @@ your cluster. Those fields are:
 
 - **nodeTaintsPolicy** indicates how we will treat node taints when calculating
   pod topology spread skew. Options are:
+
   - Honor: nodes without taints, along with tainted nodes for which the incoming pod
     has a toleration, are included.
   - Ignore: node taints are ignored. All nodes are included.
@@ -195,9 +197,10 @@ that satisfies all the configured constraints.
 Topology spread constraints rely on node labels to identify the topology
 domain(s) that each {{< glossary_tooltip text="node" term_id="node" >}} is in.
 For example, a node might have labels:
+
 ```yaml
-  region: us-east-1
-  zone: us-east-1a
+region: us-east-1
+zone: us-east-1a
 ```
 
 {{< note >}}
@@ -225,20 +228,21 @@ Then the cluster is logically viewed as below:
 
 {{<mermaid>}}
 graph TB
-    subgraph "zoneB"
-        n3(Node3)
-        n4(Node4)
-    end
-    subgraph "zoneA"
-        n1(Node1)
-        n2(Node2)
-    end
+subgraph "zoneB"
+n3(Node3)
+n4(Node4)
+end
+subgraph "zoneA"
+n1(Node1)
+n2(Node2)
+end
 
     classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
     classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
     classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
     class n1,n2,n3,n4 k8s;
     class zoneA,zoneB cluster;
+
 {{< /mermaid >}}
 
 ## Consistency
@@ -265,20 +269,21 @@ node1, node2 and node3 respectively:
 
 {{<mermaid>}}
 graph BT
-    subgraph "zoneB"
-        p3(Pod) --> n3(Node3)
-        n4(Node4)
-    end
-    subgraph "zoneA"
-        p1(Pod) --> n1(Node1)
-        p2(Pod) --> n2(Node2)
-    end
+subgraph "zoneB"
+p3(Pod) --> n3(Node3)
+n4(Node4)
+end
+subgraph "zoneA"
+p1(Pod) --> n1(Node1)
+p2(Pod) --> n2(Node2)
+end
 
     classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
     classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
     classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
     class n1,n2,n3,n4,p1,p2,p3 k8s;
     class zoneA,zoneB cluster;
+
 {{< /mermaid >}}
 
 If you want an incoming Pod to be evenly spread with existing Pods across zones, you
@@ -298,14 +303,14 @@ incoming Pod can only be placed onto a node in zone `B`:
 
 {{<mermaid>}}
 graph BT
-    subgraph "zoneB"
-        p3(Pod) --> n3(Node3)
-        p4(mypod) --> n4(Node4)
-    end
-    subgraph "zoneA"
-        p1(Pod) --> n1(Node1)
-        p2(Pod) --> n2(Node2)
-    end
+subgraph "zoneB"
+p3(Pod) --> n3(Node3)
+p4(mypod) --> n4(Node4)
+end
+subgraph "zoneA"
+p1(Pod) --> n1(Node1)
+p2(Pod) --> n2(Node2)
+end
 
     classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
     classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
@@ -313,21 +318,22 @@ graph BT
     class n1,n2,n3,n4,p1,p2,p3 k8s;
     class p4 plain;
     class zoneA,zoneB cluster;
+
 {{< /mermaid >}}
 
 OR
 
 {{<mermaid>}}
 graph BT
-    subgraph "zoneB"
-        p3(Pod) --> n3(Node3)
-        p4(mypod) --> n3
-        n4(Node4)
-    end
-    subgraph "zoneA"
-        p1(Pod) --> n1(Node1)
-        p2(Pod) --> n2(Node2)
-    end
+subgraph "zoneB"
+p3(Pod) --> n3(Node3)
+p4(mypod) --> n3
+n4(Node4)
+end
+subgraph "zoneA"
+p1(Pod) --> n1(Node1)
+p2(Pod) --> n2(Node2)
+end
 
     classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
     classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
@@ -335,11 +341,12 @@ graph BT
     class n1,n2,n3,n4,p1,p2,p3 k8s;
     class p4 plain;
     class zoneA,zoneB cluster;
+
 {{< /mermaid >}}
 
 You can tweak the Pod spec to meet various kinds of requirements:
 
-- Change `maxSkew` to a bigger value - such as `2` -  so that the incoming Pod can
+- Change `maxSkew` to a bigger value - such as `2` - so that the incoming Pod can
   be placed into zone `A` as well.
 - Change `topologyKey` to `node` so as to distribute the Pods evenly across nodes
   instead of zones. In the above example, if `maxSkew` remains `1`, the incoming
@@ -357,14 +364,14 @@ existing Pods labeled `foo: bar` are located on node1, node2 and node3 respectiv
 
 {{<mermaid>}}
 graph BT
-    subgraph "zoneB"
-        p3(Pod) --> n3(Node3)
-        n4(Node4)
-    end
-    subgraph "zoneA"
-        p1(Pod) --> n1(Node1)
-        p2(Pod) --> n2(Node2)
-    end
+subgraph "zoneB"
+p3(Pod) --> n3(Node3)
+n4(Node4)
+end
+subgraph "zoneA"
+p1(Pod) --> n1(Node1)
+p2(Pod) --> n2(Node2)
+end
 
     classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
     classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
@@ -372,6 +379,7 @@ graph BT
     class n1,n2,n3,n4,p1,p2,p3 k8s;
     class p4 plain;
     class zoneA,zoneB cluster;
+
 {{< /mermaid >}}
 
 You can combine two topology spread constraints to control the spread of Pods both
@@ -390,21 +398,22 @@ Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster ac
 
 {{<mermaid>}}
 graph BT
-    subgraph "zoneB"
-        p4(Pod) --> n3(Node3)
-        p5(Pod) --> n3
-    end
-    subgraph "zoneA"
-        p1(Pod) --> n1(Node1)
-        p2(Pod) --> n1
-        p3(Pod) --> n2(Node2)
-    end
+subgraph "zoneB"
+p4(Pod) --> n3(Node3)
+p5(Pod) --> n3
+end
+subgraph "zoneA"
+p1(Pod) --> n1(Node1)
+p2(Pod) --> n1
+p3(Pod) --> n2(Node2)
+end
 
     classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
     classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
     classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
     class n1,n2,n3,n4,p1,p2,p3,p4,p5 k8s;
     class zoneA,zoneB cluster;
+
 {{< /mermaid >}}
 
 If you were to apply
@@ -432,14 +441,14 @@ Suppose you have a 5-node cluster ranging across zones A to C:
 
 {{<mermaid>}}
 graph BT
-    subgraph "zoneB"
-        p3(Pod) --> n3(Node3)
-        n4(Node4)
-    end
-    subgraph "zoneA"
-        p1(Pod) --> n1(Node1)
-        p2(Pod) --> n2(Node2)
-    end
+subgraph "zoneB"
+p3(Pod) --> n3(Node3)
+n4(Node4)
+end
+subgraph "zoneA"
+p1(Pod) --> n1(Node1)
+p2(Pod) --> n2(Node2)
+end
 
 classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
 classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
@@ -451,9 +460,9 @@ class zoneA,zoneB cluster;
 
 {{<mermaid>}}
 graph BT
-    subgraph "zoneC"
-        n5(Node5)
-    end
+subgraph "zoneC"
+n5(Node5)
+end
 
 classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
 classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
@@ -588,13 +597,13 @@ or more scattered.
 
 `podAffinity`
 : attracts Pods; you can try to pack any number of Pods into qualifying
-  topology domain(s).
+topology domain(s).
 
 `podAntiAffinity`
 : repels Pods. If you set this to `requiredDuringSchedulingIgnoredDuringExecution` mode then
-  only a single Pod can be scheduled into a single topology domain; if you choose
-  `preferredDuringSchedulingIgnoredDuringExecution` then you lose the ability to enforce the
-  constraint.
+only a single Pod can be scheduled into a single topology domain; if you choose
+`preferredDuringSchedulingIgnoredDuringExecution` then you lose the ability to enforce the
+constraint.
 
 For finer control, you can specify topology spread constraints to distribute
 Pods across different topology domains - to achieve either high availability or
@@ -612,6 +621,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 
   You can use a tool such as the [Descheduler](https://github.com/kubernetes-sigs/descheduler)
   to rebalance the Pods distribution.
+
 - Pods matched on tainted nodes are respected.
   See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921).
 - The scheduler doesn't have prior knowledge of all the zones or other topology

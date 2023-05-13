@@ -4,19 +4,14 @@ content_type: tool-reference
 package: apiserver.config.k8s.io/v1
 auto_generated: true
 ---
+
 <p>Package v1 is the v1 version of the API.</p>
 
-
-## Resource Types 
-
+## Resource Types
 
 - [EncryptionConfiguration](#apiserver-config-k8s-io-v1-EncryptionConfiguration)
-  
-    
 
-## `EncryptionConfiguration`     {#apiserver-config-k8s-io-v1-EncryptionConfiguration}
-    
-
+## `EncryptionConfiguration` {#apiserver-config-k8s-io-v1-EncryptionConfiguration}
 
 <p>EncryptionConfiguration stores the complete configuration for encryption providers.
 It also allows the use of wildcards to specify the resources that should be encrypted.
@@ -58,7 +53,6 @@ resources:
       - name: key3
         secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==</code></pre>
 
-
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
@@ -77,16 +71,13 @@ resources:
 </tbody>
 </table>
 
-## `AESConfiguration`     {#apiserver-config-k8s-io-v1-AESConfiguration}
-    
+## `AESConfiguration` {#apiserver-config-k8s-io-v1-AESConfiguration}
 
 **Appears in:**
 
 - [ProviderConfiguration](#apiserver-config-k8s-io-v1-ProviderConfiguration)
 
-
 <p>AESConfiguration contains the API configuration for an AES transformer.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -104,29 +95,21 @@ Each key has to be 32 bytes long for AES-CBC and 16, 24 or 32 bytes for AES-GCM.
 </tbody>
 </table>
 
-## `IdentityConfiguration`     {#apiserver-config-k8s-io-v1-IdentityConfiguration}
-    
+## `IdentityConfiguration` {#apiserver-config-k8s-io-v1-IdentityConfiguration}
 
 **Appears in:**
 
 - [ProviderConfiguration](#apiserver-config-k8s-io-v1-ProviderConfiguration)
-
 
 <p>IdentityConfiguration is an empty struct to allow identity transformer in provider configuration.</p>
 
-
-
-
-## `KMSConfiguration`     {#apiserver-config-k8s-io-v1-KMSConfiguration}
-    
+## `KMSConfiguration` {#apiserver-config-k8s-io-v1-KMSConfiguration}
 
 **Appears in:**
 
 - [ProviderConfiguration](#apiserver-config-k8s-io-v1-ProviderConfiguration)
 
-
 <p>KMSConfiguration contains the name, cache size and path to configuration file for a KMS based envelope transformer.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -172,8 +155,7 @@ Set to a negative value to disable caching. This field is only allowed for KMS v
 </tbody>
 </table>
 
-## `Key`     {#apiserver-config-k8s-io-v1-Key}
-    
+## `Key` {#apiserver-config-k8s-io-v1-Key}
 
 **Appears in:**
 
@@ -181,9 +163,7 @@ Set to a negative value to disable caching. This field is only allowed for KMS v
 
 - [SecretboxConfiguration](#apiserver-config-k8s-io-v1-SecretboxConfiguration)
 
-
 <p>Key contains name and secret of the provided key for a transformer.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -207,16 +187,13 @@ Set to a negative value to disable caching. This field is only allowed for KMS v
 </tbody>
 </table>
 
-## `ProviderConfiguration`     {#apiserver-config-k8s-io-v1-ProviderConfiguration}
-    
+## `ProviderConfiguration` {#apiserver-config-k8s-io-v1-ProviderConfiguration}
 
 **Appears in:**
 
 - [ResourceConfiguration](#apiserver-config-k8s-io-v1-ResourceConfiguration)
 
-
 <p>ProviderConfiguration stores the provided configuration for an encryption provider.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -261,16 +238,13 @@ Set to a negative value to disable caching. This field is only allowed for KMS v
 </tbody>
 </table>
 
-## `ResourceConfiguration`     {#apiserver-config-k8s-io-v1-ResourceConfiguration}
-    
+## `ResourceConfiguration` {#apiserver-config-k8s-io-v1-ResourceConfiguration}
 
 **Appears in:**
 
 - [EncryptionConfiguration](#apiserver-config-k8s-io-v1-EncryptionConfiguration)
 
-
 <p>ResourceConfiguration stores per resource configuration.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -299,16 +273,13 @@ eg: aesgcm, aescbc, secretbox, identity, kms.</p>
 </tbody>
 </table>
 
-## `SecretboxConfiguration`     {#apiserver-config-k8s-io-v1-SecretboxConfiguration}
-    
+## `SecretboxConfiguration` {#apiserver-config-k8s-io-v1-SecretboxConfiguration}
 
 **Appears in:**
 
 - [ProviderConfiguration](#apiserver-config-k8s-io-v1-ProviderConfiguration)
 
-
 <p>SecretboxConfiguration contains the API configuration for an Secretbox transformer.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -325,4 +296,3 @@ Each key has to be 32 bytes long.</p>
 </tr>
 </tbody>
 </table>
-  

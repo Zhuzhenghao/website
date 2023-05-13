@@ -40,15 +40,15 @@ flowchart LR
 A([fa:fa-user New<br>Contributor]) --- id1[(K8s/Website<br>GitHub)]
 subgraph tasks[Changes using GitHub]
 direction TB
-    0[ ] -.-
-    1[1. Edit this page] --> 2[2. Use GitHub markdown<br>editor to make changes]
-    2 --> 3[3. fill in Propose file change]
+0[ ] -.-
+1[1. Edit this page] --> 2[2. Use GitHub markdown<br>editor to make changes]
+2 --> 3[3. fill in Propose file change]
 
 end
 subgraph tasks2[ ]
 direction TB
 4[4. select Propose file change] --> 5[5. select Create pull request] --> 6[6. fill in Open a pull request]
-6 --> 7[7. select Create pull request] 
+6 --> 7[7. select Create pull request]
 end
 
 id1 --> tasks --> tasks2
@@ -397,14 +397,14 @@ Figure 3. Steps to open a PR from your fork to the K8s/website.
 1. Select **Create Pull Request**.
 1. Add a description for your pull request:
 
-    - **Title** (50 characters or less): Summarize the intent of the change.
-    - **Description**: Describe the change in more detail.
+   - **Title** (50 characters or less): Summarize the intent of the change.
+   - **Description**: Describe the change in more detail.
 
-      - If there is a related GitHub issue, include `Fixes #12345` or `Closes #12345` in the
-        description. GitHub's automation closes the mentioned issue after merging the PR if used.
-        If there are other related PRs, link those as well.
-      - If you want advice on something specific, include any questions you'd like reviewers to
-        think about in your description.
+     - If there is a related GitHub issue, include `Fixes #12345` or `Closes #12345` in the
+       description. GitHub's automation closes the mentioned issue after merging the PR if used.
+       If there are other related PRs, link those as well.
+     - If you want advice on something specific, include any questions you'd like reviewers to
+       think about in your description.
 
 1. Select the **Create pull request** button.
 
@@ -623,4 +623,3 @@ possible when you file issues or PRs.
 ## {{% heading "whatsnext" %}}
 
 - Read [Reviewing](/docs/contribute/review/reviewing-prs) to learn more about the review process.
-

@@ -5,6 +5,7 @@ weight: 100
 ---
 
 <!-- overview -->
+
 This page shows how to change the reclaim policy of a Kubernetes
 PersistentVolume.
 
@@ -62,6 +63,7 @@ Released phase, where all of its data can be manually recovered.
    ```cmd
    kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
    ```
+
    {{< /note >}}
 
 1. Verify that your chosen PersistentVolume has the right policy:
@@ -85,14 +87,13 @@ Released phase, where all of its data can be manually recovered.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
+- Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
+- Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 ### References {#reference}
 
-* {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
-  * Pay attention to the `.spec.persistentVolumeReclaimPolicy`
+- {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
+  - Pay attention to the `.spec.persistentVolumeReclaimPolicy`
     [field](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
     of PersistentVolume.
-* {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
-
+- {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}

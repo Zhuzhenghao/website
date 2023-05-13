@@ -9,6 +9,7 @@ card:
   weight: 45
   title: Documenting a feature for a release
 ---
+
 <!-- overview -->
 
 Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
@@ -18,8 +19,6 @@ feature as a pull request to the appropriate development branch of the
 `kubernetes/website` repository, and someone on the SIG Docs team provides
 editorial feedback or edits the draft directly. This section covers the branching
 conventions and process used during a release by both groups.
-
-
 
 <!-- body -->
 
@@ -95,15 +94,15 @@ deadlines.
 ### Open a placeholder PR
 
 1. Open a **draft** pull request against the
-`dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
-commit that you will amend later. To create a draft pull request, use the
-Create Pull Request drop-down and select **Create Draft Pull Request**,
-then click **Draft Pull Request**.
+   `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
+   commit that you will amend later. To create a draft pull request, use the
+   Create Pull Request drop-down and select **Create Draft Pull Request**,
+   then click **Draft Pull Request**.
 2. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
-PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
+   PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
 3. Leave a comment on the related [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
-issue with a link to the PR to notify the docs person managing this release that
-the feature docs are coming and should be tracked for the release.
+   issue with a link to the PR to notify the docs person managing this release that
+   the feature docs are coming and should be tracked for the release.
 
 If your feature does not need
 any documentation changes, make sure the sig-release team knows this, by

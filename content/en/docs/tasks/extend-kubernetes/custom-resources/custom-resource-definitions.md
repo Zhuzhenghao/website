@@ -1,17 +1,18 @@
 ---
 title: Extend the Kubernetes API with CustomResourceDefinitions
 reviewers:
-- deads2k
-- jpbetz
-- liggitt
-- roycaihw
-- sttts
+  - deads2k
+  - jpbetz
+  - liggitt
+  - roycaihw
+  - sttts
 content_type: task
 min-kubernetes-server-version: 1.16
 weight: 20
 ---
 
 <!-- overview -->
+
 This page shows how to install a
 [custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 into the Kubernetes API by creating a
@@ -77,7 +78,7 @@ spec:
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
-    - ct
+      - ct
 ```
 
 and create it:
@@ -107,7 +108,7 @@ After the CustomResourceDefinition object has been created, you can create
 custom objects. Custom objects can contain custom fields. These fields can
 contain arbitrary JSON.
 In the following example, the `cronSpec` and `image` custom fields are set in a
-custom object of kind `CronTab`.  The kind `CronTab` comes from the spec of the
+custom object of kind `CronTab`. The kind `CronTab` comes from the spec of the
 CustomResourceDefinition object you created above.
 
 If you save the following YAML to `my-crontab.yaml`:
@@ -156,21 +157,21 @@ from the YAML you used to create it:
 ```yaml
 apiVersion: v1
 items:
-- apiVersion: stable.example.com/v1
-  kind: CronTab
-  metadata:
-    annotations:
-      kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"stable.example.com/v1","kind":"CronTab","metadata":{"annotations":{},"name":"my-new-cron-object","namespace":"default"},"spec":{"cronSpec":"* * * * */5","image":"my-awesome-cron-image"}}
-    creationTimestamp: "2021-06-20T07:35:27Z"
-    generation: 1
-    name: my-new-cron-object
-    namespace: default
-    resourceVersion: "1326"
-    uid: 9aab1d66-628e-41bb-a422-57b8b3b1f5a9
-  spec:
-    cronSpec: '* * * * */5'
-    image: my-awesome-cron-image
+  - apiVersion: stable.example.com/v1
+    kind: CronTab
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: |
+          {"apiVersion":"stable.example.com/v1","kind":"CronTab","metadata":{"annotations":{},"name":"my-new-cron-object","namespace":"default"},"spec":{"cronSpec":"* * * * */5","image":"my-awesome-cron-image"}}
+      creationTimestamp: "2021-06-20T07:35:27Z"
+      generation: 1
+      name: my-new-cron-object
+      namespace: default
+      resourceVersion: "1326"
+      uid: 9aab1d66-628e-41bb-a422-57b8b3b1f5a9
+    spec:
+      cronSpec: "* * * * */5"
+      image: my-awesome-cron-image
 kind: List
 metadata:
   resourceVersion: ""
@@ -211,8 +212,8 @@ A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node
    (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node
    (via `items` in OpenAPI), with the exception of:
-   * a node with `x-kubernetes-int-or-string: true`
-   * a node with `x-kubernetes-preserve-unknown-fields: true`
+   - a node with `x-kubernetes-int-or-string: true`
+   - a node with `x-kubernetes-preserve-unknown-fields: true`
 2. for each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`,
    `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
 3. does not set `description`, `type`, `default`, `additionalProperties`, `nullable` within an `allOf`, `anyOf`,
@@ -249,6 +250,7 @@ allOf:
       foo:
         ...
 ```
+
 conflicts with rule 2. The following would be correct:
 
 ```none
@@ -291,12 +293,12 @@ anyOf:
 
 is not a structural schema because of the following violations:
 
-* the type at the root is missing (rule 1).
-* the type of `foo` is missing (rule 1).
-* `bar` inside of `anyOf` is not specified outside (rule 2).
-* `bar`'s `type` is within `anyOf` (rule 3).
-* the description is set within `anyOf` (rule 3).
-* `metadata.finalizers` might not be restricted (rule 4).
+- the type at the root is missing (rule 1).
+- the type of `foo` is missing (rule 1).
+- `bar` inside of `anyOf` is not specified outside (rule 2).
+- `bar`'s `type` is within `anyOf` (rule 3).
+- the description is set within `anyOf` (rule 3).
+- `metadata.finalizers` might not be restricted (rule 4).
 
 In contrast, the following, corresponding schema is structural:
 
@@ -316,10 +318,10 @@ properties:
         type: string
         pattern: "^a"
 anyOf:
-- properties:
-    bar:
-      minimum: 42
-  required: ["bar"]
+  - properties:
+      bar:
+        minimum: 42
+    required: ["bar"]
 ```
 
 Violations of the structural schema rules are reported in the `NonStructural` condition in the
@@ -329,7 +331,7 @@ CustomResourceDefinition.
 
 CustomResourceDefinitions store validated resource data in the cluster's persistence store, {{< glossary_tooltip term_id="etcd" text="etcd">}}.
 As with native Kubernetes resources such as {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
-if you specify a field that the API server does not recognize, the unknown field  is _pruned_ (removed) before being persisted.
+if you specify a field that the API server does not recognize, the unknown field is _pruned_ (removed) before being persisted.
 
 CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack
 structural schemas, and `spec.preserveUnknownFields` might be `true`.
@@ -338,8 +340,8 @@ For legacy CustomResourceDefinition objects created as
 `apiextensions.k8s.io/v1beta1` with `spec.preserveUnknownFields` set to
 `true`, the following is also true:
 
-* Pruning is not enabled.
-* You can store arbitrary data.
+- Pruning is not enabled.
+- You can store arbitrary data.
 
 For compatibility with `apiextensions.k8s.io/v1`, update your custom
 resource definitions to:
@@ -379,7 +381,7 @@ metadata:
   resourceVersion: "285"
   uid: 9423255b-4600-11e7-af6a-28d2447dc82b
 spec:
-  cronSpec: '* * * * */5'
+  cronSpec: "* * * * */5"
   image: my-awesome-cron-image
 ```
 
@@ -542,11 +544,12 @@ for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
 
 <!-- discussion -->
+
 ## Advanced topics
 
 ### Finalizers
 
-*Finalizers* allow controllers to implement asynchronous pre-delete hooks.
+_Finalizers_ allow controllers to implement asynchronous pre-delete hooks.
 Custom objects support finalizers similar to built-in objects.
 
 You can add a finalizer to a custom object like this:
@@ -556,7 +559,7 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   finalizers:
-  - stable.example.com/finalizer
+    - stable.example.com/finalizer
 ```
 
 Identifiers of custom finalizers consist of a domain name, a forward slash and the name of
@@ -653,7 +656,7 @@ spec:
     singular: crontab
     kind: CronTab
     shortNames:
-    - ct
+      - ct
 ```
 
 and create it:
@@ -721,7 +724,6 @@ crontab "my-new-cron-object" created
 ## Validation rules
 
 {{< feature-state state="beta" for_k8s_version="v1.25" >}}
-
 
 Validation rules are in beta since 1.25 and the `CustomResourceValidationExpressions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default to
@@ -831,21 +833,21 @@ The compilation failure:
 
 Validation Rules Examples:
 
-| Rule                                                                             | Purpose                                                                           |
-| ----------------                                                                 | ------------                                                                      |
-| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`         | Validate that the three fields defining replicas are ordered appropriately        |
-| `'Available' in self.stateCounts`                                                | Validate that an entry with the 'Available' key exists in a map                   |
-| `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | Validate the value of a map for a specific key, if it is in the map               |
-| `self.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
-| `has(self.expired) && self.created + self.ttl < self.expired`                    | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
-| `self.health.startsWith('ok')`                                                   | Validate a 'health' string field has the prefix 'ok'                              |
-| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '100%' : self == 1000`                           | Validate an int-or-string field for both the int and string cases             |
-| `self.metadata.name.startsWith(self.prefix)`                                     | Validate that an object's name has the prefix of another field value              |
-| `self.set1.all(e, !(e in self.set2))`                                            | Validate that two listSets are disjoint                                           |
-| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
-| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                     | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
+| Rule                                                                                      | Purpose                                                                                        |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`                  | Validate that the three fields defining replicas are ordered appropriately                     |
+| `'Available' in self.stateCounts`                                                         | Validate that an entry with the 'Available' key exists in a map                                |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)`                                      | Validate that one of two lists is non-empty, but not both                                      |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]\*$')</code> | Validate the value of a map for a specific key, if it is in the map                            |
+| `self.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`         | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'               |
+| `has(self.expired) && self.created + self.ttl < self.expired`                             | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration                    |
+| `self.health.startsWith('ok')`                                                            | Validate a 'health' string field has the prefix 'ok'                                           |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                      | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10              |
+| `type(self) == string ? self == '100%' : self == 1000`                                    | Validate an int-or-string field for both the int and string cases                              |
+| `self.metadata.name.startsWith(self.prefix)`                                              | Validate that an object's name has the prefix of another field value                           |
+| `self.set1.all(e, !(e in self.set2))`                                                     | Validate that two listSets are disjoint                                                        |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)`          | Validate the 'details' map is keyed by the items in the 'names' listSet                        |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                              | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap |
 
 Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 
@@ -950,13 +952,12 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 
 Examples:
 
-|type of the field rule scoped to    | Rule example             |
-| -----------------------| -----------------------|
-| root object            | `self.status.actual <= self.spec.maxDesired` |
-| map of objects         | `self.components['Widget'].priority < 10` |
-| list of integers       | `self.values.all(value, value >= 0 && value < 100)` |
-| string                 | `self.startsWith('kube')` |
-
+| type of the field rule scoped to | Rule example                                        |
+| -------------------------------- | --------------------------------------------------- |
+| root object                      | `self.status.actual <= self.spec.maxDesired`        |
+| map of objects                   | `self.components['Widget'].priority < 10`           |
+| list of integers                 | `self.values.all(value, value >= 0 && value < 100)` |
+| string                           | `self.startsWith('kube')`                           |
 
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object and from any `x-kubernetes-embedded-resource` annotated objects. No other
@@ -973,29 +974,27 @@ accessible in CEL expressions. This includes:
   - An array where the items schema is of an "unknown type"
   - An object where the additionalProperties schema is of an "unknown type"
 
-
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 Accessible property names are escaped according to the following rules when accessed in the expression:
 
-| escape sequence         | property name equivalent  |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-|`__dash__`               | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
+| escape sequence   | property name equivalent                                                                     |
+| ----------------- | -------------------------------------------------------------------------------------------- |
+| `__underscores__` | `__`                                                                                         |
+| `__dot__`         | `.`                                                                                          |
+| `__dash__`        | `-`                                                                                          |
+| `__slash__`       | `/`                                                                                          |
+| `__{keyword}__`   | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
 
 Note: CEL RESERVED keyword needs to match the exact property name to be escaped (e.g. int in the word sprint would not be escaped).
 
 Examples on escaping:
 
-|property name    | rule with escaped property name     |
-| ----------------| -----------------------             |
-| namespace       | `self.__namespace__ > 0`            |
-| x-prop          | `self.x__dash__prop > 0`            |
-| redact__d       | `self.redact__underscores__d > 0`   |
-| string          | `self.startsWith('kube')`           |
-
+| property name | rule with escaped property name   |
+| ------------- | --------------------------------- |
+| namespace     | `self.__namespace__ > 0`          |
+| x-prop        | `self.x__dash__prop > 0`          |
+| redact\_\_d   | `self.redact__underscores__d > 0` |
+| string        | `self.startsWith('kube')`         |
 
 Equality on arrays with `x-kubernetes-list-type` of `set` or `map` ignores element order,
 i.e., `[1, 2] == [2, 1]`. Concatenation on arrays with x-kubernetes-list-type use the semantics of
@@ -1007,7 +1006,6 @@ the list type:
 - `map`: `X + Y` performs a merge where the array positions of all keys in `X` are preserved but
   the values are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements
   in `Y` with non-intersecting keys are appended, retaining their partial order.
-
 
 Here is the declarations type mapping between OpenAPIv3 and CEL type:
 
@@ -1037,16 +1035,16 @@ xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#
 
 #### The messageExpression field
 
-Similar to the `message` field, which defines the string reported for a validation rule failure, 
+Similar to the `message` field, which defines the string reported for a validation rule failure,
 `messageExpression` allows you to use a CEL expression to construct the message string.
-This allows you to insert more descriptive information into the validation failure message. 
-`messageExpression` must evaluate a string and may use the same variables that are available to the `rule` 
+This allows you to insert more descriptive information into the validation failure message.
+`messageExpression` must evaluate a string and may use the same variables that are available to the `rule`
 field. For example:
 
 ```yaml
 x-kubernetes-validations:
-- rule: "self.x <= self.maxLimit"
-  messageExpression: '"x exceeded max limit of " + string(self.maxLimit)'
+  - rule: "self.x <= self.maxLimit"
+    messageExpression: '"x exceeded max limit of " + string(self.maxLimit)'
 ```
 
 Keep in mind that CEL string concatenation (`+` operator) does not auto-cast to string. If
@@ -1055,15 +1053,15 @@ like shown in the above example.
 
 `messageExpression` must evaluate to a string, and this is checked while the CRD is being written. Note that it is possible
 to set `message` and `messageExpression` on the same rule, and if both are present, `messageExpression`
-will be used. However, if `messageExpression` evaluates to an error, the string defined in `message` 
+will be used. However, if `messageExpression` evaluates to an error, the string defined in `message`
 will be used instead, and the `messageExpression` error will be logged. This fallback will also occur if
-the CEL expression defined in `messageExpression` generates an empty string, or a string containing line 
+the CEL expression defined in `messageExpression` generates an empty string, or a string containing line
 breaks.
 
 If one of the above conditions are met and no `message` has been set, then the default validation failure
 message will be used instead.
 
-`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints 
+`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints
 during `messageExpression` execution, then no further validation rules will be executed.
 
 #### Validation functions {#available-validation-functions}
@@ -1085,8 +1083,8 @@ otherwise valid states. For example:
 type: string
 enum: ["low", "medium", "high"]
 x-kubernetes-validations:
-- rule: "!(self == 'high' && oldSelf == 'low') && !(self == 'low' && oldSelf == 'high')"
-  message: cannot transition directly between 'low' and 'high'
+  - rule: "!(self == 'high' && oldSelf == 'low') && !(self == 'low' && oldSelf == 'high')"
+    message: cannot transition directly between 'low' and 'high'
 ```
 
 Unlike other rules, transition rules apply only to operations meeting the following criteria:
@@ -1104,7 +1102,7 @@ Unlike other rules, transition rules apply only to operations meeting the follow
   later update to the same object.
 
 Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
-applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
+applied, e.g. "_path_: update rule _rule_ cannot be set on schema because the schema or its parent
 schema is not mergeable".
 
 Transition rules are only allowed on _correlatable portions_ of a schema.
@@ -1114,13 +1112,13 @@ any `set`or `atomic`array parent schemas make it impossible to unambiguously cor
 Here are some examples for transition rules:
 
 {{< table caption="Transition rules examples" >}}
-| Use Case                                                          | Rule
-| --------                                                          | --------
-| Immutability                                                      | `self.foo == oldSelf.foo`
-| Prevent modification/removal once assigned                        | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)`
-| Append-only set                                                   | `self.all(element, element in oldSelf)`
+| Use Case | Rule
+| -------- | --------
+| Immutability | `self.foo == oldSelf.foo`
+| Prevent modification/removal once assigned | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)`
+| Append-only set | `self.all(element, element in oldSelf)`
 | If previous value was X, new value can only be A or B, not Y or Z | `oldSelf != 'X' \|\| self in ['A', 'B']`
-| Monotonic (non-decreasing) counters                               | `self >= oldSelf`
+| Monotonic (non-decreasing) counters | `self >= oldSelf`
 {{< /table >}}
 
 #### Resource use by validation functions
@@ -1288,7 +1286,7 @@ spec:
     singular: crontab
     kind: CronTab
     shortNames:
-    - ct
+      - ct
 ```
 
 With this both `cronSpec` and `replicas` are defaulted:
@@ -1317,9 +1315,9 @@ spec:
 
 Defaulting happens on the object
 
-* in the request to the API server using the request version defaults,
-* when reading from etcd using the storage version defaults,
-* after mutating admission plugins with non-empty patches using the admission webhook object version defaults.
+- in the request to the API server using the request version defaults,
+- when reading from etcd using the storage version defaults,
+- after mutating admission plugins with non-empty patches using the admission webhook object version defaults.
 
 Defaults applied when reading data from etcd are not automatically written back to etcd.
 An update request via the API is required to persist those defaults back into etcd.
@@ -1430,36 +1428,36 @@ spec:
     singular: crontab
     kind: CronTab
     shortNames:
-    - ct
+      - ct
   versions:
-  - name: v1
-    served: true
-    storage: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            properties:
-              cronSpec:
-                type: string
-              image:
-                type: string
-              replicas:
-                type: integer
-    additionalPrinterColumns:
-    - name: Spec
-      type: string
-      description: The cron spec defining the interval a CronJob is run
-      jsonPath: .spec.cronSpec
-    - name: Replicas
-      type: integer
-      description: The number of jobs launched by the CronJob
-      jsonPath: .spec.replicas
-    - name: Age
-      type: date
-      jsonPath: .metadata.creationTimestamp
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                cronSpec:
+                  type: string
+                image:
+                  type: string
+                replicas:
+                  type: integer
+      additionalPrinterColumns:
+        - name: Spec
+          type: string
+          description: The cron spec defining the interval a CronJob is run
+          jsonPath: .spec.cronSpec
+        - name: Replicas
+          type: integer
+          description: The number of jobs launched by the CronJob
+          jsonPath: .spec.replicas
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp
 ```
 
 Create the CustomResourceDefinition:
@@ -1653,7 +1651,7 @@ spec:
     singular: crontab
     kind: CronTab
     shortNames:
-    - ct
+      - ct
 ```
 
 And create it:
@@ -1750,10 +1748,10 @@ spec:
     singular: crontab
     kind: CronTab
     shortNames:
-    - ct
+      - ct
     # categories is a list of grouped resources the custom resource belongs to.
     categories:
-    - all
+      - all
 ```
 
 and create it:
@@ -1797,9 +1795,9 @@ crontabs/my-new-cron-object   3s
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+- Read about [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
-* See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
+- See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
 
-* Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
+- Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.

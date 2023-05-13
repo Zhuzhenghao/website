@@ -1,9 +1,9 @@
 ---
 title: Metrics For Kubernetes System Components
 reviewers:
-- brancz
-- logicalhan
-- RainbowMango
+  - brancz
+  - logicalhan
+  - RainbowMango
 content_type: concept
 weight: 70
 ---
@@ -25,11 +25,11 @@ doesn't expose endpoint by default it can be enabled using `--bind-address` flag
 
 Examples of those components:
 
-* {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
-* {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
-* {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
-* {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
-* {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
+- {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+- {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
+- {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
+- {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
+- {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
 In a production environment you may want to configure [Prometheus Server](https://prometheus.io/)
 or some other metrics scraper to periodically gather these metrics and make them available in some
@@ -57,21 +57,21 @@ rules:
 
 ## Metric lifecycle
 
-Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
+Alpha metric → Stable metric → Deprecated metric → Hidden metric → Deleted metric
 
 Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
 
 Stable metrics are guaranteed to not change. This means:
 
-* A stable metric without a deprecated signature will not be deleted or renamed
-* A stable metric's type will not be modified
+- A stable metric without a deprecated signature will not be deleted or renamed
+- A stable metric's type will not be modified
 
 Deprecated metrics are slated for deletion, but are still available for use.
 These metrics include an annotation about the version in which they became deprecated.
 
 For example:
 
-* Before deprecation
+- Before deprecation
 
   ```
   # HELP some_counter this counts things
@@ -79,7 +79,7 @@ For example:
   some_counter 0
   ```
 
-* After deprecation
+- After deprecation
 
   ```
   # HELP some_counter (Deprecated since 1.15.0) this counts things
@@ -88,7 +88,7 @@ For example:
   ```
 
 Hidden metrics are no longer published for scraping, but are still available for use. To use a
-hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section. 
+hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section.
 
 Deleted metrics are no longer published and cannot be used.
 
@@ -110,10 +110,10 @@ old version is not allowed because this violates the metrics deprecated policy.
 Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics
 deprecated policy, we can reach the following conclusion:
 
-* In release `1.n`, the metric is deprecated, and it can be emitted by default.
-* In release `1.n+1`, the metric is hidden by default and it can be emitted by command line
+- In release `1.n`, the metric is deprecated, and it can be emitted by default.
+- In release `1.n+1`, the metric is hidden by default and it can be emitted by command line
   `show-hidden-metrics-for-version=1.n`.
-* In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
+- In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
 
 If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in
 `1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
@@ -158,7 +158,6 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
-
 ### kube-scheduler metrics
 
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
@@ -202,9 +201,9 @@ limit resource use, you can use the `--allow-label-value` command line option to
 configure an allow-list of label values for a metric.
 
 In alpha stage, the flag can only take in a series of mappings as metric label allow-list.
-Each mapping is of the format `<metric_name>,<label_name>=<allowed_labels>` where 
+Each mapping is of the format `<metric_name>,<label_name>=<allowed_labels>` where
 `<allowed_labels>` is a comma-separated list of acceptable label names.
-                                                                                           
+
 The overall format looks like:
 
 ```
@@ -219,8 +218,7 @@ Here is an example:
 
 ## {{% heading "whatsnext" %}}
 
-* Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
+- Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
-* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
-* Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
-
+- See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
+- Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

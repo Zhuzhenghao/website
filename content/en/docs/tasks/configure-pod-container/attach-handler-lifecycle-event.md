@@ -10,16 +10,9 @@ the postStart and preStop events. Kubernetes sends the postStart event immediate
 after a Container is started, and it sends the preStop event immediately before the
 Container is terminated. A Container may specify one handler per event.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
 
 <!-- steps -->
 
@@ -56,10 +49,6 @@ The output shows the text written by the postStart handler:
 
     Hello from the postStart handler
 
-
-
-
-
 <!-- discussion -->
 
 ## Discussion
@@ -77,27 +66,18 @@ unless the Pod's grace period expires. For more details, see
 [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 {{< note >}}
-Kubernetes only sends the preStop event when a Pod or a container in the Pod is *terminated*.
-This means that the preStop hook is not invoked when the Pod is *completed*.
+Kubernetes only sends the preStop event when a Pod or a container in the Pod is _terminated_.
+This means that the preStop hook is not invoked when the Pod is _completed_.
 About this limitation, please see [Container hooks](/docs/concepts/containers/container-lifecycle-hooks/#container-hooks) for the detail.
 {{< /note >}}
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
-* Learn more about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
-
+- Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
+- Learn more about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 ### Reference
 
-* [Lifecycle](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* See `terminationGracePeriodSeconds` in [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-
-
-
-
+- [Lifecycle](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
+- [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+- See `terminationGracePeriodSeconds` in [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)

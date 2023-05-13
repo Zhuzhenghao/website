@@ -1,17 +1,18 @@
 ---
 reviewers:
-- smarterclayton
-- lavalamp
-- caesarxuchao
-- deads2k
-- liggitt
-- jpbetz
+  - smarterclayton
+  - lavalamp
+  - caesarxuchao
+  - deads2k
+  - liggitt
+  - jpbetz
 title: Dynamic Admission Control
 content_type: concept
 weight: 40
 ---
 
 <!-- overview -->
+
 In addition to [compiled-in admission plugins](/docs/reference/access-authn-authz/admission-controllers/),
 admission plugins can be developed as extensions and run as webhooks configured at runtime.
 This page describes how to build, configure, use, and monitor admission webhooks.
@@ -44,12 +45,12 @@ In the following, we describe how to quickly experiment with admission webhooks.
 
 ### Prerequisites
 
-* Ensure that MutatingAdmissionWebhook and ValidatingAdmissionWebhook
+- Ensure that MutatingAdmissionWebhook and ValidatingAdmissionWebhook
   admission controllers are enabled.
   [Here](/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
   is a recommended set of admission controllers to enable in general.
 
-* Ensure that the `admissionregistration.k8s.io/v1` API is enabled.
+- Ensure that the `admissionregistration.k8s.io/v1` API is enabled.
 
 ### Write an admission webhook server
 
@@ -97,21 +98,21 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: "pod-policy.example.com"
 webhooks:
-- name: "pod-policy.example.com"
-  rules:
-  - apiGroups:   [""]
-    apiVersions: ["v1"]
-    operations:  ["CREATE"]
-    resources:   ["pods"]
-    scope:       "Namespaced"
-  clientConfig:
-    service:
-      namespace: "example-namespace"
-      name: "example-service"
-    caBundle: <CA_BUNDLE>
-  admissionReviewVersions: ["v1"]
-  sideEffects: None
-  timeoutSeconds: 5
+  - name: "pod-policy.example.com"
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+        scope: "Namespaced"
+    clientConfig:
+      service:
+        namespace: "example-namespace"
+        name: "example-service"
+      caBundle: <CA_BUNDLE>
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
+    timeoutSeconds: 5
 ```
 
 {{< note >}}
@@ -141,16 +142,16 @@ API server sends an `admissionReview` request to webhook as specified in the
 After you create the webhook configuration, the system will take a few seconds
 to honor the new configuration.
 
-### Authenticate API servers   {#authenticate-apiservers}
+### Authenticate API servers {#authenticate-apiservers}
 
 If your admission webhooks require authentication, you can configure the
 API servers to use basic auth, bearer token, or a cert to authenticate itself to
 the webhooks. There are three steps to complete the configuration.
 
-* When starting the API server, specify the location of the admission control
+- When starting the API server, specify the location of the admission control
   configuration file via the `--admission-control-config-file` flag.
 
-* In the admission control configuration file, specify where the
+- In the admission control configuration file, specify where the
   MutatingAdmissionWebhook controller and ValidatingAdmissionWebhook controller
   should read the credentials. The credentials are stored in kubeConfig files
   (yes, the same schema that's used by kubectl), so the field name is
@@ -158,41 +159,45 @@ the webhooks. There are three steps to complete the configuration.
 
 {{< tabs name="admissionconfiguration_example1" >}}
 {{% tab name="apiserver.config.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: WebhookAdmissionConfiguration
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: WebhookAdmissionConfiguration
-    kubeConfigFile: "<path-to-kubeconfig-file>"
+  - name: ValidatingAdmissionWebhook
+    configuration:
+      apiVersion: apiserver.config.k8s.io/v1
+      kind: WebhookAdmissionConfiguration
+      kubeConfigFile: "<path-to-kubeconfig-file>"
+  - name: MutatingAdmissionWebhook
+    configuration:
+      apiVersion: apiserver.config.k8s.io/v1
+      kind: WebhookAdmissionConfiguration
+      kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
+
 {{% /tab %}}
 {{% tab name="apiserver.k8s.io/v1alpha1" %}}
+
 ```yaml
 # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
+  - name: ValidatingAdmissionWebhook
+    configuration:
+      # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
+      apiVersion: apiserver.config.k8s.io/v1alpha1
+      kind: WebhookAdmission
+      kubeConfigFile: "<path-to-kubeconfig-file>"
+  - name: MutatingAdmissionWebhook
+    configuration:
+      # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
+      apiVersion: apiserver.config.k8s.io/v1alpha1
+      kind: WebhookAdmission
+      kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -206,46 +211,46 @@ In the kubeConfig file, provide the credentials:
 apiVersion: v1
 kind: Config
 users:
-# name should be set to the DNS name of the service or the host (including port) of the URL the webhook is configured to speak to.
-# If a non-443 port is used for services, it must be included in the name when configuring 1.16+ API servers.
-#
-# For a webhook configured to speak to a service on the default port (443), specify the DNS name of the service:
-# - name: webhook1.ns1.svc
-#   user: ...
-#
-# For a webhook configured to speak to a service on non-default port (e.g. 8443), specify the DNS name and port of the service in 1.16+:
-# - name: webhook1.ns1.svc:8443
-#   user: ...
-# and optionally create a second stanza using only the DNS name of the service for compatibility with 1.15 API servers:
-# - name: webhook1.ns1.svc
-#   user: ...
-#
-# For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
-# A webhook with `url: https://www.example.com`:
-# - name: www.example.com
-#   user: ...
-#
-# A webhook with `url: https://www.example.com:443`:
-# - name: www.example.com:443
-#   user: ...
-#
-# A webhook with `url: https://www.example.com:8443`:
-# - name: www.example.com:8443
-#   user: ...
-#
-- name: 'webhook1.ns1.svc'
-  user:
-    client-certificate-data: "<pem encoded certificate>"
-    client-key-data: "<pem encoded key>"
-# The `name` supports using * to wildcard-match prefixing segments.
-- name: '*.webhook-company.org'
-  user:
-    password: "<password>"
-    username: "<name>"
-# '*' is the default match.
-- name: '*'
-  user:
-    token: "<token>"
+  # name should be set to the DNS name of the service or the host (including port) of the URL the webhook is configured to speak to.
+  # If a non-443 port is used for services, it must be included in the name when configuring 1.16+ API servers.
+  #
+  # For a webhook configured to speak to a service on the default port (443), specify the DNS name of the service:
+  # - name: webhook1.ns1.svc
+  #   user: ...
+  #
+  # For a webhook configured to speak to a service on non-default port (e.g. 8443), specify the DNS name and port of the service in 1.16+:
+  # - name: webhook1.ns1.svc:8443
+  #   user: ...
+  # and optionally create a second stanza using only the DNS name of the service for compatibility with 1.15 API servers:
+  # - name: webhook1.ns1.svc
+  #   user: ...
+  #
+  # For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
+  # A webhook with `url: https://www.example.com`:
+  # - name: www.example.com
+  #   user: ...
+  #
+  # A webhook with `url: https://www.example.com:443`:
+  # - name: www.example.com:443
+  #   user: ...
+  #
+  # A webhook with `url: https://www.example.com:8443`:
+  # - name: www.example.com:8443
+  #   user: ...
+  #
+  - name: "webhook1.ns1.svc"
+    user:
+      client-certificate-data: "<pem encoded certificate>"
+      client-key-data: "<pem encoded key>"
+  # The `name` supports using * to wildcard-match prefixing segments.
+  - name: "*.webhook-company.org"
+    user:
+      password: "<password>"
+      username: "<name>"
+  # '*' is the default match.
+  - name: "*"
+    user:
+      token: "<token>"
 ```
 
 Of course you need to set up the webhook server to handle these authentication requests.
@@ -265,8 +270,8 @@ with the `admissionReviewVersions` field in their configuration:
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-- name: my-webhook.example.com
-  admissionReviewVersions: ["v1", "v1beta1"]
+  - name: my-webhook.example.com
+    admissionReviewVersions: ["v1", "v1beta1"]
 ```
 
 `admissionReviewVersions` is a required field when creating webhook configurations.
@@ -384,8 +389,8 @@ with the `response` stanza populated, serialized to JSON.
 
 At a minimum, the `response` stanza must contain the following fields:
 
-* `uid`, copied from the `request.uid` sent to the webhook
-* `allowed`, either set to `true` or `false`
+- `uid`, copied from the `request.uid` sent to the webhook
+- `allowed`, either set to `true` or `false`
 
 Example of a minimal response from a webhook to allow a request:
 
@@ -465,9 +470,9 @@ in HTTP `Warning` headers with a warning code of 299. Warnings can be sent with 
 
 If you're implementing a webhook that returns a warning:
 
-* Don't include a "Warning:" prefix in the message
-* Use warning messages to describe problems the client making the API request should correct or be aware of
-* Limit warnings to 120 characters if possible
+- Don't include a "Warning:" prefix in the message
+- Use warning messages to describe problems the client making the API request should correct or be aware of
+- Limit warnings to 120 characters if possible
 
 {{< caution >}}
 Individual warning messages over 256 characters may be truncated by the API server before being returned to clients.
@@ -507,23 +512,23 @@ Each webhook defines the following things.
 Each webhook must specify a list of rules used to determine if a request to the API server should be sent to the webhook.
 Each rule specifies one or more operations, apiGroups, apiVersions, and resources, and a resource scope:
 
-* `operations` lists one or more operations to match. Can be `"CREATE"`, `"UPDATE"`, `"DELETE"`, `"CONNECT"`,
+- `operations` lists one or more operations to match. Can be `"CREATE"`, `"UPDATE"`, `"DELETE"`, `"CONNECT"`,
   or `"*"` to match all.
-* `apiGroups` lists one or more API groups to match. `""` is the core API group. `"*"` matches all API groups.
-* `apiVersions` lists one or more API versions to match. `"*"` matches all API versions.
-* `resources` lists one or more resources to match.
+- `apiGroups` lists one or more API groups to match. `""` is the core API group. `"*"` matches all API groups.
+- `apiVersions` lists one or more API versions to match. `"*"` matches all API versions.
+- `resources` lists one or more resources to match.
 
-  * `"*"` matches all resources, but not subresources.
-  * `"*/*"` matches all resources and subresources.
-  * `"pods/*"` matches all subresources of pods.
-  * `"*/status"` matches all status subresources.
+  - `"*"` matches all resources, but not subresources.
+  - `"*/*"` matches all resources and subresources.
+  - `"pods/*"` matches all subresources of pods.
+  - `"*/status"` matches all status subresources.
 
-* `scope` specifies a scope to match. Valid values are `"Cluster"`, `"Namespaced"`, and `"*"`.
+- `scope` specifies a scope to match. Valid values are `"Cluster"`, `"Namespaced"`, and `"*"`.
   Subresources match the scope of their parent resource. Default is `"*"`.
 
-  * `"Cluster"` means that only cluster-scoped resources will match this rule (Namespace API objects are cluster-scoped).
-  * `"Namespaced"` means that only namespaced resources will match this rule.
-  * `"*"` means that there are no scope restrictions.
+  - `"Cluster"` means that only cluster-scoped resources will match this rule (Namespace API objects are cluster-scoped).
+  - `"Namespaced"` means that only namespaced resources will match this rule.
+  - `"*"` means that there are no scope restrictions.
 
 If an incoming request matches one of the specified `operations`, `groups`, `versions`,
 `resources`, and `scope` for any of a webhook's `rules`, the request is sent to the webhook.
@@ -597,16 +602,16 @@ This example shows a mutating webhook that would match a `CREATE` of any resourc
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 webhooks:
-- name: my-webhook.example.com
-  objectSelector:
-    matchLabels:
-      foo: bar
-  rules:
-  - operations: ["CREATE"]
-    apiGroups: ["*"]
-    apiVersions: ["*"]
-    resources: ["*"]
-    scope: "*"
+  - name: my-webhook.example.com
+    objectSelector:
+      matchLabels:
+        foo: bar
+    rules:
+      - operations: ["CREATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["*"]
+        scope: "*"
 ```
 
 See [labels concept](/docs/concepts/overview/working-with-objects/labels)
@@ -634,7 +639,7 @@ webhooks:
       matchExpressions:
         - key: runlevel
           operator: NotIn
-          values: ["0","1"]
+          values: ["0", "1"]
     rules:
       - operations: ["CREATE"]
         apiGroups: ["*"]
@@ -655,7 +660,7 @@ webhooks:
       matchExpressions:
         - key: environment
           operator: In
-          values: ["prod","staging"]
+          values: ["prod", "staging"]
     rules:
       - operations: ["CREATE"]
         apiGroups: ["*"]
@@ -679,14 +684,14 @@ the request would not be sent to the webhook.
 The `matchPolicy` lets a webhook define how its `rules` are used to match incoming requests.
 Allowed values are `Exact` or `Equivalent`.
 
-* `Exact` means a request should be intercepted only if it exactly matches a specified rule.
-* `Equivalent` means a request should be intercepted if modifies a resource listed in `rules`,
+- `Exact` means a request should be intercepted only if it exactly matches a specified rule.
+- `Equivalent` means a request should be intercepted if modifies a resource listed in `rules`,
   even via another API group or version.
 
 In the example given above, the webhook that only registered for `apps/v1` could use `matchPolicy`:
 
-* `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
-* `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook
+- `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
+- `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook
   (with the objects converted to a version the webhook had specified: `apps/v1`)
 
 Specifying `Equivalent` is recommended, and ensures that webhooks continue to intercept the
@@ -707,14 +712,14 @@ and is always sent an `apps/v1` `Deployment` object:
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-- name: my-webhook.example.com
-  matchPolicy: Equivalent
-  rules:
-  - operations: ["CREATE","UPDATE","DELETE"]
-    apiGroups: ["apps"]
-    apiVersions: ["v1"]
-    resources: ["deployments"]
-    scope: "Namespaced"
+  - name: my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ["CREATE", "UPDATE", "DELETE"]
+        apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        resources: ["deployments"]
+        scope: "Namespaced"
 ```
 
 The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
@@ -728,7 +733,7 @@ Use of `matchConditions` requires the [featuregate](/docs/reference/command-line
 `AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
 {{< /note >}}
 
-You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+You can define \_match conditions_for webhooks if you need fine-grained request filtering. These
 conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
 doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
@@ -743,44 +748,44 @@ webhooks:
   - name: my-webhook.example.com
     matchPolicy: Equivalent
     rules:
-      - operations: ['CREATE','UPDATE']
-        apiGroups: ['*']
-        apiVersions: ['*']
-        resources: ['*']
-    failurePolicy: 'Ignore' # Fail-open (optional)
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["*"]
+    failurePolicy: "Ignore" # Fail-open (optional)
     sideEffects: None
     clientConfig:
       service:
         namespace: my-namespace
         name: my-webhook
-      caBundle: '<omitted>'
+      caBundle: "<omitted>"
     matchConditions:
-      - name: 'exclude-leases' # Each match condition must have a unique name
+      - name: "exclude-leases" # Each match condition must have a unique name
         expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
-      - name: 'exclude-kubelet-requests'
+      - name: "exclude-kubelet-requests"
         expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
-      - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
+      - name: "rbac" # Skip RBAC requests, which are handled by the second webhook.
         expression: 'request.resource.group != "rbac.authorization.k8s.io"'
-  
+
   # This example illustrates the use of the 'authorizer'. The authorization check is more expensive
   # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
   # webhook. Both webhooks can be served by the same endpoint.
   - name: rbac.my-webhook.example.com
     matchPolicy: Equivalent
     rules:
-      - operations: ['CREATE','UPDATE']
-        apiGroups: ['rbac.authorization.k8s.io']
-        apiVersions: ['*']
-        resources: ['*']
-    failurePolicy: 'Fail' # Fail-closed (the default)
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: ["rbac.authorization.k8s.io"]
+        apiVersions: ["*"]
+        resources: ["*"]
+    failurePolicy: "Fail" # Fail-closed (the default)
     sideEffects: None
     clientConfig:
       service:
         namespace: my-namespace
         name: my-webhook
-      caBundle: '<omitted>'
+      caBundle: "<omitted>"
     matchConditions:
-      - name: 'breakglass'
+      - name: "breakglass"
         # Skip requests made by users authorized to 'breakglass' on this webhook.
         # The 'breakglass' API verb does not need to exist outside this check.
         expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
@@ -807,8 +812,8 @@ the request is determined as follows:
 
 1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the webhook.
 2. Otherwise:
-    - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
-    - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
+   - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
+   - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
 
 ### Contacting the webhook
 
@@ -848,9 +853,9 @@ Here is an example of a mutating webhook configured to call a URL
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 webhooks:
-- name: my-webhook.example.com
-  clientConfig:
-    url: "https://my-webhook.example.com:9443/my-webhook-path"
+  - name: my-webhook.example.com
+    clientConfig:
+      url: "https://my-webhook.example.com:9443/my-webhook-path"
 ```
 
 #### Service reference
@@ -868,14 +873,14 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 webhooks:
-- name: my-webhook.example.com
-  clientConfig:
-    caBundle: <CA_BUNDLE>
-    service:
-      namespace: my-service-namespace
-      name: my-service-name
-      path: /my-path
-      port: 1234
+  - name: my-webhook.example.com
+    clientConfig:
+      caBundle: <CA_BUNDLE>
+      service:
+        namespace: my-service-namespace
+        name: my-service-name
+        path: /my-path
+        port: 1234
 ```
 
 {{< note >}}
@@ -901,8 +906,8 @@ or the dry-run request will not be sent to the webhook and the API request will 
 
 Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration:
 
-* `None`: calling the webhook will have no side effects.
-* `NoneOnDryRun`: calling the webhook will possibly have side effects, but if a request with
+- `None`: calling the webhook will have no side effects.
+- `NoneOnDryRun`: calling the webhook will possibly have side effects, but if a request with
   `dryRun: true` is sent to the webhook, the webhook will suppress the side effects (the webhook
   is `dryRun`-aware).
 
@@ -952,17 +957,17 @@ and mutating webhooks can specify a `reinvocationPolicy` to control whether they
 
 `reinvocationPolicy` may be set to `Never` or `IfNeeded`. It defaults to `Never`.
 
-* `Never`: the webhook must not be called more than once in a single admission evaluation.
-* `IfNeeded`: the webhook may be called again as part of the admission evaluation if the object
+- `Never`: the webhook must not be called more than once in a single admission evaluation.
+- `IfNeeded`: the webhook may be called again as part of the admission evaluation if the object
   being admitted is modified by other admission plugins after the initial webhook call.
 
 The important elements to note are:
 
-* The number of additional invocations is not guaranteed to be exactly one.
-* If additional invocations result in further modifications to the object, webhooks are not
+- The number of additional invocations is not guaranteed to be exactly one.
+- If additional invocations result in further modifications to the object, webhooks are not
   guaranteed to be invoked again.
-* Webhooks that use this option may be reordered to minimize the number of additional invocations.
-* To validate an object after all mutations are guaranteed complete, use a validating admission
+- Webhooks that use this option may be reordered to minimize the number of additional invocations.
+- To validate an object after all mutations are guaranteed complete, use a validating admission
   webhook instead (recommended for webhooks with side-effects).
 
 Here is an example of a mutating webhook opting into being re-invoked if later admission plugins
@@ -972,8 +977,8 @@ modify the object:
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 webhooks:
-- name: my-webhook.example.com
-  reinvocationPolicy: IfNeeded
+  - name: my-webhook.example.com
+    reinvocationPolicy: IfNeeded
 ```
 
 Mutating webhooks must be [idempotent](#idempotence), able to successfully process an object they have already admitted
@@ -985,8 +990,8 @@ in an object could already exist in the user-provided object, but it is essentia
 `failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
 are handled. Allowed values are `Ignore` or `Fail`.
 
-* `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
-* `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
+- `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
+- `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
 
 Here is a mutating webhook configured to reject an API request if errors are encountered calling the admission webhook:
 
@@ -994,8 +999,8 @@ Here is a mutating webhook configured to reject an API request if errors are enc
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 webhooks:
-- name: my-webhook.example.com
-  failurePolicy: Fail
+  - name: my-webhook.example.com
+    failurePolicy: Fail
 ```
 
 The default `failurePolicy` for an admission webhooks is `Fail`.
@@ -1047,16 +1052,16 @@ The audit level of a event determines which annotations get recorded:
       ...
   }
   ```
-  
+
   ```yaml
   # the annotation value deserialized
   {
-      "configuration": "my-mutating-webhook-configuration.example.com",
-      "webhook": "my-webhook.example.com",
-      "mutated": false
+    "configuration": "my-mutating-webhook-configuration.example.com",
+    "webhook": "my-webhook.example.com",
+    "mutated": false,
   }
   ```
-  
+
   The following annotation gets recorded for a webhook being invoked in the first round. The webhook
   is ordered the first in the mutating webhook chain, and mutated the request object during the
   invocation.
@@ -1075,13 +1080,13 @@ The audit level of a event determines which annotations get recorded:
       ...
   }
   ```
-  
+
   ```yaml
   # the annotation value deserialized
   {
-      "configuration": "my-mutating-webhook-configuration.example.com",
-      "webhook": "my-webhook-always-mutate.example.com",
-      "mutated": true
+    "configuration": "my-mutating-webhook-configuration.example.com",
+    "webhook": "my-webhook-always-mutate.example.com",
+    "mutated": true,
   }
   ```
 
@@ -1091,7 +1096,7 @@ The audit level of a event determines which annotations get recorded:
 
   For example, the following annotation gets recorded for a webhook being reinvoked. The webhook is ordered the fourth in the
   mutating webhook chain, and responded with a JSON patch which got applied to the request object.
-  
+
   ```yaml
   # the audit event recorded
   {
@@ -1106,26 +1111,20 @@ The audit level of a event determines which annotations get recorded:
       ...
   }
   ```
-  
+
   ```yaml
   # the annotation value deserialized
   {
-      "configuration": "my-other-mutating-webhook-configuration.example.com",
-      "webhook": "my-webhook-always-mutate.example.com",
-      "patchType": "JSONPatch",
-      "patch": [
-          {
-              "op": "add",
-              "path": "/data/mutation-stage",
-              "value": "yes"
-          }
-      ]
+    "configuration": "my-other-mutating-webhook-configuration.example.com",
+    "webhook": "my-webhook-always-mutate.example.com",
+    "patchType": "JSONPatch",
+    "patch": [{ "op": "add", "path": "/data/mutation-stage", "value": "yes" }],
   }
   ```
 
 ### Admission webhook metrics
 
-The API server  exposes Prometheus metrics from the `/metrics` endpoint, which can be used for monitoring and
+The API server exposes Prometheus metrics from the `/metrics` endpoint, which can be used for monitoring and
 diagnosing API server status. The following metrics record status related to admission webhooks.
 
 #### API server admission webhook rejection count
@@ -1228,7 +1227,7 @@ Admission webhooks that need to guarantee they see the final state of the object
 should use a validating admission webhook, since objects can be modified after being seen by mutating webhooks.
 
 For example, a mutating admission webhook is configured to inject a sidecar container with name
-"foo-sidecar" on every `CREATE` pod request. If the sidecar *must* be present, a validating
+"foo-sidecar" on every `CREATE` pod request. If the sidecar _must_ be present, a validating
 admisson webhook should also be configured to intercept `CREATE` pod requests, and validate that a
 container with name "foo-sidecar" with the expected configuration exists in the to-be-created
 object.

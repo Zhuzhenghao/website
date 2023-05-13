@@ -1,14 +1,15 @@
 ---
 title: Kubernetes API Concepts
 reviewers:
-- smarterclayton
-- lavalamp
-- liggitt
+  - smarterclayton
+  - lavalamp
+  - liggitt
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
+
 The Kubernetes API is a resource-based (RESTful) programmatic interface
 provided via HTTP. It supports retrieving, creating, updating, and deleting
 primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE,
@@ -19,7 +20,7 @@ fine grained authorization (such as separate views for Pod details and
 log retrievals), and can accept and serve those resources in different
 representations for convenience or efficiency.
 
-Kubernetes supports efficient change notifications on resources via *watches*.
+Kubernetes supports efficient change notifications on resources via _watches_.
 Kubernetes also provides consistent list operations so that API clients can
 effectively cache, track, and synchronize the state of resources.
 
@@ -27,21 +28,22 @@ You can view the [API reference](/docs/reference/kubernetes-api/) online,
 or read on to learn about the API in general.
 
 <!-- body -->
+
 ## Kubernetes API terminology {#standard-api-terminology}
 
 Kubernetes generally leverages common RESTful terminology to describe the
 API concepts:
 
-* A *resource type* is the name used in the URL (`pods`, `namespaces`, `services`)
-* All resource types have a concrete representation (their object schema) which is called a *kind*
-* A list of instances of a resource is known as a *collection*
-* A single instance of a resource type is called a *resource*, and also usually represents an *object*
-* For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
+- A _resource type_ is the name used in the URL (`pods`, `namespaces`, `services`)
+- All resource types have a concrete representation (their object schema) which is called a _kind_
+- A list of instances of a resource is known as a _collection_
+- A single instance of a resource type is called a _resource_, and also usually represents an _object_
+- For some resource types, the API includes one or more _sub-resources_, which are represented as URI paths below the resource
 
 Most Kubernetes API resource types are
 {{< glossary_tooltip text="objects" term_id="object" >}} –
 they represent a concrete instance of a concept on the cluster, like a
-pod or namespace. A smaller number of API resource types are *virtual* in
+pod or namespace. A smaller number of API resource types are _virtual_ in
 that they often represent operations on objects, rather than objects, such
 as a permission check
 (use a POST with a JSON-encoded body of `SubjectAccessReview` to the
@@ -86,39 +88,39 @@ is controlled by authorization checks on the namespace scope.
 Note: core resources use `/api` instead of `/apis` and omit the GROUP path segment.
 
 Examples:
-* `/api/v1/namespaces`
-* `/api/v1/pods`
-* `/api/v1/namespaces/my-namespace/pods`
-* `/apis/apps/v1/deployments`
-* `/apis/apps/v1/namespaces/my-namespace/deployments`
-* `/apis/apps/v1/namespaces/my-namespace/deployments/my-deployment`
+
+- `/api/v1/namespaces`
+- `/api/v1/pods`
+- `/api/v1/namespaces/my-namespace/pods`
+- `/apis/apps/v1/deployments`
+- `/apis/apps/v1/namespaces/my-namespace/deployments`
+- `/apis/apps/v1/namespaces/my-namespace/deployments/my-deployment`
 
 You can also access collections of resources (for example: listing all Nodes).
 The following paths are used to retrieve collections and resources:
 
-* Cluster-scoped resources:
+- Cluster-scoped resources:
 
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
+  - `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
+  - `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
 
-* Namespace-scoped resources:
+- Namespace-scoped resources:
 
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
+  - `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
+  - `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
+  - `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 
 Since a namespace is a cluster-scoped resource type, you can retrieve the list
 (“collection”) of all namespaces with `GET /api/v1/namespaces` and details about
 a particular namespace with `GET /api/v1/namespaces/NAME`.
 
-* Cluster-scoped subresource: `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
-* Namespace-scoped subresource: `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
+- Cluster-scoped subresource: `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
+- Namespace-scoped subresource: `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
 
 The verbs supported for each subresource will differ depending on the object -
 see the [API reference](/docs/reference/kubernetes-api/) for more information. It
 is not possible to access sub-resources across multiple resources - generally a new
 virtual resource type would be used if that becomes necessary.
-
 
 ## Efficient detection of changes
 
@@ -388,7 +390,7 @@ of 500 pods at a time, request those chunks as follows:
 Notice that the `resourceVersion` of the collection remains constant across each request,
 indicating the server is showing you a consistent snapshot of the pods. Pods that
 are created, updated, or deleted after version `10245` would not be shown unless
-you make a separate **list** request without the `continue` token.  This allows you
+you make a separate **list** request without the `continue` token. This allows you
 to break large requests into smaller chunks and then perform a **watch** operation
 on the full set without missing any updates.
 
@@ -418,6 +420,7 @@ has `kind` set to
 ```
 GET /api/v1/services
 ```
+
 ```yaml
 {
   "kind": "ServiceList",
@@ -451,6 +454,7 @@ a list of items using `kind: List`. For example:
 ```shell
 kubectl get services -A -o yaml
 ```
+
 ```yaml
 apiVersion: v1
 kind: List
@@ -458,16 +462,16 @@ metadata:
   resourceVersion: ""
   selfLink: ""
 items:
-- apiVersion: v1
-  kind: Service
-  metadata:
-    creationTimestamp: "2021-06-03T14:54:12Z"
-    labels:
-      component: apiserver
-      provider: kubernetes
-    name: kubernetes
-    namespace: default
-...
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      creationTimestamp: "2021-06-03T14:54:12Z"
+      labels:
+        component: apiserver
+        provider: kubernetes
+      name: kubernetes
+      namespace: default
+---
 - apiVersion: v1
   kind: Service
   metadata:
@@ -692,10 +696,11 @@ When you **delete** a resource this takes place in two phases.
 {
   "kind": "ConfigMap",
   "apiVersion": "v1",
-  "metadata": {
-    "finalizers": {"url.io/neat-finalization", "other-url.io/my-finalizer"},
-    "deletionTimestamp": nil,
-  }
+  "metadata":
+    {
+      "finalizers": { "url.io/neat-finalization", "other-url.io/my-finalizer" },
+      "deletionTimestamp": nil,
+    },
 }
 ```
 
@@ -716,7 +721,6 @@ Without enforced ordering, finalizers are free to order amongst themselves and a
 not vulnerable to ordering changes in the list.
 
 Once the last finalizer is removed, the resource is actually removed from etcd.
-
 
 ## Single resource API
 
@@ -758,7 +762,7 @@ These situations are:
 
 ### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
 
-  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
 validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
@@ -810,14 +814,14 @@ Client-side validation will be removed entirely in a future version of kubectl.
 
 {{< note >}}
 
-Prior to Kubernetes 1.25  `kubectl --validate` was used to toggle client-side validation on or off as
+Prior to Kubernetes 1.25 `kubectl --validate` was used to toggle client-side validation on or off as
 a boolean flag.
 
 {{< /note >}}
 
 ## Dry-run
 
- {{< feature-state for_k8s_version="v1.18" state="stable" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 When you use HTTP verbs that can modify resources (`POST`, `PUT`, `PATCH`, and
 `DELETE`), you can submit your request in a _dry run_ mode. Dry run mode helps to
@@ -833,13 +837,12 @@ string, working as an enum, and the only accepted values are:
 
 [no value set]
 : Allow side effects. You request this with a query string such as `?dryRun`
-  or `?dryRun&pretty=true`. The response is the final object that would have been
-  persisted, or an error if the request could not be fulfilled.
+or `?dryRun&pretty=true`. The response is the final object that would have been
+persisted, or an error if the request could not be fulfilled.
 
 `All`
 : Every stage runs as normal, except for the final storage stage where side effects
-  are prevented.
-
+are prevented.
 
 When you set `?dryRun=All`, any relevant
 {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}
@@ -873,7 +876,6 @@ Accept: application/json
 The response would look the same as for non-dry-run request, but the values of some
 generated fields may differ.
 
-
 ### Generated values
 
 Some values of an object are typically generated before the object is persisted. It
@@ -881,12 +883,12 @@ is important not to rely upon the values of these fields set by a dry-run reques
 since these values will likely be different in dry-run mode from when the real
 request is made. Some of these fields are:
 
-* `name`: if `generateName` is set, `name` will have a unique random name
-* `creationTimestamp` / `deletionTimestamp`: records the time of creation/deletion
-* `UID`: [uniquely identifies](/docs/concepts/overview/working-with-objects/names/#uids) the object and is randomly generated (non-deterministic)
-* `resourceVersion`: tracks the persisted version of the object
-* Any field set by a mutating admission controller
-* For the `Service` resource: Ports or IP addresses that the kube-apiserver assigns to Service objects
+- `name`: if `generateName` is set, `name` will have a unique random name
+- `creationTimestamp` / `deletionTimestamp`: records the time of creation/deletion
+- `UID`: [uniquely identifies](/docs/concepts/overview/working-with-objects/names/#uids) the object and is randomly generated (non-deterministic)
+- `resourceVersion`: tracks the persisted version of the object
+- Any field set by a mutating admission controller
+- For the `Service` resource: Ports or IP addresses that the kube-apiserver assigns to Service objects
 
 ### Dry-run authorization
 
@@ -900,9 +902,9 @@ Deployments:
 
 ```yaml
 rules:
-- apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["patch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["patch"]
 ```
 
 See [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
@@ -956,7 +958,7 @@ For **get** and **list**, the semantics of `resourceVersion` are:
 **get:**
 
 | resourceVersion unset | resourceVersion="0" | resourceVersion="{value other than 0}" |
-|-----------------------|---------------------|----------------------------------------|
+| --------------------- | ------------------- | -------------------------------------- |
 | Most Recent           | Any                 | Not older than                         |
 
 **list:**
@@ -978,21 +980,20 @@ quorum read to be served.
 
 Setting the `resourceVersionMatch` parameter without setting `resourceVersion` is not valid.
 
-
 This table explains the behavior of **list** requests with various combinations of
 `resourceVersion` and `resourceVersionMatch`:
 
 {{< table caption="resourceVersionMatch and paging parameters for list" >}}
 
-| resourceVersionMatch param            | paging params                 | resourceVersion not set | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
-|---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
-| _unset_            | _limit unset_                   | Most Recent           | Any                                       | Not older than                         |
-| _unset_            | limit=\<n\>, _continue unset_     | Most Recent           | Any                                       | Exact                                  |
-| _unset_            | limit=\<n\>, continue=\<token\> | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
-| `resourceVersionMatch=Exact`        | _limit unset_                 | Invalid               | Invalid                                   | Exact                                  |
-| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_ | Invalid               | Invalid                                   | Exact                                  |
-| `resourceVersionMatch=NotOlderThan` | _limit unset_                 | Invalid               | Any                                       | Not older than                         |
-| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch param          | paging params                   | resourceVersion not set | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
+| ----------------------------------- | ------------------------------- | ----------------------- | ----------------------------------------- | -------------------------------------- |
+| _unset_                             | _limit unset_                   | Most Recent             | Any                                       | Not older than                         |
+| _unset_                             | limit=\<n\>, _continue unset_   | Most Recent             | Any                                       | Exact                                  |
+| _unset_                             | limit=\<n\>, continue=\<token\> | Continue Token, Exact   | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
+| `resourceVersionMatch=Exact`        | _limit unset_                   | Invalid                 | Invalid                                   | Exact                                  |
+| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_   | Invalid                 | Invalid                                   | Exact                                  |
+| `resourceVersionMatch=NotOlderThan` | _limit unset_                   | Invalid                 | Any                                       | Not older than                         |
+| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_   | Invalid                 | Any                                       | Not older than                         |
 
 {{< /table >}}
 
@@ -1005,34 +1006,34 @@ The meaning of the **get** and **list** semantics are:
 
 Any
 : Return data at any resource version. The newest available resource version is preferred,
-  but strong consistency is not required; data at any resource version may be served. It is possible
-  for the request to return data at a much older resource version that the client has previously
-  observed, particularly in high availability configurations, due to partitions or stale
-  caches. Clients that cannot tolerate this should not use this semantic.
+but strong consistency is not required; data at any resource version may be served. It is possible
+for the request to return data at a much older resource version that the client has previously
+observed, particularly in high availability configurations, due to partitions or stale
+caches. Clients that cannot tolerate this should not use this semantic.
 
 Most recent
 : Return data at the most recent resource version. The returned data must be
-  consistent (in detail: served from etcd via a quorum read).
+consistent (in detail: served from etcd via a quorum read).
 
 Not older than
 : Return data at least as new as the provided `resourceVersion`. The newest
-  available data is preferred, but any data not older than the provided `resourceVersion` may be
-  served.  For **list** requests to servers that honor the `resourceVersionMatch` parameter, this
-  guarantees that the collection's `.metadata.resourceVersion` is not older than the requested
-  `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
-  of the items in that collection.
+available data is preferred, but any data not older than the provided `resourceVersion` may be
+served. For **list** requests to servers that honor the `resourceVersionMatch` parameter, this
+guarantees that the collection's `.metadata.resourceVersion` is not older than the requested
+`resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
+of the items in that collection.
 
 Exact
 : Return data at the exact resource version provided. If the provided `resourceVersion` is
-  unavailable, the server responds with HTTP 410 "Gone".  For **list** requests to servers that honor the
-  `resourceVersionMatch` parameter, this guarantees that the collection's `.metadata.resourceVersion`
-  is the same as the `resourceVersion` you requested in the query string. That guarantee does
-  not apply to the `.metadata.resourceVersion` of any items within that collection.
+unavailable, the server responds with HTTP 410 "Gone". For **list** requests to servers that honor the
+`resourceVersionMatch` parameter, this guarantees that the collection's `.metadata.resourceVersion`
+is the same as the `resourceVersion` you requested in the query string. That guarantee does
+not apply to the `.metadata.resourceVersion` of any items within that collection.
 
 Continue Token, Exact
 : Return data at the resource version of the initial paginated **list** call. The returned _continue
-  tokens_ are responsible for keeping track of the initially provided resource version for all paginated
-  **list** calls after the initial paginated **list**.
+tokens_ are responsible for keeping track of the initially provided resource version for all paginated
+**list** calls after the initial paginated **list**.
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the
@@ -1060,9 +1061,9 @@ For **watch**, the semantics of resource version are:
 
 {{< table caption="resourceVersion for watch" >}}
 
-| resourceVersion unset               | resourceVersion="0"        | resourceVersion="{value other than 0}" |
-|-------------------------------------|----------------------------|----------------------------------------|
-| Get State and Start at Most Recent  | Get State and Start at Any | Start at Exact                         |
+| resourceVersion unset              | resourceVersion="0"        | resourceVersion="{value other than 0}" |
+| ---------------------------------- | -------------------------- | -------------------------------------- |
+| Get State and Start at Most Recent | Get State and Start at Any | Start at Exact                         |
 
 {{< /table >}}
 
@@ -1070,34 +1071,34 @@ The meaning of those **watch** semantics are:
 
 Get State and Start at Any
 : {{< caution >}} Watches initialized this way may return arbitrarily stale
-  data. Please review this semantic before using it, and favor the other semantics
-  where possible.
-  {{< /caution >}}
-  Start a **watch** at any resource version; the most recent resource version
-  available is preferred, but not required. Any starting resource version is
-  allowed. It is possible for the **watch** to start at a much older resource
-  version that the client has previously observed, particularly in high availability
-  configurations, due to partitions or stale caches. Clients that cannot tolerate
-  this apparent rewinding should not start a **watch** with this semantic. To
-  establish initial state, the **watch** begins with synthetic "Added" events for
-  all resource instances that exist at the starting resource version. All following
-  watch events are for all changes that occurred after the resource version the
-  **watch** started at.
+data. Please review this semantic before using it, and favor the other semantics
+where possible.
+{{< /caution >}}
+Start a **watch** at any resource version; the most recent resource version
+available is preferred, but not required. Any starting resource version is
+allowed. It is possible for the **watch** to start at a much older resource
+version that the client has previously observed, particularly in high availability
+configurations, due to partitions or stale caches. Clients that cannot tolerate
+this apparent rewinding should not start a **watch** with this semantic. To
+establish initial state, the **watch** begins with synthetic "Added" events for
+all resource instances that exist at the starting resource version. All following
+watch events are for all changes that occurred after the resource version the
+**watch** started at.
 
 Get State and Start at Most Recent
 : Start a **watch** at the most recent resource version, which must be consistent
-  (in detail: served from etcd via a quorum read). To establish initial state,
-  the **watch** begins with synthetic "Added" events of all resources instances
-  that exist at the starting resource version. All following watch events are for
-  all changes that occurred after the resource version the **watch** started at.
+(in detail: served from etcd via a quorum read). To establish initial state,
+the **watch** begins with synthetic "Added" events of all resources instances
+that exist at the starting resource version. All following watch events are for
+all changes that occurred after the resource version the **watch** started at.
 
 Start at Exact
 : Start a **watch** at an exact resource version. The watch events are for all changes
-  after the provided resource version. Unlike "Get State and Start at Most Recent"
-  and "Get State and Start at Any", the **watch** is not started with synthetic
-  "Added" events for the provided resource version. The client is assumed to already
-  have the initial state at the starting resource version since the client provided
-  the resource version.
+after the provided resource version. Unlike "Get State and Start at Most Recent"
+and "Get State and Start at Any", the **watch** is not started with synthetic
+"Added" events for the provided resource version. The client is assumed to already
+have the initial state at the starting resource version since the client provided
+the resource version.
 
 ### "410 Gone" responses
 
@@ -1117,10 +1118,10 @@ Servers are not required to serve unrecognized resource versions. If you request
 **list** or **get** for a resource version that the API server does not recognize,
 then the API server may either:
 
-* wait briefly for the resource version to become available, then timeout with a
+- wait briefly for the resource version to become available, then timeout with a
   `504 (Gateway Timeout)` if the provided resource versions does not become available
   in a reasonable amount of time;
-* respond with a `Retry-After` response header indicating how many seconds a client
+- respond with a `Retry-After` response header indicating how many seconds a client
   should wait before retrying the request.
 
 If you request a resource version that an API server does not recognize, the

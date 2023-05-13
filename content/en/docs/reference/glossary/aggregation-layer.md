@@ -6,13 +6,14 @@ full_link: /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
 short_description: >
   The aggregation layer lets you install additional Kubernetes-style APIs in your cluster.
 
-aka: 
+aka:
 tags:
-- architecture
-- extension
-- operation
+  - architecture
+  - extension
+  - operation
 ---
- The aggregation layer lets you install additional Kubernetes-style APIs in your cluster.
+
+The aggregation layer lets you install additional Kubernetes-style APIs in your cluster.
 
 <!--more-->
 

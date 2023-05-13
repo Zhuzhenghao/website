@@ -1,12 +1,13 @@
 ---
 reviewers:
-- janetkuo
+  - janetkuo
 title: Perform a Rolling Update on a DaemonSet
 content_type: task
 weight: 10
 ---
 
 <!-- overview -->
+
 This page shows how to perform a rolling update on a DaemonSet.
 
 ## {{% heading "prerequisites" %}}
@@ -19,11 +20,11 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 DaemonSet has two update strategy types:
 
-* `OnDelete`: With `OnDelete` update strategy, after you update a DaemonSet template, new
-  DaemonSet pods will *only* be created when you manually delete old DaemonSet
+- `OnDelete`: With `OnDelete` update strategy, after you update a DaemonSet template, new
+  DaemonSet pods will _only_ be created when you manually delete old DaemonSet
   pods. This is the same behavior of DaemonSet in Kubernetes version 1.5 or
   before.
-* `RollingUpdate`: This is the default update strategy.  
+- `RollingUpdate`: This is the default update strategy.  
   With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion. At most one pod of
@@ -35,7 +36,7 @@ To enable the rolling update feature of a DaemonSet, you must set its
 `.spec.updateStrategy.type` to `RollingUpdate`.
 
 You may want to set
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) 
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (default to 1),
 [`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (default to 0) and
@@ -85,7 +86,6 @@ RollingUpdate
 
 If the output isn't `RollingUpdate`, go back and modify the DaemonSet object or
 manifest accordingly.
-
 
 ### Updating a DaemonSet template
 
@@ -191,5 +191,5 @@ kubectl delete ds fluentd-elasticsearch -n kube-system
 
 ## {{% heading "whatsnext" %}}
 
-* See [Performing a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
-* See [Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+- See [Performing a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
+- See [Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)

@@ -2,7 +2,7 @@
 title: Managing Resources
 content_type: concept
 reviewers:
-- janetkuo
+  - janetkuo
 weight: 40
 ---
 
@@ -45,7 +45,6 @@ with the service as they are created by the controller(s), such as Deployment.
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml \
   -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
-
 
 It is a recommended practice to put resources related to the same microservice or application tier
 into the same file, and to group all of the files associated with your application in the same
@@ -187,8 +186,8 @@ would additionally need to distinguish each tier. The frontend could carry the f
 
 ```yaml
 labels:
-   app: guestbook
-   tier: frontend
+  app: guestbook
+  tier: frontend
 ```
 
 while the Redis master and slave would have different `tier` labels, and perhaps even an
@@ -196,18 +195,18 @@ additional `role` label:
 
 ```yaml
 labels:
-   app: guestbook
-   tier: backend
-   role: master
+  app: guestbook
+  tier: backend
+  role: master
 ```
 
 and
 
 ```yaml
 labels:
-   app: guestbook
-   tier: backend
-   role: slave
+  app: guestbook
+  tier: backend
+  role: slave
 ```
 
 The labels allow us to slice and dice our resources along any dimension specified by a label:
@@ -242,7 +241,7 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
 ## Canary deployments
 
 Another scenario where multiple labels are needed is to distinguish deployments of different
-releases or configurations of the same component. It is common practice to deploy a *canary* of a
+releases or configurations of the same component. It is common practice to deploy a _canary_ of a
 new application release (specified via image tag in the pod template) side by side with the
 previous release so that the new release can receive live production traffic before fully rolling
 it out.
@@ -284,8 +283,8 @@ applications:
 
 ```yaml
 selector:
-   app: guestbook
-   tier: frontend
+  app: guestbook
+  tier: frontend
 ```
 
 You can tweak the number of replicas of the stable and canary releases to determine the ratio of
@@ -529,4 +528,3 @@ of pods. To learn more details about it, visit [Deployment page](/docs/concepts/
 
 - Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug/debug-application/debug-running-pod/).
 - See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
-

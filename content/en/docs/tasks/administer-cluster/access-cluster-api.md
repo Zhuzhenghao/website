@@ -5,6 +5,7 @@ weight: 60
 ---
 
 <!-- overview -->
+
 This page shows how to access clusters using the Kubernetes API.
 
 ## {{% heading "prerequisites" %}}
@@ -39,10 +40,10 @@ kubectl. Complete documentation is found in the [kubectl manual](/docs/reference
 kubectl handles locating and authenticating to the API server. If you want to directly access the REST API with an http client like
 `curl` or `wget`, or a browser, there are multiple ways you can locate and authenticate against the API server:
 
- 1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
- 1. Alternatively, you can provide the location and credentials directly to the http client. This works with client code that is confused by proxies. To protect against man in the middle attacks, you'll need to import a root cert into your browser.
+1.  Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
+1.  Alternatively, you can provide the location and credentials directly to the http client. This works with client code that is confused by proxies. To protect against man in the middle attacks, you'll need to import a root cert into your browser.
 
- Using the Go or Python client libraries provides accessing kubectl in proxy mode.
+Using the Go or Python client libraries provides accessing kubectl in proxy mode.
 
 #### Using kubectl proxy
 
@@ -67,9 +68,7 @@ The output is similar to this:
 
 ```json
 {
-  "versions": [
-    "v1"
-  ],
+  "versions": ["v1"],
   "serverAddressByClientCIDRs": [
     {
       "clientCIDR": "0.0.0.0/0",
@@ -125,9 +124,7 @@ The output is similar to this:
 ```json
 {
   "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
+  "versions": ["v1"],
   "serverAddressByClientCIDRs": [
     {
       "clientCIDR": "0.0.0.0/0",
@@ -155,8 +152,8 @@ Kubernetes officially supports client libraries for [Go](#go-client), [Python](#
 
 #### Go client
 
-* To get the library, run the following command: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>` See [https://github.com/kubernetes/client-go/releases](https://github.com/kubernetes/client-go/releases) to see which versions are supported.
-* Write an application atop of the client-go clients.
+- To get the library, run the following command: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>` See [https://github.com/kubernetes/client-go/releases](https://github.com/kubernetes/client-go/releases) to see which versions are supported.
+- Write an application atop of the client-go clients.
 
 {{< note >}}
 
@@ -319,15 +316,15 @@ The JavaScript client can use the same [kubeconfig file](/docs/concepts/configur
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js):
 
 ```javascript
-const k8s = require('@kubernetes/client-node');
+const k8s = require("@kubernetes/client-node");
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
 
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
-k8sApi.listNamespacedPod('default').then((res) => {
-    console.log(res.body);
+k8sApi.listNamespacedPod("default").then((res) => {
+  console.log(res.body);
 });
 ```
 
@@ -352,4 +349,4 @@ exampleWithKubeConfig = do
 
 ## {{% heading "whatsnext" %}}
 
-* [Accessing the Kubernetes API from a Pod](/docs/tasks/run-application/access-api-from-pod/)
+- [Accessing the Kubernetes API from a Pod](/docs/tasks/run-application/access-api-from-pod/)

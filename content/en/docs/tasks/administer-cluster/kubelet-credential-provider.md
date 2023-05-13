@@ -1,8 +1,8 @@
 ---
 title: Configure a kubelet image credential provider
 reviewers:
-- liggitt
-- cheftako
+  - liggitt
+  - cheftako
 description: Configure the kubelet's image credential provider plugin
 content_type: task
 min-kubernetes-server-version: v1.26
@@ -21,18 +21,18 @@ short-lived credentials for an image that is being pulled by the kubelet.
 
 You may be interested in using this capability if any of the below are true:
 
-* API calls to a cloud provider service are required to retrieve authentication information for a registry.
-* Credentials have short expiration times and requesting new credentials frequently is required.
-* Storing registry credentials on disk or in imagePullSecrets is not acceptable.
+- API calls to a cloud provider service are required to retrieve authentication information for a registry.
+- Credentials have short expiration times and requesting new credentials frequently is required.
+- Storing registry credentials on disk or in imagePullSecrets is not acceptable.
 
 This guide demonstrates how to configure the kubelet's image credential provider plugin mechanism.
 
 ## {{% heading "prerequisites" %}}
 
-* You need a Kubernetes cluster with nodes that support kubelet credential
+- You need a Kubernetes cluster with nodes that support kubelet credential
   provider plugins. This support is available in Kubernetes {{< skew currentVersion >}};
   Kubernetes v1.24 and v1.25 included this as a beta feature, enabled by default.
-* A working implementation of a credential provider exec plugin. You can build your own plugin or use one provided by cloud providers.
+- A working implementation of a credential provider exec plugin. You can build your own plugin or use one provided by cloud providers.
 
 {{< version-check >}}
 
@@ -47,8 +47,8 @@ every node in your cluster and stored in a known directory. The directory will b
 
 In order to use this feature, the kubelet expects two flags to be set:
 
-* `--image-credential-provider-config` - the path to the credential provider plugin config file.
-* `--image-credential-provider-bin-dir` - the path to the directory where credential provider plugin binaries are located.
+- `--image-credential-provider-config` - the path to the credential provider plugin config file.
+- `--image-credential-provider-bin-dir` - the path to the directory where credential provider plugin binaries are located.
 
 ### Configure a kubelet credential provider
 
@@ -120,13 +120,13 @@ providers:
 
 The `providers` field is a list of enabled plugins used by the kubelet. Each entry has a few required fields:
 
-* `name`: the name of the plugin which MUST match the name of the executable binary that exists
+- `name`: the name of the plugin which MUST match the name of the executable binary that exists
   in the directory passed into `--image-credential-provider-bin-dir`.
-* `matchImages`: a list of strings used to match against images in order to determine
+- `matchImages`: a list of strings used to match against images in order to determine
   if this provider should be invoked. More on this below.
-* `defaultCacheDuration`: the default duration the kubelet will cache credentials in-memory
+- `defaultCacheDuration`: the default duration the kubelet will cache credentials in-memory
   if a cache duration was not specified by the plugin.
-* `apiVersion`: the API version that the kubelet and the exec plugin will use when communicating.
+- `apiVersion`: the API version that the kubelet and the exec plugin will use when communicating.
 
 Each credential provider can also be given optional args and environment variables as well.
 Consult the plugin implementors to determine what set of arguments and environment variables are required for a given plugin.
@@ -141,21 +141,20 @@ a single subdomain segment, so `*.io` does NOT match `*.k8s.io`.
 
 A match exists between an image name and a `matchImage` entry when all of the below are true:
 
-* Both contain the same number of domain parts and each part matches.
-* The URL path of match image must be a prefix of the target image URL path.
-* If the matchImages contains a port, then the port must match in the image as well.
+- Both contain the same number of domain parts and each part matches.
+- The URL path of match image must be a prefix of the target image URL path.
+- If the matchImages contains a port, then the port must match in the image as well.
 
 Some example values of `matchImages` patterns are:
 
-* `123456789.dkr.ecr.us-east-1.amazonaws.com`
-* `*.azurecr.io`
-* `gcr.io`
-* `*.*.registry.io`
-* `foo.registry.io:8080/path`
+- `123456789.dkr.ecr.us-east-1.amazonaws.com`
+- `*.azurecr.io`
+- `gcr.io`
+- `*.*.registry.io`
+- `foo.registry.io:8080/path`
 
 ## {{% heading "whatsnext" %}}
 
-* Read the details about `CredentialProviderConfig` in the
+- Read the details about `CredentialProviderConfig` in the
   [kubelet configuration API (v1) reference](/docs/reference/config-api/kubelet-config.v1/).
-* Read the [kubelet credential provider API reference (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/).
-
+- Read the [kubelet credential provider API reference (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/).

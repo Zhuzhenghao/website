@@ -24,11 +24,11 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 
 {{% version-check %}}
 
-* [Enable Cgroup v2](https://rootlesscontaine.rs/getting-started/common/cgroup2/)
-* [Enable systemd with user session](https://rootlesscontaine.rs/getting-started/common/login/)
-* [Configure several sysctl values, depending on host Linux distribution](https://rootlesscontaine.rs/getting-started/common/sysctl/)
-* [Ensure that your unprivileged user is listed in `/etc/subuid` and `/etc/subgid`](https://rootlesscontaine.rs/getting-started/common/subuid/)
-* Enable the `KubeletInUserNamespace` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+- [Enable Cgroup v2](https://rootlesscontaine.rs/getting-started/common/cgroup2/)
+- [Enable systemd with user session](https://rootlesscontaine.rs/getting-started/common/login/)
+- [Configure several sysctl values, depending on host Linux distribution](https://rootlesscontaine.rs/getting-started/common/sysctl/)
+- [Ensure that your unprivileged user is listed in `/etc/subuid` and `/etc/subgid`](https://rootlesscontaine.rs/getting-started/common/subuid/)
+- Enable the `KubeletInUserNamespace` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 
 <!-- steps -->
 
@@ -46,8 +46,8 @@ See [Running kind with Rootless Docker](https://kind.sigs.k8s.io/docs/user/rootl
 
 See the Minikube documentation:
 
-* [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
-* [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
+- [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
+- [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
 
 ## Running Kubernetes inside Unprivileged Containers
 
@@ -78,6 +78,7 @@ the container plus several other advanced OS virtualization techniques.
 See [Running K3s with Rootless mode](https://rancher.com/docs/k3s/latest/en/advanced/#running-k3s-with-rootless-mode-experimental) for the usage.
 
 ### Usernetes
+
 [Usernetes](https://github.com/rootless-containers/usernetes) is a reference distribution of Kubernetes that can be installed under `$HOME` directory without the root privilege.
 
 Usernetes supports both containerd and CRI-O as CRI runtimes.
@@ -110,10 +111,10 @@ A user namespace can be also unshared by using command line tools such as:
 
 After unsharing the user namespace, you will also have to unshare other namespaces such as mount namespace.
 
-You do *not* need to call `chroot()` nor `pivot_root()` after unsharing the mount namespace,
-however, you have to mount writable filesystems on several directories *in* the namespace.
+You do _not_ need to call `chroot()` nor `pivot_root()` after unsharing the mount namespace,
+however, you have to mount writable filesystems on several directories _in_ the namespace.
 
-At least, the following directories need to be writable *in* the namespace (not *outside* the namespace):
+At least, the following directories need to be writable _in_ the namespace (not _outside_ the namespace):
 
 - `/etc`
 - `/run`
@@ -264,11 +265,11 @@ apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: "iptables" # or "userspace"
 conntrack:
-# Skip setting sysctl value "net.netfilter.nf_conntrack_max"
+  # Skip setting sysctl value "net.netfilter.nf_conntrack_max"
   maxPerCore: 0
-# Skip setting "net.netfilter.nf_conntrack_tcp_timeout_established"
+  # Skip setting "net.netfilter.nf_conntrack_tcp_timeout_established"
   tcpEstablishedTimeout: 0s
-# Skip setting "net.netfilter.nf_conntrack_tcp_timeout_close"
+  # Skip setting "net.netfilter.nf_conntrack_tcp_timeout_close"
   tcpCloseWaitTimeout: 0s
 ```
 

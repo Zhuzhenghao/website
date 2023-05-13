@@ -1,12 +1,12 @@
 ---
 reviewers:
-- bprashanth
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
+  - bprashanth
+  - enisoc
+  - erictune
+  - foxish
+  - janetkuo
+  - kow3ns
+  - smarterclayton
 title: Debug Init Containers
 content_type: task
 weight: 40
@@ -21,12 +21,11 @@ Init Containers. The example command lines below refer to the Pod as
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* You should be familiar with the basics of
+- You should be familiar with the basics of
   [Init Containers](/docs/concepts/workloads/pods/init-containers/).
-* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
+- You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
 
 <!-- steps -->
 
@@ -90,11 +89,9 @@ Init Containers:
 You can also access the Init Container statuses programmatically by reading the
 `status.initContainerStatuses` field on the Pod Spec:
 
-
 ```shell
 kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
 ```
-
 
 This command will return the same information as above in raw JSON.
 
@@ -111,8 +108,6 @@ Init Containers that run a shell script print
 commands as they're executed. For example, you can do this in Bash by running
 `set -x` at the beginning of the script.
 
-
-
 <!-- discussion -->
 
 ## Understanding Pod status
@@ -121,15 +116,10 @@ A Pod status beginning with `Init:` summarizes the status of Init Container
 execution. The table below describes some example status values that you might
 see while debugging Init Containers.
 
-Status | Meaning
------- | -------
-`Init:N/M` | The Pod has `M` Init Containers, and `N` have completed so far.
-`Init:Error` | An Init Container has failed to execute.
-`Init:CrashLoopBackOff` | An Init Container has failed repeatedly.
-`Pending` | The Pod has not yet begun executing Init Containers.
-`PodInitializing` or `Running` | The Pod has already finished executing Init Containers.
-
-
-
-
-
+| Status                         | Meaning                                                         |
+| ------------------------------ | --------------------------------------------------------------- |
+| `Init:N/M`                     | The Pod has `M` Init Containers, and `N` have completed so far. |
+| `Init:Error`                   | An Init Container has failed to execute.                        |
+| `Init:CrashLoopBackOff`        | An Init Container has failed repeatedly.                        |
+| `Pending`                      | The Pod has not yet begun executing Init Containers.            |
+| `PodInitializing` or `Running` | The Pod has already finished executing Init Containers.         |

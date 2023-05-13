@@ -1,9 +1,9 @@
 ---
 reviewers:
-- jayunit100
-- jsturtevant
-- marosset
-- perithompson
+  - jayunit100
+  - jsturtevant
+  - marosset
+  - perithompson
 title: Windows containers in Kubernetes
 content_type: concept
 weight: 65
@@ -39,7 +39,7 @@ Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
 [supported](#windows-os-version-support) provided that the operating system is
 Windows Server 2019.
 
-This document uses the term *Windows containers* to mean Windows containers with
+This document uses the term _Windows containers_ to mean Windows containers with
 process isolation. Kubernetes does not support running Windows containers with
 [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).
 
@@ -49,10 +49,10 @@ Some node features are only available if you use a specific
 [container runtime](#container-runtime); others are not available on Windows nodes,
 including:
 
-* HugePages: not supported for Windows containers
-* Privileged containers: not supported for Windows containers.
+- HugePages: not supported for Windows containers
+- Privileged containers: not supported for Windows containers.
   [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) offer similar functionality.
-* TerminationGracePeriod: requires containerD
+- TerminationGracePeriod: requires containerD
 
 Not all features of shared namespaces are supported. See [API compatibility](#api)
 for more details.
@@ -69,7 +69,7 @@ functionality which are outlined in this section.
 Key Kubernetes elements work the same way in Windows as they do in Linux. This
 section refers to several key workload abstractions and how they map to Windows.
 
-* [Pods](/docs/concepts/workloads/pods/)
+- [Pods](/docs/concepts/workloads/pods/)
 
   A Pod is the basic building block of Kubernetes–the smallest and simplest unit in
   the Kubernetes object model that you create or deploy. You may not deploy Windows and
@@ -77,56 +77,56 @@ section refers to several key workload abstractions and how they map to Windows.
   Node where each Node represents a specific platform and architecture. The following
   Pod capabilities, properties and events are supported with Windows containers:
 
-  * Single or multiple containers per Pod with process isolation and volume sharing
-  * Pod `status` fields
-  * Readiness, liveness, and startup probes
-  * postStart & preStop container lifecycle hooks
-  * ConfigMap, Secrets: as environment variables or volumes
-  * `emptyDir` volumes
-  * Named pipe host mounts
-  * Resource limits
-  * OS field: 
+  - Single or multiple containers per Pod with process isolation and volume sharing
+  - Pod `status` fields
+  - Readiness, liveness, and startup probes
+  - postStart & preStop container lifecycle hooks
+  - ConfigMap, Secrets: as environment variables or volumes
+  - `emptyDir` volumes
+  - Named pipe host mounts
+  - Resource limits
+  - OS field:
 
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
 
     If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:
 
-    * `spec.hostPID`
-    * `spec.hostIPC`
-    * `spec.securityContext.seLinuxOptions`
-    * `spec.securityContext.seccompProfile`
-    * `spec.securityContext.fsGroup`
-    * `spec.securityContext.fsGroupChangePolicy`
-    * `spec.securityContext.sysctls`
-    * `spec.shareProcessNamespace`
-    * `spec.securityContext.runAsUser`
-    * `spec.securityContext.runAsGroup`
-    * `spec.securityContext.supplementalGroups`
-    * `spec.containers[*].securityContext.seLinuxOptions`
-    * `spec.containers[*].securityContext.seccompProfile`
-    * `spec.containers[*].securityContext.capabilities`
-    * `spec.containers[*].securityContext.readOnlyRootFilesystem`
-    * `spec.containers[*].securityContext.privileged`
-    * `spec.containers[*].securityContext.allowPrivilegeEscalation`
-    * `spec.containers[*].securityContext.procMount`
-    * `spec.containers[*].securityContext.runAsUser`
-    * `spec.containers[*].securityContext.runAsGroup`
+    - `spec.hostPID`
+    - `spec.hostIPC`
+    - `spec.securityContext.seLinuxOptions`
+    - `spec.securityContext.seccompProfile`
+    - `spec.securityContext.fsGroup`
+    - `spec.securityContext.fsGroupChangePolicy`
+    - `spec.securityContext.sysctls`
+    - `spec.shareProcessNamespace`
+    - `spec.securityContext.runAsUser`
+    - `spec.securityContext.runAsGroup`
+    - `spec.securityContext.supplementalGroups`
+    - `spec.containers[*].securityContext.seLinuxOptions`
+    - `spec.containers[*].securityContext.seccompProfile`
+    - `spec.containers[*].securityContext.capabilities`
+    - `spec.containers[*].securityContext.readOnlyRootFilesystem`
+    - `spec.containers[*].securityContext.privileged`
+    - `spec.containers[*].securityContext.allowPrivilegeEscalation`
+    - `spec.containers[*].securityContext.procMount`
+    - `spec.containers[*].securityContext.runAsUser`
+    - `spec.containers[*].securityContext.runAsGroup`
 
     In the above list, wildcards (`*`) indicate all elements in a list.
     For example, `spec.containers[*].securityContext` refers to the SecurityContext object
     for all containers. If any of these fields is specified, the Pod will
     not be admitted by the API server.
 
-* [Workload resources](/docs/concepts/workloads/controllers/) including:
-  * ReplicaSet
-  * Deployment
-  * StatefulSet
-  * DaemonSet
-  * Job
-  * CronJob
-  * ReplicationController
-* {{< glossary_tooltip text="Services" term_id="service" >}}
+- [Workload resources](/docs/concepts/workloads/controllers/) including:
+  - ReplicaSet
+  - Deployment
+  - StatefulSet
+  - DaemonSet
+  - Job
+  - CronJob
+  - ReplicationController
+- {{< glossary_tooltip text="Services" term_id="service" >}}
   See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
 
 Pods, workload resources, and Services are critical elements to managing Windows
@@ -134,29 +134,29 @@ workloads on Kubernetes. However, on their own they are not enough to enable
 the proper lifecycle management of Windows workloads in a dynamic cloud native
 environment.
 
-* `kubectl exec`
-* Pod and container metrics
-* {{< glossary_tooltip text="Horizontal pod autoscaling" term_id="horizontal-pod-autoscaler" >}}
-* {{< glossary_tooltip text="Resource quotas" term_id="resource-quota" >}}
-* Scheduler preemption
+- `kubectl exec`
+- Pod and container metrics
+- {{< glossary_tooltip text="Horizontal pod autoscaling" term_id="horizontal-pod-autoscaler" >}}
+- {{< glossary_tooltip text="Resource quotas" term_id="resource-quota" >}}
+- Scheduler preemption
 
 ### Command line options for the kubelet {#kubelet-compatibility}
 
 Some kubelet command line options behave differently on Windows, as described below:
 
-* The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
+- The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
   (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
-* The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
+- The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-* Eviction by using `--enforce-node-allocable` is not implemented
-* Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
-* When running on a Windows node the kubelet does not have memory or CPU
+- Eviction by using `--enforce-node-allocable` is not implemented
+- Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
+- When running on a Windows node the kubelet does not have memory or CPU
   restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
   and do not guarantee resource provided for workloads.
   See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
   for more information.
-* The `MemoryPressure` Condition is not implemented
-* The kubelet does not take OOM eviction actions
+- The `MemoryPressure` Condition is not implemented
+- The kubelet does not take OOM eviction actions
 
 ### API compatibility {#api}
 
@@ -165,24 +165,24 @@ and container runtime. Some workload properties were designed for Linux, and fai
 
 At a high level, these OS concepts are different:
 
-* Identity - Linux uses userID (UID) and groupID (GID) which
+- Identity - Linux uses userID (UID) and groupID (GID) which
   are represented as integer types. User and group names
   are not canonical - they are just an alias in `/etc/groups`
   or `/etc/passwd` back to UID+GID. Windows uses a larger binary
   [security identifier](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers) (SID)
   which is stored in the Windows Security Access Manager (SAM) database. This
   database is not shared between the host and containers, or between containers.
-* File permissions - Windows uses an access control list based on (SIDs), whereas
+- File permissions - Windows uses an access control list based on (SIDs), whereas
   POSIX systems such as Linux use a bitmask based on object permissions and UID+GID,
   plus _optional_ access control lists.
-* File paths - the convention on Windows is to use `\` instead of `/`. The Go IO
+- File paths - the convention on Windows is to use `\` instead of `/`. The Go IO
   libraries typically accept both and just make it work, but when you're setting a
   path or command line that's interpreted inside a container, `\` may be needed.
-* Signals - Windows interactive apps handle termination differently, and can
+- Signals - Windows interactive apps handle termination differently, and can
   implement one or more of these:
-  * A UI thread handles well-defined messages including `WM_CLOSE`.
-  * Console apps handle Ctrl-C or Ctrl-break using a Control Handler.
-  * Services register a Service Control Handler function that can accept
+  - A UI thread handles well-defined messages including `WM_CLOSE`.
+  - Console apps handle Ctrl-C or Ctrl-break using a Control Handler.
+  - Services register a Service Control Handler function that can accept
     `SERVICE_CONTROL_STOP` control codes.
 
 Container exit codes follow the same convention where 0 is success, and nonzero is failure.
@@ -194,55 +194,55 @@ passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 The following list documents differences between how Pod container specifications
 work between Windows and Linux:
 
-* Huge pages are not implemented in the Windows container
+- Huge pages are not implemented in the Windows container
   runtime, and are not available. They require [asserting a user
   privilege](https://docs.microsoft.com/en-us/windows/desktop/Memory/large-page-support)
   that's not configurable for containers.
-* `requests.cpu` and `requests.memory` - requests are subtracted
+- `requests.cpu` and `requests.memory` - requests are subtracted
   from node available resources, so they can be used to avoid overprovisioning a
   node. However, they cannot be used to guarantee resources in an overprovisioned
   node. They should be applied to all containers as a best practice if the operator
   wants to avoid overprovisioning entirely.
-* `securityContext.allowPrivilegeEscalation` -
-   not possible on Windows; none of the capabilities are hooked up
-* `securityContext.capabilities` -
-   POSIX capabilities are not implemented on Windows
-* `securityContext.privileged` -
-   Windows doesn't support privileged containers, use [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) instead
-* `securityContext.procMount` -
-   Windows doesn't have a `/proc` filesystem
-* `securityContext.readOnlyRootFilesystem` -
-   not possible on Windows; write access is required for registry & system
-   processes to run inside the container
-* `securityContext.runAsGroup` -
-   not possible on Windows as there is no GID support
-* `securityContext.runAsNonRoot` -
-   this setting will prevent containers from running as `ContainerAdministrator`
-   which is the closest equivalent to a root user on Windows.
-* `securityContext.runAsUser` -
-   use [`runAsUserName`](/docs/tasks/configure-pod-container/configure-runasusername)
-   instead
-* `securityContext.seLinuxOptions` -
-   not possible on Windows as SELinux is Linux-specific
-* `terminationMessagePath` -
-   this has some limitations in that Windows doesn't support mapping single files. The
-   default value is `/dev/termination-log`, which does work because it does not
-   exist on Windows by default.
+- `securityContext.allowPrivilegeEscalation` -
+  not possible on Windows; none of the capabilities are hooked up
+- `securityContext.capabilities` -
+  POSIX capabilities are not implemented on Windows
+- `securityContext.privileged` -
+  Windows doesn't support privileged containers, use [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) instead
+- `securityContext.procMount` -
+  Windows doesn't have a `/proc` filesystem
+- `securityContext.readOnlyRootFilesystem` -
+  not possible on Windows; write access is required for registry & system
+  processes to run inside the container
+- `securityContext.runAsGroup` -
+  not possible on Windows as there is no GID support
+- `securityContext.runAsNonRoot` -
+  this setting will prevent containers from running as `ContainerAdministrator`
+  which is the closest equivalent to a root user on Windows.
+- `securityContext.runAsUser` -
+  use [`runAsUserName`](/docs/tasks/configure-pod-container/configure-runasusername)
+  instead
+- `securityContext.seLinuxOptions` -
+  not possible on Windows as SELinux is Linux-specific
+- `terminationMessagePath` -
+  this has some limitations in that Windows doesn't support mapping single files. The
+  default value is `/dev/termination-log`, which does work because it does not
+  exist on Windows by default.
 
 #### Field compatibility for Pod specifications {#compatibility-v1-pod}
 
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
-* `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
-* `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
-   not supported on Windows because host networking is not provided. Pods always
-   run with a container network.
-* `podSecurityContext` [see below](#compatibility-v1-pod-spec-containers-securitycontext)
-* `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
+- `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
+- `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
+- `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
+  not supported on Windows because host networking is not provided. Pods always
+  run with a container network.
+- `podSecurityContext` [see below](#compatibility-v1-pod-spec-containers-securitycontext)
+- `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.
-* `terminationGracePeriodSeconds` - this is not fully implemented in Docker on Windows,
+- `terminationGracePeriodSeconds` - this is not fully implemented in Docker on Windows,
   see the [GitHub issue](https://github.com/moby/moby/issues/25982).
   The behavior today is that the ENTRYPOINT process is sent CTRL_SHUTDOWN_EVENT,
   then Windows waits 5 seconds by default, and finally shuts down
@@ -250,11 +250,11 @@ The following list documents differences between how Pod specifications work bet
   second default is actually in the Windows registry
   [inside the container](https://github.com/moby/moby/issues/25982#issuecomment-426441183),
   so it can be overridden when the container is built.
-* `volumeDevices` - this is a beta feature, and is not implemented on Windows.
+- `volumeDevices` - this is a beta feature, and is not implemented on Windows.
   Windows cannot attach raw block devices to pods.
-* `volumes`
-  * If you define an `emptyDir` volume, you cannot set its volume source to `memory`.
-* You cannot enable `mountPropagation` for volume mounts as this is not
+- `volumes`
+  - If you define an `emptyDir` volume, you cannot set its volume source to `memory`.
+- You cannot enable `mountPropagation` for volume mounts as this is not
   supported on Windows.
 
 #### Field compatibility for hostNetwork {#compatibility-v1-pod-spec-containers-hostnetwork}
@@ -349,7 +349,7 @@ Windows Server LTSC release
 : Windows Server 2022
 
 Windows Server SAC release
-:  Windows Server version 20H2
+: Windows Server version 20H2
 
 The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
 

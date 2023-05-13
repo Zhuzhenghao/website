@@ -1,8 +1,8 @@
 ---
 title: Enforce Pod Security Standards with Namespace Labels
 reviewers:
-- tallclair
-- liggitt
+  - tallclair
+  - liggitt
 content_type: task
 weight: 250
 ---

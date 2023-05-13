@@ -1,8 +1,8 @@
 ---
 title: Traces For Kubernetes System Components
 reviewers:
-- logicalhan
-- lilic
+  - logicalhan
+  - lilic
 content_type: concept
 weight: 90
 ---
@@ -124,5 +124,4 @@ there are no guarantees of backwards compatibility for tracing instrumentation.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)
-
+- Read about [Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)

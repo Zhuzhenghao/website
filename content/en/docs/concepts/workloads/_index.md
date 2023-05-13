@@ -26,24 +26,24 @@ you specified.
 
 Kubernetes provides several built-in workload resources:
 
-* [`Deployment`](/docs/concepts/workloads/controllers/deployment/) and [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)
+- [`Deployment`](/docs/concepts/workloads/controllers/deployment/) and [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)
   (replacing the legacy resource
   {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}}).
   `Deployment` is a good fit for managing a stateless application workload on your cluster,
   where any `Pod` in the `Deployment` is interchangeable and can be replaced if needed.
-* [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/) lets you
+- [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/) lets you
   run one or more related Pods that do track state somehow. For example, if your workload
   records data persistently, you can run a `StatefulSet` that matches each `Pod` with a
   [`PersistentVolume`](/docs/concepts/storage/persistent-volumes/). Your code, running in the
   `Pods` for that `StatefulSet`, can replicate data to other `Pods` in the same `StatefulSet`
   to improve overall resilience.
-* [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) defines `Pods` that provide
+- [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) defines `Pods` that provide
   node-local facilities. These might be fundamental to the operation of your cluster, such
   as a networking helper tool, or be part of an
   {{< glossary_tooltip text="add-on" term_id="addons" >}}.  
   Every time you add a node to your cluster that matches the specification in a `DaemonSet`,
   the control plane schedules a `Pod` for that `DaemonSet` onto the new node.
-* [`Job`](/docs/concepts/workloads/controllers/job/) and
+- [`Job`](/docs/concepts/workloads/controllers/job/) and
   [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/)
   define tasks that run to completion and then stop. Jobs represent one-off tasks, whereas
   `CronJobs` recur according to a schedule.
@@ -60,22 +60,22 @@ then you can implement or install an extension that does provide that feature.
 
 As well as reading about each resource, you can learn about specific tasks that relate to them:
 
-* [Run a stateless application using a `Deployment`](/docs/tasks/run-application/run-stateless-application-deployment/)
-* Run a stateful application either as a [single instance](/docs/tasks/run-application/run-single-instance-stateful-application/)
+- [Run a stateless application using a `Deployment`](/docs/tasks/run-application/run-stateless-application-deployment/)
+- Run a stateful application either as a [single instance](/docs/tasks/run-application/run-single-instance-stateful-application/)
   or as a [replicated set](/docs/tasks/run-application/run-replicated-stateful-application/)
-* [Run automated tasks with a `CronJob`](/docs/tasks/job/automated-tasks-with-cron-jobs/)
+- [Run automated tasks with a `CronJob`](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 
 To learn about Kubernetes' mechanisms for separating code from configuration,
 visit [Configuration](/docs/concepts/configuration/).
 
 There are two supporting concepts that provide backgrounds about how Kubernetes manages pods
 for applications:
-* [Garbage collection](/docs/concepts/architecture/garbage-collection/) tidies up objects
+
+- [Garbage collection](/docs/concepts/architecture/garbage-collection/) tidies up objects
   from your cluster after their _owning resource_ has been removed.
-* The [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)
+- The [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)
   removes Jobs once a defined time has passed since they completed.
 
 Once your application is running, you might want to make it available on the internet as
 a [`Service`](/docs/concepts/services-networking/service/) or, for web application only,
 using an [`Ingress`](/docs/concepts/services-networking/ingress).
-

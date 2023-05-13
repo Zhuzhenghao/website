@@ -1,8 +1,8 @@
 ---
 reviewers:
-- hasheddan
-- pjbgf
-- saschagrunert
+  - hasheddan
+  - pjbgf
+  - saschagrunert
 title: Restrict a Container's Syscalls with seccomp
 content_type: tutorial
 weight: 40
@@ -26,13 +26,13 @@ profiles that give only the necessary privileges to your container processes.
 
 ## {{% heading "objectives" %}}
 
-* Learn how to load seccomp profiles on a node
-* Learn how to apply a seccomp profile to a container
-* Observe auditing of syscalls made by a container process
-* Observe behavior when a missing profile is specified
-* Observe a violation of a seccomp profile
-* Learn how to create fine-grained seccomp profiles
-* Learn how to apply a container runtime default seccomp profile
+- Learn how to load seccomp profiles on a node
+- Learn how to apply a seccomp profile to a container
+- Observe auditing of syscalls made by a container process
+- Observe behavior when a missing profile is specified
+- Observe a violation of a seccomp profile
+- Learn how to create fine-grained seccomp profiles
+- Learn how to apply a container runtime default seccomp profile
 
 ## {{% heading "prerequisites" %}}
 
@@ -85,6 +85,7 @@ ls profiles
 ```
 
 You should see three profiles listed at the end of the final step:
+
 ```
 audit.json  fine-grained.json  violation.json
 ```
@@ -100,6 +101,7 @@ onto a node.
 {{< codenew file="pods/security/seccomp/kind.yaml" >}}
 
 Download that example kind configuration, and save it to a file named `kind.yaml`:
+
 ```shell
 curl -L -O https://k8s.io/examples/pods/security/seccomp/kind.yaml
 ```
@@ -161,7 +163,7 @@ running within kind.
 To use seccomp profile defaulting, you must run the kubelet with the
 `--seccomp-default`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet)
-enabled for each node where you want to use it. 
+enabled for each node where you want to use it.
 
 If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is
 defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode.
@@ -276,6 +278,7 @@ for all its containers:
 {{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
 
 Create that Pod:
+
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
 ```
@@ -285,6 +288,7 @@ kubectl get pod default-pod
 ```
 
 The Pod should be showing as having started successfully:
+
 ```
 NAME        READY   STATUS    RESTARTS   AGE
 default-pod 1/1     Running   0          20s
@@ -346,6 +350,7 @@ kubectl get service audit-pod
 ```
 
 The output is similar to:
+
 ```
 NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 audit-pod   NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
@@ -377,6 +382,7 @@ You should already see some logs of syscalls made by `http-echo`, and if you
 `curl` the endpoint in the control plane container you will see more written.
 
 For example:
+
 ```
 Jul  6 15:37:40 my-machine kernel: [369128.669452] audit: type=1326 audit(1594067860.484:14536): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=51 compat=0 ip=0x46fe1f code=0x7ffc0000
 Jul  6 15:37:40 my-machine kernel: [369128.669453] audit: type=1326 audit(1594067860.484:14537): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=54 compat=0 ip=0x46fdba code=0x7ffc0000
@@ -463,6 +469,7 @@ kubectl get pod fine-pod
 ```
 
 The Pod should be showing as having started successfully:
+
 ```
 NAME        READY   STATUS    RESTARTS   AGE
 fine-pod   1/1     Running   0          30s
@@ -489,6 +496,7 @@ kubectl get service fine-pod
 ```
 
 The output is similar to:
+
 ```
 NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
@@ -522,5 +530,5 @@ kubectl delete pod fine-pod --wait --now
 
 You can learn more about Linux seccomp:
 
-* [A seccomp Overview](https://lwn.net/Articles/656307/)
-* [Seccomp Security Profiles for Docker](https://docs.docker.com/engine/security/seccomp/)
+- [A seccomp Overview](https://lwn.net/Articles/656307/)
+- [Seccomp Security Profiles for Docker](https://docs.docker.com/engine/security/seccomp/)

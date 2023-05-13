@@ -14,7 +14,7 @@ to use in your cluster during {{<glossary_tooltip text="garbage collection" term
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-You also need to [create a sample Deployment](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment) 
+You also need to [create a sample Deployment](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)
 to experiment with the different types of cascading deletion. You will need to
 recreate the Deployment for each type.
 
@@ -22,7 +22,7 @@ recreate the Deployment for each type.
 
 Check that the `ownerReferences` field is present on your pods:
 
-```shell 
+```shell
 kubectl get pods -l app=nginx --output=yaml
 ```
 
@@ -48,13 +48,13 @@ to delete dependents of an object. You can switch to foreground cascading deleti
 using either `kubectl` or the Kubernetes API, depending on the Kubernetes
 version your cluster runs. {{<version-check>}}
 
-
 You can delete objects using foreground cascading deletion using `kubectl` or the
 Kubernetes API.
 
 **Using kubectl**
 
 Run the following command:
+
 <!--TODO: verify release after which the --cascade flag is switched to a string in https://github.com/kubernetes/kubectl/commit/fd930e3995957b0093ecc4b9fd8b0525d94d3b4e-->
 
 ```shell
@@ -96,13 +96,11 @@ kubectl delete deployment nginx-deployment --cascade=foreground
        ...
    ```
 
-
 ## Use background cascading deletion {#use-background-cascading-deletion}
 
 1. [Create a sample Deployment](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment).
 1. Use either `kubectl` or the Kubernetes API to delete the Deployment,
    depending on the Kubernetes version your cluster runs. {{<version-check>}}
-
 
 You can delete objects using background cascading deletion using `kubectl`
 or the Kubernetes API.
@@ -150,15 +148,13 @@ kubectl delete deployment nginx-deployment --cascade=background
    }
    ```
 
-
 ## Delete owner objects and orphan dependents {#set-orphan-deletion-policy}
 
 By default, when you tell Kubernetes to delete an object, the
 {{<glossary_tooltip text="controller" term_id="controller">}} also deletes
-dependent objects. You can make Kubernetes *orphan* these dependents using
+dependent objects. You can make Kubernetes _orphan_ these dependents using
 `kubectl` or the Kubernetes API, depending on the Kubernetes version your
 cluster runs. {{<version-check>}}
-
 
 **Using kubectl**
 
@@ -200,7 +196,6 @@ kubectl delete deployment nginx-deployment --cascade=orphan
    ...
    ```
 
-
 You can check that the Pods managed by the Deployment are still running:
 
 ```shell
@@ -209,6 +204,6 @@ kubectl get pods -l app=nginx
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [owners and dependents](/docs/concepts/overview/working-with-objects/owners-dependents/) in Kubernetes.
-* Learn about Kubernetes [finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
-* Learn about [garbage collection](/docs/concepts/architecture/garbage-collection/).
+- Learn about [owners and dependents](/docs/concepts/overview/working-with-objects/owners-dependents/) in Kubernetes.
+- Learn about Kubernetes [finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
+- Learn about [garbage collection](/docs/concepts/architecture/garbage-collection/).

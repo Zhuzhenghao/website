@@ -4,32 +4,25 @@ content_type: task
 weight: 60
 ---
 
-
 <!-- overview -->
 
 This page shows how to configure Pods so that they will be assigned particular
 {{< glossary_tooltip text="Quality of Service (QoS) classes" term_id="qos-class" >}}.
 Kubernetes uses QoS classes to make decisions about evicting Pods when Node resources are exceeded.
 
-
 When Kubernetes creates a Pod it assigns one of these QoS classes to the Pod:
 
-* [Guaranteed](/docs/concepts/workloads/pods/pod-qos/#guaranteed)
-* [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable)
-* [BestEffort](/docs/concepts/workloads/pods/pod-qos/#besteffort)
-
+- [Guaranteed](/docs/concepts/workloads/pods/pod-qos/#guaranteed)
+- [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable)
+- [BestEffort](/docs/concepts/workloads/pods/pod-qos/#besteffort)
 
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 You also need to be able to create and delete namespaces.
 
-
-
 <!-- steps -->
-
 
 ## Create a namespace
 
@@ -44,10 +37,10 @@ kubectl create namespace qos-example
 
 For a Pod to be given a QoS class of `Guaranteed`:
 
-* Every Container in the Pod must have a memory limit and a memory request.
-* For every Container in the Pod, the memory limit must equal the memory request.
-* Every Container in the Pod must have a CPU limit and a CPU request.
-* For every Container in the Pod, the CPU limit must equal the CPU request.
+- Every Container in the Pod must have a memory limit and a memory request.
+- For every Container in the Pod, the memory limit must equal the memory request.
+- Every Container in the Pod must have a CPU limit and a CPU request.
+- For every Container in the Pod, the CPU limit must equal the CPU request.
 
 These restrictions apply to init containers and app containers equally.
 [Ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/)
@@ -98,6 +91,7 @@ the limit.
 {{< /note >}}
 
 <!-- 4th level heading to suppress entry in nav -->
+
 #### Clean up {#clean-up-guaranteed}
 
 Delete your Pod:
@@ -110,8 +104,8 @@ kubectl delete pod qos-demo --namespace=qos-example
 
 A Pod is given a QoS class of `Burstable` if:
 
-* The Pod does not meet the criteria for QoS class `Guaranteed`.
-* At least one Container in the Pod has a memory or CPU request or limit.
+- The Pod does not meet the criteria for QoS class `Guaranteed`.
+- At least one Container in the Pod has a memory or CPU request or limit.
 
 Here is a manifest for a Pod that has one Container. The Container has a memory limit of 200 MiB
 and a memory request of 100 MiB.
@@ -149,6 +143,7 @@ status:
 ```
 
 <!-- 4th level heading to suppress entry in nav -->
+
 #### Clean up {#clean-up-burstable}
 
 Delete your Pod:
@@ -192,6 +187,7 @@ status:
 ```
 
 <!-- 4th level heading to suppress entry in nav -->
+
 #### Clean up {#clean-up-besteffort}
 
 Delete your Pod:
@@ -252,7 +248,6 @@ kubectl --namespace=qos-example get pod qos-demo-4 -o jsonpath='{ .status.qosCla
 Burstable
 ```
 
-
 ## Clean up
 
 Delete your namespace:
@@ -261,35 +256,28 @@ Delete your namespace:
 kubectl delete namespace qos-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
-
 
 ### For app developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+- [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+- [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+- [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+- [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+- [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-* [Control Topology Management policies on a node](/docs/tasks/administer-cluster/topology-manager/)
-
-
-
+- [Control Topology Management policies on a node](/docs/tasks/administer-cluster/topology-manager/)

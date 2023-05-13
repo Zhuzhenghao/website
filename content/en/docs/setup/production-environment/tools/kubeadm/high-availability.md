@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Creating Highly Available Clusters with kubeadm
 content_type: task
 weight: 60
@@ -37,6 +37,7 @@ control plane:
 
 {{< tabs name="prerequisite_tabs" >}}
 {{% tab name="Stacked etcd" %}}
+
 <!--
     note to reviewers: these prerequisites should match the start of the
     external etc tab
@@ -62,10 +63,12 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 
 {{% /tab %}}
 {{% tab name="External etcd" %}}
+
 <!--
     note to reviewers: these prerequisites should match the start of the
     stacked etc tab
 -->
+
 You need:
 
 - Three or more machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
@@ -85,6 +88,7 @@ You need:
 <!-- end of shared prerequisites -->
 
 And you also need:
+
 - Three or more additional machines, that will become etcd cluster members.
   Having an odd number of members in the etcd cluster is a requirement for achieving
   optimal voting quorum.
@@ -286,7 +290,6 @@ in the kubeadm config file.
 
 1. Create a file called `kubeadm-config.yaml` with the following contents:
 
-
    ```yaml
    ---
    apiVersion: kubeadm.k8s.io/v1beta3
@@ -397,6 +400,7 @@ SSH is required if you want to control all nodes from a single machine.
 
    In the following example, replace `CONTROL_PLANE_IPS` with the IP addresses of the
    other control plane nodes.
+
    ```sh
    USER=ubuntu # customizable
    CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
@@ -411,7 +415,7 @@ SSH is required if you want to control all nodes from a single machine.
        # Skip the next line if you are using external etcd
        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
    done
-    ```
+   ```
 
    {{< caution >}}
    Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates

@@ -7,10 +7,13 @@ short_description: >
 aka:
 full_link: /docs/concepts/workloads/pods/downward-api/
 tags:
-- architecture
+  - architecture
 ---
+
 Kubernetes' mechanism to expose Pod and container field values to code running in a container.
+
 <!--more-->
+
 It is sometimes useful for a container to have information about itself, without
 needing to make changes to the container code that directly couple it to Kubernetes.
 
@@ -25,4 +28,3 @@ There are two ways to expose Pod and container fields to a running container:
 - using [a `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 Together, these two ways of exposing Pod and container fields are called the _downward API_.
-

@@ -5,21 +5,14 @@ package: kubeproxy.config.k8s.io/v1alpha1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
-  
-    
 
-## `KubeProxyConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration}
-    
-
+## `KubeProxyConfiguration` {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration}
 
 <p>KubeProxyConfiguration contains everything necessary to configure the
 Kubernetes proxy server.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -195,16 +188,13 @@ An empty string slice is meant to select all network interfaces.</p>
 </tbody>
 </table>
 
-## `DetectLocalConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-DetectLocalConfiguration}
-    
+## `DetectLocalConfiguration` {#kubeproxy-config-k8s-io-v1alpha1-DetectLocalConfiguration}
 
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-
 <p>DetectLocalConfiguration contains optional settings related to DetectLocalMode option</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -232,17 +222,14 @@ the given prefix. This argument should be set if DetectLocalMode is set to Local
 </tbody>
 </table>
 
-## `KubeProxyConntrackConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration}
-    
+## `KubeProxyConntrackConfiguration` {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration}
 
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-
 <p>KubeProxyConntrackConfiguration contains conntrack settings for
 the Kubernetes proxy server.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -285,17 +272,14 @@ table. (e.g. '60s'). Must be greater than 0 to set.</p>
 </tbody>
 </table>
 
-## `KubeProxyIPTablesConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration}
-    
+## `KubeProxyIPTablesConfiguration` {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration}
 
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-
 <p>KubeProxyIPTablesConfiguration contains iptables-related configuration
 details for the Kubernetes proxy server.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -344,17 +328,14 @@ localhost (iptables mode only)</p>
 </tbody>
 </table>
 
-## `KubeProxyIPVSConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration}
-    
+## `KubeProxyIPVSConfiguration` {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration}
 
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-
 <p>KubeProxyIPVSConfiguration contains ipvs-related configuration
 details for the Kubernetes proxy server.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -427,17 +408,14 @@ The default value is 0, which preserves the current timeout value on the system.
 </tbody>
 </table>
 
-## `KubeProxyWinkernelConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyWinkernelConfiguration}
-    
+## `KubeProxyWinkernelConfiguration` {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyWinkernelConfiguration}
 
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-
 <p>KubeProxyWinkernelConfiguration contains Windows/HNS settings for
 the Kubernetes proxy server.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -487,28 +465,23 @@ Windows</p>
 </tbody>
 </table>
 
-## `LocalMode`     {#kubeproxy-config-k8s-io-v1alpha1-LocalMode}
-    
+## `LocalMode` {#kubeproxy-config-k8s-io-v1alpha1-LocalMode}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
-
 
 <p>LocalMode represents modes to detect local traffic from the node</p>
 
+## `ProxyMode` {#kubeproxy-config-k8s-io-v1alpha1-ProxyMode}
 
-
-
-## `ProxyMode`     {#kubeproxy-config-k8s-io-v1alpha1-ProxyMode}
-    
 (Alias of `string`)
 
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
-
 
 <p>ProxyMode represents modes used by the Kubernetes proxy server.</p>
 <p>Currently, two modes of proxy are available on Linux platforms: 'iptables' and 'ipvs'.
@@ -518,14 +491,7 @@ is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If t
 used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
 will exit with an error.</p>
 
-
-
-  
-  
-    
-
-## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
-    
+## `ClientConnectionConfiguration` {#ClientConnectionConfiguration}
 
 **Appears in:**
 
@@ -539,9 +505,7 @@ will exit with an error.</p>
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
-
 <p>ClientConnectionConfiguration contains details for constructing a client.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -588,8 +552,7 @@ client.</p>
 </tbody>
 </table>
 
-## `DebuggingConfiguration`     {#DebuggingConfiguration}
-    
+## `DebuggingConfiguration` {#DebuggingConfiguration}
 
 **Appears in:**
 
@@ -601,9 +564,7 @@ client.</p>
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
-
 <p>DebuggingConfiguration holds configuration for Debugging related features.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -628,8 +589,7 @@ enableProfiling is true.</p>
 </tbody>
 </table>
 
-## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
-    
+## `LeaderElectionConfiguration` {#LeaderElectionConfiguration}
 
 **Appears in:**
 
@@ -641,10 +601,8 @@ enableProfiling is true.</p>
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
-
 <p>LeaderElectionConfiguration defines the configuration of leader election
 clients for components that can run with leader election enabled.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>

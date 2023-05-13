@@ -4,15 +4,16 @@ id: replica-set
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
- ReplicaSet ensures that a specified number of Pod replicas are running at one time
+  ReplicaSet ensures that a specified number of Pod replicas are running at one time
 
-aka: 
+aka:
 tags:
-- fundamental
-- core-object
-- workload
+  - fundamental
+  - core-object
+  - workload
 ---
- A ReplicaSet (aims to) maintain a set of replica Pods running at any given time.
+
+A ReplicaSet (aims to) maintain a set of replica Pods running at any given time.
 
 <!--more-->
 

@@ -1,7 +1,7 @@
 ---
 reviewers:
-- bprashanth
-- janetkuo
+  - bprashanth
+  - janetkuo
 title: ReplicationController
 content_type: concept
 weight: 90
@@ -34,7 +34,7 @@ ReplicationController is often abbreviated to "rc" in discussion, and as a short
 kubectl commands.
 
 A simple case is to create one ReplicationController object to reliably run one instance of
-a Pod indefinitely.  A more complex use case is to run several identical replicas of a replicated
+a Pod indefinitely. A more complex use case is to run several identical replicas of a replicated
 service, such as web servers.
 
 ## Running an example ReplicationController
@@ -109,7 +109,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 Here, the selector is the same as the selector for the ReplicationController (seen in the
-`kubectl describe` output), and in a different form in `replication.yaml`.  The `--output=jsonpath` option
+`kubectl describe` output), and in a different form in `replication.yaml`. The `--output=jsonpath` option
 specifies an expression with the name from each pod in the returned list.
 
 ## Writing a ReplicationController Manifest
@@ -117,9 +117,9 @@ specifies an expression with the name from each pod in the returned list.
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
 
 When the control plane creates new Pods for a ReplicationController, the `.metadata.name` of the
-ReplicationController is part of the basis for naming those Pods.  The name of a ReplicationController must be a valid
+ReplicationController is part of the basis for naming those Pods. The name of a ReplicationController must be a valid
 [DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
-value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+value, but this can produce unexpected results for the Pod hostnames. For best compatibility,
 the name should follow the more restrictive rules for a
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
@@ -143,9 +143,9 @@ for example the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 
 ### Labels on the ReplicationController
 
-The ReplicationController can itself have labels (`.metadata.labels`).  Typically, you
+The ReplicationController can itself have labels (`.metadata.labels`). Typically, you
 would set these the same as the `.spec.template.metadata.labels`; if `.metadata.labels` is not specified
-then it defaults to  `.spec.template.metadata.labels`. However, they are allowed to be
+then it defaults to `.spec.template.metadata.labels`. However, they are allowed to be
 different, and the `.metadata.labels` do not affect the behavior of the ReplicationController.
 
 ### Pod Selector
@@ -156,12 +156,12 @@ between pods that it created or deleted and pods that another person or process 
 deleted. This allows the ReplicationController to be replaced without affecting the running pods.
 
 If specified, the `.spec.template.metadata.labels` must be equal to the `.spec.selector`, or it will
-be rejected by the API.  If `.spec.selector` is unspecified, it will be defaulted to
+be rejected by the API. If `.spec.selector` is unspecified, it will be defaulted to
 `.spec.template.metadata.labels`.
 
 Also you should not normally create any pods whose labels match this selector, either directly, with
 another ReplicationController, or with another controller such as Job. If you do so, the
-ReplicationController thinks that it created the other pods.  Kubernetes does not stop you
+ReplicationController thinks that it created the other pods. Kubernetes does not stop you
 from doing this.
 
 If you do end up with multiple controllers that have overlapping selectors, you
@@ -170,7 +170,7 @@ will have to manage the deletion yourself (see [below](#working-with-replication
 ### Multiple Replicas
 
 You can specify how many pods should run concurrently by setting `.spec.replicas` to the number
-of pods you would like to have running concurrently.  The number running at any time may be higher
+of pods you would like to have running concurrently. The number running at any time may be higher
 or lower, such as if the replicas were just increased or decreased, or if a pod is gracefully
 shutdown, and a replacement starts early.
 
@@ -181,8 +181,8 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Deleting a ReplicationController and its Pods
 
 To delete a ReplicationController and all its pods, use [`kubectl
-delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).  Kubectl will scale the ReplicationController to zero and wait
-for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
+delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl will scale the ReplicationController to zero and wait
+for it to delete each pod before deleting the ReplicationController itself. If this kubectl
 command is interrupted, it can be restarted.
 
 When using the REST API or [client library](/docs/reference/using-api/client-libraries), you need to do the steps explicitly (scale replicas to
@@ -196,7 +196,7 @@ Using kubectl, specify the `--cascade=orphan` option to [`kubectl delete`](/docs
 
 When using the REST API or [client library](/docs/reference/using-api/client-libraries), you can delete the ReplicationController object.
 
-Once the original is deleted, you can create a new ReplicationController to replace it.  As long
+Once the original is deleted, you can create a new ReplicationController to replace it. As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old pods.
 However, it will not make any effort to make existing pods match a new, different pod template.
 To update pods to a new spec in a controlled way, use a [rolling update](#rolling-updates).
@@ -229,7 +229,7 @@ The two ReplicationControllers would need to create pods with at least one diffe
 
 In addition to running multiple releases of an application while a rolling update is in progress, it's common to run multiple releases for an extended period of time, or even continuously, using multiple release tracks. The tracks would be differentiated by labels.
 
-For instance, a service might target all pods with `tier in (frontend), environment in (prod)`.  Now say you have 10 replicated pods that make up this tier.  But you want to be able to 'canary' a new version of this component.  You could set up a ReplicationController with `replicas` set to 9 for the bulk of the replicas, with labels `tier=frontend, environment=prod, track=stable`, and another ReplicationController with `replicas` set to 1 for the canary, with labels `tier=frontend, environment=prod, track=canary`.  Now the service is covering both the canary and non-canary pods.  But you can mess with the ReplicationControllers separately to test things out, monitor the results, etc.
+For instance, a service might target all pods with `tier in (frontend), environment in (prod)`. Now say you have 10 replicated pods that make up this tier. But you want to be able to 'canary' a new version of this component. You could set up a ReplicationController with `replicas` set to 9 for the bulk of the replicas, with labels `tier=frontend, environment=prod, track=stable`, and another ReplicationController with `replicas` set to 1 for the canary, with labels `tier=frontend, environment=prod, track=canary`. Now the service is covering both the canary and non-canary pods. But you can mess with the ReplicationControllers separately to test things out, monitor the results, etc.
 
 ### Using ReplicationControllers with Services
 
@@ -266,11 +266,11 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 
 ### Deployment (Recommended)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods. Deployments are recommended if you want the rolling update functionality,  because they are declarative, server-side, and have additional features.
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods. Deployments are recommended if you want the rolling update functionality, because they are declarative, server-side, and have additional features.
 
 ### Bare Pods
 
-Unlike in the case where a user directly created pods, a ReplicationController replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicationController even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node.  A ReplicationController delegates local container restarts to some agent on the node, such as the kubelet.
+Unlike in the case where a user directly created pods, a ReplicationController replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicationController even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node. A ReplicationController delegates local container restarts to some agent on the node, such as the kubelet.
 
 ### Job
 
@@ -280,15 +280,15 @@ Use a [`Job`](/docs/concepts/workloads/controllers/job/) instead of a Replicatio
 ### DaemonSet
 
 Use a [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) instead of a ReplicationController for pods that provide a
-machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime that is tied
+machine-level function, such as machine monitoring or machine logging. These pods have a lifetime that is tied
 to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods).
-* Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
+- Learn about [Pods](/docs/concepts/workloads/pods).
+- Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
   for ReplicationController.
-* `ReplicationController` is part of the Kubernetes REST API.
+- `ReplicationController` is part of the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/replication-controller-v1" >}}
   object definition to understand the API for replication controllers.

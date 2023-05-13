@@ -2,9 +2,9 @@
 title: Manage TLS Certificates in a Cluster
 content_type: task
 reviewers:
-- mikedanese
-- beacham
-- liggit
+  - mikedanese
+  - beacham
+  - liggit
 ---
 
 <!-- overview -->
@@ -23,11 +23,7 @@ CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 {{< /note >}}
 
-
-
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -57,8 +53,8 @@ Kubernetes endpoints. An example of an internal Kubernetes endpoint is the
 Service named `kubernetes` in the default namespace.
 
 If you want to use a custom certificate authority for your workloads, you should generate
-that CA separately, and distribute its CA certificate using a 
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your pods 
+that CA separately, and distribute its CA certificate using a
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your pods
 have access to read.
 {{< /note >}}
 
@@ -238,7 +234,7 @@ This produces a certificate authority key file (`ca-key.pem`) and certificate (`
 
 {{< codenew file="tls/server-signing-config.json" >}}
 
-Use a `server-signing-config.json` signing configuration and the certificate authority key file 
+Use a `server-signing-config.json` signing configuration and the certificate authority key file
 and certificate to sign the certificate request:
 
 ```shell
@@ -280,6 +276,7 @@ kubectl get csr
 ```
 
 The output is similar to:
+
 ```none
 NAME                  AGE   SIGNERNAME            REQUESTOR              REQUESTEDDURATION   CONDITION
 my-svc.my-namespace   20m   example.com/serving   yourname@example.com   <none>              Approved,Issued
@@ -362,4 +359,3 @@ Kubernetes controller manager provides a default implementation of a signer. To
 enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to
 your Certificate Authority's keypair.
-

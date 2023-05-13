@@ -24,7 +24,7 @@ You can also become a [member](/docs/contribute/participate/roles-and-responsibi
 [reviewer](/docs/contribute/participate/roles-and-responsibilities/#reviewers), or
 [approver](/docs/contribute/participate/roles-and-responsibilities/#approvers).
 These roles require greater access and entail certain responsibilities for
-approving and committing changes.  See
+approving and committing changes. See
 [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md)
 for more information on how membership works within the Kubernetes community.
 
@@ -108,10 +108,7 @@ SIG Docs approvers. Here's how it works.
   specific roles, such as [PR Wrangler](/docs/contribute/participate/pr-wranglers/) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 For more information about contributing to the Kubernetes documentation, see:
 

@@ -5,20 +5,13 @@ package: admission.k8s.io/v1
 auto_generated: true
 ---
 
-
-## Resource Types 
-
+## Resource Types
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
-  
-    
 
-## `AdmissionReview`     {#admission-k8s-io-v1-AdmissionReview}
-    
-
+## `AdmissionReview` {#admission-k8s-io-v1-AdmissionReview}
 
 <p>AdmissionReview describes an admission review request/response.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -45,16 +38,13 @@ auto_generated: true
 </tbody>
 </table>
 
-## `AdmissionRequest`     {#admission-k8s-io-v1-AdmissionRequest}
-    
+## `AdmissionRequest` {#admission-k8s-io-v1-AdmissionRequest}
 
 **Appears in:**
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
 
-
 <p>AdmissionRequest describes the admission.Attributes for the admission request.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -195,16 +185,13 @@ Operation might be a CREATE, in which case the Options will a
 </tbody>
 </table>
 
-## `AdmissionResponse`     {#admission-k8s-io-v1-AdmissionResponse}
-    
+## `AdmissionResponse` {#admission-k8s-io-v1-AdmissionResponse}
 
 **Appears in:**
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
 
-
 <p>AdmissionResponse describes an admission response.</p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -271,31 +258,22 @@ Warnings over 256 characters and large numbers of warnings may be truncated.</p>
 </tbody>
 </table>
 
-## `Operation`     {#admission-k8s-io-v1-Operation}
-    
+## `Operation` {#admission-k8s-io-v1-Operation}
+
 (Alias of `string`)
 
 **Appears in:**
 
 - [AdmissionRequest](#admission-k8s-io-v1-AdmissionRequest)
 
-
 <p>Operation is the type of resource operation being checked for admission control</p>
 
+## `PatchType` {#admission-k8s-io-v1-PatchType}
 
-
-
-## `PatchType`     {#admission-k8s-io-v1-PatchType}
-    
 (Alias of `string`)
 
 **Appears in:**
 
 - [AdmissionResponse](#admission-k8s-io-v1-AdmissionResponse)
 
-
 <p>PatchType is the type of patch being used to represent the mutated object</p>
-
-
-
-  

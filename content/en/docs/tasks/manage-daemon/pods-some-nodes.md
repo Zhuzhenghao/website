@@ -3,6 +3,7 @@ title: Running Pods on Only Some Nodes
 content_type: task
 weight: 30
 ---
+
 <!-- overview -->
 
 This page demonstrates how can you run {{<glossary_tooltip term_id="pod" text="Pods">}} on only some {{<glossary_tooltip term_id="node" text="Nodes">}} as part of a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
@@ -29,7 +30,6 @@ kubectl label nodes example-node-1 example-node-2 ssd=true
 
 Let's create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} which will provision the daemon pods on the SSD labeled {{<glossary_tooltip term_id="node" text="nodes">}} only.
 
-
 Next, use a `nodeSelector` to ensure that the DaemonSet only runs Pods on nodes
 with the `ssd` label set to `"true"`.
 
@@ -51,6 +51,7 @@ to run a new daemon pod on that node.
 ```shell
 kubectl get pods -o wide
 ```
+
 The output is similar to:
 
 ```

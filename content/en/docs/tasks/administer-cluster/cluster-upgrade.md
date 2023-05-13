@@ -5,6 +5,7 @@ weight: 350
 ---
 
 <!-- overview -->
+
 This page provides an overview of the steps you should follow to upgrade a
 Kubernetes cluster.
 
@@ -30,7 +31,7 @@ the documentation for the version of Kubernetes that you plan to upgrade to.
 
 ### kubeadm {#upgrade-kubeadm}
 
-If your cluster was deployed using the `kubeadm` tool, refer to 
+If your cluster was deployed using the `kubeadm` tool, refer to
 [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 for detailed information on how to upgrade the cluster.
 

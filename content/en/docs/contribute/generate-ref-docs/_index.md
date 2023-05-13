@@ -9,4 +9,4 @@ reference guides.
 
 To build the reference documentation, see the following guide:
 
-* [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
+- [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)

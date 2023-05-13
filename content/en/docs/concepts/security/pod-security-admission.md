@@ -1,7 +1,7 @@
 ---
 reviewers:
-- tallclair
-- liggitt
+  - tallclair
+  - liggitt
 title: Pod Security Admission
 description: >
   An overview of the Pod Security Admission Controller, which can enforce the Pod Security
@@ -42,8 +42,8 @@ page for an in-depth look at those requirements.
 ## Pod Security Admission labels for namespaces
 
 Once the feature is enabled or the webhook is installed, you can configure namespaces to define the admission
-control mode you want to use for pod security in each namespace. Kubernetes defines a set of 
-{{< glossary_tooltip term_id="label" text="labels" >}} that you can set to define which of the 
+control mode you want to use for pod security in each namespace. Kubernetes defines a set of
+{{< glossary_tooltip term_id="label" text="labels" >}} that you can set to define which of the
 predefined Pod Security Standard levels you want to use for a namespace. The label you select
 defines what action the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 takes if a potential violation is detected:

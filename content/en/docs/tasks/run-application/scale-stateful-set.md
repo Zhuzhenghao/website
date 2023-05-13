@@ -1,12 +1,12 @@
 ---
 reviewers:
-- bprashanth
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
+  - bprashanth
+  - enisoc
+  - erictune
+  - foxish
+  - janetkuo
+  - kow3ns
+  - smarterclayton
 title: Scale a StatefulSet
 content_type: task
 weight: 50

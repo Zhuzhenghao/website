@@ -67,30 +67,31 @@ for a number of reasons:
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 By default, the Kubernetes control plane (specifically, the
-[ServiceAccount admission controller](#serviceaccount-admission-controller)) 
+[ServiceAccount admission controller](#serviceaccount-admission-controller))
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
 and this volume includes a token for Kubernetes API access.
 
 Here's an example of how that looks for a launched Pod:
 
 ```yaml
-...
-  - name: kube-api-access-<random-suffix>
-    projected:
-      sources:
-        - serviceAccountToken:
-            path: token # must match the path the app expects
-        - configMap:
-            items:
-              - key: ca.crt
-                path: ca.crt
-            name: kube-root-ca.crt
-        - downwardAPI:
-            items:
-              - fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-                path: namespace
+
+---
+- name: kube-api-access-<random-suffix>
+  projected:
+    sources:
+      - serviceAccountToken:
+          path: token # must match the path the app expects
+      - configMap:
+          items:
+            - key: ca.crt
+              path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
 ```
 
 That manifest snippet defines a projected volume that consists of three sources. In this case,
@@ -214,25 +215,26 @@ where the Secret represented the ServiceAccount for the Pod but did not expire.)
 Here's an example of how that looks for a launched Pod:
 
 ```yaml
-...
-  - name: kube-api-access-<random-suffix>
-    projected:
-      defaultMode: 420 # decimal equivalent of octal 0644
-      sources:
-        - serviceAccountToken:
-            expirationSeconds: 3607
-            path: token
-        - configMap:
-            items:
-              - key: ca.crt
-                path: ca.crt
-            name: kube-root-ca.crt
-        - downwardAPI:
-            items:
-              - fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-                path: namespace
+
+---
+- name: kube-api-access-<random-suffix>
+  projected:
+    defaultMode: 420 # decimal equivalent of octal 0644
+    sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+            - key: ca.crt
+              path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
 ```
 
 That manifest snippet defines a projected volume that combines information from three sources:

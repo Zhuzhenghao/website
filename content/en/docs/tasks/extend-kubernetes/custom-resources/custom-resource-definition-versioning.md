@@ -1,14 +1,15 @@
 ---
 title: Versions in CustomResourceDefinitions
 reviewers:
-- sttts
-- liggitt
+  - sttts
+  - liggitt
 content_type: task
 weight: 30
 min-kubernetes-server-version: v1.16
 ---
 
 <!-- overview -->
+
 This page explains how to add versioning information to
 [CustomResourceDefinitions](/docs/reference/kubernetes-api/extend-resources/custom-resource-definition-v1/), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
@@ -52,7 +53,7 @@ Adding a new version:
 1. If using conversion webhooks, create and deploy the conversion webhook. See
    the [Webhook conversion](#webhook-conversion) for more details.
 1. Update the CustomResourceDefinition to include the new version in the
-   `spec.versions` list with `served:true`.  Also, set `spec.conversion` field
+   `spec.versions` list with `served:true`. Also, set `spec.conversion` field
    to the selected conversion strategy. If using a conversion webhook, configure
    `spec.conversion.webhookClientConfig` field to call the webhook.
 
@@ -75,7 +76,7 @@ Removing an old version:
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting
    errors attempting to access the custom resource objects at the old version.
-   If this occurs, switch back to using `served:true` on the old version, migrate the 
+   If this occurs, switch back to using `served:true` on the old version, migrate the
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
@@ -102,6 +103,7 @@ between them. The comments in the YAML provide more context.
 
 {{< tabs name="CustomResourceDefinition_versioning_example_1" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -113,31 +115,31 @@ spec:
   group: example.com
   # list of versions supported by this CustomResourceDefinition
   versions:
-  - name: v1beta1
-    # Each version can be enabled/disabled by Served flag.
-    served: true
-    # One and only one version must be marked as the storage version.
-    storage: true
-    # A schema is required
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          host:
-            type: string
-          port:
-            type: string
-  - name: v1
-    served: true
-    storage: false
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          host:
-            type: string
-          port:
-            type: string
+    - name: v1beta1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      # One and only one version must be marked as the storage version.
+      storage: true
+      # A schema is required
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            host:
+              type: string
+            port:
+              type: string
+    - name: v1
+      served: true
+      storage: false
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            host:
+              type: string
+            port:
+              type: string
   # The conversion section is introduced in Kubernetes 1.13+ with a default value of
   # None conversion (strategy sub-field set to None).
   conversion:
@@ -155,10 +157,12 @@ spec:
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
-    - ct
+      - ct
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -171,14 +175,14 @@ spec:
   group: example.com
   # list of versions supported by this CustomResourceDefinition
   versions:
-  - name: v1beta1
-    # Each version can be enabled/disabled by Served flag.
-    served: true
-    # One and only one version must be marked as the storage version.
-    storage: true
-  - name: v1
-    served: true
-    storage: false
+    - name: v1beta1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      # One and only one version must be marked as the storage version.
+      storage: true
+    - name: v1
+      served: true
+      storage: false
   validation:
     openAPIV3Schema:
       type: object
@@ -204,8 +208,9 @@ spec:
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
-    - ct
+      - ct
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -281,6 +286,7 @@ and should indicate what API group, version, and kind should be used instead, if
 
 {{< tabs name="CustomResourceDefinition_versioning_deprecated" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -301,7 +307,7 @@ spec:
     deprecated: true
     # This overrides the default warning returned to API clients making v1alpha1 API requests.
     deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
-    
+
     schema: ...
   - name: v1beta1
     served: true
@@ -315,8 +321,10 @@ spec:
     storage: true
     schema: ...
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -332,27 +340,27 @@ spec:
   scope: Namespaced
   validation: ...
   versions:
-  - name: v1alpha1
-    served: true
-    storage: false
-    # This indicates the v1alpha1 version of the custom resource is deprecated.
-    # API requests to this version receive a warning header in the server response.
-    deprecated: true
-    # This overrides the default warning returned to API clients making v1alpha1 API requests.
-    deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
-  - name: v1beta1
-    served: true
-    # This indicates the v1beta1 version of the custom resource is deprecated.
-    # API requests to this version receive a warning header in the server response.
-    # A default warning message is returned for this version.
-    deprecated: true
-  - name: v1
-    served: true
-    storage: true
+    - name: v1alpha1
+      served: true
+      storage: false
+      # This indicates the v1alpha1 version of the custom resource is deprecated.
+      # API requests to this version receive a warning header in the server response.
+      deprecated: true
+      # This overrides the default warning returned to API clients making v1alpha1 API requests.
+      deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+    - name: v1beta1
+      served: true
+      # This indicates the v1beta1 version of the custom resource is deprecated.
+      # API requests to this version receive a warning header in the server response.
+      # A default warning message is returned for this version.
+      deprecated: true
+    - name: v1
+      served: true
+      storage: true
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
-
 
 ### Version removal
 
@@ -395,11 +403,11 @@ The above example has a None conversion between versions which only sets the `ap
 on conversion and does not change the rest of the object. The API server also supports webhook
 conversions that call an external service in case a conversion is required. For example when:
 
-* custom resource is requested in a different version than stored version.
-* Watch is created in one version but the changed object is stored in another version.
-* custom resource PUT request is in a different version than storage version.
+- custom resource is requested in a different version than stored version.
+- Watch is created in one version but the changed object is stored in another version.
+- custom resource PUT request is in a different version than storage version.
 
-To cover all of these cases and to optimize conversion by the API server, 
+To cover all of these cases and to optimize conversion by the API server,
 the conversion requests may contain multiple objects in order to minimize the external calls.
 The webhook should perform these conversions independently.
 
@@ -433,7 +441,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 A conversion webhook must not mutate anything inside of `metadata` of the converted object
 other than `labels` and `annotations`.
 Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
-which caused the conversion. All other changes are ignored.  
+which caused the conversion. All other changes are ignored.
 
 ### Deploy the conversion webhook service
 
@@ -457,6 +465,7 @@ section of the `spec`:
 
 {{< tabs name="CustomResourceDefinition_versioning_example_2" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -468,30 +477,30 @@ spec:
   group: example.com
   # list of versions supported by this CustomResourceDefinition
   versions:
-  - name: v1beta1
-    # Each version can be enabled/disabled by Served flag.
-    served: true
-    # One and only one version must be marked as the storage version.
-    storage: true
-    # Each version can define its own schema when there is no top-level
-    # schema is defined.
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          hostPort:
-            type: string
-  - name: v1
-    served: true
-    storage: false
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          host:
-            type: string
-          port:
-            type: string
+    - name: v1beta1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      # One and only one version must be marked as the storage version.
+      storage: true
+      # Each version can define its own schema when there is no top-level
+      # schema is defined.
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            hostPort:
+              type: string
+    - name: v1
+      served: true
+      storage: false
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            host:
+              type: string
+            port:
+              type: string
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
@@ -500,7 +509,7 @@ spec:
       # conversionReviewVersions indicates what ConversionReview versions are understood/preferred by the webhook.
       # The first version in the list understood by the API server is sent to the webhook.
       # The webhook must respond with a ConversionReview object in the same version it received.
-      conversionReviewVersions: ["v1","v1beta1"]
+      conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
         service:
           namespace: default
@@ -518,10 +527,12 @@ spec:
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
-    - ct
+      - ct
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -536,30 +547,30 @@ spec:
   preserveUnknownFields: false
   # list of versions supported by this CustomResourceDefinition
   versions:
-  - name: v1beta1
-    # Each version can be enabled/disabled by Served flag.
-    served: true
-    # One and only one version must be marked as the storage version.
-    storage: true
-    # Each version can define its own schema when there is no top-level
-    # schema is defined.
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          hostPort:
-            type: string
-  - name: v1
-    served: true
-    storage: false
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          host:
-            type: string
-          port:
-            type: string
+    - name: v1beta1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      # One and only one version must be marked as the storage version.
+      storage: true
+      # Each version can define its own schema when there is no top-level
+      # schema is defined.
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            hostPort:
+              type: string
+    - name: v1
+      served: true
+      storage: false
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            host:
+              type: string
+            port:
+              type: string
   conversion:
     # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
@@ -581,8 +592,9 @@ spec:
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
-    - ct
+      - ct
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -630,6 +642,7 @@ Here is an example of a conversion webhook configured to call a URL
 
 {{< tabs name="CustomResourceDefinition_versioning_example_3" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -643,8 +656,10 @@ spec:
         url: "https://my-webhook.example.com:9443/my-webhook-path"
 ...
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -658,6 +673,7 @@ spec:
       url: "https://my-webhook.example.com:9443/my-webhook-path"
 ...
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -674,6 +690,7 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 
 {{< tabs name="CustomResourceDefinition_versioning_example_4" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -692,8 +709,10 @@ spec:
         caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
 ...
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -712,6 +731,7 @@ spec:
       caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
 ...
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -728,6 +748,7 @@ with the `conversionReviewVersions` field in their CustomResourceDefinition:
 
 {{< tabs name="conversionReviewVersions" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -741,12 +762,13 @@ spec:
       ...
 ```
 
-`conversionReviewVersions` is a required field when creating 
+`conversionReviewVersions` is a required field when creating
 `apiextensions.k8s.io/v1` custom resource definitions.
 Webhooks are required to support at least one `ConversionReview`
 version understood by the current and previous API server.
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -760,7 +782,7 @@ spec:
     ...
 ```
 
-If no `conversionReviewVersions` are specified, the default when creating 
+If no `conversionReviewVersions` are specified, the default when creating
 `apiextensions.k8s.io/v1beta1` custom resource definitions is `v1beta1`.
 {{% /tab %}}
 {{< /tabs >}}
@@ -773,94 +795,103 @@ versions the API server knows how to send, attempts to call to the webhook will 
 This example shows the data contained in an `ConversionReview` object
 for a request to convert `CronTab` objects to `example.com/v1`:
 
-
 {{< tabs name="ConversionReview_request" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 {
   "apiVersion": "apiextensions.k8s.io/v1",
   "kind": "ConversionReview",
   "request": {
-    # Random uid uniquely identifying this conversion call
-    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    
-    # The API group and version the objects should be converted to
-    "desiredAPIVersion": "example.com/v1",
-    
-    # The list of objects to convert.
-    # May contain one or more objects, in one or more versions.
-    "objects": [
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1beta1",
-        "metadata": {
-          "creationTimestamp": "2019-09-04T14:03:02Z",
-          "name": "local-crontab",
-          "namespace": "default",
-          "resourceVersion": "143",
-          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
-        },
-        "hostPort": "localhost:1234"
-      },
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1beta1",
-        "metadata": {
-          "creationTimestamp": "2019-09-03T13:02:01Z",
-          "name": "remote-crontab",
-          "resourceVersion": "12893",
-          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
-        },
-        "hostPort": "example.com:2345"
-      }
-    ]
-  }
+      # Random uid uniquely identifying this conversion call
+      "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+
+      # The API group and version the objects should be converted to
+      "desiredAPIVersion": "example.com/v1",
+
+      # The list of objects to convert.
+      # May contain one or more objects, in one or more versions.
+      "objects":
+        [
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1beta1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-04T14:03:02Z",
+                "name": "local-crontab",
+                "namespace": "default",
+                "resourceVersion": "143",
+                "uid": "3415a7fc-162b-4300-b5da-fd6083580d66",
+              },
+            "hostPort": "localhost:1234",
+          },
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1beta1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-03T13:02:01Z",
+                "name": "remote-crontab",
+                "resourceVersion": "12893",
+                "uid": "359a83ec-b575-460d-b553-d859cedde8a0",
+              },
+            "hostPort": "example.com:2345",
+          },
+        ],
+    },
 }
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 {
   # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
   "apiVersion": "apiextensions.k8s.io/v1beta1",
   "kind": "ConversionReview",
   "request": {
-    # Random uid uniquely identifying this conversion call
-    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    
-    # The API group and version the objects should be converted to
-    "desiredAPIVersion": "example.com/v1",
-    
-    # The list of objects to convert.
-    # May contain one or more objects, in one or more versions.
-    "objects": [
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1beta1",
-        "metadata": {
-          "creationTimestamp": "2019-09-04T14:03:02Z",
-          "name": "local-crontab",
-          "namespace": "default",
-          "resourceVersion": "143",
-          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
-        },
-        "hostPort": "localhost:1234"
-      },
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1beta1",
-        "metadata": {
-          "creationTimestamp": "2019-09-03T13:02:01Z",
-          "name": "remote-crontab",
-          "resourceVersion": "12893",
-          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
-        },
-        "hostPort": "example.com:2345"
-      }
-    ]
-  }
+      # Random uid uniquely identifying this conversion call
+      "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+
+      # The API group and version the objects should be converted to
+      "desiredAPIVersion": "example.com/v1",
+
+      # The list of objects to convert.
+      # May contain one or more objects, in one or more versions.
+      "objects":
+        [
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1beta1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-04T14:03:02Z",
+                "name": "local-crontab",
+                "namespace": "default",
+                "resourceVersion": "143",
+                "uid": "3415a7fc-162b-4300-b5da-fd6083580d66",
+              },
+            "hostPort": "localhost:1234",
+          },
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1beta1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-03T13:02:01Z",
+                "name": "remote-crontab",
+                "resourceVersion": "12893",
+                "uid": "359a83ec-b575-460d-b553-d859cedde8a0",
+              },
+            "hostPort": "example.com:2345",
+          },
+        ],
+    },
 }
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -871,151 +902,167 @@ and a body containing a `ConversionReview` object (in the same version they were
 with the `response` stanza populated, serialized to JSON.
 
 If conversion succeeds, a webhook should return a `response` stanza containing the following fields:
-* `uid`, copied from the `request.uid` sent to the webhook
-* `result`, set to `{"status":"Success"}`
-* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
+
+- `uid`, copied from the `request.uid` sent to the webhook
+- `result`, set to `{"status":"Success"}`
+- `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
 
 Example of a minimal successful response from a webhook:
 
 {{< tabs name="ConversionReview_response_success" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 {
   "apiVersion": "apiextensions.k8s.io/v1",
   "kind": "ConversionReview",
   "response": {
-    # must match <request.uid>
-    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    "result": {
-      "status": "Success"
+      # must match <request.uid>
+      "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+      "result": { "status": "Success" },
+      # Objects must match the order of request.objects, and have apiVersion set to <request.desiredAPIVersion>.
+      # kind, metadata.uid, metadata.name, and metadata.namespace fields must not be changed by the webhook.
+      # metadata.labels and metadata.annotations fields may be changed by the webhook.
+      # All other changes to metadata fields by the webhook are ignored.
+      "convertedObjects":
+        [
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-04T14:03:02Z",
+                "name": "local-crontab",
+                "namespace": "default",
+                "resourceVersion": "143",
+                "uid": "3415a7fc-162b-4300-b5da-fd6083580d66",
+              },
+            "host": "localhost",
+            "port": "1234",
+          },
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-03T13:02:01Z",
+                "name": "remote-crontab",
+                "resourceVersion": "12893",
+                "uid": "359a83ec-b575-460d-b553-d859cedde8a0",
+              },
+            "host": "example.com",
+            "port": "2345",
+          },
+        ],
     },
-    # Objects must match the order of request.objects, and have apiVersion set to <request.desiredAPIVersion>.
-    # kind, metadata.uid, metadata.name, and metadata.namespace fields must not be changed by the webhook.
-    # metadata.labels and metadata.annotations fields may be changed by the webhook.
-    # All other changes to metadata fields by the webhook are ignored.
-    "convertedObjects": [
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1",
-        "metadata": {
-          "creationTimestamp": "2019-09-04T14:03:02Z",
-          "name": "local-crontab",
-          "namespace": "default",
-          "resourceVersion": "143",
-          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
-        },
-        "host": "localhost",
-        "port": "1234"
-      },
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1",
-        "metadata": {
-          "creationTimestamp": "2019-09-03T13:02:01Z",
-          "name": "remote-crontab",
-          "resourceVersion": "12893",
-          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
-        },
-        "host": "example.com",
-        "port": "2345"
-      }
-    ]
-  }
 }
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 {
   # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
   "apiVersion": "apiextensions.k8s.io/v1beta1",
   "kind": "ConversionReview",
   "response": {
-    # must match <request.uid>
-    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    "result": {
-      "status": "Failed"
+      # must match <request.uid>
+      "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+      "result": { "status": "Failed" },
+      # Objects must match the order of request.objects, and have apiVersion set to <request.desiredAPIVersion>.
+      # kind, metadata.uid, metadata.name, and metadata.namespace fields must not be changed by the webhook.
+      # metadata.labels and metadata.annotations fields may be changed by the webhook.
+      # All other changes to metadata fields by the webhook are ignored.
+      "convertedObjects":
+        [
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-04T14:03:02Z",
+                "name": "local-crontab",
+                "namespace": "default",
+                "resourceVersion": "143",
+                "uid": "3415a7fc-162b-4300-b5da-fd6083580d66",
+              },
+            "host": "localhost",
+            "port": "1234",
+          },
+          {
+            "kind": "CronTab",
+            "apiVersion": "example.com/v1",
+            "metadata":
+              {
+                "creationTimestamp": "2019-09-03T13:02:01Z",
+                "name": "remote-crontab",
+                "resourceVersion": "12893",
+                "uid": "359a83ec-b575-460d-b553-d859cedde8a0",
+              },
+            "host": "example.com",
+            "port": "2345",
+          },
+        ],
     },
-    # Objects must match the order of request.objects, and have apiVersion set to <request.desiredAPIVersion>.
-    # kind, metadata.uid, metadata.name, and metadata.namespace fields must not be changed by the webhook.
-    # metadata.labels and metadata.annotations fields may be changed by the webhook.
-    # All other changes to metadata fields by the webhook are ignored.
-    "convertedObjects": [
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1",
-        "metadata": {
-          "creationTimestamp": "2019-09-04T14:03:02Z",
-          "name": "local-crontab",
-          "namespace": "default",
-          "resourceVersion": "143",
-          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
-        },
-        "host": "localhost",
-        "port": "1234"
-      },
-      {
-        "kind": "CronTab",
-        "apiVersion": "example.com/v1",
-        "metadata": {
-          "creationTimestamp": "2019-09-03T13:02:01Z",
-          "name": "remote-crontab",
-          "resourceVersion": "12893",
-          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
-        },
-        "host": "example.com",
-        "port": "2345"
-      }
-    ]
-  }
 }
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
 If conversion fails, a webhook should return a `response` stanza containing the following fields:
-* `uid`, copied from the `request.uid` sent to the webhook
-* `result`, set to `{"status":"Failed"}`
+
+- `uid`, copied from the `request.uid` sent to the webhook
+- `result`, set to `{"status":"Failed"}`
 
 {{< warning >}}
 Failing conversion can disrupt read and write access to the custom resources,
-including the ability to update or delete the resources. Conversion failures 
+including the ability to update or delete the resources. Conversion failures
 should be avoided whenever possible, and should not be used to enforce validation
- constraints (use validation schemas or webhook admission instead).
+constraints (use validation schemas or webhook admission instead).
 {{< /warning >}}
 
 Example of a response from a webhook indicating a conversion request failed, with an optional message:
 {{< tabs name="ConversionReview_response_failure" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 {
   "apiVersion": "apiextensions.k8s.io/v1",
   "kind": "ConversionReview",
-  "response": {
-    "uid": "<value from request.uid>",
-    "result": {
-      "status": "Failed",
-      "message": "hostPort could not be parsed into a separate host and port"
-    }
-  }
+  "response":
+    {
+      "uid": "<value from request.uid>",
+      "result":
+        {
+          "status": "Failed",
+          "message": "hostPort could not be parsed into a separate host and port",
+        },
+    },
 }
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 {
   # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
   "apiVersion": "apiextensions.k8s.io/v1beta1",
   "kind": "ConversionReview",
-  "response": {
-    "uid": "<value from request.uid>",
-    "result": {
-      "status": "Failed",
-      "message": "hostPort could not be parsed into a separate host and port"
-    }
-  }
+  "response":
+    {
+      "uid": "<value from request.uid>",
+      "result":
+        {
+          "status": "Failed",
+          "message": "hostPort could not be parsed into a separate host and port",
+        },
+    },
 }
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -1035,6 +1082,7 @@ stored object is not changed on disk.
 
 What happens to the object that is being returned while serving the read
 request depends on what is specified in the CRD's `spec.conversion`:
+
 - if the default `strategy` value `None` is specified, the only modifications
   to the object are changing the `apiVersion` string and perhaps [pruning
   unknown fields](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)
@@ -1075,14 +1123,14 @@ can exist in storage at a version that has never been a storage version.
 ## Upgrade existing objects to a new stored version
 
 When deprecating versions and dropping support, select a storage upgrade
-procedure. 
+procedure.
 
-*Option 1:* Use the Storage Version Migrator
+_Option 1:_ Use the Storage Version Migrator
 
 1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
 2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 
-*Option 2:* Manually upgrade the existing objects to a new stored version
+_Option 2:_ Manually upgrade the existing objects to a new stored version
 
 The following is an example procedure to upgrade from `v1beta1` to `v1`.
 
@@ -1105,7 +1153,9 @@ This page is part of the documentation for Kubernetes v{{< skew currentVersion >
 If you are running a different version of Kubernetes, consult the documentation for that release.
 
 Here is an example of how to patch the `status` subresource for a CRD object using `kubectl`:
+
 ```bash
 kubectl patch customresourcedefinitions <CRD_Name> --subresource='status' --type='merge' -p '{"status":{"storedVersions":["v1"]}}'
 ```
+
 {{< /note >}}

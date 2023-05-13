@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -25,18 +25,15 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"`
 
-
 ## CustomResourceDefinition {#CustomResourceDefinition}
 
-CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \<.spec.name>.\<.spec.group>.
+CustomResourceDefinition represents a resource that should be exposed on the API server. Its name MUST be in the format \<.spec.name>.\<.spec.group>.
 
 <hr>
 
 - **apiVersion**: apiextensions.k8s.io/v1
 
-
 - **kind**: CustomResourceDefinition
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -49,10 +46,6 @@ CustomResourceDefinition represents a resource that should be exposed on the API
 - **status** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionStatus" >}}">CustomResourceDefinitionStatus</a>)
 
   status indicates the actual state of the CustomResourceDefinition
-
-
-
-
 
 ## CustomResourceDefinitionSpec {#CustomResourceDefinitionSpec}
 
@@ -69,7 +62,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
   names specify the resource and kind names for the custom resource.
 
   <a name="CustomResourceDefinitionNames"></a>
-  *CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition*
+  _CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition_
 
   - **names.kind** (string), required
 
@@ -104,7 +97,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
   versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 
   <a name="CustomResourceDefinitionVersion"></a>
-  *CustomResourceDefinitionVersion describes a version for CRD.*
+  _CustomResourceDefinitionVersion describes a version for CRD._
 
   - **versions.name** (string), required
 
@@ -123,7 +116,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
 
     <a name="CustomResourceColumnDefinition"></a>
-    *CustomResourceColumnDefinition specifies a column for server side printing.*
+    _CustomResourceColumnDefinition specifies a column for server side printing._
 
     - **versions.additionalPrinterColumns.jsonPath** (string), required
 
@@ -162,7 +155,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
 
     <a name="CustomResourceValidation"></a>
-    *CustomResourceValidation is a list of validation methods for CustomResources.*
+    _CustomResourceValidation is a list of validation methods for CustomResources._
 
     - **versions.schema.openAPIV3Schema** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
@@ -173,14 +166,14 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     subresources specify what subresources this version of the defined custom resource have.
 
     <a name="CustomResourceSubresources"></a>
-    *CustomResourceSubresources defines the status and scale subresources for CustomResources.*
+    _CustomResourceSubresources defines the status and scale subresources for CustomResources._
 
     - **versions.subresources.scale** (CustomResourceSubresourceScale)
 
       scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 
       <a name="CustomResourceSubresourceScale"></a>
-      *CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.*
+      _CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources._
 
       - **versions.subresources.scale.specReplicasPath** (string), required
 
@@ -199,26 +192,26 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
       status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
 
       <a name="CustomResourceSubresourceStatus"></a>
-      *CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza*
+      _CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, _ exposes a /status subresource for the custom resource _ PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza _ PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza\*
 
 - **conversion** (CustomResourceConversion)
 
   conversion defines conversion settings for the CRD.
 
   <a name="CustomResourceConversion"></a>
-  *CustomResourceConversion describes how to convert different versions of a CR.*
+  _CustomResourceConversion describes how to convert different versions of a CR._
 
   - **conversion.strategy** (string), required
 
     strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
-      is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
+    is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
 
   - **conversion.webhook** (WebhookConversion)
 
     webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
 
     <a name="WebhookConversion"></a>
-    *WebhookConversion describes how to call a conversion webhook*
+    _WebhookConversion describes how to call a conversion webhook_
 
     - **conversion.webhook.conversionReviewVersions** ([]string), required
 
@@ -229,7 +222,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
       clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
 
       <a name="WebhookClientConfig"></a>
-      *WebhookClientConfig contains the information to make a TLS connection with the webhook.*
+      _WebhookClientConfig contains the information to make a TLS connection with the webhook._
 
       - **conversion.webhook.clientConfig.caBundle** ([]byte)
 
@@ -238,11 +231,11 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
       - **conversion.webhook.clientConfig.service** (ServiceReference)
 
         service is a reference to the service for this webhook. Either service or url must be specified.
-        
+
         If the webhook is running within the cluster, then you should use `service`.
 
         <a name="ServiceReference"></a>
-        *ServiceReference holds a reference to Service.legacy.k8s.io*
+        _ServiceReference holds a reference to Service.legacy.k8s.io_
 
         - **conversion.webhook.clientConfig.service.name** (string), required
 
@@ -263,24 +256,20 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
       - **conversion.webhook.clientConfig.url** (string)
 
         url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
-        
+
         The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
-        
+
         Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
-        
+
         The scheme must be "https"; the URL must begin with "https://".
-        
+
         A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-        
+
         Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
 
 - **preserveUnknownFields** (boolean)
 
   preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
-
-
-
-
 
 ## JSONSchemaProps {#JSONSchemaProps}
 
@@ -290,148 +279,111 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **$ref** (string)
 
-
 - **$schema** (string)
-
 
 - **additionalItems** (JSONSchemaPropsOrBool)
 
-
   <a name="JSONSchemaPropsOrBool"></a>
-  *JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.*
+  _JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property._
 
 - **additionalProperties** (JSONSchemaPropsOrBool)
 
-
   <a name="JSONSchemaPropsOrBool"></a>
-  *JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.*
+  _JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property._
 
 - **allOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
-
 - **anyOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
-
 
 - **default** (JSON)
 
   default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
 
   <a name="JSON"></a>
-  *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
+  _JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil._
 
 - **definitions** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
-
 - **dependencies** (map[string]JSONSchemaPropsOrStringArray)
 
-
   <a name="JSONSchemaPropsOrStringArray"></a>
-  *JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.*
+  _JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array._
 
 - **description** (string)
 
-
 - **enum** ([]JSON)
 
-
   <a name="JSON"></a>
-  *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
+  _JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil._
 
 - **example** (JSON)
 
-
   <a name="JSON"></a>
-  *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
+  _JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil._
 
 - **exclusiveMaximum** (boolean)
 
-
 - **exclusiveMinimum** (boolean)
-
 
 - **externalDocs** (ExternalDocumentation)
 
-
   <a name="ExternalDocumentation"></a>
-  *ExternalDocumentation allows referencing an external resource for extended documentation.*
+  _ExternalDocumentation allows referencing an external resource for extended documentation._
 
   - **externalDocs.description** (string)
 
-
   - **externalDocs.url** (string)
-
 
 - **format** (string)
 
   format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
-  
+
   - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
 
 - **id** (string)
 
-
 - **items** (JSONSchemaPropsOrArray)
 
-
   <a name="JSONSchemaPropsOrArray"></a>
-  *JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.*
+  _JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes._
 
 - **maxItems** (int64)
 
-
 - **maxLength** (int64)
-
 
 - **maxProperties** (int64)
 
-
 - **maximum** (double)
-
 
 - **minItems** (int64)
 
-
 - **minLength** (int64)
-
 
 - **minProperties** (int64)
 
-
 - **minimum** (double)
-
 
 - **multipleOf** (double)
 
-
 - **not** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
-
 
 - **nullable** (boolean)
 
-
 - **oneOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
-
 
 - **pattern** (string)
 
-
 - **patternProperties** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
-
 
 - **properties** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
-
 - **required** ([]string)
-
 
 - **title** (string)
 
-
 - **type** (string)
 
-
 - **uniqueItems** (boolean)
-
 
 - **x-kubernetes-embedded-resource** (boolean)
 
@@ -440,11 +392,11 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **x-kubernetes-int-or-string** (boolean)
 
   x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
-  
-  1) anyOf:
+
+  1. anyOf:
      - type: integer
      - type: string
-  2) allOf:
+  2. allOf:
      - anyOf:
        - type: integer
        - type: string
@@ -453,38 +405,38 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **x-kubernetes-list-map-keys** ([]string)
 
   x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
-  
+
   This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-  
+
   The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 
 - **x-kubernetes-list-type** (string)
 
   x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
-  
-  1) `atomic`: the list is treated as a single entity, like a scalar.
-       Atomic lists will be entirely replaced when updated. This extension
-       may be used on any type of list (struct, scalar, ...).
-  2) `set`:
-       Sets are lists that must not have multiple items with the same value. Each
-       value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-       array with x-kubernetes-list-type `atomic`.
-  3) `map`:
-       These lists are like maps in that their elements have a non-index key
-       used to identify them. Order is preserved upon merge. The map tag
-       must only be used on a list with elements of type object.
-  Defaults to atomic for arrays.
+
+  1. `atomic`: the list is treated as a single entity, like a scalar.
+     Atomic lists will be entirely replaced when updated. This extension
+     may be used on any type of list (struct, scalar, ...).
+  2. `set`:
+     Sets are lists that must not have multiple items with the same value. Each
+     value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+     array with x-kubernetes-list-type `atomic`.
+  3. `map`:
+     These lists are like maps in that their elements have a non-index key
+     used to identify them. Order is preserved upon merge. The map tag
+     must only be used on a list with elements of type object.
+     Defaults to atomic for arrays.
 
 - **x-kubernetes-map-type** (string)
 
   x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
-  
-  1) `granular`:
-       These maps are actual maps (key-value pairs) and each fields are independent
-       from each other (they can each be manipulated by separate actors). This is
-       the default behaviour for all maps.
-  2) `atomic`: the list is treated as a single entity, like a scalar.
-       Atomic maps will be entirely replaced when updated.
+
+  1. `granular`:
+     These maps are actual maps (key-value pairs) and each fields are independent
+     from each other (they can each be manipulated by separate actors). This is
+     the default behaviour for all maps.
+  2. `atomic`: the list is treated as a single entity, like a scalar.
+     Atomic maps will be entirely replaced when updated.
 
 - **x-kubernetes-preserve-unknown-fields** (boolean)
 
@@ -492,42 +444,45 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **x-kubernetes-validations** ([]ValidationRule)
 
-  *Patch strategy: merge on key `rule`*
-  
-  *Map: unique values on key rule will be kept during a merge*
-  
+  _Patch strategy: merge on key `rule`_
+
+  _Map: unique values on key rule will be kept during a merge_
+
   x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
 
   <a name="ValidationRule"></a>
-  *ValidationRule describes a validation rule written in the CEL expression language.*
+  _ValidationRule describes a validation rule written in the CEL expression language._
 
   - **x-kubernetes-validations.rule** (string), required
 
     Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
-    
+
     If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority \< 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value \< 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
-    
+
     The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
-    
+
     Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
-      - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
-      - An array where the items schema is of an "unknown type"
-      - An object where the additionalProperties schema is of an "unknown type"
-    
-    Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
-    	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
-    	  "import", "let", "loop", "package", "namespace", "return".
+
+    - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+    - An array where the items schema is of an "unknown type"
+    - An object where the additionalProperties schema is of an "unknown type"
+
+    Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '**' escapes to '**underscores**' - '.' escapes to '**dot**' - '-' escapes to '**dash**' - '/' escapes to '**slash**' - Property names that exactly match a CEL RESERVED keyword escape to '**{keyword}\_\_'. The keywords are:
+    "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+    "import", "let", "loop", "package", "namespace", "return".
     Examples:
-      - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
-      - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
-      - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
-    
+
+    - Rule accessing a property named "namespace": {"rule": "self.**namespace** > 0"}
+    - Rule accessing a property named "x-prop": {"rule": "self.x**dash**prop > 0"}
+    - Rule accessing a property named "redact**d": {"rule": "self.redact**underscores\_\_d > 0"}
+
     Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-      - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-        non-intersecting elements in `Y` are appended, retaining their partial order.
-      - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-        are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-        non-intersecting keys are appended, retaining their partial order.
+
+    - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+      non-intersecting elements in `Y` are appended, retaining their partial order.
+    - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+      are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+      non-intersecting keys are appended, retaining their partial order.
 
   - **x-kubernetes-validations.message** (string)
 
@@ -536,10 +491,6 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   - **x-kubernetes-validations.messageExpression** (string)
 
     MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
-
-
-
-
 
 ## CustomResourceDefinitionStatus {#CustomResourceDefinitionStatus}
 
@@ -552,7 +503,7 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
   acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
 
   <a name="CustomResourceDefinitionNames"></a>
-  *CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition*
+  _CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition_
 
   - **acceptedNames.kind** (string), required
 
@@ -580,12 +531,12 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
 - **conditions** ([]CustomResourceDefinitionCondition)
 
-  *Map: unique values on key type will be kept during a merge*
-  
+  _Map: unique values on key type will be kept during a merge_
+
   conditions indicate state for particular aspects of a CustomResourceDefinition
 
   <a name="CustomResourceDefinitionCondition"></a>
-  *CustomResourceDefinitionCondition contains details for the current condition of this pod.*
+  _CustomResourceDefinitionCondition contains details for the current condition of this pod._
 
   - **conditions.status** (string), required
 
@@ -600,7 +551,7 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
     lastTransitionTime last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    _Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers are provided for many of the factory methods that the time package offers._
 
   - **conditions.message** (string)
 
@@ -613,10 +564,6 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 - **storedVersions** ([]string)
 
   storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
-
-
-
-
 
 ## CustomResourceDefinitionList {#CustomResourceDefinitionList}
 
@@ -640,20 +587,9 @@ CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
 
   Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-
-
-
-
 ## Operations {#Operations}
 
-
-
 <hr>
-
-
-
-
-
 
 ### `get` read the specified CustomResourceDefinition
 
@@ -663,25 +599,19 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the CustomResourceDefinition
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): OK
 
 401: Unauthorized
-
 
 ### `get` read status of the specified CustomResourceDefinition
 
@@ -691,25 +621,19 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the CustomResourceDefinition
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): OK
 
 401: Unauthorized
-
 
 ### `list` list or watch objects of kind CustomResourceDefinition
 
@@ -719,70 +643,55 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 
 #### Parameters
 
-
-- **allowWatchBookmarks** (*in query*): boolean
+- **allowWatchBookmarks** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-- **watch** (*in query*): boolean
+- **watch** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionList" >}}">CustomResourceDefinitionList</a>): OK
 
 401: Unauthorized
-
 
 ### `create` create a CustomResourceDefinition
 
@@ -792,35 +701,25 @@ POST /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): OK
 
@@ -830,7 +729,6 @@ POST /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 
 401: Unauthorized
 
-
 ### `update` replace the specified CustomResourceDefinition
 
 #### HTTP Request
@@ -839,47 +737,35 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the CustomResourceDefinition
 
-
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): OK
 
 201 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): Created
 
 401: Unauthorized
-
 
 ### `update` replace status of the specified CustomResourceDefinition
 
@@ -889,47 +775,35 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the CustomResourceDefinition
 
-
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): OK
 
 201 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update the specified CustomResourceDefinition
 
@@ -939,52 +813,39 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the CustomResourceDefinition
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): OK
 
 201 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): Created
 
 401: Unauthorized
-
 
 ### `patch` partially update status of the specified CustomResourceDefinition
 
@@ -994,52 +855,39 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the CustomResourceDefinition
 
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldManager** (*in query*): string
+- **fieldManager** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
-- **fieldValidation** (*in query*): string
+- **fieldValidation** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): OK
 
 201 (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>): Created
 
 401: Unauthorized
-
 
 ### `delete` delete a CustomResourceDefinition
 
@@ -1049,47 +897,35 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 #### Parameters
 
-
-- **name** (*in path*): string, required
+- **name** (_in path_): string, required
 
   name of the CustomResourceDefinition
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
-
 
 ### `deletecollection` delete collection of CustomResourceDefinition
 
@@ -1099,77 +935,58 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 
 #### Parameters
 
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
-
-
-- **continue** (*in query*): string
+- **continue** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-
-- **dryRun** (*in query*): string
+- **dryRun** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
-- **fieldSelector** (*in query*): string
+- **fieldSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
-- **gracePeriodSeconds** (*in query*): integer
+- **gracePeriodSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-
-- **labelSelector** (*in query*): string
+- **labelSelector** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-
-- **limit** (*in query*): integer
+- **limit** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
-- **pretty** (*in query*): string
+- **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
-- **propagationPolicy** (*in query*): string
+- **propagationPolicy** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
-- **resourceVersionMatch** (*in query*): string
+- **resourceVersionMatch** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-
-- **sendInitialEvents** (*in query*): boolean
+- **sendInitialEvents** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
-- **timeoutSeconds** (*in query*): integer
+- **timeoutSeconds** (_in query_): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-
-
 #### Response
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

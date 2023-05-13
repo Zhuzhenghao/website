@@ -2,7 +2,7 @@
 title: Running Automated Tasks with a CronJob
 min-kubernetes-server-version: v1.21
 reviewers:
-- chenopis
+  - chenopis
 content_type: task
 weight: 10
 ---
@@ -13,7 +13,7 @@ This page shows how to run automated tasks using Kubernetes {{< glossary_tooltip
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}}
+- {{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 
@@ -29,6 +29,7 @@ Run the example CronJob by using this command:
 ```shell
 kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
 ```
+
 The output is similar to this:
 
 ```
@@ -54,6 +55,7 @@ Watch for the job to be created in around one minute:
 ```shell
 kubectl get jobs --watch
 ```
+
 The output is similar to this:
 
 ```
@@ -90,11 +92,13 @@ The job name is different from the pod name.
 # Replace "hello-4111706356" with the job name in your system
 pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items[*].metadata.name})
 ```
+
 Show the pod log:
 
 ```shell
 kubectl logs $pods
 ```
+
 The output is similar to this:
 
 ```
