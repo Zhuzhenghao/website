@@ -49,7 +49,7 @@ CSINode 包含指向相应节点对象的 OwnerReference。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  metadata.name 必须是 Kubernetes 节点的名称。
+  标准的对象元数据。metadata.name 必须是 Kubernetes 节点的名称。
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINodeSpec" >}}">CSINodeSpec</a>)，必需
 
@@ -88,7 +88,7 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
 
   - **drivers.name** (string)，必需
 
-    这是该对象引用的 CSI 驱动的名称。此字段值必须是针对该驱动由 CSI GetPluginName() 调用返回的相同名称。
+    name 表示该对象引用的 CSI 驱动的名称。此字段值必须是针对该驱动由 CSI GetPluginName() 调用返回的相同名称。
 
   <!--
   - **drivers.nodeID** (string), required
